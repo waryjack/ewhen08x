@@ -1,0 +1,29 @@
+{
+    "name": "ewhen",
+    "title": "Everywhen",
+    "description": "Everywhen (Barbarians of Lemuria) System",
+    "version": "0.01",
+    "author": "Cannyjack",
+    "esmodules": [
+        "module/ewhen.js"
+    ],
+    "scripts": [],
+    "styles": [
+        "styles/ewhen.css"
+    ],
+    "languages": [
+        {
+          "lang": "en",
+          "name": "English",
+          "path": "lang/en.json"
+        }
+      ],
+    
+    "initiative":"2d6",
+    "gridDistance": 5,
+    "gridUnits": "ft",
+    "primaryTokenAttribute": "lifeblood",
+    "secondaryTokenAttribute": "resolve",
+    "minimumCoreVersion": "0.7.7",
+    "compatibleCoreVersion": "0.7.8"
+}

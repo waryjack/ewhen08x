@@ -1,7 +1,7 @@
-export class EWItemSheet extends ItemSheet {
+export default class EWArmorSheet extends ItemSheet {
 
     get template() {
-        return "systems/ewhen/templates/sheets/actor/EWItemSheet.hbs"
+        return "systems/ewhen/templates/item/EWARmorSheet.hbs"
     }
 
     getData () {

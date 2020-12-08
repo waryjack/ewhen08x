@@ -1,0 +1,61 @@
+.editor {
+  visibility:visible;
+  height:210px;
+  min-height:200px !important;
+}
+
+.tox .tox-tinymce {
+  visibility:visible;
+  height:250px;
+  min-height:210px !important;
+
+}
+
+.ewhen .sheetbody {
+  flex:1
+}
+
+.ewhen .flex-container {
+  display:flex;
+  flex-flow:row wrap;
+  justify-content:space-around;
+  
+}
+
+.statcol {
+  width:100%;
+  flex-wrap:wrap;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  flex:1
+}
+
+.statcol li {
+  border:1px solid white;
+  padding:2px;
+  text-shadow:gray;
+}
+
+.ewhen .flex-item {
+  border:2px solid black;
+  background: #81b4f7;
+  color:white;
+  font-size:1em;
+  margin-top:15px;  
+  flex-grow:0;
+  height:auto;
+  width:32%;
+  align-items:flex-start;
+}
+
+.ewhen .statfield {
+  text-align:center;
+}
+.ewhen .statbox {
+  width:30px;
+}
+
+.nostretch {
+  align-self:flex-start;
+}

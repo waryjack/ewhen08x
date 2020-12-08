@@ -1,20 +1,176 @@
 {
-    "Actor": {},
+    "Actor": {
+		"types": ["character", "vehicle"],
+		"character":{
+			"isNPC":false,
+            "isRabble":false,
+            "isCreature":false,
+            "isEntity":false,
+            "size":"medium",
+            "backstory":"Born in a tiny village",
+			"attributes": {
+				"strength":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				},
+				"agility":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				},
+				"mind":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				},
+				"appeal":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				}
+			},
+			"combat":{
+				"melee":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				},
+				"ranged":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				},
+				"defense":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				},
+				"initiative":{
+					"rank":0,
+					"scale":1,
+					"mod":0
+				}
+			},
+			"resources":{
+				"hero_points":0,
+				"arcana_points":0,
+				"faith_points":0,
+				"psi_points":0
+			},
+			"traits":{
+				"careers":[],
+				"boons":[],
+				"flaws":[],
+				"powers":[]
+			}
+		},
+		"vehicle":{
+            "type":"",
+            "crew": {
+                "rank":0
+            },
+			"size":{
+				"rank":0,
+				"scale":2,
+				"mod":0
+			},
+			"scan":{
+				"rank":0,
+				"scale":1,
+				"mod":0
+			},
+			"speed":{
+				"rank":0,
+				"scale":1,
+				"mod":0
+			},
+			"defense":{
+				"rank":0,
+				"scale":1,
+				"mod":0
+			},
+			"frame":{
+				"rank":0,
+				"scale":2,
+				"mod":0
+			},
+			"armor":{
+				"rank":0,
+				"scale":0,
+				"mod":0
+			}
+		}
+	},
     "Item": {
-        "types":["trait", "weapon","equipment"],
+        "types":["trait", "weapon", "armor", "equipment", "power"],
         "templates":{
-            "gear_common":
+            "common":
             {
                 "currency_cost":0,
-                "credit_cost":0
+                "credit_cost":0,
+				"description":""
             }
         },
-        "trait":{},
+        "trait":{
+            "description":"",
+            "isTemporary":false,
+			"rank":0,
+			"type":"",
+			"source":"",
+			"grants_modifier":{
+				"environment":"",
+				"modifies":"",
+				"mod_amount":""
+			},
+			"grants_dice":{
+				"environment":"",
+				"modifier":""
+			},
+			"prereq_for":""
+		},
         "weapon":{
-            "templates":["gear_common"]
+            "templates":["common"],
+			"wpn_class":"light",
+			"wpn_type":"melee",
+			"damage": {
+				"dice":"d6L",
+				"scale":1,
+				"attribute":"",
+				"half_attribute":false,
+				"mod":0,
+				"ap":0
+			},
+			"hands":1,
+			"range":0,
+			"recoil":0,
+			"era":"ancient"
         },
+		"armor": {
+			"templates":["common"],
+			"armor_type":"",
+			"protection":{
+				"fixed":0,
+				"variable":"1d6",
+				"scale":1
+			},
+			"modifiers": {
+				"agility":0,
+				"initiative":0,
+				"environment":""
+			}
+		},
         "equipment":{
             "templates":["gear_common"]
+        },
+		"power":{
+			"description":"",
+			"pwr_type":"",
+			"arcana_magnitude":"",
+			"success_roll":"",
+			"difficulty":"",
+			"resource_cost":"",
+            "prereq":""
         }
     }
 }

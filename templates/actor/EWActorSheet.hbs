@@ -1,14 +1,105 @@
-<form class="actor-sheet {{cssClass}}" autocomplete="off">
+<form class="ewhen actor-sheet editable" autocomplete="off">
     <header class="sheet-header">
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
         <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </header>
+    
+    <section class="ewhen sheetbody">
+            {{!-- Essentials Tab --}}
+        <div class="ewhen flex-container">
+           
+            <div class="ewhen flex-item">
+                 <h3>{{localize "EW.game_term.attributes"}}</h3>
+                <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">
+                    <tr>
+                        <th></th>
+                        <th>{{localize "EW.game_term.rank"}}</th>
+                        <th>{{localize "EW.game_term.scale"}}</th>
+                        <th></th>
+                        <th>{{localize "EW.game_term.rank"}}</th>
+                        <th>{{localize "EW.game_term.scale"}}</th>
+                    </tr>
+                    <tr>
+                        <td>{{localize "EW.attribute.primary.strength"}}</td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.attributes.strength.rank" value="{{data.attributes.strength.rank}}"/></td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.attributes.strength.scale" value="{{data.attributes.strength.scale}}"/></td>
+                        <td>{{localize "EW.attribute.combat.melee"}}</td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.melee.rank" value="{{data.combat.melee.rank}}"/></td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.melee.scale" value="{{data.combat.melee.scale}}"/></td>
+                    </tr>
+                    <tr>
+                        <td>{{localize "EW.attribute.primary.agility"}}</td>
+                         <td class="ewhen statfield"><input class="ewhen statbox" id="agility" type="text" name="data.attributes.agility.rank" value="{{data.attributes.agility.rank}}"/></td>
+                         <td class="ewhen statfield"><input class="ewhen statbox" id="agility" type="text" name="data.attributes.agility.scale" value="{{data.attributes.agility.scale}}"/></td>
+                         <td>{{localize "EW.attribute.combat.ranged"}}</td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.ranged.rank" value="{{data.combat.ranged.rank}}"/></td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.ranged.scale" value="{{data.combat.ranged.scale}}"/></td>
+                    </tr>
+                    <tr>
+                        <td>{{localize "EW.attribute.primary.mind"}}</td>
+                        <td class="ewhen statfield"><input class="ewhen statbox" id="mind" type="text" name="data.attributes.mind.rank" value="{{data.attributes.mind.rank}}" /></td>
+                        <td class="ewhen statfield"><input class="ewhen statbox" id="mind" type="text" name="data.attributes.mind.scale" value="{{data.attributes.mind.scale}}" /></td>
+                        <td>{{localize "EW.attribute.combat.defense"}}</td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.defense.rank" value="{{data.combat.defense.rank}}"/></td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.defense.scale" value="{{data.combat.defense.scale}}"/></td>
+                    </tr>
+                    <tr>
+                        <td>{{localize "EW.attribute.primary.appeal"}}</td>
+                        <td class="ewhen statfield"><input class="ewhen statbox" id="appeal" type="text" name="data.attributes.appeal.rank" value="{{data.attributes.appeal.rank}}" /></td>
+                        <td class="ewhen statfield"><input class="ewhen statbox" id="appeal" type="text" name="data.attributes.appeal.scale" value="{{data.attributes.appeal.scale}}" /></td>
+                        <td>{{localize "EW.attribute.combat.initiative"}}</td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.initiative.rank" value="{{data.combat.initiative.rank}}"/></td>
+                        <td class="ewhen statfield"> <input class="ewhen statbox" id="strength" type="text" name="data.combat.initiative.scale" value="{{data.combat.initiative.scale}}"/></td>
+                    </tr>
+                </table>
+                        <!--ol class='statcol'>
+                            <li class="form-group"><label for="strength">Strength:</label> <input id="strength" style="display:inline-flex" 6type="text" name="data.attributes.strength.rank" value="{{data.attributes.strength.rank}}"/></li>
+                            <li>Agility: number goes here</li>
+                            <li>Mind: number goes here</li>
+                            <li>Appeal: number goes here</li>
+                        </ol-->
+            </div>
+        
 
-    <h1>Test load of the actor sheet</h1>
+        <div class="ewhen flex-item" id="careers">
+            <h3>{{localize "EW.game_term.careers"}}</h3>
+            <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                {{#each actor.items as |item id|}}
+                {{#ife item.data.type "career"}}
+                <tr>
+                    <td class="item-name">{{item.name}}</td>
+                    <td class="ewhen statfield"><input class="ewhen statbox" id="appeal" type="text" name="item.data.rank" value="{{item.data.rank}}" /></td>
+                    <td><i class="fa fa-edit"></i><i class="fa fa-trash"></i></td>
+                </tr>
+                {{/ife}}
+                {{/each}}
+            </table>
+        </div>
 
-    <section class="items">
-        <h3>Owned Items</h3>
-        <ol class="actor-items">
+        <div class="ewhen flex-item">
+            <h3>{{localize "EW.game_term.resource_pools"}}</h3>
+                    <p>Hero Points</p>
+                    <p>Arcane Points</p>
+                    <p>Psionic Points</p>
+        </div>
+        </div>
+
+        <hr>
+
+        <div class="ewhen flex-container">
+               
+        <div class="ewhen flex-item">
+            <h3>{{localize "EW.game_term.boons"}}</h3>
+            <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                {{#each actor.items as |item id|}}
+                {{#ife item.data.type "boon"}}
+                <tr>
+                    <td class="item-name">{{item.name}}<br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
+                </tr>
+                {{/ife}}
+                {{/each}}
+            </table>
+        <!--ol class="actor-items">
         {{#each actor.items as |item id|}}
             <li class="actor-item" data-item-id="{{id}}">
                 <div class="item-name">
@@ -21,7 +112,37 @@
                 </div>
             </li>
         {{/each}}
-        </ol>
+        </ol-->
+        </div>
+        <div class="ewhen flex-item">
+            <h3>{{localize "EW.game_terms.flaws"}}</h3>
+           <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                {{#each actor.items as |item id|}}
+                {{#ife item.data.type "flaw"}}
+                <tr>
+                    <td class="item-name">{{item.name}}<br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
+                </tr>
+                {{/ife}}
+                {{/each}}
+            </table>
+        </div>
+        <div class="ewhen flex-item">
+            <h3>{{localize "EW.game_terms.powers"}}</h3>
+            <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                {{#each actor.items as |item id|}}
+                {{#ife item.data.type "power"}}
+                <tr>
+                    <td class="item-name">{{item.name}}<br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
+                </tr>
+                {{/ife}}
+                {{/each}}
+            </table>
+        </div>
+
+        </div>
+        
+
     </section>
+    
 </form>
 

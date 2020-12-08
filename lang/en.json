@@ -20,7 +20,7 @@
 
     "EW.attribute.resource.lifeblood": "Lifeblood",
     "EW.attribute.resource.critical": "Critical",
-    "EW.attributes.resource.resolve": "Resolve",
+    "EW.attribute.resource.resolve": "Resolve",
     "EW.attribute.resource.hero_points": "Hero Points",
     "EW.attributes.resource.psi_points": "Psionic Points",
     "EW.attributes.resource.faith_points": "Faith Points",

@@ -56,7 +56,9 @@
 				"hero_points":0,
 				"arcana_points":0,
 				"faith_points":0,
-				"psi_points":0
+				"psi_points":0,
+				"lifeblood":0,
+				"resolve":0
 			},
 			"traits":{
 				"careers":[],

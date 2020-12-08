@@ -51,6 +51,12 @@
 
 .ewhen .statfield {
   text-align:center;
+  flex-basis:2em;
+}
+
+.has-border {
+  border-left:1px solid white;
+  padding-left:3px;
 }
 .ewhen .statbox {
   width:30px;

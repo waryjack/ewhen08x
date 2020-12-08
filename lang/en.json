@@ -1,0 +1,19 @@
+{
+
+    "EW.attribute.mind": "Mind",
+    "EW.attribute.strength": "Strength",
+    "EW.attribute.appeal": "Appeal",
+    "EW.attribute.agility": "Agility",
+
+    "EW.attribute.combat.melee": "Melee",
+    "EW.attribute.combat.ranged": "Ranged",
+    "EW.attribute.combat.defense": "Defense",
+    "EW.attribute.combat.initiative": "Initiative",
+
+    "EW.attribute.lifeblood": "Lifeblood",
+    "EW.attribute.hero_points": "Hero Points",
+    "EW.attributes.psi_points": "Psionic Points",
+    "EW.attributes.faith_points": "Faith Points",
+    "EW.attributes.arcana_points": "Arcana Points"
+
+}

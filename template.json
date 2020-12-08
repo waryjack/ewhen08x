@@ -1,4 +1,20 @@
 {
     "Actor": {},
-    "Item": {}
+    "Item": {
+        "types":["trait", "weapon","equipment"],
+        "templates":{
+            "gear_common":
+            {
+                "currency_cost":0,
+                "credit_cost":0
+            }
+        },
+        "trait":{},
+        "weapon":{
+            "templates":["gear_common"]
+        },
+        "equipment":{
+            "templates":["gear_common"]
+        }
+    }
 }

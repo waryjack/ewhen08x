@@ -22,7 +22,7 @@ export class EWActor extends Actor {
 
     _prepareCharData(actorData) {
 
-        super.prepareDerivedData();
+       /*  super.prepareDerivedData();
         const data = actorData.data;
 
         // Lifeblood
@@ -34,7 +34,7 @@ export class EWActor extends Actor {
         let rsv = 10 + charMnd;
 
         setProperty(actorData, "data.resrouces.lifeblood", (data.resources.lifeblood = lfb));
-        setProperty(actorData, "data.resources.resolve", (data.resources.resolve = rsv));
+        setProperty(actorData, "data.resources.resolve", (data.resources.resolve = rsv)); */
     }
 
     _prepareVehicleData(actorData){}

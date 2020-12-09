@@ -11,7 +11,14 @@
     "EW.game_term.powers": "Powers",
     "EW.game_term.rank": "Rank",
     "EW.game_term.scale": "Scale",
+    "EW.game_term.career": "Career",
     "EW.game_term.careers": "Careers",
+    "EW.game_term.trait_type": "Trait Type",
+    "EW.game_term.trait_source": "Trait Source",
+    "EW.game_term.temporary": "Temporary",
+    "EW.game_term.description": "Description",
+
+    "EW.sheet.newCareer": "New Career",
 
     "EW.attribute.combat.melee": "Melee",
     "EW.attribute.combat.ranged": "Ranged",

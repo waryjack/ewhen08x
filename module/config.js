@@ -14,7 +14,9 @@ export const EW = {
         powers: 'EW.game_term.powers',
         rank: 'EW.game_term.rank',
         scale: 'EW.game_term.scale',
-        careers: 'EW.game_term.careers'
+        careers: 'EW.game_term.careers',
+        trait_type: 'EW.game_term.trait_type',
+        trait_source: 'EW.game_term.trait_source'
     },
     resource_attributes: {
         lifeblood: 'EW.attributes.resource.lifeblood',
@@ -55,7 +57,6 @@ export const EW = {
         custom: 'EW.trait.source.custom',
     },
     traitTypes: {
-        career: 'EW.trait.type.career',
         boon: 'EW.trait.type.boon',
         flaw: 'EW.trait.type.flaw',
         power: 'EW.trait.type.power'

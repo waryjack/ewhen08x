@@ -63,16 +63,20 @@
         
 
         <div class="ewhen flex-item" id="careers">
-            <h3 style="display:inline-flex">{{localize "EW.game_term.careers"}}</h3><i style="float:right; padding-top:3px; margin-right:3px; display:inline-flex" class="fa fa-plus-square"></i>
+            <h3 class="traitsheet-header"><div>{{localize "EW.game_term.careers"}}</div>
+                <a class="item-create" title="Add Career" data-type="career">
+                    <i class="fas fa-plus-square"></i>
+                </a>
+            </h3>
+            
             <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
-                {{#each actor.items as |item id|}}
-                {{#ife item.data.type "career"}}
-                <tr data-item-id="{{id}}">
-                    <td class="item-name">{{item.name}}</td>
-                    <td class="ewhen statfield">{{item.data.rank}}</td>
-                    <td style="text-align:right"><i class="fa fa-edit edit-career" data-item-id="{{item._id}}"></i><i style="margin-left:2px; margin-right:2px;" class="fa fa-trash"></i></td>
+                {{#each careers as |career id|}}
+                <tr class="career-item item" data-item-id="{{career._id}}">
+                    <td><a class="career-roll"><i class="fas fa-dice-five"></i></a></td>
+                    <td><input class="career-name inline-edit" data-field="name" type="text" value="{{career.name}}" /></td>
+                    <td class="ewhen statfield"><input class="career-rank inline-edit" data-field="data.rank" type="text" value="{{career.data.rank}}" data-dtype="Number" maxwidth='3' size='3' /></td>
+                    <!--td style="text-align:right"><i class="fa fa-edit edit-career" data-item-id="{{item._id}}"></i><i style="margin-left:2px; margin-right:2px;" class="fa fa-trash"></i></td-->
                 </tr>
-                {{/ife}}
                 {{/each}}
             </table>
         </div>
@@ -102,7 +106,7 @@
                 {{#each actor.items as |item id|}}
                 {{#ife item.data.type "boon"}}
                 <tr>
-                    <td class="item-name">{{item.name}}<br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
+                    <td class="item-name item" data-item-id="{{item._id}}"><a class="item-edit" title="Edit">{{item.name}}</a><br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
                 </tr>
                 {{/ife}}
                 {{/each}}

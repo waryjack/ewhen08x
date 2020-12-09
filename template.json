@@ -105,7 +105,7 @@
 		}
 	},
     "Item": {
-        "types":["trait", "weapon", "armor", "equipment", "power"],
+        "types":["trait", "career", "weapon", "armor", "equipment", "power"],
         "templates":{
             "common":
             {
@@ -117,7 +117,6 @@
         "trait":{
             "description":"",
             "isTemporary":false,
-			"rank":0,
 			"type":"",
 			"source":"",
 			"grants_modifier":{
@@ -130,6 +129,12 @@
 				"modifier":""
 			},
 			"prereq_for":""
+		},
+		"career": {
+			"description":"",
+			"rank":0,
+			"source":"",
+			"era":""
 		},
         "weapon":{
             "templates":["common"],

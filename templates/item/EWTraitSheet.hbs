@@ -5,27 +5,47 @@
     </header>
 
     <div>
-        <div>
-            <textarea name='data.description'>{{data.description}}</textarea>
-        </div>
-        <hr>
-        <div class="form-group">
-                <label for="data.type">Trait Type</label>
-                <select name="data.type" id="data.type">
+        <table>
+            <tr>
+                <th>{{localize "EW.game_term.trait_type"}}</th>
+                <th>{{localize "EW.game_term.trait_source"}}</th>
+                {{#ife data.type "career"}}
+                <th>{{localize "EW.game_term.rank"}}</th>
+                {{/ife}}
+                <th>{{localize "EW.game_term.temporary"}}</th>
+
+            </tr>
+            <tr>
+                <td style="text-align: center;"> 
+                    <select style="width:100%;" name="data.type" id="data.type">
                         {{#select data.type}}
                         {{#each config.traitTypes as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
-                <label for="data.source">Trait Source</label>
-                <select name="data.source" id="data.source">
+                </td>
+                <td style="text-align: center;">
+                    <select style="width:100%;" name="data.source" id="data.source">
                         {{#select data.source}}
                         {{#each config.traitSources as |name source|}}
                         <option value="{{source}}">{{localize name}}</option>
                         {{/each}}
                         {{/select}}
-                </select>
-        </div>
+                    </select>
+                </td>
+                {{#ife data.type "career"}}
+                <td>
+                    <input name="data.rank" type="text" value="{{data.rank}}" data-dtype="Number" />
+                </td>
+                {{/ife}}
+                <td style="text-align: center;">
+                    <input name="data.isTemporary" type="checkbox" {{checked data.isTemporary}} />
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <h3>{{localize "EW.game_term.description"}}</h3>
+                <textarea class="ewhen trait-desc" id="description" name="data.description">{{data.description}}</textarea>           
     </div>
 </form>

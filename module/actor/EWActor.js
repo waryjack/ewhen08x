@@ -1,42 +1,33 @@
 export class EWActor extends Actor {
 
-
-
-    prepareData() {
-        super.prepareData();
-
-    }
-
-    //@override
-    prepareBaseData() {
-
+  // @override
+  prepareBaseData(){
         super.prepareBaseData();
-
+        console.log(this.data);
+   
         const actorData = this.data;
         const data = actorData.data;
         const flags = actorData.flags;
-
-        if(actorData.type === 'character') this._prepareCharData(actorData);
-        else if (actorData.type === 'vehicle') this._prepareVehicleData(actorData);
+        
+        if (actorData.type === 'character') this._prepareCharacterData(actorData);
+        else if (actorData.type === 'vehicle') this._prepareVehicleData(data);
     }
 
-    _prepareCharData(actorData) {
-
-       /*  super.prepareDerivedData();
+    _prepareCharacterData(actorData) {
+        super.prepareDerivedData();
         const data = actorData.data;
 
-        // Lifeblood
-        let charStr = data.attributes.strength.rank;
-        let lfb = 10 + charStr;
-        
-        //Resolve
-        let charMnd = data.attributes.mind.rank;
-        let rsv = 10 + charMnd;
+        var str = data.attributes.strength.rank;
+        var mnd = data.attributes.strength.rank;
 
-        setProperty(actorData, "data.resrouces.lifeblood", (data.resources.lifeblood = lfb));
-        setProperty(actorData, "data.resources.resolve", (data.resources.resolve = rsv)); */
+        console.log("Stat pulls: ", str, mnd);
+        data.resources.lifeblood = Number(str) + 10;
+        data.resources.resolve = Number(mnd) + 10;
+
     }
 
-    _prepareVehicleData(actorData){}
+    _prepareVehicleData(actorData) {
+        // Stub
+    }
 
 }

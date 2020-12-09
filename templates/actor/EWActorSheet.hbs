@@ -63,14 +63,14 @@
         
 
         <div class="ewhen flex-item" id="careers">
-            <h3>{{localize "EW.game_term.careers"}}</h3>
+            <h3 style="display:inline-flex">{{localize "EW.game_term.careers"}}</h3><i style="float:right; padding-top:3px; margin-right:3px; display:inline-flex" class="fa fa-plus-square"></i>
             <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
                 {{#each actor.items as |item id|}}
                 {{#ife item.data.type "career"}}
-                <tr>
+                <tr data-item-id="{{id}}">
                     <td class="item-name">{{item.name}}</td>
-                    <td class="ewhen statfield"><input class="ewhen statbox" id="appeal" type="text" name="item.data.rank" value="{{item.data.rank}}" /></td>
-                    <td><i class="fa fa-edit"></i><i class="fa fa-trash"></i></td>
+                    <td class="ewhen statfield">{{item.data.rank}}</td>
+                    <td style="text-align:right"><i class="fa fa-edit edit-career" data-item-id="{{item._id}}"></i><i style="margin-left:2px; margin-right:2px;" class="fa fa-trash"></i></td>
                 </tr>
                 {{/ife}}
                 {{/each}}
@@ -97,7 +97,7 @@
         <div class="ewhen flex-container">
                
         <div class="ewhen flex-item">
-            <h3>{{localize "EW.game_term.boons"}}</h3>
+            <h3 style="display:inline-flex">{{localize "EW.game_term.boons"}}</h3><i style="float:right; padding-top:3px; margin-right:3px; display:inline-flex" class="fa fa-plus-square"></i>
             <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
                 {{#each actor.items as |item id|}}
                 {{#ife item.data.type "boon"}}
@@ -123,7 +123,7 @@
         </ol-->
         </div>
         <div class="ewhen flex-item">
-            <h3>{{localize "EW.game_term.flaws"}}</h3>
+            <h3 style="display:inline-flex">{{localize "EW.game_term.flaws"}}</h3><i style="float:right; padding-top:3px; margin-right:3px; display:inline-flex" class="fa fa-plus-square"></i>
            <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
                 {{#each actor.items as |item id|}}
                 {{#ife item.data.type "flaw"}}

@@ -153,7 +153,7 @@
 			"armor_type":"",
 			"protection":{
 				"fixed":0,
-				"variable":"1d6",
+				"variable":"",
 				"scale":1
 			},
 			"modifiers": {

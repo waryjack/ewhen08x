@@ -76,11 +76,25 @@
 
 }
 
+.track {
+  width:120px;
+}
+
 .item-create {
   margin-left:auto;
   margin-right:3px;
 }
 
-.ewhen .input {
-  
+.ewhen .lb-track {
+
+}
+
+.ewhen .rs-track {
+
+
+}
+
+.ewhen .health {
+  display:flex;
+  flex-flow:column nowrap;
 }

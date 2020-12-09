@@ -1,0 +1,19 @@
+<form class="ewhen roll-dialog">
+ <header class="roll-header">
+        <h1 class="roll-name">{{localize "EW.rolltype.attributeroll"}}</h1>
+    </header>
+ <div class="ewhen roll-dialog">
+     <div class="form-group">
+         <label for="att">Attribute</label>
+         <select style="width:100%;" name="data.type" id="data.type">
+                        {{#select data.type}}
+                        {{#each config.traitTypes as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                        {{/each}}
+                        {{/select}}
+         </select>
+     </div>
+ </div>
+
+
+</form>

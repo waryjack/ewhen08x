@@ -30,4 +30,10 @@ export class EWActor extends Actor {
         // Stub
     }
 
+
+    rollAttribute(){
+
+        
+    }
+
 }

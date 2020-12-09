@@ -5,152 +5,163 @@
     </header>
     
     <section class="ewhen sheetbody">
-            {{!-- Essentials Tab --}}
+    
+    {{!-- Attributes Block --}}
         <div class="ewhen flex-container">
            
             <div class="ewhen flex-item">
                  <h3>{{localize "EW.game_term.attributes"}}</h3>
-                <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">
+                <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">    
+                {{#each config.attributes as |attr id|}}
                     <tr>
-                        <th></th>
-                        <th>{{localize "EW.game_term.rank"}}/</th>
-                        <th>{{localize "EW.game_term.scale"}}</th>
-                        <th></th>
-                        <th>{{localize "EW.game_term.rank"}}</th>
-                        <th>{{localize "EW.game_term.scale"}}</th>
+                        <td data-attribute="{{id}}"><a class="sheetroll">{{localize attr}}</a></td>
+                        <td class="ewhen statfield" data-edit="data.attributes.{{attr}}.rank" contenteditable>{{data.attributes.attr.rank}}</td>
+                        <td class="ewhen statfield">({{data.attributes.id.scale}})</td>
                     </tr>
-                    <tr>
-                        <td>{{localize "EW.attribute.primary.strength"}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.strength.rank" contenteditable>{{data.attributes.strength.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.strength.scale" contenteditable>{{data.attributes.strength.scale}}</td>
-                        <td class="has-border">{{localize "EW.attribute.combat.melee"}}</td>
-                        <td class="ewhen statfield" data-edit="data.combat.melee.rank" contenteditable>{{data.combat.melee.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.combat.melee.scale" contenteditable>{{data.combat.melee.scale}}</td>
-                       
-                    </tr>
-                    <tr>
-                        <td>{{localize "EW.attribute.primary.agility"}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.agility.rank" contenteditable>{{data.attributes.agility.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.agility.scale" contenteditable>{{data.attributes.agility.scale}}</td>
-                         <td class="has-border">{{localize "EW.attribute.combat.ranged"}}</td>
-                         <td class="ewhen statfield" data-edit="data.combat.ranged.rank" contenteditable>{{data.combat.ranged.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.combat.ranged.scale" contenteditable>{{data.combat.ranged.scale}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{localize "EW.attribute.primary.mind"}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.mind.rank" contenteditable>{{data.attributes.mind.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.mind.scale" contenteditable>{{data.attributes.mind.scale}}</td>
-                        <td class="has-border">{{localize "EW.attribute.combat.defense"}}</td>
-                        <td class="ewhen statfield" data-edit="data.combat.defense.rank" contenteditable>{{data.combat.defense.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.combat.defense.scale" contenteditable>{{data.combat.defense.scale}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{localize "EW.attribute.primary.appeal"}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.appeal.rank" contenteditable>{{data.attributes.appeal.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.attributes.appeal.scale" contenteditable>{{data.attributes.appeal.scale}}</td>
-                        <td class="has-border">{{localize "EW.attribute.combat.initiative"}}</td>
-                        <td class="ewhen statfield" data-edit="data.combat.initiative.rank" contenteditable>{{data.combat.initiative.rank}}</td>
-                        <td class="ewhen statfield" data-edit="data.combat.initiative.scale" contenteditable>{{data.combat.initiative.scale}}</td>
-                    </tr>
+                {{/each}}
                 </table>
-                        <!--ol class='statcol'>
-                            <li class="form-group"><label for="strength">Strength:</label> <input id="strength" style="display:inline-flex" 6type="text" name="data.attributes.strength.rank" value="{{data.attributes.strength.rank}}"/></li>
-                            <li>Agility: number goes here</li>
-                            <li>Mind: number goes here</li>
-                            <li>Appeal: number goes here</li>
-                        </ol-->
             </div>
         
 
-        <div class="ewhen flex-item" id="careers">
-            <h3 class="traitsheet-header"><div>{{localize "EW.game_term.careers"}}</div>
-                <a class="item-create" title="Add Career" data-type="career">
-                    <i class="fas fa-plus-square"></i>
-                </a>
-            </h3>
-            
-            <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
-                {{#each careers as |career id|}}
-                <tr class="career-item item" data-item-id="{{career._id}}">
-                    <td><a class="career-roll"><i class="fas fa-dice-five"></i></a></td>
-                    <td><input class="career-name inline-edit" data-field="name" type="text" value="{{career.name}}" /></td>
-                    <td class="ewhen statfield"><input class="career-rank inline-edit" data-field="data.rank" type="text" value="{{career.data.rank}}" data-dtype="Number" maxwidth='3' size='3' /></td>
-                    <!--td style="text-align:right"><i class="fa fa-edit edit-career" data-item-id="{{item._id}}"></i><i style="margin-left:2px; margin-right:2px;" class="fa fa-trash"></i></td-->
-                </tr>
-                {{/each}}
-            </table>
-        </div>
+            {{!-- Career Listing --}}
+            <div class="ewhen flex-item" id="careers">
+                <h3 class="traitsheet-header"><div>{{localize "EW.game_term.careers"}}</div>
+                    <a class="item-create" title="Add Career" data-type="career">
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                </h3>
+                
+                <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                    {{#each careers as |career id|}}
+                    <tr class="career-item item" data-item-id="{{career._id}}">
+                        <td><a class="career-roll"><i class="fas fa-dice-five"></i></a></td>
+                        <td><input class="career-name inline-edit" data-field="name" type="text" value="{{career.name}}" /></td>
+                        <td class="ewhen statfield"><input class="career-rank inline-edit" data-field="data.rank" type="text" value="{{career.data.rank}}" data-dtype="Number" maxwidth='3' size='3' /></td>
+                        <!--td style="text-align:right"><i class="fa fa-edit edit-career" data-item-id="{{item._id}}"></i><i style="margin-left:2px; margin-right:2px;" class="fa fa-trash"></i></td-->
+                        <td>
+                            <a class="item-delete item" data-item-id="{{career._id}}">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
 
-        <div class="ewhen flex-item">
-            <h3>{{localize "EW.game_term.resource_pools"}}</h3>
+                {{!-- Resources --}}
+                <div class="ewhen flex-item">
+                    <h3>{{localize "EW.game_term.resource_pools"}}</h3>
+                    <table>
+                        <tr>
+                            <td>{{localize "EW.attribute.resource.lifeblood"}}</td>
+                            <td>{{data.resources.lifeblood}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{localize "EW.attribute.resource.resolve"}}</td>
+                            <td>{{data.resources.resolve}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+        {{!-- Lifeblood and Resolve Rows --}}
+        <hr>
+        <div class="ewhen health">
             <table>
                 <tr>
                     <td>{{localize "EW.attribute.resource.lifeblood"}}</td>
-                    <td>{{data.resources.lifeblood}}</td>
+                    <td>{{#times data.resources.lifeblood}}
+                        <input type="checkbox" />
+                        {{/times}}
+                    </td>
                 </tr>
                 <tr>
                     <td>{{localize "EW.attribute.resource.resolve"}}</td>
-                    <td>{{data.resources.resolve}}</td>
+                    <td>{{#times data.resources.resolve}}
+                            <input type="checkbox" />
+                        {{/times}}
+                    </td>
                 </tr>
             </table>
         </div>
-        </div>
-
         <hr>
-
         <div class="ewhen flex-container">
                
+        {{!-- Boon Block --}}
         <div class="ewhen flex-item">
-            <h3 style="display:inline-flex">{{localize "EW.game_term.boons"}}</h3><i style="float:right; padding-top:3px; margin-right:3px; display:inline-flex" class="fa fa-plus-square"></i>
+           <h3 class="traitsheet-header"><div>{{localize "EW.game_term.boons"}}</div>
+                <a class="item-create" title="Add Boon" data-type="trait" data-sub-type="boon">
+                    <i class="fas fa-plus-square"></i>
+                </a>
+            </h3>
             <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
-                {{#each actor.items as |item id|}}
-                {{#ife item.data.type "boon"}}
+                {{#each traits as |trait id|}}
+                {{#ife trait.data.type "boon"}}
                 <tr>
-                    <td class="item-name item" data-item-id="{{item._id}}"><a class="item-edit" title="Edit">{{item.name}}</a><br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
+                    <td class="item-name item" data-item-id="{{trait._id}}">
+                        <a class="item-edit" title="Edit">{{trait.name}} (<em>{{trait.data.source}}{{#if trait.data.isTemporary}},temporary{{/if}})</em></a><br>
+                        {{trait.data.description}}<br>  
+                    </td>
+                    <td>
+                        <a class="item-delete item" data-item-id="{{trait._id}}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
                 </tr>
                 {{/ife}}
                 {{/each}}
             </table>
-        <!--ol class="actor-items">
-        {{#each actor.items as |item id|}}
-            <li class="actor-item" data-item-id="{{id}}">
-                <div class="item-name">
-                  <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-                    <h4>{{item.name}}</h4>
-                </div>
-                <div class="item-controls">
-                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                </div>
-            </li>
-        {{/each}}
-        </ol-->
+      
         </div>
-        <div class="ewhen flex-item">
-            <h3 style="display:inline-flex">{{localize "EW.game_term.flaws"}}</h3><i style="float:right; padding-top:3px; margin-right:3px; display:inline-flex" class="fa fa-plus-square"></i>
-           <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
-                {{#each actor.items as |item id|}}
-                {{#ife item.data.type "flaw"}}
+
+        {{!-- Flaw Block --}}
+       <div class="ewhen flex-item">
+            <h3 class="traitsheet-header"><div>{{localize "EW.game_term.flaws"}}</div>
+                <a class="item-create" title="Add Flaw" data-type="trait" data-sub-type="flaw">
+                    <i class="fas fa-plus-square"></i>
+                </a>
+            </h3>
+            <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                {{#each traits as |trait id|}}
+                {{#ife trait.data.type "flaw"}}
                 <tr>
-                    <td class="item-name">{{item.name}}<br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
+                    <td class="item-name item" data-item-id="{{trait._id}}">
+                        <a class="item-edit" title="Edit">{{trait.name}} (<em>{{trait.data.source}}{{#if trait.data.isTemporary}},temporary{{/if}})</em></a><br>
+                        {{trait.data.description}}<br>
+                        
+                    </td>
+                    <td>
+                        <a class="item-delete item" data-item-id="{{trait._id}}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
                 </tr>
                 {{/ife}}
                 {{/each}}
             </table>
         </div>
+
+        {{!-- Powers Block --}}
         <div class="ewhen flex-item">
             <h3>{{localize "EW.game_term.powers"}}</h3>
             <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
-                {{#each actor.items as |item id|}}
-                {{#ife item.data.type "power"}}
+                {{#each powers as |power id|}}
                 <tr>
-                    <td class="item-name">{{item.name}}<br>{{item.data.description}}<br><i>{{item.data.source}}{{#if item.data.isTemporary}},temporary{{/if}}</i></td>
+                    <td class="item-name">{{power.name}}<br>{{power.data.description}}<br><i>{{power.data.source}}{{#if power.data.isTemporary}},temporary{{/if}}</i></td>
+                    <td>
+                        <a class="item-delete item" data-item-id="{{power._id}}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <td>
+                        <a class="item-delete item" data-item-id="{{power._id}}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                    </td>
                 </tr>
-                {{/ife}}
                 {{/each}}
             </table>
-        </div>
-
         </div>
         
 

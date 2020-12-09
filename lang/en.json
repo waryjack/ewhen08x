@@ -18,7 +18,16 @@
     "EW.game_term.temporary": "Temporary",
     "EW.game_term.description": "Description",
 
-    "EW.sheet.newCareer": "New Career",
+    "EW.rolltype.attributeroll": "Attribute Roll",
+    "EW.rolltype.combatroll": "Combat Roll",
+    "EW.rolltype.careerroll": "Career Roll",
+    
+    "EW.sheet.newcareer": "New Career",
+    "EW.sheet.newboon": "New Boon",
+    "EW.sheet.newflaw": "New Flaw",
+    "EW.sheet.newpower": "New Power",
+    "EW.sheet.newequipment": "New Equipment",
+    "EW.sheet.newweapon": "New Weapon",
 
     "EW.attribute.combat.melee": "Melee",
     "EW.attribute.combat.ranged": "Ranged",

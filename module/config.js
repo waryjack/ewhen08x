@@ -1,11 +1,15 @@
 export const EW = {
 
-    primary_attributes: { 
+    attributes: { 
 
         mind: 'EW.attributes.primary.mind',
         strength: 'EW.attributes.primary.strength',
         appeal: 'EW.attributes.primary.appeal',
-        agility: 'EW.attributes.primary.agility'
+        agility: 'EW.attributes.primary.agility',
+        melee: 'EW.attributes.combat.melee',
+        ranged: 'EW.attributes.combat.ranged',
+        defense: 'EW.attributes.combat.defense',
+        initiative: 'EW.attributes.combat.initiative'
     },
     game_terms: {
         attributes: 'EW.game_term.attributes',
@@ -32,12 +36,6 @@ export const EW = {
         fatigue:'EW.damage.type.fatigue',
         normal:'EW.damage.type.normal',
         lasting:'EW.damage.type.lasting'
-    },
-    combat_attributes: {
-        melee: 'EW.attributes.combat.melee',
-        ranged: 'EW.attributes.combat.ranged',
-        defense: 'EW.attributes.combat.defense',
-        initiative: 'EW.attributes.combat.initiative'
     },
     powerTypes: {
         arcane:'EW.power.type.arcane',

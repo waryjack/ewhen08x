@@ -1,11 +1,13 @@
 export const EW = {
 
-    attributes: { 
+    primary_attributes: { 
 
-        mind: 'EW.attributes.primary.mind',
         strength: 'EW.attributes.primary.strength',
-        appeal: 'EW.attributes.primary.appeal',
         agility: 'EW.attributes.primary.agility',
+        mind: 'EW.attributes.primary.mind',
+        appeal: 'EW.attributes.primary.appeal'
+    },
+    combat_attributes: {
         melee: 'EW.attributes.combat.melee',
         ranged: 'EW.attributes.combat.ranged',
         defense: 'EW.attributes.combat.defense',

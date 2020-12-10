@@ -12,11 +12,11 @@
             <div class="ewhen flex-item">
                  <h3>{{localize "EW.game_term.attributes"}}</h3>
                 <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">    
-                {{#each config.attributes as |attr id|}}
+                {{#each config.attributes as |attr name|}}
                     <tr>
-                        <td data-attribute="{{id}}"><a class="sheetroll">{{localize attr}}</a></td>
-                        <td class="ewhen statfield" data-edit="data.attributes.{{attr}}.rank" contenteditable>{{data.attributes.attr.rank}}</td>
-                        <td class="ewhen statfield">({{data.attributes.id.scale}})</td>
+                        <td data-attribute="{{attr}}"><a class="sheetroll">{{localize name}}</a></td>
+                        <td class="ewhen statfield" data-edit="data.attributes.{{name}}.rank" contenteditable>{{data.attributes.[@name].rank}}</td>
+                        <td class="ewhen statfield">({{data.attributes.[@this].scale}})</td>
                     </tr>
                 {{/each}}
                 </table>

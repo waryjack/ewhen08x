@@ -4,6 +4,13 @@
     "EW.attribute.primary.strength": "Strength",
     "EW.attribute.primary.appeal": "Appeal",
     "EW.attribute.primary.agility": "Agility",
+
+    
+    "EW.attribute.combat.melee": "Melee",
+    "EW.attribute.combat.ranged": "Ranged",
+    "EW.attribute.combat.defense": "Defense",
+    "EW.attribute.combat.initiative": "Initiative",
+    
     "EW.game_term.attributes": "Attributes",
     "EW.game_term.resource_pools": "Resource Pools",
     "EW.game_term.boons": "Boons",
@@ -29,10 +36,6 @@
     "EW.sheet.newequipment": "New Equipment",
     "EW.sheet.newweapon": "New Weapon",
 
-    "EW.attribute.combat.melee": "Melee",
-    "EW.attribute.combat.ranged": "Ranged",
-    "EW.attribute.combat.defense": "Defense",
-    "EW.attribute.combat.initiative": "Initiative",
 
     "EW.attribute.resource.lifeblood": "Lifeblood",
     "EW.attribute.resource.critical": "Critical",

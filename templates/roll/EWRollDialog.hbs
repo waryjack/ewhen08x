@@ -7,7 +7,7 @@
          <label for="att">Attribute</label>
          <select style="width:100%;" name="data.type" id="data.type">
                         {{#select data.type}}
-                        {{#each config.traitTypes as |name type|}}
+                        {{#each config.traitTypes as |trait name|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
                         {{/select}}

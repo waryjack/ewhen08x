@@ -67,4 +67,12 @@ Hooks.once("init", () => {
 
     });
    
+    Handlebars.registerHelper("concat", function(...args) {
+        let result="";
+        for (let i = 0; i < args.length; i++) {
+            result += args[i];
+        }
+
+        return result;
+    });
 });

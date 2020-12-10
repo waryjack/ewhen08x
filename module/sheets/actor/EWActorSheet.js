@@ -18,6 +18,7 @@ export default class EWActorSheet extends ActorSheet {
         data.armor = data.items.filter(function(item) {return item.type == "armor"});
         data.powers = data.items.filter(function(item) {return item.type == "power"});
         data.equipment = data.items.filter(function(item) {return item.type == "equipment"});
+        
 
         console.log(data.careers);
         return data;

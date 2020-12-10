@@ -1,9 +1,9 @@
 {
 
-    "EW.attribute.primary.mind": "Mind",
-    "EW.attribute.primary.strength": "Strength",
-    "EW.attribute.primary.appeal": "Appeal",
-    "EW.attribute.primary.agility": "Agility",
+    "EW.attribute.main.mind": "Mind",
+    "EW.attribute.main.strength": "Strength",
+    "EW.attribute.main.appeal": "Appeal",
+    "EW.attribute.main.agility": "Agility",
 
     
     "EW.attribute.combat.melee": "Melee",
@@ -11,7 +11,8 @@
     "EW.attribute.combat.defense": "Defense",
     "EW.attribute.combat.initiative": "Initiative",
     
-    "EW.game_term.attributes": "Attributes",
+    "EW.game_term.attributes.main": "Main Attributes",
+    "EW.game_term.attributes.combat": "Combat Attributes",
     "EW.game_term.resource_pools": "Resource Pools",
     "EW.game_term.boons": "Boons",
     "EW.game_term.flaws": "Flaws",

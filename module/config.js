@@ -1,6 +1,6 @@
 export const EW = {
 
-    primary_attributes: { 
+    main_attributes: { 
 
         strength: 'EW.attributes.primary.strength',
         agility: 'EW.attributes.primary.agility',

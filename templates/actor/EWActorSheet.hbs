@@ -1,24 +1,64 @@
-<form class="ewhen actor-sheet editable" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
-        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        <h1 class="charname"><input style="background:lightgray" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </header>
     
     <section class="ewhen sheetbody">
-    
+  
     {{!-- Attributes Block --}}
         <div class="ewhen flex-container">
            
             <div class="ewhen flex-item">
-                 <h3>{{localize "EW.game_term.attributes"}}</h3>
+                 <h3>{{localize "EW.game_term.attributes.main"}}</h3>
                 <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">    
-                {{#each config.attributes as |attr name|}}
                     <tr>
-                        <td data-attribute="{{attr}}"><a class="sheetroll">{{localize name}}</a></td>
-                        <td class="ewhen statfield" data-edit="data.attributes.{{name}}.rank" contenteditable>{{data.attributes.[@name].rank}}</td>
-                        <td class="ewhen statfield">({{data.attributes.[@this].scale}})</td>
+                        <td><a class="att-roll" data-attribute="strength">{{localize "EW.attribute.main.strength"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.strength.rank" value="{{data.main_attributes.strength.rank}}"></td>
+                        <td class="align-center">({{data.main_attributes.strength.scale}})</td>
                     </tr>
-                {{/each}}
+                    <tr>
+                        <td><a class="att-roll" data-attribute="agility">{{localize "EW.attribute.main.agility"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.agility.rank" value="{{data.main_attributes.agility.rank}}"></td>
+                        <td class="align-center">({{data.main_attributes.agility.scale}})</td>
+                    </tr>
+                    <tr>
+                        <td><a class="att-roll" data-attribute="mind">{{localize "EW.attribute.main.mind"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.mind.rank" value="{{data.main_attributes.mind.rank}}"></td>
+                        <td class="align-center">({{data.main_attributes.agility.scale}})</td>
+                    </tr>
+                    <tr>
+                        <td><a class="att-roll" data-attribute="appeal">{{localize "EW.attribute.main.appeal"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.appeal.rank" value="{{data.main_attributes.strength.rank}}"></td>
+                        <td class="align-center">({{data.main_attributes.appeal.scale}})</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="ewhen flex-item">
+                 <h3>{{localize "EW.game_term.attributes.combat"}}</h3>
+                <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">    
+                
+                    <tr>
+                        <td ><a class="att-roll" data-attribute="melee">{{localize "EW.attribute.combat.melee"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.melee.rank" value="{{data.combat_attributes.melee.rank}}"/</td>
+                        <td class="align-center">({{data.combat_attributes.melee.scale}})</td>
+                    </tr>
+                    <tr>
+                        <td ><a class="att-roll" data-attribute="ranged">{{localize "EW.attribute.combat.ranged"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.ranged.rank" value="{{data.combat_attributes.ranged.rank}}"/</td>
+                        <td class="align-center">({{data.combat_attributes.ranged.scale}})</td>
+                    </tr>
+                    <tr>
+                        <td ><a class="att-roll" data-attribute="defense">{{localize "EW.attribute.combat.defense"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.defense.rank" value="{{data.combat_attributes.defense.rank}}"/</td>
+                        <td class="align-center">({{data.combat_attributes.defense.scale}})</td>
+                    </tr>
+                    <tr>
+                        <td ><a class="att-roll" data-attribute="initiative">{{localize "EW.attribute.combat.initiative"}}</a></td>
+                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.initiative.rank" value="{{data.combat_attributes.initiative.rank}}"/</td>
+                        <td class="align-center">({{data.combat_attributes.initiative.scale}})</td>
+                    </tr>
+                
                 </table>
             </div>
         
@@ -47,22 +87,9 @@
                     {{/each}}
                 </table>
             </div>
+        </div>
 
-                {{!-- Resources --}}
-                <div class="ewhen flex-item">
-                    <h3>{{localize "EW.game_term.resource_pools"}}</h3>
-                    <table>
-                        <tr>
-                            <td>{{localize "EW.attribute.resource.lifeblood"}}</td>
-                            <td>{{data.resources.lifeblood}}</td>
-                        </tr>
-                        <tr>
-                            <td>{{localize "EW.attribute.resource.resolve"}}</td>
-                            <td>{{data.resources.resolve}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+              
 
 
         {{!-- Lifeblood and Resolve Rows --}}
@@ -86,9 +113,10 @@
             </table>
         </div>
         <hr>
+        
+        {{!-- Lower Container --}}
         <div class="ewhen flex-container">
-               
-        {{!-- Boon Block --}}
+            {{!-- Boons --}}
         <div class="ewhen flex-item">
            <h3 class="traitsheet-header"><div>{{localize "EW.game_term.boons"}}</div>
                 <a class="item-create" title="Add Boon" data-type="trait" data-sub-type="boon">
@@ -141,6 +169,7 @@
                 {{/each}}
             </table>
         </div>
+        {{!-- end flaws --}}
 
         {{!-- Powers Block --}}
         <div class="ewhen flex-item">
@@ -163,9 +192,11 @@
                 {{/each}}
             </table>
         </div>
-        
-
+        </div>
+  
     </section>
-    
+    <!--section style="display:inline-flex; border:1px solid white; height:100%; width:128px; clear:both;" class="sidebar">
+        Placeholder
+    </section-->    
 </form>
 

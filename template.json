@@ -8,7 +8,7 @@
             "isEntity":false,
             "size":"medium",
             "backstory":"Born in a tiny village",
-			"attributes": {
+			"main_attributes": {
 				"strength":{
 					"rank":0,
 					"scale":1,
@@ -28,7 +28,9 @@
 					"rank":0,
 					"scale":1,
 					"mod":0
-				},
+				}
+			},
+			"combat_attributes":{
 				"melee":{
 					"rank":0,
 					"scale":1,

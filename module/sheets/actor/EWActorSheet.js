@@ -4,6 +4,14 @@ export default class EWActorSheet extends ActorSheet {
         return "systems/ewhen/templates/actor/EWActorSheet.hbs"
     }
 
+    /** @override */
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+        classes: ['ewhen', 'sheet', 'actor', 'actor-sheet'],
+        width: 750,
+        height: 685
+        });
+    }
     
     getData () {
         const data = super.getData();
@@ -18,9 +26,8 @@ export default class EWActorSheet extends ActorSheet {
         data.armor = data.items.filter(function(item) {return item.type == "armor"});
         data.powers = data.items.filter(function(item) {return item.type == "power"});
         data.equipment = data.items.filter(function(item) {return item.type == "equipment"});
-        
-
-        console.log(data.careers);
+        data.main_attributes = this.actor.data.data.main_attributes;
+        data.combat_attributes = this.actor.data.data.combat_attributes;
         return data;
     }
 
@@ -41,6 +48,7 @@ export default class EWActorSheet extends ActorSheet {
         html.find('.item-delete').click(this._deleteItem.bind(this));
 
         html.find('.att-roll').click(this._onAttributeRoll.bind(this));
+        // html.find('.com-roll').click(this._onCombatRoll.bind(this));
 
         // html.find('.com-roll').click(this._onCombatRoll.bind(this));
 
@@ -62,13 +70,19 @@ export default class EWActorSheet extends ActorSheet {
 
     _onAttributeRoll(event) {
         event.preventDefault();
-
+        var rank;
         let element = event.currentTarget;
-        let attribute = element.closest(".statroll").dataset.attribute;
+        let attribute = element.dataset.attribute;
 
-        return this.actor.rollAttribute(attribute, {event: event});
+        let ma = ["strength", "agility", "mind", "appeal"];
+        let ca = ["melee", "ranged", "defense", "initiative"];
 
-        let rank = this.actor.data.data.attributes[attribute].rank;
+        if(ca.includes(attribute)) {
+            rank = this.actor.data.data.combat_attributes[attribute].rank;
+        } else {
+            rank = this.actor.data.data.main_attributes[attribute].rank;
+        }
+
         console.log("Attribute clicked:", attribute, " Rank: ", rank);
     }
 

@@ -9,6 +9,9 @@
   height:250px;
   min-height:210px !important;
 }
+.ewhen .window-content {
+  background: rgb(41, 46, 48);
+}
 
 .ewhen .sheetbody {
   flex:1
@@ -36,10 +39,18 @@
   text-shadow:gray;
 }
 
+.ewhen .profile-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  height: 150px;
+  width: auto;
+}
+
 .ewhen .flex-item {
   border:2px solid black;
-  background: #81b4f7;
-  color:white;
+  background: #b5b6b6;
+  color:rgb(33, 33, 41);
   font-size:1em;
   margin-top:15px;  
   flex-grow:0;
@@ -49,8 +60,9 @@
 }
 
 .ewhen .statfield {
-  text-align:center;
-  flex-basis:2em;
+  width: 3ch;
+  margin-left:auto;
+  text-align:right;
 }
 
 .has-border {
@@ -97,4 +109,12 @@
 .ewhen .health {
   display:flex;
   flex-flow:column nowrap;
+}
+
+.align-right {
+  text-align:right;
+}
+
+.align-center {
+  text-align:center;
 }

@@ -66,13 +66,19 @@ Hooks.once("init", () => {
        return result;
 
     });
-   
-    Handlebars.registerHelper("concat", function(...args) {
-        let result="";
-        for (let i = 0; i < args.length; i++) {
-            result += args[i];
-        }
+
+    Handlebars.registerHelper("proper", function(content) {
+        let result = "";
+
+        result = content[0].toUpperCase() + content.substring(1);
 
         return result;
+
+    });
+   
+    Handlebars.registerHelper("buildVar", function(arg1, arg2, arg3) {
+        let result=arg1+arg2+arg3;
+
+        return new Handlebars.SafeString(result);
     });
 });

@@ -1,0 +1,47 @@
+<form class="ewhen roll-dialog">
+ <header class="roll-header">
+        <h1 class="roll-name">{{localize "EW.rolltype.basicroll"}}</h1>
+    </header>
+
+{{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
+{{!-- combat - combat attributes object - combat.(attribute), blah blah .rank --}}
+{{!-- careers - careers object - career, (career).rank --}}
+ <div class="ewhen roll-dialog">
+     <div class="form-group">
+         <label for="att">Main Attribute</label>
+         <select id="att" style="width:100%;" name="primary" data-main-att="primary">
+             <option value="none" selected></option>
+            {{#select primary}}
+                {{#each primary as |a name|}}
+                    <option value="{{name}}">{{localize (proper name)}}</option>
+                {{/each}}
+            {{/select}}
+         </select>
+     </div>
+     <div class="form-group">
+         <label for="att">Combat Attribute</label>
+         <select id="att" style="width:100%;" name="primary" data-main-att="career">
+             <option value="none" selected></option>
+            {{#select combat}}
+                {{#each combat as |a name|}}
+                    <option value="{{name}}">{{localize (proper name)}}</option>
+                {{/each}}
+            {{/select}}
+         </select>
+     </div>
+       
+        <div class="form-group">
+         <label for="car">Career</label>
+         <select id="car" style="width:100%;" name="career">
+             <option value="none" selected></option>
+            {{#select careers}}
+                {{#each careers as |c|}}
+                    <option value="{{c.name}}" data-item-id="{{c._id}}">{{c.name}} {{c._id}}</option>
+                {{/each}}
+            {{/select}}
+         </select>
+     </div>
+ </div>
+
+
+</form>

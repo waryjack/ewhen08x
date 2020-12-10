@@ -53,12 +53,27 @@
 				}
 			},
 			"resources":{
-				"hero_points":0,
+				"hero_points":5,
 				"arcana_points":0,
 				"faith_points":0,
 				"psi_points":0,
-				"lifeblood":0,
-				"resolve":0
+				"lifeblood": {
+					"max":0,
+					"current":0,
+					"regular":0,
+					"lasting":0,
+					"fatigue":0,
+					"critical":0
+				},
+				"resolve":
+				{
+					"max":0,
+					"current":0,
+					"regular":0,
+					"lasting":0,
+					"fatigue":0,
+					"critical":0
+				}
 			},
 			"traits":{
 				"careers":[],

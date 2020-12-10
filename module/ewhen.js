@@ -49,7 +49,7 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWWeaponSheet, { types: ["weapon"], makeDefault: true });
 
 
-    CONFIG.debug.hooks = true;
+    // CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     // CONFIG.Item.entityClass = EWItem;
 
@@ -81,4 +81,10 @@ Hooks.once("init", () => {
 
         return new Handlebars.SafeString(result);
     });
+
+    Handlebars.registerHelper("minus", function(arg1, arg2) {
+        let result = arg1 - arg2;
+
+        return result;
+    })
 });

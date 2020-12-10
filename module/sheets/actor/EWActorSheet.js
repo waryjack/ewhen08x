@@ -28,6 +28,13 @@ export default class EWActorSheet extends ActorSheet {
         data.equipment = data.items.filter(function(item) {return item.type == "equipment"});
         data.main_attributes = this.actor.data.data.main_attributes;
         data.combat_attributes = this.actor.data.data.combat_attributes;
+        data.fdmg = this.actor.data.data.resources.lifeblood.fatigue;
+        data.rdmg = this.actor.data.data.resources.lifeblood.regular;
+        data.ldmg = this.actor.data.data.resources.lifeblood.lasting;
+        data.crit = this.actor.data.data.resources.lifeblood.critical;
+        data.cdmg = this.actor.data.data.resources.lifeblood.current;
+
+        console.log("Data current damage: ", data.cdmg);
         return data;
     }
 
@@ -48,11 +55,25 @@ export default class EWActorSheet extends ActorSheet {
         html.find('.item-delete').click(this._deleteItem.bind(this));
 
         html.find('.att-roll').click(this._onAttributeRoll.bind(this));
+
+        html.find('.basic-roll').click(this._onBasicRoll.bind(this));
+
+        html.find('.adj-resource').click(this._adjustResource.bind(this));
         // html.find('.com-roll').click(this._onCombatRoll.bind(this));
 
         // html.find('.com-roll').click(this._onCombatRoll.bind(this));
 
 
+    }
+
+    _adjustResource(event) {
+        event.preventDefault();
+
+        let element = event.currentTarget;
+
+        let res = element.dataset.resourceName;
+
+        return this.actor.updateResource(res);
     }
 
     _onRollCareer(event) {
@@ -66,6 +87,13 @@ export default class EWActorSheet extends ActorSheet {
 
         let itemRank = item.data.data.rank;
         
+    }
+
+    _onBasicRoll(event) {
+        event.preventDefault();
+        let element = event.currentTarget;
+
+        return this.actor.basicRoll();
     }
 
     _onAttributeRoll(event) {
@@ -84,6 +112,7 @@ export default class EWActorSheet extends ActorSheet {
         }
 
         console.log("Attribute clicked:", attribute, " Rank: ", rank);
+       // return this.actor.basicRoll();
     }
 
     _onItemEdit(event) {

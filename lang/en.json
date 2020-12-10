@@ -29,6 +29,7 @@
     "EW.rolltype.attributeroll": "Attribute Roll",
     "EW.rolltype.combatroll": "Combat Roll",
     "EW.rolltype.careerroll": "Career Roll",
+    "EW.rolltype.basicroll": "Basic Roll",
     
     "EW.sheet.newcareer": "New Career",
     "EW.sheet.newboon": "New Boon",
@@ -42,14 +43,15 @@
     "EW.attribute.resource.critical": "Critical",
     "EW.attribute.resource.resolve": "Resolve",
     "EW.attribute.resource.hero_points": "Hero Points",
-    "EW.attributes.resource.psi_points": "Psionic Points",
-    "EW.attributes.resource.faith_points": "Faith Points",
-    "EW.attributes.resource.arcana_points": "Arcana Points",
-    "EW.attributes.resource.credit_rating": "Credit Rating",
+    "EW.attribute.resource.psi_points": "Psionic Points",
+    "EW.attribute.resource.faith_points": "Faith Points",
+    "EW.attribute.resource.arcana_points": "Arcana Points",
+    "EW.attribute.resource.credit_rating": "Credit Rating",
 
     "EW.damage.type.fatigue":"Fatigue Damage",
     "EW.damage.type.normal": "Normal Damage",
     "EW.damage.type.lasting": "Lasting Damage",
+    "EW.damage.type.critical": "Critical Damage",
 
     "EW.power.arcane": "Arcane Power",
     "EW.power.psionic": "Psionic Power",
@@ -82,5 +84,10 @@
     "EW.entity.type.critter": "Critter",
     "EW.entity.type.minor": "Minor Entity",
     "EW.entity.type.lesser": "Lesser Entity",
-    "EW.entity.type.greater": "Greater Entity"
+    "EW.entity.type.greater": "Greater Entity",
+
+    "EW.activity.adjustlifeblood": "Update Lifeblood",
+    "EW.activity.adjustresolve": "Update Resolve",
+
+    "EW.warnings.damageoverrun": "Total damage from all sources cannot exceed your max Lifeblood."
 }

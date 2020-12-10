@@ -54,7 +54,12 @@ export class EWActor extends Actor {
                     roll: {
                      icon: '<i class="fas fa-check"></i>',
                      label: "Yes",
-                     callback: () => { console.log("Clicked Roll"); return; }
+                     callback: (html) => { 
+                        let expr = this.assembleRollExpression(html); 
+                        let r = new Roll(expr);
+                        r.roll().toMessage();                   
+                        
+                        console.log("Clicked Roll"); return; }
                     },
                     close: {
                      icon: '<i class="fas fa-times"></i>',
@@ -162,6 +167,44 @@ export class EWActor extends Actor {
            });
            d.render(true);
         
+    }
+
+    assembleRollExpression(html) {
+        var attrVal = 0;
+        var comVal = 0;
+        var cVal = 0;
+
+        let attr = html.find("#pattr").val().toLowerCase();
+        let combat = html.find("#cattr").val().toLowerCase();
+        let bonus = html.find("#bonus").val();
+        let penalty = html.find("#penalty").val();
+        let careerName = html.find("#career").val();
+        let bdNum = html.find("#bdice").val();
+        let bdSuffix = "";
+        let dice = "2d6";
+       
+       if (careerName != "none") {
+            let careers = this.data.items.filter(function(item) {return item.type == "career"});
+            // console.log("Career Items: ", careers);
+            let thisCareer = careers.filter(function(item) { return item.name == careerName});
+
+            let itemId = thisCareer[0]._id;
+       
+            cVal = this.getOwnedItem(itemId).data.data.rank;
+
+       }
+
+       bdNum == "None" ? dice = dice : dice = (Number(bdNum) + 2) + "d6kh2";
+
+       attr == "none" ? attrVal = 0 : attrVal = this.data.data.main_attributes[attr].rank;
+       combat == "none" ? comVal = 0 : comVal = this.data.data.combat_attributes[combat].rank;
+        // carVal = item.rank;
+        // console.log("Attr, Combat, Career: " + attrVal, comVal, cVal);
+
+       let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + bonus + "-" + penalty;
+
+       console.log(rollExpr);
+       return rollExpr;
     }
 
 }

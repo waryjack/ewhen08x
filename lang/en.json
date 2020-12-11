@@ -25,11 +25,15 @@
     "EW.game_term.trait_source": "Trait Source",
     "EW.game_term.temporary": "Temporary",
     "EW.game_term.description": "Description",
+    "EW.game_term.bonusdice": "Bonus Dice",
+    "EW.game_term.penaltydice": "Penalty Dice",
+    "EW.game_term.weapons": "Weapons",
 
     "EW.rolltype.attributeroll": "Attribute Roll",
     "EW.rolltype.combatroll": "Combat Roll",
     "EW.rolltype.careerroll": "Career Roll",
     "EW.rolltype.basicroll": "Basic Roll",
+    "EW.rolltype.taskroll": "Task Roll",
     
     "EW.sheet.newcareer": "New Career",
     "EW.sheet.newboon": "New Boon",
@@ -73,6 +77,9 @@
     "EW.trait.type.boon": "Boon",
     "EW.trait.type.flaw": "Flaw",
     "EW.trait.type.power": "Power",
+
+    "EW.item.type.weapon": "Weapon",
+    "EW.item.type.equipment": "Equipment",
 
     "EW.creature.size.tiny": "Tiny",
     "EW.creature.size.small": "Small",

@@ -9,7 +9,8 @@ export default class EWActorSheet extends ActorSheet {
         return mergeObject(super.defaultOptions, {
         classes: ['ewhen', 'sheet', 'actor', 'actor-sheet'],
         width: 750,
-        height: 685
+        height: 685,
+        left:120
         });
     }
     

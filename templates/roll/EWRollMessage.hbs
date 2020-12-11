@@ -1,0 +1,23 @@
+<form class="ewhen roll-dialog">
+ <header class="roll-header taskroll-info">
+        <h1 class="roll-name">{{localize (proper d.chosenAttribute)}} Roll
+            <div class="taskroll-final {{outclass}}" style="">
+                {{roll.total}}
+            </div>
+        </h1>
+</header>
+<div class="taskroll-msg">
+    <p> <strong>{{#proper d.chosenAttribute}}{{/proper}} ({{d.attrVal}})</strong>
+        {{#if (ne d.chosenCombat "none")}} <strong>+ {{#proper d.chosenCombat}}{{/proper}} ({{d.comVal}})</strong>{{/if}}
+        {{#if (ne d.chosenCareer "none")}} <strong>+ {{d.chosenCareer}} ({{d.cVal}})</strong>{{/if}}
+        {{#if (ne d.mods 0)}} {{#if (gt d.mods 0)}}<strong>+</strong>{{/if}} <strong>{{d.mods}}</strong>{{/if}}
+    </p>
+    <p class="taskroll-dmods"><strong>{{localize "EW.game_term.bonusdice"}}:</strong> {{d.bdNum}} <strong>{{localize "EW.game_term.penaltydice"}}: </strong>0</p>
+</div>
+<div class="taskroll-tt">
+    <hr>
+    <div>{{tooltip}}</div>
+</div>
+<div class="taskroll-outcome {{outclass}}">
+    {{outcome}}
+</div>

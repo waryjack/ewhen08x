@@ -33,7 +33,7 @@ export class EWActor extends Actor {
         // Stub
     }
 
-    basicRoll() {
+   basicRoll() {
         const pri = duplicate(this.data.data.main_attributes);
         const com = duplicate(this.data.data.combat_attributes);
         const car = this.items.filter(function(item) {return item.type == "career"});
@@ -54,12 +54,18 @@ export class EWActor extends Actor {
                     roll: {
                      icon: '<i class="fas fa-check"></i>',
                      label: "Yes",
-                     callback: (html) => { 
-                        let expr = this.assembleRollExpression(html); 
-                        let r = new Roll(expr);
-                        r.roll().toMessage();                   
+                     callback: async (html) => { 
                         
+                        let rollInfo = this.assembleRollInfo(html); 
+                        let r = new Roll(rollInfo.expr);
+                        r.evaluate();
+                        let tt = await r.getTooltip();
+                        console.log("Rendered tooltip: ", tt);
+                        this.showRollMessage(r, tt, rollInfo);
+                        
+   
                         console.log("Clicked Roll"); return; }
+
                     },
                     close: {
                      icon: '<i class="fas fa-times"></i>',
@@ -169,7 +175,7 @@ export class EWActor extends Actor {
         
     }
 
-    assembleRollExpression(html) {
+    assembleRollInfo(html) {
         var attrVal = 0;
         var comVal = 0;
         var cVal = 0;
@@ -195,16 +201,86 @@ export class EWActor extends Actor {
        }
 
        bdNum == "None" ? dice = dice : dice = (Number(bdNum) + 2) + "d6kh2";
-
+       let totalMods = Number(bonus) - Number(penalty);
        attr == "none" ? attrVal = 0 : attrVal = this.data.data.main_attributes[attr].rank;
        combat == "none" ? comVal = 0 : comVal = this.data.data.combat_attributes[combat].rank;
         // carVal = item.rank;
         // console.log("Attr, Combat, Career: " + attrVal, comVal, cVal);
 
-       let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + bonus + "-" + penalty;
+       let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + totalMods;
 
-       console.log(rollExpr);
-       return rollExpr;
+       let rollInfo = {
+           expr: rollExpr,
+           chosenAttribute: attr,
+           chosenCombat: combat,
+           chosenCareer: careerName,
+           attrVal: attrVal,
+           comVal: comVal,
+           cVal: cVal,
+           bonus: bonus,
+           penalty: penalty,
+           mods: totalMods,
+           bdNum: bdNum,
+           tt:""
+       }
+       console.log(rollInfo);
+       return rollInfo;
+    }
+
+    showRollMessage(roll, tt, dlg){
+        console.log("RollData", roll);
+        console.log("Tooltip", tt);
+        console.log("Dlg: ", dlg);
+        var outcome = "";
+        var outcomeClass = "";
+
+        let keptDice = roll.terms[0].values;
+        let total = roll.total;
+        let mightyThreshold = 9 + Number(dlg.penalty);
+
+        console.log("Roll total: ", total);
+        console.log("Roll kept dice: ", keptDice)
+        console.log("Might threshold: ", mightyThreshold );
+
+        
+        if (keptDice[0]==6 && keptDice[1]==6 && mightyThreshold <= 12){
+            outcome = "Mighty Success!";
+            outcomeClass = "roll-mighty-sux";
+        } else if (keptDice[0] == 6 && keptDice[1]==6) {
+            outcome = "Automatic Success!";
+            outcomeClass = "roll-auto-sux";
+        } else if (keptDice[0]==1 && keptDice[1]==1) {
+            outcome = "Automatic Failure!";
+            outcomeClass = "roll-auto-fail";
+        } else if (total >= 9) {
+            outcome = "Success!";
+            outcomeClass = "roll-sux";
+        } else if (total < 9 ) {
+            outcome = "Failure!";
+            outcomeClass = "roll-fail";
+        }
+
+        let chatData = {
+            roll: roll,
+            tooltip: new Handlebars.SafeString(tt),
+            d: dlg,
+            outcome: outcome,
+            outclass: outcomeClass
+        }
+
+        renderTemplate('systems/ewhen/templates/roll/EWRollMessage.hbs', chatData).then((msg)=>{
+            ChatMessage.create({
+                user: game.user._id,
+                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
+                speaker: ChatMessage.getSpeaker(),
+                content: msg
+            });
+            
+
+
+        });
+        
+
     }
 
 }

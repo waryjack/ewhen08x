@@ -1,6 +1,6 @@
 <form class="ewhen roll-dialog">
  <header class="roll-header">
-        <h1 class="roll-name">{{localize "EW.rolltype.basicroll"}}</h1>
+        <h1 class="ewhen roll-name">{{localize "EW.rolltype.basicroll"}}</h1>
     </header>
 
 {{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
@@ -10,7 +10,7 @@
      <div class="form-group">
          <label for="att">Main Attribute</label>
          <select id="pattr" style="width:100%;" name="primary" data-main-att="primary">
-             <option id="none" value="none" selected></option>
+
             {{#select primary}}
                 {{#each primary as |a name|}}
                     <option value="{{name}}">{{localize (proper name)}}</option>

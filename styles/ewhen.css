@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cuprum:wght@400;500;700&display=swap');
+
 * {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -126,11 +128,20 @@ h3 {
 }
 
 .traitsheet-header {
-
+  font-family:"Cuprum", sans-serif;
+  text-transform:uppercase;
+  font-weight: 400;
   display:flex;
   flex-direction:row;
   background:rgb(27, 27, 31);
   color:white;
+}
+
+.ewhen .roll-name {
+  font-family:"Cuprum", sans-serif;
+  font-weight:700;
+  display:flex;
+  flex-direction:row;
 }
 
 .track {
@@ -140,15 +151,6 @@ h3 {
 .item-create {
   margin-left:auto;
   margin-right:3px;
-}
-
-.ewhen .lb-track {
-
-}
-
-.ewhen .rs-track {
-
-
 }
 
 .ewhen .health {
@@ -174,4 +176,53 @@ h3 {
 
 .res-box {
   font-size:1.55em;
+}
+
+.taskroll-final {
+  text-align:center; 
+  width:3ch;
+  margin-left:auto;
+  margin-bottom:2px;
+  margin-right:2px;
+  background:rgb(46, 41, 41); 
+  color:white;
+  border:1px solid rgb(0, 0, 0);
+  -webkit-border-radius: 4px; 
+  -moz-border-radius: 4px; 
+  border-radius: 4px; 
+}
+
+.taskroll-tt {
+  display:none;
+}
+
+.roll-auto-sux {
+  background:green;
+}
+
+.roll-mighty-sux {
+  background:gold;
+  color:black;
+}
+
+.roll-fail, .roll-auto-fail {
+  background:rgb(110, 0, 0);
+  color:white;
+}
+
+.taskroll-outcome {
+  letter-spacing:0.1em;
+  border:1px solid black;
+  text-align:center;
+  text-transform:uppercase;
+  font-size:1.15em;
+}
+
+.taskroll-dmods {
+  font-size:0.85em;
+}
+
+.ewhen .charimg {
+  width: 64px;
+  height:64px !important;
 }

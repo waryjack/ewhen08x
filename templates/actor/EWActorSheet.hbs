@@ -1,6 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="ewhen sheet-header">
-        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
+        <img class="ewhen charimg" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
         <h1 class="charname">
             <input class="ewhen charname" style="background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
         </h1>
@@ -190,9 +190,7 @@
                         {{/ife}}
                         {{/each}}
                     </table>
-                </div>
-                <div class="ewhen flex-item">
-                            <h3 class="traitsheet-header"><div>{{localize "EW.game_term.flaws"}}</div>
+                    <h3 class="traitsheet-header"><div>{{localize "EW.game_term.flaws"}}</div>
                         <a class="item-create" title="Add Flaw" data-type="trait" data-sub-type="flaw">
                             <i class="fas fa-plus-square"></i>
                         </a>
@@ -215,9 +213,7 @@
                         {{/ife}}
                         {{/each}}
                     </table>
-                </div>
-                <div class="ewhen flex-item">
-                     <h3 class="traitsheet-header"><div>{{localize "EW.game_term.powers"}}</div>
+                    <h3 class="traitsheet-header"><div>{{localize "EW.game_term.powers"}}</div>
                         <a class="item-create" title="Add Power" data-type="power">
                             <i class="fas fa-plus-square"></i>
                         </a>
@@ -225,12 +221,9 @@
                     <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
                         {{#each powers as |power id|}}
                         <tr>
-                            <td class="item-name">{{power.name}}<br>{{power.data.description}}<br><i>{{power.data.source}}{{#if power.data.isTemporary}},temporary{{/if}}</i></td>
+                            <td class="item-name item" data-item-id="{{power._id}}">
+                                <a class="item-edit" title="Edit">{{power.name}} (<i>{{power.data.source}}{{#if power.data.isTemporary}},temporary{{/if}}</i>)</a><br>{{power.data.description}}</td>
                             <td>
-                                <a class="item-delete item" data-item-id="{{power._id}}">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                                <td>
                                 <a class="item-delete item" data-item-id="{{power._id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -239,7 +232,28 @@
                         </tr>
                         {{/each}}
                     </table>
-                </div>	
+                </div>
+                <div class="ewhen flex-item">
+                     <h3 class="traitsheet-header"><div>{{localize "EW.game_term.weapons"}}</div>
+                        <a class="item-create" title="Add Weapon" data-type="weapon">
+                            <i class="fas fa-plus-square"></i>
+                        </a>
+                    </h3>
+                    <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                        {{#each weapons as |weapon id|}}
+                        <tr>
+                            <td class="item-name item" data-item-id="{{weapon._id}}">
+                                <a class="item-edit" title="Edit">{{weapon.name}}</a><br>{{weapon.data.description}}<br><i>{{weapon.data.source}}</i></td>
+                            <td>
+                                <a class="item-delete item" data-item-id="{{weapon._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                </div>		
             </div>
     </section>
     <!--section style="display:inline-flex; border:1px solid white; height:100%; width:128px; clear:both;" class="sidebar">

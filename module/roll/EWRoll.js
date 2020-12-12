@@ -9,8 +9,14 @@ export class EWRoll {
         // console.log("Constructor data: ", data);
         this.html = data.html;
         this.actor = data.actor;
+        this.isDamage = data.isDamage;
+        this.item = data.item;
 
-        this.compileRollInfo();
+        if(this.isDamage){
+            this.compileDamageRollInfo();
+        } else {
+            this.compileRollInfo();
+        }
        //  console.log("This.actor: ", this.actor, "This.html: ", this.html);
     }
 
@@ -19,15 +25,27 @@ export class EWRoll {
         var attrVal = 0;
         var comVal = 0;
         var cVal = 0;
+        let bdNum = 0;
+        let pdNum = 0;
+        let totalDiceMods = 0;
 
         let attr = this.html.find("#pattr").val().toLowerCase();
         let combat = this.html.find("#cattr").val().toLowerCase();
         let bonus = this.html.find("#bonus").val();
         let penalty = this.html.find("#penalty").val();
         let careerName = this.html.find("#career").val();
-        let bdNum = this.html.find("#bdice").val();
-        let bdSuffix = "";
+        bdNum = Number(this.html.find("#bdice").val());
+        pdNum = Number(this.html.find("#pdice").val());
+        let diceSuffix = "kh2";
         let dice = "2d6";
+        totalDiceMods = bdNum - pdNum;
+ 
+
+        if (totalDiceMods != 0) {
+            totalDiceMods > 0 ? diceSuffix = diceSuffix : diceSuffix = "kl2";
+            let diceCount = Math.abs(totalDiceMods) + 2;
+            dice = diceCount + "d6" + diceSuffix;
+        }
        
        if (careerName != "none") {
             let careers = this.actor.data.items.filter(function(item) {return item.type == "career"});
@@ -40,7 +58,7 @@ export class EWRoll {
 
        }
 
-       bdNum == "None" ? dice = dice : dice = (Number(bdNum) + 2) + "d6kh2";
+      
        let totalMods = Number(bonus) - Number(penalty);
        attr == "none" ? attrVal = 0 : attrVal = this.actor.data.data.main_attributes[attr].rank;
        combat == "none" ? comVal = 0 : comVal = this.actor.data.data.combat_attributes[combat].rank;
@@ -61,6 +79,7 @@ export class EWRoll {
            penalty: penalty,
            mods: totalMods,
            bdNum: bdNum,
+           pdNum: pdNum,
            tt:""
        }
        console.log(rollInfo);
@@ -68,7 +87,65 @@ export class EWRoll {
 
     }
 
-    roll() {
+
+    compileDamageRollInfo(){
+
+        console.log("Weapon item: ", this.item);
+        var bonus = 0;
+        var penalty = 0;
+        var bdNum = 0;
+        var pdNum = 0;
+        var friendlyDmgExtension = "";
+
+        // Weapon / item details
+        let wpnName = this.item.data.name;
+        console.log("wpn name: ", wpnName);
+
+        let wpnImg = this.item.data.img;
+
+        let wpnDmg = this.item.data.data.damage.dice;
+        let wpnAttrib = this.item.data.data.damage.add_attribute;
+        let wpnHalfAtt = this.item.data.data.damage.half_attribute;
+
+        if(wpnAttrib != "none") {
+            let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
+            friendlyDmgExtension = wpnHalfAtt ? "+ 1/2 " + properAttrib : "+ "+properAttrib;
+        }
+
+        bonus = this.html.find("#bonus").val();
+        penalty = this.html.find("#penalty").val();
+
+       
+       // Not handling weapon bonus/penalty dice right now
+
+        // bdNum = Number(this.html.find("#bdice").val());
+       // pdNum = Number(this.html.find("#pdice").val());
+
+
+
+        let totalMods = bonus - penalty;
+        let dmgExpr = wpnDmg + "+" + totalMods;
+
+        let rollInfo = {
+            friendlyExt: friendlyDmgExtension,
+            expr: dmgExpr,
+            bonus: bonus,
+            penalty: penalty,
+            mods: totalMods,
+            bdNum: bdNum,
+            pdNum: pdNum,
+            tt:"",
+            wpnName: wpnName,
+            wpnImg: wpnImg,
+            wpnDmg: wpnDmg
+        }
+
+      
+        this.rollInfo = rollInfo;
+
+    }
+
+    rollDice() {
         var tip;
         // this.assembleRollInfo();
         let r = new Roll(this.rollInfo.expr);
@@ -77,7 +154,7 @@ export class EWRoll {
 
     }
 
-    toMessage(tt) {
+    createChatMessage(tt) {
         var outcome = "";
         var outcomeClass = "";  
         
@@ -124,6 +201,30 @@ export class EWRoll {
 
         });
         
+
+    }
+
+    createDamageMessage(tt) {
+
+        let chatData = {
+            roll: this.rollObj,
+            tooltip: new Handlebars.SafeString(tt),
+            d: this.rollInfo,
+            outcome: "",
+            outclass: "roll-sux"
+        }
+
+        console.log("D mods: ", chatData.d.mods);
+
+        renderTemplate('systems/ewhen/templates/roll/EWDamageMessage.hbs', chatData).then((msg)=>{
+            ChatMessage.create({
+                user: game.user._id,
+                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
+                speaker: ChatMessage.getSpeaker(),
+                content: msg
+            });
+        });
+
 
     }
 

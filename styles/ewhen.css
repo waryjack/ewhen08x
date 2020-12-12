@@ -222,6 +222,10 @@ h3 {
   font-size:0.85em;
 }
 
+.dmgroll-msg {
+  font-size: 1.25em;
+}
+
 .ewhen .charimg {
   width: 64px;
   height:64px !important;
@@ -232,4 +236,10 @@ h3 {
   font-family:'Cuprum', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.weapon-image:hover img {
+  content: url('../assets/dice-target.svg');
+  filter:invert(1);
+
 }

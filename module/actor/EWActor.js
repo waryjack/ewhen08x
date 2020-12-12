@@ -57,7 +57,9 @@ export class EWActor extends Actor {
         let dialogData = {
             primary: pri,
             combat: com,
-            careers: car
+            careers: car,
+            attr: "",
+            isCombat: false
         }
 
         renderTemplate('systems/ewhen/templates/roll/EWBasicRoll.hbs', dialogData).then((dlg) => {
@@ -72,11 +74,13 @@ export class EWActor extends Actor {
                       //  console.log("passed html: ", html); 
                         let rdata = {
                             html: html,
-                            actor: this
+                            actor: this,
+                            isDamage: false,
+                            item: null
                         };
                         let ewroll = new EWRoll(rdata);
-                        ewroll.roll();
-                        ewroll.rollObj.getTooltip().then((tt) => ewroll.toMessage(tt));
+                        ewroll.rollDice();
+                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt));
                         }
                     },
                     close: {
@@ -155,144 +159,153 @@ export class EWActor extends Actor {
 
     }
 
-    rollAttribute(attr){
+    rollAttribute(attr, attr2, isCombat, optStr){
         
         const ma = duplicate(this.data.data.main_attributes);
         const ca = duplicate(this.data.data.combat_attributes);
+        const cr = duplicate(this.data.items.filter(function(item) {return item.type == "career"}));
+        var item = null;
+        var itemImg = "";
+        var itemName = "";
+        var isWeapon = false;
 
-        let mrank =ma.rank;
-        let crank =ca.rank;
-        var dlg; // eventually build the roll dialog
-
-        let r = new Dialog({
-            title: game.i18n.localize("EW.rolltype.attributeroll"),
-            content: dlg,
-            buttons: {
-             one: {
-              icon: '<i class="fas fa-dice-six"></i>',
-              label: "Roll",
-              callback: () => { return; }
-             },
-             two: {
-              icon: '<i class="fas fa-times"></i>',
-              label: "Cancel",
-              callback: () => { return; }
-             }
-            },
-            default: "two",
-            render: html => console.log("User triggered roll"),
-            close: html => console.log("Roll Dialog Closed")
-           });
-           d.render(true);
-        
-    }
-
-    assembleRollInfo(html) {
-        var attrVal = 0;
-        var comVal = 0;
-        var cVal = 0;
-
-        let attr = html.find("#pattr").val().toLowerCase();
-        let combat = html.find("#cattr").val().toLowerCase();
-        let bonus = html.find("#bonus").val();
-        let penalty = html.find("#penalty").val();
-        let careerName = html.find("#career").val();
-        let bdNum = html.find("#bdice").val();
-        let bdSuffix = "";
-        let dice = "2d6";
-       
-       if (careerName != "none") {
-            let careers = this.data.items.filter(function(item) {return item.type == "career"});
-            // console.log("Career Items: ", careers);
-            let thisCareer = careers.filter(function(item) { return item.name == careerName});
-
-            let itemId = thisCareer[0]._id;
-       
-            cVal = this.getOwnedItem(itemId).data.data.rank;
-
-       }
-
-       bdNum == "None" ? dice = dice : dice = (Number(bdNum) + 2) + "d6kh2";
-       let totalMods = Number(bonus) - Number(penalty);
-       attr == "none" ? attrVal = 0 : attrVal = this.data.data.main_attributes[attr].rank;
-       combat == "none" ? comVal = 0 : comVal = this.data.data.combat_attributes[combat].rank;
-        // carVal = item.rank;
-        // console.log("Attr, Combat, Career: " + attrVal, comVal, cVal);
-
-       let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + totalMods;
-
-       let rollInfo = {
-           expr: rollExpr,
-           chosenAttribute: attr,
-           chosenCombat: combat,
-           chosenCareer: careerName,
-           attrVal: attrVal,
-           comVal: comVal,
-           cVal: cVal,
-           bonus: bonus,
-           penalty: penalty,
-           mods: totalMods,
-           bdNum: bdNum,
-           tt:""
-       }
-       console.log(rollInfo);
-       return rollInfo;
-    }
-
-    showRollMessage(roll, tt, dlg){
-        console.log("RollData", roll);
-        console.log("Tooltip", tt);
-        console.log("Dlg: ", dlg);
-        var outcome = "";
-        var outcomeClass = "";
-
-        let keptDice = roll.terms[0].values;
-        let total = roll.total;
-        let mightyThreshold = 9 + Number(dlg.penalty);
-
-        console.log("Roll total: ", total);
-        console.log("Roll kept dice: ", keptDice)
-        console.log("Might threshold: ", mightyThreshold );
-
-        
-        if (keptDice[0]==6 && keptDice[1]==6 && mightyThreshold <= 12){
-            outcome = "Mighty Success!";
-            outcomeClass = "roll-mighty-sux";
-        } else if (keptDice[0] == 6 && keptDice[1]==6) {
-            outcome = "Automatic Success!";
-            outcomeClass = "roll-auto-sux";
-        } else if (keptDice[0]==1 && keptDice[1]==1) {
-            outcome = "Automatic Failure!";
-            outcomeClass = "roll-auto-fail";
-        } else if (total >= 9) {
-            outcome = "Success!";
-            outcomeClass = "roll-sux";
-        } else if (total < 9 ) {
-            outcome = "Failure!";
-            outcomeClass = "roll-fail";
+        if(optStr != "") {
+            item = this.actor.getOwnedItem(optStr);
+            itemImg = item.img;
+            itemName = item.name;
+            isWeapon = true;
         }
 
-        let chatData = {
-            roll: roll,
-            tooltip: new Handlebars.SafeString(tt),
-            d: dlg,
-            outcome: outcome,
-            outclass: outcomeClass
+        let dialogData = {
+            primary: ma,
+            combat: ca,
+            careers: cr,
+            attr: attr,
+            attr2: attr2,
+            isCombat: isCombat,
+            isWeapon: isWeapon,
+            itemImg: itemImg,
+            itemName: itemName
         }
 
-        renderTemplate('systems/ewhen/templates/roll/EWRollMessage.hbs', chatData).then((msg)=>{
-            ChatMessage.create({
-                user: game.user._id,
-                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessage.getSpeaker(),
-                content: msg
-            });
-            
-
+        console.log("Attrib Roll selected attrib: ", attr);
+        console.log("IsCombat? ", isCombat);
+        console.log("Dialog Data: ", dialogData);
+      
+        renderTemplate('systems/ewhen/templates/roll/EWBasicRoll.hbs', dialogData).then((dlg) => {
+            new Dialog({
+                title:game.i18n.localize("EW.rolltype.basicroll"),
+                content: dlg,
+                buttons: {
+                    roll: {
+                     icon: '<i class="fas fa-check"></i>',
+                     label: "Roll",
+                     callback: (html) => {
+                      //  console.log("passed html: ", html); 
+                        let rdata = {
+                            html: html,
+                            actor: this,
+                            isDamage: false,
+                            item: null
+                        };
+                       let ewroll = new EWRoll(rdata);
+                       ewroll.rollDice();
+                       ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt));
+                       }
+                    },
+                    close: {
+                     icon: '<i class="fas fa-times"></i>',
+                     label: "Cancel",
+                     callback: () => { console.log("Clicked Cancel"); return; }
+                    }
+                   },
+                default: "close"
+            }).render(true);
 
         });
         
-
     }
+
+    rollWeaponDamage(weapon) {
+
+        let weaponData = weapon.data.data;
+
+        var baseExpr;
+        var addAttr = "none";
+        var half;
+        var miscMod = 0;
+        var attRank = 0;
+
+      
+
+        let weaponDamage = weaponData.damage;
+        let wName = weapon.name;
+        let wImg = weapon.img;
+        let range = weaponData.range;
+      
+        baseExpr = weaponDamage.dice;
+        addAttr = weaponDamage.add_attribute;
+        half = weaponDamage.half_attribute;
+        miscMod = weaponDamage.mod;
+
+        if (addAttr != "none") {
+            attRank = this.data.data.main_attributes[addAttr].rank;
+        } else {
+            attRank = 0
+        }
+
+        let attMod = half ? Math.floor(attRank) : attRank;
+
+        let finalExpr = baseExpr + "+" + attMod + "+" + miscMod;
+
+        let dialogData = {
+            wname: wName,
+            wimg: wImg,
+            range: range,
+            baseExpr: baseExpr,
+            attName: addAttr,
+            half:half,
+            attMod: attMod,
+            miscMod: miscMod,
+            finalExpr: finalExpr
+        }
+
+
+        renderTemplate('systems/ewhen/templates/roll/EWDamageRoll.hbs', dialogData).then((dlg) => {
+            new Dialog({
+                title:game.i18n.localize("EW.rolltype.damageroll"),
+                content: dlg,
+                buttons: {
+                    roll: {
+                     icon: '<i class="fas fa-check"></i>',
+                     label: "Roll",
+                     callback: (html) => {
+                      //  console.log("passed html: ", html); 
+                        let rdata = {
+                            html: html,
+                            actor: this,
+                            isDamage: true,
+                            item: weapon
+                        };
+                      let ewroll = new EWRoll(rdata);
+                      ewroll.rollDice();
+                      ewroll.rollObj.getTooltip().then((tt) => ewroll.createDamageMessage(tt));
+                       }
+                    },
+                    close: {
+                     icon: '<i class="fas fa-times"></i>',
+                     label: "Cancel",
+                     callback: () => { console.log("Clicked Cancel"); return; }
+                    }
+                   },
+                default: "close"
+            }).render(true);
+
+        });
+
+        
+    }
+
+  
 
 }

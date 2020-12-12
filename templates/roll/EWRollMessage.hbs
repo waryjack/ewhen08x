@@ -12,7 +12,9 @@
         {{#if (ne d.chosenCareer "none")}} <strong>+ {{d.chosenCareer}} ({{d.cVal}})</strong>{{/if}}
         {{#if (ne d.mods 0)}} {{#if (gt d.mods 0)}}<strong>+</strong>{{/if}} <strong>{{d.mods}}</strong>{{/if}}
     </p>
-    <p class="taskroll-dmods"><strong>{{localize "EW.game_term.bonusdice"}}:</strong> {{d.bdNum}} <strong>{{localize "EW.game_term.penaltydice"}}: </strong>0</p>
+    <p class="taskroll-dmods">
+        <strong>{{localize "EW.game_term.dice"}}:</strong><i class="fas fa-dice-d6"></i><i class="fas fa-dice-d6"></i>{{#times d.bdNum}}<i class="fas fa-dice-d6" style="color:rgb(10, 80, 10);"></i>{{/times}}{{#times d.pdNum}}<i class="fas fa-dice-d6" style="color:rgb(160, 2, 2);"></i>{{/times}}
+    </p>
 </div>
 <div class="taskroll-tt">
     <hr>

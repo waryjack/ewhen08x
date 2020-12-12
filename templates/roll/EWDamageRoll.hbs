@@ -1,0 +1,66 @@
+<form class="ewhen roll-dialog">
+ <header class="roll-header">
+        <h1 class="ewhen roll-name">{{localize "EW.rolltype.damageroll"}}</h1>
+    </header>
+
+{{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
+{{!-- combat - combat attributes object - combat.(attribute), blah blah .rank --}}
+{{!-- careers - careers object - career, (career).rank --}}
+ <div class="ewhen roll-dialog">
+     <h2>{{localize "EW.dialog.weaponinfo"}}</h2>
+     <div class="ewhen wpn-info">
+         <table>
+            <tr class=".wpn-dmg-info" data-display="{{localize baseExpr}}" data-formula="{{finalExpr}}">
+                <td id="wimg" style="width:40px;" data-wpn-img="{{wimg}}"><img src="{{wimg}}" height="32" width="32"></td>
+                <td id="wname" style="text-align:left"><span style="font-size:1.5em" data-wpn-name="{{wname}}">{{wname}}</span> {{#if (ne range 0)}}<br><span style="font-size:1.1em">(Range {{range}})</span>{{/if}}</td>
+                <td id="dmg" style="text-align:center; font-size:1.5em;">{{localize baseExpr}}
+                    
+                    {{#if (ne attName "none")}} + {{#if half}} &#189;{{/if}} {{attName}}{{/if}}
+                </td>
+            </tr>
+
+         </table>
+         <p>
+     </div>
+     <div class="form-group">
+         <table>
+             <tr>
+                 <th>{{localize "EW.game_term.bonuses"}}</th>
+                 <th>{{localize "EW.game_term.penalties"}}</th>
+             </tr>
+             <tr>
+                 <td>
+                    <input id="bonus" type="text" value="0" data-dtype="Number"/>
+                 </td>
+                 <td>
+                     <input id="penalty" type="text" value="0" data-dtype="Number"/>
+                 </td>
+             </tr>
+             <tr>
+             <!--th>{{localize "EW.game_term.bonusdice"}}</th>
+             <th>{{localize "EW.game_term.penaltydice"}}</th>
+             </tr>
+             <tr>
+                 <td>
+                    <select id="bdice" style="width:100%" name="bdice">
+                        <option value="0" selected>None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                 </td>
+                 <td>
+                    <select id="pdice" style="width:100%" name="pdice">
+                        <option value="0" selected>None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                 </td>
+             </tr-->
+         </table>         
+     </div>
+ </div>
+
+
+</form>

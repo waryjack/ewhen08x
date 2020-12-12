@@ -14,6 +14,8 @@
     "EW.game_term.attributes.attribute": "Attribute",
     "EW.game_term.attributes.main": "Main Attributes",
     "EW.game_term.attributes.combat": "Combat Attributes",
+    "EW.game_term.attribute.singular.main": "Main Attribute",
+    "EW.game_term.attribute.singular.combat": "Combat Attribute",
     "EW.game_term.resource_pools": "Resource Pools",
     "EW.game_term.boons": "Boons",
     "EW.game_term.flaws": "Flaws",
@@ -26,6 +28,9 @@
     "EW.game_term.trait_source": "Trait Source",
     "EW.game_term.temporary": "Temporary",
     "EW.game_term.description": "Description",
+    "EW.game_term.bonuses": "Bonuses",
+    "EW.game_term.penalties": "Penalties",
+    "EW.game_term.dicemods": "Bonus/Penalty Dice",
     "EW.game_term.bonusdice": "Bonus Dice",
     "EW.game_term.penaltydice": "Penalty Dice",
     "EW.game_term.weapons": "Weapons",
@@ -39,6 +44,7 @@
     "EW.game_term.recoil": "Recoil",
     "EW.game_term.era": "Era",
     "EW.game_term.halfattribute": "Halve?",
+    "EW.game_term.dice": "Dice",
 
     "EW.era.ancient": "Ancient",
     "EW.era.steampunk": "Steampunk",
@@ -52,6 +58,16 @@
     "EW.rolltype.careerroll": "Career Roll",
     "EW.rolltype.basicroll": "Basic Roll",
     "EW.rolltype.taskroll": "Task Roll",
+    "EW.rolltype.initiative": "Initiative Roll",
+    "EW.rolltype.defense": "Defense Roll",
+    "EW.rolltype.ranged": "Ranged Roll",
+    "EW.rolltype.melee": "Melee Roll",
+    "EW.rolltype.strength": "Strength Roll",
+    "EW.rolltype.agility": "Agility Roll",
+    "EW.rolltype.mind": "Mind Roll",
+    "EW.rolltype.appeal": "Appeal Roll",
+    "EW.rolltype.roll": "Roll",
+    "EW.rolltype.damageroll": "Damage Roll",
     
     "EW.sheet.newcareer": "New Career",
     "EW.sheet.newboon": "New Boon",
@@ -133,5 +149,7 @@
     "4d6kl3": "3d6L",
     "4d6kh3": "3d6H",
 
-    "EW.warnings.damageoverrun": "Total damage from all sources cannot exceed your max Lifeblood."
+    "EW.warnings.damageoverrun": "Total damage from all sources cannot exceed your max Lifeblood.",
+
+    "EW.dialog.weaponinfo": "Weapon Information"
 }

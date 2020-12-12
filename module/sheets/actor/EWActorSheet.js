@@ -51,19 +51,19 @@ export default class EWActorSheet extends ActorSheet {
 
         html.find('.item-edit').click(this._onItemEdit.bind(this));
 
-       // html.find('.career-roll').click(this._onRollCareer.bind(this));
+        html.find('.career-roll').click(this._onCareerRoll.bind(this));
 
         html.find('.item-delete').click(this._deleteItem.bind(this));
 
         html.find('.att-roll').click(this._onAttributeRoll.bind(this));
 
+       // html.find('.com-roll').click(this._onCombatRoll.bind(this));
+
         html.find('.basic-roll').click(this._onBasicRoll.bind(this));
 
         html.find('.adj-resource').click(this._adjustResource.bind(this));
-        // html.find('.com-roll').click(this._onCombatRoll.bind(this));
 
-        // html.find('.com-roll').click(this._onCombatRoll.bind(this));
-
+        html.find('.weapon-roll').click(this._onWeaponRoll.bind(this));
 
     }
 
@@ -77,7 +77,7 @@ export default class EWActorSheet extends ActorSheet {
         return this.actor.updateResource(res);
     }
 
-    _onRollCareer(event) {
+    _onCareerRoll(event) {
         event.preventDefault();
 
         let element = event.currentTarget;
@@ -99,21 +99,52 @@ export default class EWActorSheet extends ActorSheet {
 
     _onAttributeRoll(event) {
         event.preventDefault();
-        var rank;
+        var rank = 0;
+        var isCombat = false;
         let element = event.currentTarget;
         let attribute = element.dataset.attribute;
+        let attribute2 = "";
 
         let ma = ["strength", "agility", "mind", "appeal"];
         let ca = ["melee", "ranged", "defense", "initiative"];
 
         if(ca.includes(attribute)) {
             rank = this.actor.data.data.combat_attributes[attribute].rank;
+            isCombat = true;
         } else {
             rank = this.actor.data.data.main_attributes[attribute].rank;
         }
 
-        console.log("Attribute clicked:", attribute, " Rank: ", rank);
-       // return this.actor.basicRoll();
+        if(isCombat) {
+            switch (attribute) {
+
+                case "initiative": attribute2 = "mind"; break;
+                default: attribute2 = "agility";
+            }
+        }
+        
+
+        console.log("Attribute 1:", attribute, " Rank: ", rank);
+        console.log("Attribute 2: ", attribute2);
+        
+        return this.actor.rollAttribute(attribute, attribute2, isCombat, "");
+
+    }
+
+    _onWeaponRoll(event) {
+        event.preventDefault();
+
+        let att2 = "agility";
+        var att1;
+
+        let element = event.currentTarget;
+
+        let itemId = element.closest(".item").dataset.itemId;
+
+        let item = this.actor.getOwnedItem(itemId);
+        
+        return this.actor.rollWeaponDamage(item);
+
     }
 
     _onItemEdit(event) {
@@ -163,7 +194,7 @@ export default class EWActorSheet extends ActorSheet {
                     type: subtype
             }
         }
-        return this.actor.createOwnedItem(itemData);
+        return this.actor.createOwnedItem(itemData, {renderSheet:true});
          
       }
 

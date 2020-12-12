@@ -1,0 +1,23 @@
+<div class="ewhen flex-item">
+                        <h3 class="traitsheet-header"><div>{{localize "EW.game_term.careers"}}</div>
+                        <a class="item-create" title="Add Career" data-type="career">
+                            <i class="fas fa-plus-square"></i>
+                        </a>
+                    </h3>
+                    
+                    <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                        {{#each careers as |career id|}}
+                        <tr class="career-item item" data-item-id="{{career._id}}">
+                            <td><a class="career-roll"><i class="fas fa-dice-five"></i></a></td>
+                            <td><input class="career-name inline-edit" data-field="name" type="text" value="{{career.name}}" /></td>
+                            <td class="ewhen statfield"><input class="career-rank inline-edit" data-field="data.rank" type="text" value="{{career.data.rank}}" data-dtype="Number" maxwidth='3' size='3' /></td>
+                            <!--td style="text-align:right"><i class="fa fa-edit edit-career" data-item-id="{{item._id}}"></i><i style="margin-left:2px; margin-right:2px;" class="fa fa-trash"></i></td-->
+                            <td>
+                                <a class="item-delete item" data-item-id="{{career._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </table>        
+                </div>

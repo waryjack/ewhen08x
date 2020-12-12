@@ -10,11 +10,11 @@ export class EWRoll {
         this.html = data.html;
         this.actor = data.actor;
 
-        this.assembleRollInfo();
+        this.compileRollInfo();
        //  console.log("This.actor: ", this.actor, "This.html: ", this.html);
     }
 
-    assembleRollInfo() {
+    compileRollInfo() {
         console.log("EWRoll's html: ", this.html);
         var attrVal = 0;
         var comVal = 0;
@@ -68,7 +68,7 @@ export class EWRoll {
 
     }
 
-    rollDice() {
+    roll() {
         var tip;
         // this.assembleRollInfo();
         let r = new Roll(this.rollInfo.expr);
@@ -77,7 +77,7 @@ export class EWRoll {
 
     }
 
-    createChatMessage(tt) {
+    toMessage(tt) {
         var outcome = "";
         var outcomeClass = "";  
         

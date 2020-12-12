@@ -1,5 +1,6 @@
 // Imports
 
+import { preloadHandlebarsTemplates } from "./templates.js";
 import { EW } from "./config.js";
 import { EWActor } from "./actor/EWActor.js";
 // import { EWItem } from "./item/EWItem.js";
@@ -52,6 +53,11 @@ Hooks.once("init", () => {
     CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     // CONFIG.Item.entityClass = EWItem;
+
+    // Register partials templates
+    preloadHandlebarsTemplates();
+
+    // Register handlebar helpers
 
     Handlebars.registerHelper('ife', function(arg1, arg2, options) {
         return (arg1 == arg2) ? options.fn(this) : options.inverse(this);

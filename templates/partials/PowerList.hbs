@@ -1,0 +1,19 @@
+ <h3 class="traitsheet-header"><div>{{localize "EW.game_term.powers"}}</div>
+                        <a class="item-create" title="Add Power" data-type="power">
+                            <i class="fas fa-plus-square"></i>
+                        </a>
+                    </h3>
+                    <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                        {{#each powers as |power id|}}
+                        <tr>
+                            <td class="item-name item" data-item-id="{{power._id}}">
+                                <a class="item-edit" title="Edit">{{power.name}} (<i>{{power.data.source}}{{#if power.data.isTemporary}},temporary{{/if}}</i>)</a><br>{{power.data.description}}</td>
+                            <td>
+                                <a class="item-delete item" data-item-id="{{power._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </table>

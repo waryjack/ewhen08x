@@ -72,22 +72,11 @@ export class EWActor extends Actor {
                       //  console.log("passed html: ", html); 
                         let rdata = {
                             html: html,
-                            actor: this,
-                            dlg: dlg
+                            actor: this
                         };
                         let ewroll = new EWRoll(rdata);
-                        ewroll.rollDice();
-                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt));
-                        // ewroll.createChatMessage(); //.createChatMessage();
-                        /* let rollInfo = this.assembleRollInfo(html); 
-                        let r = new Roll(rollInfo.expr);
-                        r.evaluate();
-                        let tt = await r.getTooltip();
-                        console.log("Rendered tooltip: ", tt);
-                        this.showRollMessage(r, tt, rollInfo);
-                        
-   
-                        console.log("Clicked Roll"); return; } */
+                        ewroll.roll();
+                        ewroll.rollObj.getTooltip().then((tt) => ewroll.toMessage(tt));
                         }
                     },
                     close: {

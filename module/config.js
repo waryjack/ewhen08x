@@ -74,6 +74,27 @@ export const EW = {
         minor:'EW.entity.type.minor',
         lesser:'EW.entity.type.lesser',
         greater:'EW.entity.type.greater'
+    },
+    weapon_types: {
+        lightMelee: 'EW.weapontype.lightmelee',
+        heavyMelee: 'EW.weapontype.heavymelee',
+        lightRanged: 'EW.weapontype.lightranged',
+        heavyRanged: 'EW.weapontype.heavyranged'
+    },
+    weapon_hands: {
+        one: 'EW.weaponhands.onehanded',
+        two: 'EW.weaponhands.twohanded'
+    },
+    era: {
+        ancient: 'EW.eras.ancient',
+        steampunk: "EW.era.steampunk",
+        modern: "EW.era.modern",
+        cyberpunk: "EW.era.cyberpunk",
+        future: "EW.era.future",
+        other: "EW.era.other"
+    },
+    damage_expressions: {
+        
     }
 
 }

@@ -1,3 +1,5 @@
+import { EWRoll } from "../roll/EWRoll.js";
+
 export class EWActor extends Actor {
 
   // @override
@@ -24,9 +26,21 @@ export class EWActor extends Actor {
         data.resources.lifeblood.max = Number(str) + 10;
         console.log("LB Max", data.resources.lifeblood.max);
         data.resources.resolve.max = Number(mnd) + 10;
-        // data.resources.lifeblood.current = data.resources.lifeblood.max - data.resources.lifeblood.fatigue - data.resources.lifeblood.lasting;
-        // data.resources.resolve.current = data.resources.resolve.max - data.resources.resolve.fatigue - data.resources.resolve.lasting;
-
+       
+        if (data.resources.lifeblood.current == 0 
+            && data.resources.lifeblood.fatigue == 0
+             && data.resources.lifeblood.regular == 0 
+             && data.resources.lifeblood.lasting == 0) {
+            
+                data.resources.lifeblood.current = data.resources.lifeblood.max;
+        }
+        if (data.resources.resolve.current == 0 
+            && data.resources.resolve.fatigue == 0
+             && data.resources.resolve.regular == 0 
+             && data.resources.resolve.lasting == 0) {
+            
+                data.resources.resolve.current = data.resources.resolve.max;
+        }
     }
 
     _prepareVehicleData(actorData) {
@@ -54,9 +68,18 @@ export class EWActor extends Actor {
                     roll: {
                      icon: '<i class="fas fa-check"></i>',
                      label: "Yes",
-                     callback: async (html) => { 
-                        
-                        let rollInfo = this.assembleRollInfo(html); 
+                     callback: (html) => {
+                      //  console.log("passed html: ", html); 
+                        let rdata = {
+                            html: html,
+                            actor: this,
+                            dlg: dlg
+                        };
+                        let ewroll = new EWRoll(rdata);
+                        ewroll.rollDice();
+                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt));
+                        // ewroll.createChatMessage(); //.createChatMessage();
+                        /* let rollInfo = this.assembleRollInfo(html); 
                         let r = new Roll(rollInfo.expr);
                         r.evaluate();
                         let tt = await r.getTooltip();
@@ -64,8 +87,8 @@ export class EWActor extends Actor {
                         this.showRollMessage(r, tt, rollInfo);
                         
    
-                        console.log("Clicked Roll"); return; }
-
+                        console.log("Clicked Roll"); return; } */
+                        }
                     },
                     close: {
                      icon: '<i class="fas fa-times"></i>',

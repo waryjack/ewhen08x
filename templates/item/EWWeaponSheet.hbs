@@ -1,0 +1,101 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
+        <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </header>
+
+    <div>
+        <table>
+            <tr>
+                <th>{{localize "EW.game_term.weapontype"}}</th>
+                <th>{{localize "EW.game_term.era"}}</th>
+            </tr>
+            <tr>
+                    <td>
+                    <select style="width:100%;" name="data.wpn_type" id="data.wpn_type">
+                        {{#select data.wpn_type}}
+                        {{#each config.weapon_types as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    </td>
+                    <td>
+                    <select style="width:100%;" name="data.era" id="data.era">
+                        {{#select data.era}}
+                        <option value="none"></option>
+                        {{#each config.era as |era name|}}
+                        <option value="{{name}}">{{localize (proper name)}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </td>
+            </tr>
+            </table>
+            <table>
+                <th>{{localize "EW.game_term.damagedice"}}</th>
+                <th>{{localize "EW.game_term.attributes.attribute"}}</th>
+                <th>{{localize "EW.game_term.halfattribute"}}</th>
+                <th>{{localize "EW.game_term.modifier"}}</th>
+                <th>{{localize "EW.game_term.ap"}}</th>
+            </tr>
+            <tr>
+                <td style="text-align: center;"> 
+                    <select style="width:100%" name="data.damage.dice">
+                        {{#select data.damage.dice}}
+                        <option value="0">Attribute Only</option>
+                        <option value="1">1</option>
+                        <option value="1d3">d3</option>
+                        <option value="1d6">d6</option>
+                        <option value="2d6kl1">d6L</option>
+                        <option value="2d6kh1">d6H</option>
+                        <option value="3d6kl2">2d6L</option>
+                        <option value="2d6">2d6</option>
+                        <option value="3d6kh2">2d6H</option>
+                        <option value="4d6kl3">3d6L</option>
+                        <option value="3d6">3d6</option>
+                        <option value="4d6kh3">3d6H</option>
+                        {{/select}}
+                    </select>
+                   
+                </td>
+                <td>
+                    <select style="width:100%" name="data.damage.add_attribute" id="data.damage.add_attribute">
+                        {{#select data.damage.add_attribute}}
+                        <option value="none"></option>
+                        {{#each config.main_attributes as |a attr|}}
+                            <option value="{{attr}}">{{localize (proper attr)}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>    
+                </td>
+                <td>
+                    <input name="data.damage.half_attribute" type="checkbox" {{checked data.damage.half_attribute}} />
+                </td>
+                <td>
+                   <input class="ewhen statfield" type="text" name="data.damage.mod" value="{{data.damage.mod}}" data-dtype="Number"/>
+                </td>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.damage.ap" value="{{data.damage.ap}}" data-dtype="Number" />
+                </td>
+            </tr>
+            </table>
+            <table>
+              <tr>
+                <th>{{localize "EW.game_term.range"}}</th>
+                <th>{{localize "EW.game_term.recoil"}}</th>
+                <th>{{localize "EW.game_term.scale"}}</th>
+              </tr>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.range" value="{{data.range}}" data-dtype="Number"/>
+                </td>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.recoil" value="{{data.recoil}}" data-dtype="Number"/>
+                </td>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.damage.scale" value="{{data.damage.scale}}" data-dtype="Number"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>

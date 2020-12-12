@@ -89,10 +89,9 @@
             </div>
             <div class="ewhen flexrow">
                 <div class="ewhen flex-item healthbar">
-                    <hr>
-                    <table>
+                <table>
                     <tr>
-                        <td><a class="adj-resource" data-resource-name="lifeblood">{{localize "EW.attribute.resource.lifeblood"}}</a></td>
+                        <td><a class="adj-resource res-track" data-resource-name="lifeblood">{{localize "EW.attribute.resource.lifeblood"}}</a></td>
                         <td>
                             {{#times data.resources.lifeblood.lasting}}
                             <i class="fas fa-circle res-box"></i>
@@ -108,7 +107,7 @@
                             {{/times}}
                         
                         </td>
-                        <td><em>{{localize "EW.attribute.resource.critical"}}</em></td>
+                        <td class="res-track">{{localize "EW.attribute.resource.critical"}}</td>
                         <td>
                             {{#times data.resources.lifeblood.critical}}
                             <i class="fas fa-times-circle res-box"></i>
@@ -117,9 +116,14 @@
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
                         </td>
+                        <td style="border-left:2px">{{localize "EW.attribute.resource.hero_points"}}  
+                            <input class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
+                            {{localize "EW.attribute.resource.arcana_points"}} 
+                             <input class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>
+                        </td>
                     </tr>
                     <tr>
-                        <td><a class="adj-resource" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}}</a></td>
+                        <td><a class="adj-resource res-track" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}}</a></td>
                         <td>{{#times data.resources.resolve.lasting}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
@@ -133,7 +137,7 @@
                             <i class="far fa-dot-circle res-box"></i>
                             {{/times}}
                         </td>
-                        <td><em>{{localize "EW.attribute.resource.critical"}}</em></td>
+                        <td class="res-track">{{localize "EW.attribute.resource.critical"}}</td>
                         <td>{{#times data.resources.resolve.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
@@ -141,29 +145,15 @@
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
                         </td>
+                        <td>
+                            {{localize "EW.attribute.resource.faith_points"}} <input class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/>
+                            {{localize "EW.attribute.resource.psi_points"}}  <input class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>
+                        </td>
+
                     </tr>
                     </table>
-                    <table class="resource-bars">
-                    <tr>
-                        <td>{{localize "EW.attribute.resource.hero_points"}}  
-                            <input class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
-                            {{!--#times data.resources.hero_points}}
-                            <input type="checkbox" style="margin:1px;" />
-                            {{/times--}}
-                            </td>
-                        <td>{{localize "EW.attribute.resource.arcana_points"}} 
-                             <input class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>
-                             {{!--#times data.resources.arcana_points}}
-                             <input type="checkbox" style="margin:1px;"/>
-                             {{/times--}}
-                             </td>
-                        <td>{{localize "EW.attribute.resource.faith_points"}} 
-                            
-                            <input class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/></td>
-                        <td>{{localize "EW.attribute.resource.psi_points"}}  <input class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/></td>
-                    </tr>
-                    </table>
-                    <hr>
+                 
+                
                 </div>
             </div>
             <div class="ewhen flexrow">
@@ -243,7 +233,20 @@
                         {{#each weapons as |weapon id|}}
                         <tr>
                             <td class="item-name item" data-item-id="{{weapon._id}}">
-                                <a class="item-edit" title="Edit">{{weapon.name}}</a><br>{{weapon.data.description}}<br><i>{{weapon.data.source}}</i></td>
+                                <a class="item-edit" title="Edit"><strong>{{weapon.name}}</strong></a>
+                                <br><em>{{localize weapon.data.wpn_type}}, 
+                                        {{localize weapon.data.damage.dice}}
+                                        {{#if (ne weapon.data.damage.add_attribute "none")}}
+                                        +{{#if (eq weapon.data.damage.half_attribute true)}}
+                                        &#189;
+                                        {{/if}}
+                                        {{weapon.data.damage.add_attribute}}
+                                        {{/if}}
+                                        {{#if (ne weapon.data.damage.mod 0)}}
+                                        +{{weapon.data.damage.mod}}
+                                        {{/if}}
+                                        , AP{{weapon.data.damage.ap}} {{#if (gt weapon.data.range 0)}}, Range {{weapon.data.range}}{{/if}}  
+                                        {{#if (ne weapon.data.damage.scale 1)}}, scale {{weapon.data.damage.scale}}{{/if}}</em></td>
                             <td>
                                 <a class="item-delete item" data-item-id="{{weapon._id}}">
                                     <i class="fas fa-trash"></i>

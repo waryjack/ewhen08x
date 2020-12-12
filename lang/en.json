@@ -11,6 +11,7 @@
     "EW.attribute.combat.defense": "Defense",
     "EW.attribute.combat.initiative": "Initiative",
     
+    "EW.game_term.attributes.attribute": "Attribute",
     "EW.game_term.attributes.main": "Main Attributes",
     "EW.game_term.attributes.combat": "Combat Attributes",
     "EW.game_term.resource_pools": "Resource Pools",
@@ -28,6 +29,23 @@
     "EW.game_term.bonusdice": "Bonus Dice",
     "EW.game_term.penaltydice": "Penalty Dice",
     "EW.game_term.weapons": "Weapons",
+    "EW.game_term.weapontype": "Weapon Type",
+    "EW.game_term.damage": "Damage",
+    "EW.game_term.damagedice": "Damage Dice",
+    "EW.game_term.ap": "AP",
+    "EW.game_term.modifier": "Modifier",
+    "EW.game_term.hands": "Hands",
+    "EW.game_term.range": "Range",
+    "EW.game_term.recoil": "Recoil",
+    "EW.game_term.era": "Era",
+    "EW.game_term.halfattribute": "Halve?",
+
+    "EW.era.ancient": "Ancient",
+    "EW.era.steampunk": "Steampunk",
+    "EW.era.modern": "Modern",
+    "EW.era.cyberpunk": "Cyberpunk",
+    "EW.era.future": "Future",
+    "EW.era.other": "Other",
 
     "EW.rolltype.attributeroll": "Attribute Roll",
     "EW.rolltype.combatroll": "Combat Roll",
@@ -95,6 +113,25 @@
 
     "EW.activity.adjustlifeblood": "Update Lifeblood",
     "EW.activity.adjustresolve": "Update Resolve",
+
+    "EW.weapontype.lightmelee": "Light Melee",
+    "EW.weapontype.heavymelee": "Heavy Melee",
+    "EW.weapontype.lightranged": "Light Ranged",
+    "EW.weapontype.heavyranged": "Heavy Ranged",
+    "EW.weaponhands.onehanded": "One Handed",
+    "EW.weaponhands.twohanded": "Two Handed",
+
+    "lightMelee": "light melee",
+    "heavyMelee": "heavy melee",
+    "lightRanged": "light ranged",
+    "heavyRanged": "heavy ranged",
+
+    "2d6kl1": "d6L",
+    "2d6kh1": "d6H",
+    "3d6kl2": "2d6L",
+    "3d6kh2": "2d6H",
+    "4d6kl3": "3d6L",
+    "4d6kh3": "3d6H",
 
     "EW.warnings.damageoverrun": "Total damage from all sources cannot exceed your max Lifeblood."
 }

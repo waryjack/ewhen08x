@@ -34,7 +34,7 @@ h3 {
   min-height:210px !important;
 }
 .ewhen .window-content {
-  background: rgb(235, 235, 235);
+  background: rgb(170, 170, 170);
 }
 
 .ewhen .sidebar {
@@ -91,7 +91,7 @@ h3 {
 
 .ewhen .flex-item {
   border:3px solid rgb(43, 42, 42);
-  background: #b5b6b6;
+  background: #ececec;
   color:rgb(27, 27, 31);
   font-size:1em;
   margin-top:15px;
@@ -175,7 +175,7 @@ h3 {
 }
 
 .res-box {
-  font-size:1.55em;
+  font-size:1.25em;
 }
 
 .taskroll-final {
@@ -225,4 +225,11 @@ h3 {
 .ewhen .charimg {
   width: 64px;
   height:64px !important;
+  background:rgb(0, 0, 0);
+}
+
+.res-track {
+  font-family:'Cuprum', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
 }

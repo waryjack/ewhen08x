@@ -49,7 +49,7 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWWeaponSheet, { types: ["weapon"], makeDefault: true });
 
 
-    // CONFIG.debug.hooks = true;
+    CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     // CONFIG.Item.entityClass = EWItem;
 

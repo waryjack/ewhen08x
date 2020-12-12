@@ -153,20 +153,19 @@
 		},
         "weapon":{
             "templates":["common"],
-			"wpn_class":"light",
-			"wpn_type":"melee",
+			"wpn_type":"lightMelee",
 			"damage": {
 				"dice":"d6L",
 				"scale":1,
-				"attribute":"",
+				"add_attribute":"",
 				"half_attribute":false,
 				"mod":0,
 				"ap":0
 			},
-			"hands":1,
+			"hands":"one handed",
 			"range":0,
 			"recoil":0,
-			"era":"ancient"
+			"era":""
         },
 		"armor": {
 			"templates":["common"],

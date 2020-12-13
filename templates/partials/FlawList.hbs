@@ -8,7 +8,7 @@
                         {{#ife trait.data.type "flaw"}}
                         <tr>
                             <td class="item-name item" data-item-id="{{trait._id}}">
-                                <img src="{{weapon.img}}" data-edit="img" height="24" width="24"/>
+                                <img src="{{trait.img}}" data-edit="img" height="24" width="24"/>
                                 <a class="item-edit" title="Edit">{{trait.name}} (<em>{{trait.data.source}}{{#if trait.data.isTemporary}},temporary{{/if}})</em></a><br>
                                 {{trait.data.description}}<br>
                                 

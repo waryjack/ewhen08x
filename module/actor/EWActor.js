@@ -2,6 +2,19 @@ import { EWRoll } from "../roll/EWRoll.js";
 
 export class EWActor extends Actor {
 
+  mainAttributes = {
+      STRENGTH: "strength",
+      AGILITY: "agility",
+      MIND: "mind",
+      APPEAL: "appeal",
+  }
+
+  combatAttributes = {
+      MELEE: "melee",
+      RANGED: "ranged",
+      DEFENSE: "defense",
+      INITIATIVE: "initiative"
+  }
   // @override
   prepareBaseData(){
         super.prepareBaseData();
@@ -306,6 +319,57 @@ export class EWActor extends Actor {
         
     }
 
-  
+    getAttribute(attribute){
+        var attSet;
+        Object.values(this.mainAttributes).includes(attribute) ? attSet="main_attributes" : attSet = "combat_attributes";
+        return this.data.data[attSet][attribute];
+    }
 
+    getLifeblood() {
+        return this.data.data.resources.lifeblood;
+    }
+
+    getResolve() {
+        return this.data.data.resources.resolve;
+    }
+
+    getHeroPoints() {
+        return this.data.data.resources.hero_points;
+    }
+
+    getArcanaPoints() {
+        return this.data.data.resources.arcana_points;
+    }
+
+    getFaithPoints() {
+        return this.data.data.resources.faith_points;
+    }
+
+    getPsiPoints() {
+        return this.data.data.resources.psi_points;
+    }
+
+    get isTough() {
+        return this.data.data.isTough;
+    }
+
+    get isRabble() {
+        return this.data.data.isRabble;
+    }
+
+    get isCreature() {
+        return this.data.data.isCreature;
+    }
+
+    get isEntity() {
+        return this.data.data.isEntity;
+    }
+
+    get isNPC() {
+        return this.data.data.isNPC;
+    }
+
+    get size() {
+        return this.data.data.size;
+    }
 }

@@ -3,6 +3,7 @@
 import { preloadHandlebarsTemplates } from "./templates.js";
 import { EW } from "./config.js";
 import { EWActor } from "./actor/EWActor.js";
+import { EWCombat } from "./combat/EWCombat.js";
 // import { EWItem } from "./item/EWItem.js";
 import EWActorSheet from "./sheets/actor/EWActorSheet.js";
 import EWCareerSheet from "./sheets/item/EWCareerSheet.js";
@@ -30,7 +31,8 @@ Hooks.once("init", () => {
         EWEquipmentSheet,
         EWPowerSheet,
         EWWeaponSheet,
-        EWTraitSheet
+        EWTraitSheet,
+        EWCombat
     };
 
     

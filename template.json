@@ -3,6 +3,7 @@
 		"types": ["character", "vehicle"],
 		"character":{
 			"isNPC":false,
+			"isTough":false,
             "isRabble":false,
             "isCreature":false,
             "isEntity":false,

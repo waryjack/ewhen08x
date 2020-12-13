@@ -19,7 +19,7 @@
         }
       ],
     
-    "initiative":"2d6",
+    "initiative":"2d6+@main_attributes.mind.rank+@combat_attributes.initiative.rank",
     "gridDistance": 5,
     "gridUnits": "ft",
     "primaryTokenAttribute": "lifeblood",

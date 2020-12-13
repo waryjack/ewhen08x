@@ -3,23 +3,23 @@
                 <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">    
                     <tr>
                         <td><a class="att-roll" data-attribute="strength">{{localize "EW.attribute.main.strength"}}</a></td>
-                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.strength.rank" value="{{data.main_attributes.strength.rank}}"></td>
-                        <td class="align-center">({{data.main_attributes.strength.scale}})</td>
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.strength.rank" value="{{data.main_attributes.strength.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.strength.scale}})</td>{{/if}}
                     </tr>
                     <tr>
                         <td><a class="att-roll" data-attribute="agility">{{localize "EW.attribute.main.agility"}}</a></td>
-                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.agility.rank" value="{{data.main_attributes.agility.rank}}"></td>
-                        <td class="align-center">({{data.main_attributes.agility.scale}})</td>
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.agility.rank" value="{{data.main_attributes.agility.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.agility.scale}})</td>{{/if}}
                     </tr>
                     <tr>
                         <td><a class="att-roll" data-attribute="mind">{{localize "EW.attribute.main.mind"}}</a></td>
-                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.mind.rank" value="{{data.main_attributes.mind.rank}}"></td>
-                        <td class="align-center">({{data.main_attributes.agility.scale}})</td>
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.mind.rank" value="{{data.main_attributes.mind.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.agility.scale}})</td>{{/if}}
                     </tr>
                     <tr>
                         <td><a class="att-roll" data-attribute="appeal">{{localize "EW.attribute.main.appeal"}}</a></td>
-                        <td class="ewhen statfield"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.appeal.rank" value="{{data.main_attributes.appeal.rank}}"></td>
-                        <td class="align-center">({{data.main_attributes.appeal.scale}})</td>
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.appeal.rank" value="{{data.main_attributes.appeal.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.appeal.scale}})</td>{{/if}}
                     </tr>
                 </table>
 </div>

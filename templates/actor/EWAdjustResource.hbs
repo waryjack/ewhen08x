@@ -19,10 +19,12 @@
          <label for="lasting-dmg">{{localize "EW.damage.type.lasting"}}</label>
          <input type="text" id="lasting-dmg" value="{{resinfo.lasting}}" data-dtype="Number"/>
      </div>
+     {{#if (setting "useCritical")}}
      <div class="form-group">
          <label for="crit-dmg">{{localize "EW.damage.type.critical"}}</label>
          <input type="text" id="crit-dmg" value="{{resinfo.critical}}" data-dtype="Number"/>
      </div>
+     {{/if}}
  </div>
 
 

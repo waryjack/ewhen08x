@@ -19,6 +19,8 @@
     "EW.game_term.boons": "Boons",
     "EW.game_term.flaws": "Flaws",
     "EW.game_term.powers": "Powers",
+    "EW.game_term.spells": "Spells",
+    "EW.game_term.abilities": "Abilities",
     "EW.game_term.rank": "Rank",
     "EW.game_term.scale": "Scale",
     "EW.game_term.career": "Career",
@@ -167,5 +169,7 @@
     "EW.SETTINGS.UseFaith": "Enable Faith Points",
     "EW.SETTINGS.UseFaithDesc": "Enable Faith Points display on character sheet.",
     "EW.SETTINGS.UsePsionics": "Enable Psionic Points",
-    "EW.SETTINGS.UsePsionicsDesc": "Enable Psionic Points display on character sheet."
+    "EW.SETTINGS.UsePsionicsDesc": "Enable Psionic Points display on character sheet.",
+    "EW.SETTINGS.UseScale": "Display Scale",
+    "EW.SETTINGS.UseScaleDesc": "Show scale values for attributes and weapons."
 }

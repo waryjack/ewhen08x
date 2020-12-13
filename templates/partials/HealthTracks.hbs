@@ -1,4 +1,4 @@
-<div class="ewhen flex-item healthbar">
+<div class="ewhen header-flexitem healthbar">
                 <table>
                     
                     <tr>
@@ -20,16 +20,16 @@
                         <td>{{#if (setting "useResolve")}}<a class="adj-resource res-track" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}}</a>{{/if}}</td>
                         <td>{{#if (setting "useResolve")}}
                             {{#times data.resources.resolve.lasting}}
-                            <i class="fas fa-times-circle res-box"></i>
+                            <i class="fas fa-circle res-box"></i>
                             {{/times}}
                             {{#times data.resources.resolve.regular}}
-                            <i class="fas fa-adjust res-box"></i>
+                            <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
                             {{#times data.resources.resolve.value}}
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
                             {{#times data.resources.resolve.fatigue}}
-                            <i class="far fa-dot-circle res-box"></i>
+                            <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
                             {{/if}}
                         </td>

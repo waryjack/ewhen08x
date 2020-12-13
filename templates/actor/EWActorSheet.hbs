@@ -1,32 +1,35 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="ewhen sheet-header">
-        <div class="ewhen flexrow">
-        <div class="ewhen flex-item">
-        <img class="ewhen charimg" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
-        <h1 class="charname">
-            <input class="ewhen charname" style="vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-        </h1>
+    <header class="ewhen sheethead">
+        <div class="ewhen header-flexitem">
+        <img class="ewhen charimg" style="float:left;" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
         </div>
-        <div class="ewhen flex-item">
-                <table>
+        <div class="ewhen header-flexitem name-block">
+        <div class="charname">
+            <input class="ewhen charname" style="vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+        </div>
+        <table>
 					<tr>
 					  <td style="border-left:2px">  
-                            <input class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
+                           {{localize "EW.attribute.resource.hero_points"}} <input class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
                         </td>
                         <td>
-                             {{#if (setting "useArcana")}}<input class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>{{/if}}
+                             {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>{{/if}}
                         </td>
                         <td>
-                              {{#if (setting "useFaith")}}<input class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/>{{/if}}
+                              {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/>{{/if}}
                         </td>
                         <td>
-                            {{#if (setting "usePsionics")}}<input class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>{{/if}}
+                            {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>{{/if}}
                         </td>
 					</tr>
 					</table>
-            </div>
-        <div class="ewhen flex-item"><a class="basic-roll"><i class="fa fa-dice-six"></i></a></div>
+            
+                {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
+            
         </div>
+       
+        <div class="ewhen header-flexitem roll-icon"><a class="basic-roll"><i class="fa fa-dice-six"></i></a></div>
+        
         
     </header>
     
@@ -38,9 +41,9 @@
                 {{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
                 {{> 'systems/ewhen/templates/partials/CareerList.hbs'}}
             </div>
-            <div class="ewhen flexrow">
+            <!--div class="ewhen flexrow">
                 {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
-            </div>
+            </div-->
             <div class="ewhen flexrow">
                 <div class="ewhen flex-item">
                     {{> 'systems/ewhen/templates/partials/BoonList.hbs'}}

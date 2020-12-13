@@ -57,5 +57,14 @@ export const registerSettings = function() {
         type:Boolean,
         default:true    
     });
+
+    game.settings.register("ewhen", "useScale", {
+        name: "EW.SETTINGS.UseScale",
+        hint: "EW.SETTINGS.UseScaleDesc",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true
+    });
     
 }

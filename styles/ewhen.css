@@ -18,16 +18,17 @@ h3 {
 }
 
 .ewhen .charname {
-  flex:2 1 auto;
+  /* flex:2 1 auto; */
+  font-size:1.35em;
+  width:100%;
 }
 
 .basic-roll {
-  font-size:2.75em;
+  font-size:4em;
   color:rgb(27, 27, 31);
-  margin-left:auto;
-  max-width:64px;
-
+  
 }
+
 .tox .tox-tinymce {
   visibility:visible;
   height:250px;
@@ -51,6 +52,49 @@ h3 {
 
 .ewhen .sheetbody {
   flex:1
+}
+
+.ewhen .sheethead {
+  display:flex;
+  flex-flow:row nowrap;
+  justify-content:start;
+  max-height:128px;
+}
+
+.ewhen .header-flexitem {
+  height:auto;
+  margin-right: 12px;
+  align-items:stretch;
+
+}
+
+.name-block {
+  
+  max-height:128px !important;
+  min-height:128px;
+  margin-right: 12px;
+  flex-grow:2;
+  align-items:stretch;
+  
+}
+
+.roll-icon {
+  margin:auto;
+  height:128px;
+  max-height:128px;
+  line-height:128px;
+  padding-left:12px;
+  padding-right:12px;
+  background: rgb(124, 124, 124);
+  border:1px solid rgb(27,27,31);
+  -webkit-border-radius: 4px; 
+  -moz-border-radius: 4px; 
+  border-radius: 4px; 
+}
+
+.roll-icon i {
+  align-items:flex-start;
+  margin:auto;
 }
 
 .ewhen .flexcol {
@@ -104,12 +148,15 @@ h3 {
   box-shadow: 0px 0px 2px;
 }
 
-
 .ewhen .statfield {
   width: 3ch;
   margin-left:auto;
   right:100%;
   text-align:right;
+}
+
+.cell {
+  padding-right:3px;
 }
 
 .has-border {
@@ -176,7 +223,12 @@ h3 {
 }
 
 .res-box {
-  font-size:1.25em;
+  font-size:0.95em;
+}
+
+.healthbar {
+  align-items:start !important;
+  width:100%;
 }
 
 .taskroll-final {
@@ -254,4 +306,8 @@ h3 {
   margin-left:auto;
   width:2ch;
   text-align:right;
+}
+
+.attr-name {
+  text-align: center;
 }

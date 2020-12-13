@@ -60,7 +60,7 @@
 				"psi_points":0,
 				"lifeblood": {
 					"max":0,
-					"current":0,
+					"value":0,
 					"regular":0,
 					"lasting":0,
 					"fatigue":0,
@@ -69,7 +69,7 @@
 				"resolve":
 				{
 					"max":0,
-					"current":0,
+					"value":0,
 					"regular":0,
 					"lasting":0,
 					"fatigue":0,

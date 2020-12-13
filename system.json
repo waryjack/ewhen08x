@@ -22,8 +22,8 @@
     "initiative":"2d6+@main_attributes.mind.rank+@combat_attributes.initiative.rank",
     "gridDistance": 5,
     "gridUnits": "ft",
-    "primaryTokenAttribute": "lifeblood",
-    "secondaryTokenAttribute": "resolve",
+    "primaryTokenAttribute": "@resources.lifeblood",
+    "secondaryTokenAttribute": "@resources.resolve",
     "minimumCoreVersion": "0.7.7",
     "compatibleCoreVersion": "0.7.8"
 }

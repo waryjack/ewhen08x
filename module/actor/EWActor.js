@@ -40,19 +40,19 @@ export class EWActor extends Actor {
         console.log("LB Max", data.resources.lifeblood.max);
         data.resources.resolve.max = Number(mnd) + 10;
        
-        if (data.resources.lifeblood.current == 0 
+        if (data.resources.lifeblood.value == 0 
             && data.resources.lifeblood.fatigue == 0
              && data.resources.lifeblood.regular == 0 
              && data.resources.lifeblood.lasting == 0) {
             
-                data.resources.lifeblood.current = data.resources.lifeblood.max;
+                data.resources.lifeblood.value = data.resources.lifeblood.max;
         }
-        if (data.resources.resolve.current == 0 
+        if (data.resources.resolve.value == 0 
             && data.resources.resolve.fatigue == 0
              && data.resources.resolve.regular == 0 
              && data.resources.resolve.lasting == 0) {
             
-                data.resources.resolve.current = data.resources.resolve.max;
+                data.resources.resolve.value = data.resources.resolve.max;
         }
     }
 
@@ -132,8 +132,8 @@ export class EWActor extends Actor {
                         let lastDmg = Number(html.find("#lasting-dmg").val());
                         let critDmg = Number(html.find("#crit-dmg").val());
 
-                        console.log("Submitted (reg, fat, last): ", regDmg, fatDmg, lastDmg);
-                        console.log("ResData (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
+                       // console.log("Submitted (reg, fat, last): ", regDmg, fatDmg, lastDmg);
+                       // console.log("ResData (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
 
                         resData.regular = regDmg;
                         resData.fatigue = fatDmg;
@@ -141,9 +141,9 @@ export class EWActor extends Actor {
                         resData.critical = Math.min(critDmg, 5);
                         let totalDmg = regDmg + fatDmg + lastDmg;
                         let currentLb = resData.max - totalDmg;
-                        resData.current = currentLb;
+                        resData.value = currentLb;
 
-                        console.log("ResData after math (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
+                        // console.log("ResData after math (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
 
 
                         if(totalDmg > resData.max) { 

@@ -54,13 +54,15 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWWeaponSheet, { types: ["weapon"], makeDefault: true });
 
 
-    CONFIG.debug.hooks = true;
+    // CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     // CONFIG.Item.entityClass = EWItem;
     // CONFIG.Combat.entityClass = EWCombat;
 
+    
     // Register system settings
     registerSettings();
+    
     // Register partials templates
     preloadHandlebarsTemplates();
 
@@ -106,9 +108,15 @@ Hooks.once("init", () => {
         
         return new Handlebars.SafeString(arg1);
     });
+
+    Handlebars.registerHelper("setting", function(arg){
+        return game.settings.get('ewhen', arg); 
+    });
 });
 
-Hooks.on('renderChatMessage', (app, html) => {
+
+
+/* Hooks.on('renderChatMessage', (app, html) => {
 
     html.on('click', '.taskroll-msg', event => {
         event.preventDefault();
@@ -122,4 +130,4 @@ Hooks.on('renderChatMessage', (app, html) => {
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
      });
 
-});
+}); */

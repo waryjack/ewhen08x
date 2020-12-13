@@ -84,6 +84,10 @@
     "EW.attribute.resource.faith_points": "Faith Points",
     "EW.attribute.resource.arcana_points": "Arcana Points",
     "EW.attribute.resource.credit_rating": "Credit Rating",
+    "EW.attribute.resource.hero": "Hero",
+    "EW.attribute.resource.psi": "Psi",
+    "EW.attribute.resource.faith": "Faith",
+    "EW.attribute.resource.arcana": "Arcana",
 
     "EW.damage.type.fatigue":"Fatigue Damage",
     "EW.damage.type.normal": "Normal Damage",
@@ -152,8 +156,16 @@
 
     "EW.dialog.weaponinfo": "Weapon Information",
 
-    "SETTINGS.ConventionalInit": "Conventional Initiative",
-    "SETTINGS.ConventionalInitDesc": "Sort initiative in conventional order, not by character type.",
-    "SETTINGS.CareerLockout": "Disallow Career Rolls in Combat",
-    "SETTINGS.CareerLockoutDesc": "Characters may never use career rolls in combat."
+    "EW.SETTINGS.ConventionalInit": "Conventional Initiative",
+    "EW.SETTINGS.ConventionalInitDesc": "Sort initiative in conventional order, not by character type.",
+    "EW.SETTINGS.UseResolve": "Enable Resolve",
+    "EW.SETTINGS.UseResolveDesc": "Enable the Resolve track alongside Lifeblood.",
+    "EW.SETTINGS.UseCritical": "Enable Critical Tracks",
+    "EW.SETTINGS.UseCriticalDesc": "Enable critical damage tracks (applies to both Lifeblood and Resolve)",
+    "EW.SETTINGS.UseArcana": "Enable Arcana Points",
+    "EW.SETTINGS.UseArcanaDesc": "Enable Arcana Points display on character sheet.",
+    "EW.SETTINGS.UseFaith": "Enable Faith Points",
+    "EW.SETTINGS.UseFaithDesc": "Enable Faith Points display on character sheet.",
+    "EW.SETTINGS.UsePsionics": "Enable Psionic Points",
+    "EW.SETTINGS.UsePsionicsDesc": "Enable Psionic Points display on character sheet."
 }

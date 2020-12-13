@@ -108,6 +108,7 @@ h3 {
 .ewhen .statfield {
   width: 3ch;
   margin-left:auto;
+  right:100%;
   text-align:right;
 }
 
@@ -227,9 +228,10 @@ h3 {
 }
 
 .ewhen .charimg {
-  width: 64px;
-  height:64px !important;
-  background:rgb(0, 0, 0);
+  width: 128px;
+  height:128px !important;
+  background:rgb(122, 122, 122);
+  vertical-align:text-top;
 }
 
 .res-track {
@@ -242,4 +244,14 @@ h3 {
   content: url('../assets/dice-target.svg');
   filter:invert(1);
 
+}
+
+.career-item {
+  width:100%;
+}
+
+.item-icons {
+  margin-left:auto;
+  width:2ch;
+  text-align:right;
 }

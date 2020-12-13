@@ -1,10 +1,33 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="ewhen sheet-header">
+        <div class="ewhen flexrow">
+        <div class="ewhen flex-item">
         <img class="ewhen charimg" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
         <h1 class="charname">
-            <input class="ewhen charname" style="background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+            <input class="ewhen charname" style="vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
         </h1>
-        <a class="basic-roll"><i class="fa fa-dice-six"></i></a>
+        </div>
+        <div class="ewhen flex-item">
+                <table>
+					<tr>
+					  <td style="border-left:2px">  
+                            <input class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
+                        </td>
+                        <td>
+                             {{#if (setting "useArcana")}}<input class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>{{/if}}
+                        </td>
+                        <td>
+                              {{#if (setting "useFaith")}}<input class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/>{{/if}}
+                        </td>
+                        <td>
+                            {{#if (setting "usePsionics")}}<input class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>{{/if}}
+                        </td>
+					</tr>
+					</table>
+            </div>
+        <div class="ewhen flex-item"><a class="basic-roll"><i class="fa fa-dice-six"></i></a></div>
+        </div>
+        
     </header>
     
 

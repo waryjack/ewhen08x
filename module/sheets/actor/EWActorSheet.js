@@ -33,9 +33,9 @@ export default class EWActorSheet extends ActorSheet {
         data.rdmg = this.actor.data.data.resources.lifeblood.regular;
         data.ldmg = this.actor.data.data.resources.lifeblood.lasting;
         data.crit = this.actor.data.data.resources.lifeblood.critical;
-        data.cdmg = this.actor.data.data.resources.lifeblood.current;
+        data.cdmg = this.actor.data.data.resources.lifeblood.value;
 
-        console.log("Data current damage: ", data.cdmg);
+      //      console.log("Data current damage: ", data.cdmg);
         return data;
     }
 
@@ -47,7 +47,9 @@ export default class EWActorSheet extends ActorSheet {
 
         html.find('.item-create').click(this._addItem.bind(this)); 
 
-        html.find('.inline-edit').change(this._onCareerEdit.bind(this));
+        html.find('.inline-edit').change(this._onCareerRankEdit.bind(this));
+    
+        html.find('.inline-edit-ce').blur(this._onCareerNameEdit.bind(this));
 
         html.find('.item-edit').click(this._onItemEdit.bind(this));
 
@@ -160,7 +162,7 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
-    _onCareerEdit(event) {
+    _onCareerNameEdit(event) {
         event.preventDefault();
         let element = event.currentTarget;
 
@@ -169,7 +171,22 @@ export default class EWActorSheet extends ActorSheet {
         let item = this.actor.getOwnedItem(itemId);
 
         let field = element.dataset.field;
+        
+        return item.update({ [field]: element.innerText}); 
 
+    }
+
+    _onCareerRankEdit(event) {
+        event.preventDefault();
+        let element = event.currentTarget;
+
+        let itemId = element.closest(".item").dataset.itemId;
+
+        let item = this.actor.getOwnedItem(itemId);
+
+        let field = element.dataset.field;
+        
+        console.log("Career rank: ", field, element.value);
         return item.update({ [field]: element.value}); 
 
     }

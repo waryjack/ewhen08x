@@ -177,6 +177,7 @@ export class EWActor extends Actor {
         const ma = duplicate(this.data.data.main_attributes);
         const ca = duplicate(this.data.data.combat_attributes);
         const cr = duplicate(this.data.items.filter(function(item) {return item.type == "career"}));
+       
         var item = null;
         var itemImg = "";
         var itemName = "";
@@ -198,7 +199,8 @@ export class EWActor extends Actor {
             isCombat: isCombat,
             isWeapon: isWeapon,
             itemImg: itemImg,
-            itemName: itemName
+            itemName: itemName,
+          
         }
 
         console.log("Attrib Roll selected attrib: ", attr);

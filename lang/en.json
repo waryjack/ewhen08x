@@ -1,5 +1,4 @@
 {
-
     "EW.attribute.main.mind": "Mind",
     "EW.attribute.main.strength": "Strength",
     "EW.attribute.main.appeal": "Appeal",
@@ -151,5 +150,10 @@
 
     "EW.warnings.damageoverrun": "Total damage from all sources cannot exceed your max Lifeblood.",
 
-    "EW.dialog.weaponinfo": "Weapon Information"
+    "EW.dialog.weaponinfo": "Weapon Information",
+
+    "SETTINGS.ConventionalInit": "Conventional Initiative",
+    "SETTINGS.ConventionalInitDesc": "Sort initiative in conventional order, not by character type.",
+    "SETTINGS.CareerLockout": "Disallow Career Rolls in Combat",
+    "SETTINGS.CareerLockoutDesc": "Characters may never use career rolls in combat."
 }

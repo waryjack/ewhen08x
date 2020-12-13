@@ -92,9 +92,6 @@ export const EW = {
         cyberpunk: "EW.era.cyberpunk",
         future: "EW.era.future",
         other: "EW.era.other"
-    },
-    damage_expressions: {
-        
     }
 
 }

@@ -12,6 +12,7 @@ import EWEquipmentSheet from "./sheets/item/EWEquipmentSheet.js";
 import EWPowerSheet from "./sheets/item/EWPowerSheet.js";
 import EWWeaponSheet from "./sheets/item/EWWeaponSheet.js";
 import EWTraitSheet from "./sheets/item/EWTraitSheet.js";
+import { registerSettings } from "./settings.js";
 // import EWVehicleSheet from "./sheets/actor/EWVehicleSheet.js";
 
 
@@ -32,7 +33,8 @@ Hooks.once("init", () => {
         EWPowerSheet,
         EWWeaponSheet,
         EWTraitSheet,
-        EWCombat
+        EWCombat,
+        registerSettings
     };
 
     
@@ -55,10 +57,14 @@ Hooks.once("init", () => {
     CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     // CONFIG.Item.entityClass = EWItem;
+    // CONFIG.Combat.entityClass = EWCombat;
 
+    // Register system settings
+    registerSettings();
     // Register partials templates
     preloadHandlebarsTemplates();
 
+   
     // Register handlebar helpers
 
     Handlebars.registerHelper('ife', function(arg1, arg2, options) {

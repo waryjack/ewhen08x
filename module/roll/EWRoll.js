@@ -34,6 +34,7 @@ export class EWRoll {
         let bonus = this.html.find("#bonus").val();
         let penalty = this.html.find("#penalty").val();
         let careerName = this.html.find("#career").val();
+    
         bdNum = Number(this.html.find("#bdice").val());
         pdNum = Number(this.html.find("#pdice").val());
         let diceSuffix = "kh2";

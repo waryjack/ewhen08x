@@ -6,7 +6,8 @@ The system has a a relatively low-automation approach, with the focus on a chara
 
 ## Todo
 
-* Armor and equipment editing and creation
+* Equipment editing and creation
+* Armor adding / updating / displaying on character sheet, updating equipped / unequipped
 * Vehicle creation
 * Modifying the character sheet for rabble & toughs to hide unnecessary info
 * Polish and cleanup

@@ -3,7 +3,6 @@
     "EW.attribute.main.strength": "Strength",
     "EW.attribute.main.appeal": "Appeal",
     "EW.attribute.main.agility": "Agility",
-
     
     "EW.attribute.combat.melee": "Melee",
     "EW.attribute.combat.ranged": "Ranged",
@@ -37,8 +36,11 @@
     "EW.game_term.bonusdie": "Bonus Die",
     "EW.game_term.penaltydie": "Penalty Die",
     "EW.game_term.none": "None",
+    "EW.game_term.na": "Not applicable",
     "EW.game_term.weapons": "Weapons",
     "EW.game_term.weapontype": "Weapon Type",
+    "EW.game_term.armor": "Armor",
+    "EW.game_term.armortype": "Armor Type",
     "EW.game_term.damage": "Damage",
     "EW.game_term.damagedice": "Damage Dice",
     "EW.game_term.ap": "AP",
@@ -121,6 +123,8 @@
     "EW.trait.type.flaw": "Flaw",
     "EW.trait.type.power": "Power",
 
+    "EW.item.equipped": "Equipped",
+
     "EW.item.type.weapon": "Weapon",
     "EW.item.type.equipment": "Equipment",
 
@@ -146,6 +150,23 @@
     "EW.weaponhands.onehanded": "One Handed",
     "EW.weaponhands.twohanded": "Two Handed",
 
+    "EW.armortype.light": "Light Armor",
+    "EW.armortype.medium": "Medium Armor",
+    "EW.armortype.heavy": "Heavy Armor",
+    "EW.armortype.complete": "Complete Armor",
+    "EW.armortype.helmet": "Helmet",
+    "EW.armortype.shield.small": "Small Shield",
+    "EW.armortype.shield.large": "Large Shield",
+
+    "EW.armor.protection.accessory": "Accessory",
+    "EW.armor.protection.accessoryHint": "(use for accessory armor)",
+    
+    "EW.armor.protection.fixedval": "Fixed Protection",
+    "EW.armor.protection.variable": "Variable Protection",
+    "EW.armor.armorbonuses": "Armor Bonus",
+    "EW.armor.armorpenalty": "Armor Penalties",
+    "EW.armor.otherdiffmods": "Difficulty Modifiers",
+    
     "lightMelee": "light melee",
     "heavyMelee": "heavy melee",
     "lightRanged": "light ranged",

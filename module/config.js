@@ -92,6 +92,15 @@ export const EW = {
         cyberpunk: "EW.era.cyberpunk",
         future: "EW.era.future",
         other: "EW.era.other"
+    }, 
+    armor_types: {
+        light: 'EW.armortype.light',
+        medium: 'EW.armortype.medium',
+        heavy: 'EW.armortype.heavy',
+        complete: 'EW.armortype.complete',
+        helmet: 'EW.armortype.helmet',
+        small_shield: 'EW.armortype.shield.small',
+        large_shield: 'EW.armortype.shield.large'
     }
 
 }

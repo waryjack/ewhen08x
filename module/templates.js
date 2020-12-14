@@ -2,6 +2,8 @@ export const preloadHandlebarsTemplates = async function() {
     return loadTemplates([
   
       // Shared Partials
+      "systems/ewhen/templates/partials/EraSelect.hbs",
+      "systems/ewhen/templates/partials/AttributeSelect.hbs",
       
   
       // Actor Sheet Partials

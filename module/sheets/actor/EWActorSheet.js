@@ -4,7 +4,9 @@ export default class EWActorSheet extends ActorSheet {
         return "systems/ewhen/templates/actor/EWActorSheet.hbs"
     }
 
-    /** @override */
+    /**
+     * @override
+     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
         classes: ['ewhen', 'sheet', 'actor', 'actor-sheet'],
@@ -14,6 +16,9 @@ export default class EWActorSheet extends ActorSheet {
         });
     }
     
+    /**
+     * @override
+     */
     getData () {
         const data = super.getData();
 
@@ -39,7 +44,9 @@ export default class EWActorSheet extends ActorSheet {
         return data;
     }
 
-    // @override
+    /**
+     * @override
+     */
     activateListeners(html) {
         super.activateListeners(html);
         // Everything below here is only needed if the sheet is editable
@@ -69,6 +76,7 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
+    // Handle changes to the lifeblood/resolve and critical tracks
     _adjustResource(event) {
         event.preventDefault();
 
@@ -79,6 +87,7 @@ export default class EWActorSheet extends ActorSheet {
         return this.actor.updateResource(res);
     }
 
+    // Not in use at the moment; not sure if it's necessary
     _onCareerRoll(event) {
         event.preventDefault();
 
@@ -92,6 +101,7 @@ export default class EWActorSheet extends ActorSheet {
         
     }
 
+    // trigger the basic, non-pre-populated roll dialog
     _onBasicRoll(event) {
         event.preventDefault();
         let element = event.currentTarget;
@@ -99,6 +109,7 @@ export default class EWActorSheet extends ActorSheet {
         return this.actor.basicRoll();
     }
 
+    // roll if the user clicks on a specific attribute or combat ability
     _onAttributeRoll(event) {
         event.preventDefault();
         var rank = 0;
@@ -119,7 +130,7 @@ export default class EWActorSheet extends ActorSheet {
 
         if(isCombat) {
             switch (attribute) {
-
+                // select the likely attribute if it's a combat roll 
                 case "initiative": attribute2 = "mind"; break;
                 default: attribute2 = "agility";
             }
@@ -133,11 +144,14 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
+    // Handle damage rolls
     _onWeaponRoll(event) {
         event.preventDefault();
 
+       /* 
         let att2 = "agility";
-        var att1;
+        var att1; 
+       */
 
         let element = event.currentTarget;
 

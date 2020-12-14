@@ -1,27 +1,9 @@
 export class EWCombat extends Combat {
 
        
-    constructor(...args) {
-        super(...args);
-
-        console.log("Combat Turns Array: ", this.turns);
-       
-    }
-
-    getActorCombatant(actor) {
-       //  return this.combatants.find((c) => c.actor._id === actor._id);
-    }
-
-
-
-    //@override 
-    rollInitiative(ids){
-        super.rollInitiative(ids);
-
-        
-    }
-
-    //@override
+     /**
+     * @override
+     */
     nextRound(){
         if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         super.nextRound();
@@ -34,6 +16,10 @@ export class EWCombat extends Combat {
         this.rollInitiative(rrlist);
     }
 
+    /**
+     * Converts initiative from rolled initiative to Priority Ladder position
+     * @param {Combatant} com - combatant object drawn from the current combat
+     */
     static convertInitiative(com) {
 
         var adjInit = 0;
@@ -89,6 +75,7 @@ export class EWCombat extends Combat {
 
     }
 
+    // is this ever called anymore? 
     prioritySort(turns) {
 
         //  let turns = this.turns;

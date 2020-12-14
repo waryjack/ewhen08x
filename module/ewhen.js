@@ -83,6 +83,7 @@ Hooks.once("init", () => {
 
     });
 
+    //uppercases; needs work
     Handlebars.registerHelper("proper", function(content) {
         let result = "";
 
@@ -90,12 +91,6 @@ Hooks.once("init", () => {
 
         return result;
 
-    });
-   
-    Handlebars.registerHelper("buildVar", function(arg1, arg2, arg3) {
-        let result=arg1+arg2+arg3;
-
-        return new Handlebars.SafeString(result);
     });
 
     Handlebars.registerHelper("minus", function(arg1, arg2) {
@@ -109,6 +104,7 @@ Hooks.once("init", () => {
         return new Handlebars.SafeString(arg1);
     });
 
+    // Checks whether a game setting is active
     Handlebars.registerHelper("setting", function(arg){
         return game.settings.get('ewhen', arg); 
     });
@@ -123,6 +119,7 @@ Hooks.once("init", () => {
     });
 });
 
+// Convert initiative to Everywhen Priority "ladder" if setting active
 Hooks.on('updateCombatant', function(combat, changed, diff) {
     console.log("Update Combatant Fired: ", combat);
     console.log("Update Combatant Changed: ", changed);

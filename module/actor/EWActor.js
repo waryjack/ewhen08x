@@ -27,6 +27,9 @@ export class EWActor extends Actor {
         else if (actorData.type === 'vehicle') this._prepareVehicleData(data);
     }
 
+    /**
+    * @param actorData {EWActor} - this EWActor object's system-specific data
+    */
     _prepareCharacterData(actorData) {
         super.prepareDerivedData();
         const data = actorData.data;
@@ -35,6 +38,7 @@ export class EWActor extends Actor {
         var mnd = data.main_attributes.mind.rank;
 
        
+        // Initialize derived traits - lifeblood and resolve
         data.resources.lifeblood.max = Number(str) + 10;
        
         data.resources.resolve.max = Number(mnd) + 10;
@@ -59,6 +63,12 @@ export class EWActor extends Actor {
     _prepareVehicleData(actorData) {
         // Stub
     }
+
+    /** 
+    * Generate a basic Everywhen dice roll
+    * Could be refactored out to its own class eventually
+    * it's here for easy access to attributes
+    */
 
    basicRoll() {
         const pri = duplicate(this.data.data.main_attributes);
@@ -108,6 +118,9 @@ export class EWActor extends Actor {
         });
     }
 
+    /**
+    * @param res {String} - the name of the resource being updated (lifeblood or resolve)
+    */
     updateResource(res) {
         const actorData = duplicate(this.data);
         const resData = duplicate(actorData.data.resources[res]);
@@ -171,6 +184,14 @@ export class EWActor extends Actor {
 
 
     }
+
+    /**
+    * @param attr {String} - the main attribute in the roll (e.g., "strength")
+    * @param attr2 {String} - the combat attribute (e.g., "melee")
+    * @param isCombat {Boolean} - if the player clicked on the combat attribute
+    *                             then assume this is a combat roll; isCombat = true
+    * @optStr {String} - the id of an associated item used, or "" if none
+    */
 
     rollAttribute(attr, attr2, isCombat, optStr){
         
@@ -237,6 +258,9 @@ export class EWActor extends Actor {
         
     }
 
+    /** 
+    * @param weapon {Item} - the Item object for the weapon in use
+    */
     rollWeaponDamage(weapon) {
 
         let weaponData = weapon.data.data;
@@ -281,7 +305,8 @@ export class EWActor extends Actor {
             finalExpr: finalExpr
         }
 
-
+        // these render template calls should be refactored out smartly
+        // it's that last word that's the problem
         renderTemplate('systems/ewhen/templates/roll/EWDamageRoll.hbs', dialogData).then((dlg) => {
             new Dialog({
                 title:game.i18n.localize("EW.rolltype.damageroll"),
@@ -317,6 +342,7 @@ export class EWActor extends Actor {
         
     }
 
+    //getters
     getAttribute(attribute){
         var attSet;
         Object.values(this.mainAttributes).includes(attribute) ? attSet="main_attributes" : attSet = "combat_attributes";

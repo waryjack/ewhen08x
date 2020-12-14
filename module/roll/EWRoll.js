@@ -1,3 +1,10 @@
+/**
+* Not sure whether this should ultimately extend Roll,
+* or stand alone. It *uses* Roll, but I could extend it and
+* remove the "rollDice()" method it seems. Maybe later; it's
+* functional at the moment, if clumsy.
+*/ 
+
 export class EWRoll {
 
     rollInfo = {};
@@ -5,8 +12,15 @@ export class EWRoll {
     roll={};
     rollObj={};
 
+    /**
+    * @override
+    * @param data - object including submitted HTML from dialog,
+    *               actor making the roll, whether it's
+    *               a damage roll, and what weapon is being
+    *               rolled.
+    */
     constructor(data){
-        // console.log("Constructor data: ", data);
+        
         this.html = data.html;
         this.actor = data.actor;
         this.isDamage = data.isDamage;
@@ -20,8 +34,12 @@ export class EWRoll {
        //  console.log("This.actor: ", this.actor, "This.html: ", this.html);
     }
 
+    /** 
+    *  Uses the html from the dialog to build the roll expression
+    *  Ungainly and awkward, like a 13-year-old
+    */
     compileRollInfo() {
-        console.log("EWRoll's html: ", this.html);
+        
         var attrVal = 0;
         var comVal = 0;
         var cVal = 0;
@@ -35,22 +53,32 @@ export class EWRoll {
         let penalty = this.html.find("#penalty").val();
         let careerName = this.html.find("#career").val();
     
+        /*
+        *  Figure out actual roll based on penalty / bonus dice
+        *  Bonus dice cancel penalties, so the net amount is determined
+        *  Then that tells us whether diceSuffix is kh2 or kl2
+        */
+        
         bdNum = Number(this.html.find("#bdice").val());
         pdNum = Number(this.html.find("#pdice").val());
         let diceSuffix = "kh2";
         let dice = "2d6";
         totalDiceMods = bdNum - pdNum;
  
-
+       
         if (totalDiceMods != 0) {
             totalDiceMods > 0 ? diceSuffix = diceSuffix : diceSuffix = "kl2";
             let diceCount = Math.abs(totalDiceMods) + 2;
             dice = diceCount + "d6" + diceSuffix;
         }
        
+        /*
+        * If a career is involved, get its rank
+        */
+
        if (careerName != "none") {
             let careers = this.actor.data.items.filter(function(item) {return item.type == "career"});
-            // console.log("Career Items: ", careers);
+            
             let thisCareer = careers.filter(function(item) { return item.name == careerName});
 
             let itemId = thisCareer[0]._id;
@@ -63,10 +91,13 @@ export class EWRoll {
        let totalMods = Number(bonus) - Number(penalty);
        attr == "none" ? attrVal = 0 : attrVal = this.actor.data.data.main_attributes[attr].rank;
        combat == "none" ? comVal = 0 : comVal = this.actor.data.data.combat_attributes[combat].rank;
-        // carVal = item.rank;
-        // console.log("Attr, Combat, Career: " + attrVal, comVal, cVal);
 
        let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + totalMods;
+
+       /* 
+       * Stash the data in the object; this is probably extreme overkill
+       * but this class also generates the roll message (maybe refactor that later?)
+       */
 
        let rollInfo = {
            expr: rollExpr,
@@ -88,7 +119,9 @@ export class EWRoll {
 
     }
 
-
+    /**
+    * Compiles the damage roll from the weapon data and associated stats
+    */
     compileDamageRollInfo(){
 
         console.log("Weapon item: ", this.item);
@@ -146,14 +179,22 @@ export class EWRoll {
 
     }
 
+    /* 
+    * Instantiates a new Roll to do the actual dice rolling,
+    * no need to reinvent the wheel there
+    */
+
     rollDice() {
-        var tip;
-        // this.assembleRollInfo();
         let r = new Roll(this.rollInfo.expr);
         r.evaluate();
         this.rollObj = r;
-
     }
+
+    /**
+    * @param tt - the generated tooltip for the dice roll
+    *             it will be put in a show/hide div in the actual
+    *             message
+    */
 
     createChatMessage(tt) {
         var outcome = "";
@@ -164,7 +205,11 @@ export class EWRoll {
         let mightyThreshold = 9 + Number(this.rollInfo.penalty);
 
      
-        
+        /*
+        * Figure out the level of success; there are like 3 types of 
+        * critical success and frankly they're a bit of a pain
+        */
+
         if (keptDice[0]==6 && keptDice[1]==6 && mightyThreshold <= 12){
             outcome = "Mighty Success!";
             outcomeClass = "roll-mighty-sux";
@@ -205,6 +250,14 @@ export class EWRoll {
 
     }
 
+    /**
+    * @param tt - tooltip for display in chat message
+    *
+    * If I was smarter and more patient, I'd figure out 
+    * how to combine this with the createChatMessage() 
+    * method. But I am a simple and impatient man.
+    */
+
     createDamageMessage(tt) {
 
         let chatData = {
@@ -215,7 +268,7 @@ export class EWRoll {
             outclass: "roll-sux"
         }
 
-        console.log("D mods: ", chatData.d.mods);
+       // console.log("D mods: ", chatData.d.mods);
 
         renderTemplate('systems/ewhen/templates/roll/EWDamageMessage.hbs', chatData).then((msg)=>{
             ChatMessage.create({
@@ -229,12 +282,28 @@ export class EWRoll {
 
     }
 
+    // getters
     get rollObject() {
         return this.rollObj;
     }
 
+    get rollInfo() {
+        return this.rollInfo;
+    }
      
+    get actor() {
+        return this.actor;
+    }
+
+    get item() {
+        return this.item;
+    }
 }
+
+// Add the necessary tooltip toggles
+// not sure if I want to have damage rolls from the weapon image too
+// that might be more intuitive as an edit-this kind of thing
+// TODO: consistency in editing / using abilities/items.
 
 Hooks.on('renderChatMessage', (app, html) => {
 

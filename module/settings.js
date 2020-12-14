@@ -1,7 +1,6 @@
 export const registerSettings = function() {
     
     // Register initiative model
-    // No implementation for by-success sorting yet. So it won't really change anything to choose that.
 
     game.settings.register("ewhen", 'initType', {
         name: 'EW.SETTINGS.InitiativeMode',
@@ -34,6 +33,8 @@ export const registerSettings = function() {
         type:Boolean,
         default:true
     });
+
+    // Settings for various optional rules
 
     game.settings.register("ewhen", "useResolve", {
         name: "EW.SETTINGS.UseResolve",

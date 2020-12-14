@@ -75,6 +75,7 @@
     "EW.rolltype.appeal": "Appeal Roll",
     "EW.rolltype.roll": "Roll",
     "EW.rolltype.damageroll": "Damage Roll",
+    "EW.rolltype.armorroll": "Armor Roll",
     
     "EW.sheet.newcareer": "New Career",
     "EW.sheet.newboon": "New Boon",
@@ -82,6 +83,7 @@
     "EW.sheet.newpower": "New Power",
     "EW.sheet.newequipment": "New Equipment",
     "EW.sheet.newweapon": "New Weapon",
+    "EW.sheet.newarmor": "New Armor",
 
 
     "EW.attribute.resource.lifeblood": "Lifeblood",

@@ -29,7 +29,7 @@ export default class EWActorSheet extends ActorSheet {
         data.weapons = data.items.filter(function(item) {return item.type == "weapon"});
         data.careers = data.items.filter(function(item) {return item.type == "career"});
         data.traits = data.items.filter(function(item) {return item.type == "trait"});
-        data.armor = data.items.filter(function(item) {return item.type == "armor"});
+        data.armors = data.items.filter(function(item) {return item.type == "armor"});
         data.powers = data.items.filter(function(item) {return item.type == "power"});
         data.equipment = data.items.filter(function(item) {return item.type == "equipment"});
         data.main_attributes = this.actor.data.data.main_attributes;
@@ -73,6 +73,10 @@ export default class EWActorSheet extends ActorSheet {
         html.find('.adj-resource').click(this._adjustResource.bind(this));
 
         html.find('.weapon-roll').click(this._onWeaponRoll.bind(this));
+
+        html.find('.armor-roll').click(this._onArmorRoll.bind(this));
+
+        html.find('.equip-item').change(this._onEquipItem.bind(this));
 
     }
 
@@ -161,6 +165,15 @@ export default class EWActorSheet extends ActorSheet {
         
         return this.actor.rollWeaponDamage(item);
 
+    }
+
+    _onArmorRoll(event) {
+        event.preventDefault();
+
+        let element = event.currentTarget;
+        let itemId = element.closest(".item").dataset.itemId;
+        let item = this.actor.getOwnedItem(itemId);
+        return this.actor.rollArmor(item);
     }
 
     _onItemEdit(event) {
@@ -257,6 +270,22 @@ export default class EWActorSheet extends ActorSheet {
 
       }
 
+      _onEquipItem(event) {
+          event.preventDefault();
+
+          let element = event.currentTarget;
+          
+          let itemId = element.closest(".item").dataset.itemId;
+  
+          let item = this.actor.getOwnedItem(itemId);
+  
+          let field = element.dataset.field;
+
+          let val = element.checked;
+
+          return item.update({ [field]: val}); 
+
+      }
 
 
 

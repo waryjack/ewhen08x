@@ -54,7 +54,7 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWWeaponSheet, { types: ["weapon"], makeDefault: true });
 
 
-    //CONFIG.debug.hooks = true;
+    CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     CONFIG.Combat.entityClass = EWCombat;
 
@@ -119,60 +119,132 @@ Hooks.once("init", () => {
     });
 });
 
-// Convert initiative to Everywhen Priority "ladder" if setting active
-Hooks.on('updateCombatant', function(combat, changed, diff) {
-    console.log("Update Combatant Fired: ", combat);
-    console.log("Update Combatant Changed: ", changed);
-    console.log("UpdateCombatant Diff: ", diff);
+Hooks.on('updateOwnedItem', function(actor, item, changed){
 
-    if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+    console.log("Changed: ", changed);
+    console.log("Change contains equipped: ", ("equipped" in changed.data));
+    const ma = ["strength", "agility", "mind", "appeal"];
+    const ca = ["melee", "ranged", "defense", "initiative"];
 
-    if (!("initiative" in changed)) { return; }
-
-    let cmbInit = diff.initiative;
-
-    let newInit = EWCombat.convertInitiative(changed);
-
-    console.log("Inits before and after: ", cmbInit, newInit);
-
-    changed.initiative = newInit;
-});
-
-
-Hooks.on('updateOwnedItem', function(actor, item){
+    if(item.type == "trait") {
     
-    let type = item.type;
-    let pmod = item.data.priority_dieMod;
-    const adata = duplicate(actor.data.data.priority_roll);
+        let type = item.type;
+        let pmod = item.data.priority_dieMod;
+        const adata = duplicate(actor.data.data.priority_roll);
 
-  
-    if(type=="trait" && pmod == "bonus") {
-        adata.expression = "3d6kh2";
-    } else if (type == "trait" && pmod == "penalty") {
-        adata.expression = "3d6kl2";
+    
+        if(pmod == "bonus") {
+            adata.expression = "3d6kh2";
+        } else if (type == "trait" && pmod == "penalty") {
+            adata.expression = "3d6kl2";
+        }
+
+        actor.update({ "data.priority_roll": adata});
     }
+    
+    if(item.type == "armor" && ("equipped" in changed.data)) {
 
-  
+        var bonusIsMain;
+        var penaltyIsMain;
+        const armData = item.data;
+        const actorData = duplicate(actor.data.data);
+        let equipped = armData.equipped;
+        let fixed = armData.protection.fixed;
+        let vbl = armData.protection.variable;
+        let bAttrib = armData.bonus.to;
+        let bVal = armData.bonus.amount;
+        let pAttrib = armData.penalty.to;
+        let pVal = armData.penalty.amount;
 
-    actor.update({ "data.priority_roll": adata});
+        console.log("actor data", actorData);
+        console.log("bAttrib / val: ", bAttrib, bVal);
+        console.log("pAttrib / val: ", pAttrib, pVal);
 
+        if(equipped) {
+            if(bAttrib != "none" && ma.includes(bAttrib)) {
+                actorData.main_attributes[bAttrib].rank += bVal;
+            } else if (bAttrib != "none" && ca.includes(bAttrib)) {
+                actorData.combat_attributes[bAttrib].rank += bVal;
+            }
+            if(pAttrib != "none" && ma.includes(pAttrib)) {
+                actorData.main_attributes[pAttrib].rank -= pVal;
+            } else if (pAttrib != "none" && ca.includes(pAttrib)) {
+                actorData.combat_attributes[pAttrib].rank -= pVal;
+            }
+        }
+        if(!equipped) {
+            if(bAttrib != "none" && ma.includes(bAttrib)) {
+                actorData.main_attributes[bAttrib].rank -= bVal;
+            } else if (bAttrib != "none" && ca.includes(bAttrib)) {
+                actorData.combat_attributes[bAttrib].rank -= bVal;
+            }
+            if(pAttrib != "none" && ma.includes(pAttrib)) {
+                actorData.main_attributes[pAttrib].rank += pVal;
+            } else if (pAttrib != "none" && ca.includes(pAttrib)) {
+                actorData.combat_attributes[pAttrib].rank += pVal;
+            }
+        }
+        
+        actor.update({ "data": actorData});
+
+    }
+        
 });
 
 Hooks.on('deleteOwnedItem', function(actor, item){
+
+    const ma = ["strength", "agility", "mind", "appeal"];
+    const ca = ["melee", "ranged", "defense", "initiative"];
     
     let type = item.type;
-    let pmod = item.data.priority_dieMod;
-    const adata = duplicate(actor.data.data.priority_roll);
 
-    console.log("Adata (del): ", adata);
+    if (type == "trait") {
+        let pmod = item.data.priority_dieMod;
+        const adata = duplicate(actor.data.data.priority_roll);
 
-    if(type=="trait" && pmod != "none") {
-        adata.expression = "2d6kh2";
-    }
+        console.log("Adata (del): ", adata);
+
+        if(type=="trait" && pmod != "none") {
+            adata.expression = "2d6kh2";
+        }
     
    
-    actor.update({ "data.priority_roll": adata});
+         actor.update({ "data.priority_roll": adata});
+    }
 
+    if (type == "armor") {
+
+        var bonusIsMain;
+        var penaltyIsMain;
+        const armData = item.data;
+        const actorData = duplicate(actor.data.data);
+        let equipped = armData.equipped;
+        let fixed = armData.protection.fixed;
+        let vbl = armData.protection.variable;
+        let bAttrib = armData.bonus.to;
+        let bVal = armData.bonus.amount;
+        let pAttrib = armData.penalty.to;
+        let pVal = armData.penalty.amount;
+
+        console.log("actor data", actorData);
+        console.log("bAttrib / val: ", bAttrib, bVal);
+        console.log("pAttrib / val: ", pAttrib, pVal);
+
+        if(equipped) {
+            if(bAttrib != "none" && ma.includes(bAttrib)) {
+                actorData.main_attributes[bAttrib].rank -= bVal;
+            } else if (bAttrib != "none" && ca.includes(bAttrib)) {
+                actorData.combat_attributes[bAttrib].rank -= bVal;
+            }
+            if(pAttrib != "none" && ma.includes(pAttrib)) {
+                actorData.main_attributes[pAttrib].rank += pVal;
+            } else if (pAttrib != "none" && ca.includes(pAttrib)) {
+                actorData.combat_attributes[pAttrib].rank += pVal;
+            }
+        }
+        
+        actor.update({ "data": actorData});
+    }
 });
 
 

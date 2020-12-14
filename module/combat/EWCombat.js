@@ -75,87 +75,22 @@ export class EWCombat extends Combat {
 
     }
 
-    // is this ever called anymore? 
-    prioritySort(turns) {
-
-        //  let turns = this.turns;
-
-    // console.log("Preupdate Combat Object: ", combat);
-
-    for(let i=0; i<turns.length; i++){
-        var adjInit = 0;
-        var isPC;
-        var turn = turns[i];
-        console.log("turn ", turn);
-        var snakeEyes = false;
-        var boxCars = false;
-        let initRoll = turn.initiative;
-        let actorId = turn.actor._id;
-        let actor = game.actors.get(actorId);
-        let name = actor.name;
-        let isRival = actor.data.data.isRival;
-        let isTough = actor.data.data.isTough;
-        let isRabble = actor.data.data.isRabble;
-        
-        if(!isRival && !isTough && !isRabble) { isPC = true; } else { isPC = false; }
-
-        let mnd = actor.getAttribute("mind").rank;
-        let ini = actor.getAttribute("initiative").rank;
-        let diceOnly = initRoll - mnd - ini;
-
-
-      
-        if (diceOnly == 12) { boxCars = true; }
-        if (diceOnly == 2) { snakeEyes = true;}
-
-        if(!isPC){
-        // todo - work on Rivals with "Diabolical Plan" feat;
-            if (isRival) { adjInit = 5; }
-            if (isTough) { adjInit = 4; }
-            if (isRabble) { adjInit = 2; }
-            
-        }
-
-   //     console.log(actor.name, " isPC: ", isPC);;
-
-        if (isPC) {
-            if(boxCars) {
-                // mighty success; initiative = 8
-                adjInit = 8;
-            } else if (initRoll >= 9 && diceOnly < 12 && diceOnly > 2) { 
-                // regular success; initiative = 6
-                adjInit = 6;
-            } else if (initRoll < 9 && diceOnly < 12 && diceOnly > 2) {
-                // regular failure; initiative = 3
-                adjInit = 3;
-            } else if (snakeEyes) {
-                // calam failure, initiative = 1
-                adjInit = 1;
-            }
-        }
-
-        console.log("Stuff: ", name, initRoll, adjInit, mnd, ini, diceOnly);
-
-        turn.initiative = adjInit;
-
-        turns[i] = turn;
-
-     
-    }
-
-    turns.sort((a, b) => { return b.initiative - a.initiative; });
-
-    
-   // console.log("Turns after init sort: ", turns);
-
-    this.update({"turns": turns});
-
-
-
-    }
-
-
-
 }
+
+// Convert initiative to Everywhen Priority "ladder" if setting active
+Hooks.on('updateCombatant', function(combat, changed, diff) {  
+
+    if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+
+    if (!("initiative" in changed)) { return; }
+
+    let cmbInit = diff.initiative;
+
+    let newInit = EWCombat.convertInitiative(changed);
+
+    console.log("Inits before and after: ", cmbInit, newInit);
+
+    changed.initiative = newInit;
+});
 
 

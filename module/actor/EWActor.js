@@ -99,7 +99,7 @@ export class EWActor extends Actor {
                             html: html,
                             actor: this,
                             isDamage: false,
-                            item: null
+                            item: {}
                         };
                         let ewroll = new EWRoll(rdata);
                         ewroll.rollDice();
@@ -238,7 +238,7 @@ export class EWActor extends Actor {
                             html: html,
                             actor: this,
                             isDamage: false,
-                            item: null
+                            item: {}
                         };
                        let ewroll = new EWRoll(rdata);
                        ewroll.rollDice();
@@ -340,6 +340,30 @@ export class EWActor extends Actor {
         });
 
         
+    }
+
+    /**
+     * @param armor - the armor object being rolled
+     */
+    rollArmor(armor) {
+
+        let armorData = armor.data.data;
+        let expr = armorData.protection.variable;
+        let img = armor.img;
+        let name = armor.name;
+
+        let rData = {
+            html: "",
+            actor:this,
+            isDamage:false,
+            item: armor,
+        }
+
+        let armorRoll = new EWRoll(rData);
+        armorRoll.rollDice();
+
+        armorRoll.rollObj.getTooltip().then((tt) => armorRoll.createArmorMessage(tt));
+
     }
 
     //getters

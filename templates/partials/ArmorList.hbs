@@ -1,0 +1,41 @@
+
+                     <h3 class="traitsheet-header"><div>{{localize "EW.game_term.armor"}}</div>
+                        <a class="item-create" title="Add Armor" data-type="armor">
+                            <i class="fas fa-plus-square"></i>
+                        </a>
+                    </h3>
+                    <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                        
+                        {{#each armors as |armor id|}}
+                        {{log armor.data.equipped}}
+                        {{log data.equipped}}
+                        <tr>
+                            <td class="item-name item" style="max-width:50%;" data-item-id="{{armor._id}}">
+                                <a class="armor-roll weapon-image" title="Roll Defense"><img src="{{armor.img}}" height="24" width="24"/>
+                                <strong>{{armor.name}}</strong></a>
+                                <br><em>{{localize armor.data.armor_type}}, 
+                                        {{#if (ne armor.data.protection.variable "none")}}{{armor.data.protection.variable}}/{{/if}}
+                                        {{#if armor.data.accessory}}+{{/if}}{{armor.data.protection.fixed}}, 
+                                        {{#if (ne armor.data.bonus.to "none")}}+{{armor.data.bonus.amount}} {{armor.data.bonus.to}},{{/if}}
+                                        {{#if (ne armor.data.penalty.to "none")}}-{{armor.data.penalty.amount}} {{armor.data.penalty.to}},{{/if}}
+                                        {{#if (ne armor.data.diffmod.to "none")}}{{armor.data.diffmod.to}}{{/if}}
+                            </em>
+                            </td>
+                           <td class="align-center item-name item" data-item-id="{{armor._id}}">
+                            Eqp <input data-field="data.equipped" value="{{data.equipped}}" class="equip-item" name="data.equipped" type="checkbox" {{checked data.equipped}} />
+                           </td>
+                                    
+
+                            <td>
+                                <a class="item-edit item" data-item-id="{{armor._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="item-delete item" data-item-id="{{armor._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </table>
+            

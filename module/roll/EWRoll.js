@@ -11,9 +11,13 @@ export class EWRoll {
     actor={};
     roll={};
     rollObj={};
+    html;
+    isDamage;
+    item;
+    actor;
 
     /**
-    * @override
+    * 
     * @param data - object including submitted HTML from dialog,
     *               actor making the roll, whether it's
     *               a damage roll, and what weapon is being
@@ -21,13 +25,17 @@ export class EWRoll {
     */
     constructor(data){
         
+        console.log("Data: ", data);
         this.html = data.html;
         this.actor = data.actor;
         this.isDamage = data.isDamage;
         this.item = data.item;
 
+       
         if(this.isDamage){
             this.compileDamageRollInfo();
+        } else if (this.item.type == "armor") {
+            this.compileArmorRollInfo();
         } else {
             this.compileRollInfo();
         }
@@ -116,6 +124,25 @@ export class EWRoll {
        }
        console.log(rollInfo);
        this.rollInfo = rollInfo;
+
+    }
+
+    /**
+     * Compiles the roll for an armor item
+     */
+    compileArmorRollInfo() {
+        let armorData = this.item.data.data;
+
+        let expr = armorData.protection.variable;
+        let name = this.item.name;
+        let img = this.item.img;
+
+        let rollInfo = {
+            expr: expr,
+            tt:""
+        }
+
+        this.rollInfo = rollInfo;
 
     }
 
@@ -282,22 +309,29 @@ export class EWRoll {
 
     }
 
-    // getters
-    get rollObject() {
-        return this.rollObj;
+    createArmorMessage(tt) {
+        let chatData = {
+            total: this.rollObj.total,
+            tooltip: new Handlebars.SafeString(tt),
+            outclass: "roll-sux",
+            name: this.item.name,
+            img: this.item.img,
+            protection: this.item.data.data.protection.variable
+        }
+
+        renderTemplate('systems/ewhen/templates/roll/EWArmorMessage.hbs', chatData).then((msg)=>{
+            ChatMessage.create({
+                user: game.user._id,
+                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
+                speaker: ChatMessage.getSpeaker(),
+                content: msg
+            });
+            
+
+
+        });
     }
 
-    get rollInfo() {
-        return this.rollInfo;
-    }
-     
-    get actor() {
-        return this.actor;
-    }
-
-    get item() {
-        return this.item;
-    }
 }
 
 // Add the necessary tooltip toggles

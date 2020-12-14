@@ -23,6 +23,10 @@ h3 {
   width:100%;
 }
 
+.ewhen .charname input {
+  padding:3px;
+}
+
 .basic-roll {
   font-size:4em;
   color:rgb(27, 27, 31);
@@ -65,7 +69,11 @@ h3 {
   height:auto;
   margin-right: 12px;
   align-items:stretch;
+}
 
+.npc-checks {
+  max-height:64px;
+  line-height:0;
 }
 
 .name-block {
@@ -310,4 +318,9 @@ h3 {
 
 .attr-name {
   text-align: center;
+}
+
+.npc-boxes {
+  align-items:flex-end;
+  text-align:right;
 }

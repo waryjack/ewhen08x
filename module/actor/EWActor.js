@@ -18,7 +18,6 @@ export class EWActor extends Actor {
   // @override
   prepareBaseData(){
         super.prepareBaseData();
-        console.log(this.data);
    
         const actorData = this.data;
         const data = actorData.data;
@@ -35,9 +34,9 @@ export class EWActor extends Actor {
         var str = data.main_attributes.strength.rank;
         var mnd = data.main_attributes.mind.rank;
 
-        console.log("Stat pulls: ", str, mnd);
+       
         data.resources.lifeblood.max = Number(str) + 10;
-        console.log("LB Max", data.resources.lifeblood.max);
+       
         data.resources.resolve.max = Number(mnd) + 10;
        
         if (data.resources.lifeblood.value == 0 
@@ -54,6 +53,7 @@ export class EWActor extends Actor {
             
                 data.resources.resolve.value = data.resources.resolve.max;
         }
+
     }
 
     _prepareVehicleData(actorData) {
@@ -65,7 +65,7 @@ export class EWActor extends Actor {
         const com = duplicate(this.data.data.combat_attributes);
         const car = this.items.filter(function(item) {return item.type == "career"});
 
-        console.log("Careers", car);
+        // console.log("Careers", car);
 
         let dialogData = {
             primary: pri,
@@ -152,7 +152,7 @@ export class EWActor extends Actor {
                         
                             actorData.data.resources[res] = resData;
 
-                          console.log("Actor Data post-update: ", actorData);
+                         //  console.log("Actor Data post-update: ", actorData);
              
                             this.update(actorData);
                             this.sheet.render(true);
@@ -202,10 +202,6 @@ export class EWActor extends Actor {
             itemName: itemName,
           
         }
-
-        console.log("Attrib Roll selected attrib: ", attr);
-        console.log("IsCombat? ", isCombat);
-        console.log("Dialog Data: ", dialogData);
       
         renderTemplate('systems/ewhen/templates/roll/EWBasicRoll.hbs', dialogData).then((dlg) => {
             new Dialog({
@@ -216,7 +212,7 @@ export class EWActor extends Actor {
                      icon: '<i class="fas fa-check"></i>',
                      label: "Roll",
                      callback: (html) => {
-                      //  console.log("passed html: ", html); 
+                      
                         let rdata = {
                             html: html,
                             actor: this,
@@ -295,7 +291,7 @@ export class EWActor extends Actor {
                      icon: '<i class="fas fa-check"></i>',
                      label: "Roll",
                      callback: (html) => {
-                      //  console.log("passed html: ", html); 
+                      
                         let rdata = {
                             html: html,
                             actor: this,
@@ -375,3 +371,4 @@ export class EWActor extends Actor {
         return this.data.data.size;
     }
 }
+

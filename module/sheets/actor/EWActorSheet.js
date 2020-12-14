@@ -17,7 +17,7 @@ export default class EWActorSheet extends ActorSheet {
     getData () {
         const data = super.getData();
 
-        console.log(data);
+        //console.log(data);
 
         data.config = CONFIG.ewhen; 
         
@@ -126,8 +126,8 @@ export default class EWActorSheet extends ActorSheet {
         }
         
 
-        console.log("Attribute 1:", attribute, " Rank: ", rank);
-        console.log("Attribute 2: ", attribute2);
+        // console.log("Attribute 1:", attribute, " Rank: ", rank);
+        // console.log("Attribute 2: ", attribute2);
         
         return this.actor.rollAttribute(attribute, attribute2, isCombat, "");
 
@@ -186,7 +186,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let field = element.dataset.field;
         
-        console.log("Career rank: ", field, element.value);
+       // console.log("Career rank: ", field, element.value);
         return item.update({ [field]: element.value}); 
 
     }

@@ -2,13 +2,19 @@
     "Actor": {
 		"types": ["character", "vehicle"],
 		"character":{
-			"isNPC":false,
+			"isRival":false,
 			"isTough":false,
             "isRabble":false,
             "isCreature":false,
             "isEntity":false,
             "size":"medium",
-            "backstory":"Born in a tiny village",
+			"backstory":"Born in a tiny village",
+			"priority_roll": {
+				"numDice":"2",
+				"suffix":"kh2",
+				"miscMod":0,
+				"expression":"2d6kh2"
+			},
 			"main_attributes": {
 				"strength":{
 					"rank":0,
@@ -135,15 +141,7 @@
             "isTemporary":false,
 			"type":"",
 			"source":"",
-			"grants_modifier":{
-				"environment":"",
-				"modifies":"",
-				"mod_amount":""
-			},
-			"grants_dice":{
-				"environment":"",
-				"modifier":""
-			},
+			"priority_dieMod":"none",
 			"prereq_for":""
 		},
 		"career": {

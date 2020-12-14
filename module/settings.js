@@ -1,16 +1,38 @@
 export const registerSettings = function() {
     
     // Register initiative model
-    // Doesn't do a damn thing yet, but eventually I'll get it set up
-    // Until then, Combat Enhancements module is the way to go for drag/drop initiative!
-    game.settings.register("ewhen", "ConventionalInit", {
-        name: "EW.SETTINGS.ConventionalInit",
-        hint: "EW.SETTINGS.ConventionalInitDesc",
-        scope: "world",
+    // No implementation for by-success sorting yet. So it won't really change anything to choose that.
+
+    game.settings.register("ewhen", 'initType', {
+        name: 'EW.SETTINGS.InitiativeMode',
+        hint: 'EW.SETTINGS.InitiativeModeDesc',
+        scope: 'world',
         config: true,
-        type: Boolean,
-        default: true,
-        onChange: (rule) => (console.log("Toggled Initiative Rule"))
+        type: String,
+        default: 'EWhenPriority',
+        choices: {
+            'EWhenPriority': 'EW.SETTINGS.Priority',
+            'EWhenTrad': 'EW.SETTINGS.EwhenConventional',
+            'BoL': 'EW.SETTINGS.Barbarians'
+            
+        },
+        onChange: (rule) => { 
+            var expr;
+            switch(rule){
+                case "EWhenTrad": expr = "@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
+                case "BoL": expr = "1d6+@main_attributes.agility.rank"; break;
+                case "EWhenPriority": expr="@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
+            }
+            game.data.system.data.initiative = expr;
+        }
+    });
+
+    game.settings.register("ewhen", "rerollPerRound", {
+        name:"EW.SETTINGS.RerollPer",
+        hint:"",
+        config:true,
+        type:Boolean,
+        default:true
     });
 
     game.settings.register("ewhen", "useResolve", {

@@ -34,6 +34,9 @@
     "EW.game_term.dicemods": "Bonus/Penalty Dice",
     "EW.game_term.bonusdice": "Bonus Dice",
     "EW.game_term.penaltydice": "Penalty Dice",
+    "EW.game_term.bonusdie": "Bonus Die",
+    "EW.game_term.penaltydie": "Penalty Die",
+    "EW.game_term.none": "None",
     "EW.game_term.weapons": "Weapons",
     "EW.game_term.weapontype": "Weapon Type",
     "EW.game_term.damage": "Damage",
@@ -46,6 +49,7 @@
     "EW.game_term.era": "Era",
     "EW.game_term.halfattribute": "Halve?",
     "EW.game_term.dice": "Dice",
+    "EW.game_term.primod": "Priority Mod",
 
     "EW.era.ancient": "Ancient",
     "EW.era.steampunk": "Steampunk",
@@ -160,6 +164,11 @@
 
     "EW.SETTINGS.ConventionalInit": "Conventional Initiative",
     "EW.SETTINGS.ConventionalInitDesc": "Sort initiative in conventional order, not by character type.",
+    "EW.SETTINGS.InitiativeMode": "Initiative Style",
+    "EW.SETTINGS.InitiativeModeDesc": "Style of initiative to use in combat encounters.",
+    "EW.SETTINGS.EwhenConventional": "Simplified Traditional Style (2d6+Mind+Appeal, descending order)",
+    "EW.SETTINGS.Barbarians": "Barbarians of Lemuria (1d6+Agility, descending order)",
+    "EW.SETTINGS.Priority": "Everywhen Priority Roll (see Everywhen, p. 35)",
     "EW.SETTINGS.UseResolve": "Enable Resolve",
     "EW.SETTINGS.UseResolveDesc": "Enable the Resolve track alongside Lifeblood.",
     "EW.SETTINGS.UseCritical": "Enable Critical Tracks",
@@ -171,5 +180,6 @@
     "EW.SETTINGS.UsePsionics": "Enable Psionic Points",
     "EW.SETTINGS.UsePsionicsDesc": "Enable Psionic Points display on character sheet.",
     "EW.SETTINGS.UseScale": "Display Scale",
-    "EW.SETTINGS.UseScaleDesc": "Show scale values for attributes and weapons."
+    "EW.SETTINGS.UseScaleDesc": "Show scale values for attributes and weapons.",
+    "EW.SETTINGS.RerollPer": "Reroll Initiative Every Round"
 }

@@ -9,9 +9,7 @@
             <tr>
                 <th>{{localize "EW.game_term.trait_type"}}</th>
                 <th>{{localize "EW.game_term.trait_source"}}</th>
-                {{#ife data.type "career"}}
-                <th>{{localize "EW.game_term.rank"}}</th>
-                {{/ife}}
+                <th>{{localize "EW.game_term.primod"}}</th>
                 <th>{{localize "EW.game_term.temporary"}}</th>
 
             </tr>
@@ -34,11 +32,15 @@
                         {{/select}}
                     </select>
                 </td>
-                {{#ife data.type "career"}}
-                <td>
-                    <input name="data.rank" type="text" value="{{data.rank}}" data-dtype="Number" />
+                <td style="text-align:center;">
+                    <select style="width:100%;" name="data.priority_dieMod" id="data.priority_dieMod">
+                        {{#select data.priority_dieMod}}
+                        <option value="none">{{localize "EW.game_term.none"}}</option>
+                        <option value="bonus">{{localize "EW.game_term.bonusdie"}}</option>
+                        <option value="penalty">{{localize "EW.game_term.penaltydie"}}</option>
+                        {{/select}}
+                    </select>
                 </td>
-                {{/ife}}
                 <td style="text-align: center;">
                     <input name="data.isTemporary" type="checkbox" {{checked data.isTemporary}} />
                 </td>

@@ -4,9 +4,14 @@
         <img class="ewhen charimg" style="float:left;" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
         </div>
         <div class="ewhen header-flexitem name-block">
-        <div class="charname">
-            <input class="ewhen charname" style="vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-        </div>
+            <div class="charname">
+                <input class="ewhen charname" style="width:50%; vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+                <div class="form-group" style="float:right"><input class="npc-boxes" id="isRival" name="data.isRival" type="checkbox" {{checked data.isRival}} /><label for="isRival">Rival</label>
+                <input class="npc-boxes" id="isTough" name="data.isTough" type="checkbox" {{checked data.isTough}} /><label for="isTough">Tough</label>
+                <input class="npc-boxes" id="isRabble" name="data.isRabble" type="checkbox" {{checked data.isRabble}} /><label for="isRabble">Rabble</label>
+                </div>
+            </div>
+        
         <table>
 					<tr>
 					  <td style="border-left:2px">  
@@ -27,9 +32,10 @@
                 {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
             
         </div>
-       
-        <div class="ewhen header-flexitem roll-icon"><a class="basic-roll"><i class="fa fa-dice-six"></i></a></div>
+       <div class="ewhen flexcol">
+        <div style="align-items:flex-start;"><a class="basic-roll roll-icon" style="margin:0px !important;"><i class="fa fa-dice-six"></i></a></div>
         
+        </div>
         
     </header>
     

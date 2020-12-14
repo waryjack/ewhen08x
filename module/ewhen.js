@@ -54,10 +54,10 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWWeaponSheet, { types: ["weapon"], makeDefault: true });
 
 
-    // CONFIG.debug.hooks = true;
+    //CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
-    // CONFIG.Item.entityClass = EWItem;
-    // CONFIG.Combat.entityClass = EWCombat;
+    CONFIG.Combat.entityClass = EWCombat;
+
 
     
     // Register system settings
@@ -112,22 +112,71 @@ Hooks.once("init", () => {
     Handlebars.registerHelper("setting", function(arg){
         return game.settings.get('ewhen', arg); 
     });
+
+    Handlebars.registerHelper("concat", function(...args){
+        let result = "";
+        for (let a of args) {
+            result += a;
+        }
+
+        return result;
+    });
+});
+
+Hooks.on('updateCombatant', function(combat, changed, diff) {
+    console.log("Update Combatant Fired: ", combat);
+    console.log("Update Combatant Changed: ", changed);
+    console.log("UpdateCombatant Diff: ", diff);
+
+    if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+
+    if (!("initiative" in changed)) { return; }
+
+    let cmbInit = diff.initiative;
+
+    let newInit = EWCombat.convertInitiative(changed);
+
+    console.log("Inits before and after: ", cmbInit, newInit);
+
+    changed.initiative = newInit;
+});
+
+
+Hooks.on('updateOwnedItem', function(actor, item){
+    
+    let type = item.type;
+    let pmod = item.data.priority_dieMod;
+    const adata = duplicate(actor.data.data.priority_roll);
+
+  
+    if(type=="trait" && pmod == "bonus") {
+        adata.expression = "3d6kh2";
+    } else if (type == "trait" && pmod == "penalty") {
+        adata.expression = "3d6kl2";
+    }
+
+  
+
+    actor.update({ "data.priority_roll": adata});
+
+});
+
+Hooks.on('deleteOwnedItem', function(actor, item){
+    
+    let type = item.type;
+    let pmod = item.data.priority_dieMod;
+    const adata = duplicate(actor.data.data.priority_roll);
+
+    console.log("Adata (del): ", adata);
+
+    if(type=="trait" && pmod != "none") {
+        adata.expression = "2d6kh2";
+    }
+    
+   
+    actor.update({ "data.priority_roll": adata});
+
 });
 
 
 
-/* Hooks.on('renderChatMessage', (app, html) => {
-
-    html.on('click', '.taskroll-msg', event => {
-        event.preventDefault();
-        // NOTE: This depends on the exact card template HTML structure.
-        $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
-     });
- 
-     html.on('click', '.taskroll-info', event => {
-        event.preventDefault();
-        // NOTE: This depends on the exact card template HTML structure.
-        $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
-     });
-
-}); */

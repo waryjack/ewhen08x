@@ -54,7 +54,7 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWWeaponSheet, { types: ["weapon"], makeDefault: true });
 
 
-    CONFIG.debug.hooks = true;
+    // CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     CONFIG.Combat.entityClass = EWCombat;
 
@@ -160,10 +160,12 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
         let vbl = armData.protection.variable;
+        let isAccessory = armData.accessory;
         let bAttrib = armData.bonus.to;
         let bVal = armData.bonus.amount;
         let pAttrib = armData.penalty.to;
         let pVal = armData.penalty.amount;
+
 
         console.log("actor data", actorData);
         console.log("bAttrib / val: ", bAttrib, bVal);
@@ -180,6 +182,10 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
             } else if (pAttrib != "none" && ca.includes(pAttrib)) {
                 actorData.combat_attributes[pAttrib].rank -= pVal;
             }
+            if(isAccessory){
+                actorData.armorbonus += fixed;
+                console.log("Actor armor bonus: ", actorData.armorbonus);
+            }
         }
         if(!equipped) {
             if(bAttrib != "none" && ma.includes(bAttrib)) {
@@ -191,6 +197,10 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
                 actorData.main_attributes[pAttrib].rank += pVal;
             } else if (pAttrib != "none" && ca.includes(pAttrib)) {
                 actorData.combat_attributes[pAttrib].rank += pVal;
+            }
+            if(isAccessory) {
+                actorData.armorbonus = Math.max(0, actorData.armorbonus - fixed);
+                console.log("Actor armor bonus: ", actorData.armorbonus);
             }
         }
         
@@ -231,6 +241,7 @@ Hooks.on('deleteOwnedItem', function(actor, item){
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
         let vbl = armData.protection.variable;
+        let isAccessory = armData.accessory;
         let bAttrib = armData.bonus.to;
         let bVal = armData.bonus.amount;
         let pAttrib = armData.penalty.to;
@@ -250,6 +261,9 @@ Hooks.on('deleteOwnedItem', function(actor, item){
                 actorData.main_attributes[pAttrib].rank += pVal;
             } else if (pAttrib != "none" && ca.includes(pAttrib)) {
                 actorData.combat_attributes[pAttrib].rank += pVal;
+            }
+            if(isAccessory){
+                actorData.armorbonus = Math.max(0, actorData.armorbonus - fixed);
             }
         }
         

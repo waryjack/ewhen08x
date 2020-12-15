@@ -134,8 +134,12 @@ export class EWRoll {
         let armorData = this.item.data.data;
 
         let expr = armorData.protection.variable;
-        let name = this.item.name;
-        let img = this.item.img;
+ 
+        let armorbonus = this.actor.data.data.armorbonus;
+        
+        expr = expr + "+" + armorbonus;
+
+        console.log("armorbonus, expr", armorbonus, expr);
 
         let rollInfo = {
             expr: expr,
@@ -212,7 +216,10 @@ export class EWRoll {
     */
 
     rollDice() {
-        let r = new Roll(this.rollInfo.expr);
+        let expr = this.rollInfo.expr;
+        expr == "none" ? expr = "0d6" : expr = expr;
+
+        let r = new Roll(expr);
         r.evaluate();
         this.rollObj = r;
     }
@@ -316,7 +323,8 @@ export class EWRoll {
             outclass: "roll-sux",
             name: this.item.name,
             img: this.item.img,
-            protection: this.item.data.data.protection.variable
+            protection: this.item.data.data.protection.variable,
+            armorbonus: this.actor.data.data.armorbonus
         }
 
         renderTemplate('systems/ewhen/templates/roll/EWArmorMessage.hbs', chatData).then((msg)=>{

@@ -17,8 +17,9 @@
                                         {{#if (ne armor.data.protection.variable "none")}}{{armor.data.protection.variable}}/{{/if}}
                                         {{#if armor.data.accessory}}+{{/if}}{{armor.data.protection.fixed}}, 
                                         {{#if (ne armor.data.bonus.to "none")}}+{{armor.data.bonus.amount}} {{armor.data.bonus.to}},{{/if}}
-                                        {{#if (ne armor.data.penalty.to "none")}}-{{armor.data.penalty.amount}} {{armor.data.penalty.to}},{{/if}}
-                                        {{#if (ne armor.data.diffmod.to "none")}}{{armor.data.diffmod.to}}{{/if}}
+                                        {{#if (ne armor.data.penalty.to "none")}}-{{armor.data.penalty.amount}} {{armor.data.penalty.to}}{{/if}}
+                                        {{#if (ne armor.data.diffmod.to "none")}}, {{armor.data.diffmod.to}}{{/if}}
+                                        {{#if armor.data.accessory}}, accessory{{/if}}
                             </em>
                             </td>
                            <td class="align-center item-name item" data-item-id="{{armor._id}}">

@@ -6,9 +6,10 @@ The system has a a relatively low-automation approach, with the focus on a chara
 
 ## Todo
 
-* Equipment editing and creation (regular gear; weapons/armor are done)
+* Equipment editing and creation (regular gear; weapons/worn armor are done)
 * Vehicle creation
 * Modifying the character sheet for rabble & toughs to hide unnecessary info
 * Documentation and localizing some text
 * Refactoring like, lots of crap
 * Testing in multiplayer setups (making sure updates propagate as expected, etc)
+* Error catching...everywhere

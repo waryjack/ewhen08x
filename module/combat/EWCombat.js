@@ -22,6 +22,8 @@ export class EWCombat extends Combat {
      */
     static convertInitiative(com) {
 
+        if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+
         var adjInit = 0;
         var isPC;
         console.log("Combatant in convertInit: ", com);

@@ -9,6 +9,7 @@
             "isEntity":false,
             "size":"medium",
 			"backstory":"Born in a tiny village",
+			"armorbonus": 0,
 			"priority_roll": {
 				"numDice":"2",
 				"suffix":"kh2",

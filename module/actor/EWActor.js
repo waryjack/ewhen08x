@@ -359,11 +359,14 @@ export class EWActor extends Actor {
         let img = armor.img;
         let name = armor.name;
 
+        //Bail out if it's a shield or helmet; those don't get rolled
+        if(armorData.accessory) return;
+
         let rData = {
             html: "",
             actor:this,
             isDamage:false,
-            item: armor,
+            item: armor
         }
 
         let armorRoll = new EWRoll(rData);

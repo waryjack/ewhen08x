@@ -183,6 +183,7 @@
 
     "EW.warnings.damageoverrun": "Total damage from all sources cannot exceed your max Lifeblood.",
     "EW.warnings.onewaytrip": "Be advised - switching between NPC types may be slightly buggy.",
+    "EW.warnings.mustbenumber": "Bonuses and penalties must be numbers.",
 
     "EW.dialog.weaponinfo": "Weapon Information",
 

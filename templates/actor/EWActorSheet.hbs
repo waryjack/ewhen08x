@@ -6,13 +6,15 @@
         <div class="ewhen header-flexitem name-block">
             <div class="charname">
                 <input class="ewhen charname" style="width:50%; vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-                <div class="form-group" style="float:right"><input class="npc-boxes" id="isRival" name="data.isRival" type="checkbox" {{checked data.isRival}} /><label for="isRival">Rival</label>
-                <input class="npc-boxes" id="isTough" name="data.isTough" type="checkbox" {{checked data.isTough}} /><label for="isTough">Tough</label>
-                <input class="npc-boxes" id="isRabble" name="data.isRabble" type="checkbox" {{checked data.isRabble}} /><label for="isRabble">Rabble</label>
+                <div class="form-group" style="float:right">
+                <input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="data.isRival" type="checkbox" {{checked data.isRival}} /><label for="isRival">Rival</label>
+                <input class="npc-boxes" data-minor-type="tough" id="minorNpc" name="data.isTough" type="checkbox" {{checked data.isTough}} /><label for="isTough">Tough</label>
+                <input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="data.isRabble" type="checkbox" {{checked data.isRabble}} /><label for="isRabble">Rabble</label>
                 </div>
             </div>
         
-        <table>
+            <table>
+                    {{#unless (or data.isRabble data.isTough)}}
 					<tr>
 					  <td style="border-left:2px">  
                            {{localize "EW.attribute.resource.hero_points"}} <input class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
@@ -27,6 +29,7 @@
                             {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>{{/if}}
                         </td>
 					</tr>
+                    {{/unless}}
 					</table>
             
                 {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}

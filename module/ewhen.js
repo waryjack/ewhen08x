@@ -75,6 +75,7 @@ Hooks.once("init", () => {
 
     Handlebars.registerHelper("times", function(n, content) {
        let result = "";
+       if (n==0 || n == null) return;
        for (let i = 0; i < n; i++) {
            result += content.fn(i)
        }
@@ -116,6 +117,14 @@ Hooks.once("init", () => {
         }
 
         return result;
+    });
+
+    Handlebars.registerHelper("and", function(a, b){
+        return (a && b); 
+    });
+
+    Handlebars.registerHelper("or", function(a, b){
+        return (a || b);
     });
 });
 
@@ -190,6 +199,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
     }
         
 });
+
 
 Hooks.on('deleteOwnedItem', function(actor, item){
 

@@ -78,6 +78,60 @@ export default class EWActorSheet extends ActorSheet {
 
         html.find('.equip-item').change(this._onEquipItem.bind(this));
 
+        html.find('.npc-boxes').change(this.onBecomeMinorNPC.bind(this));
+
+    }
+
+    // Change lifeblood, damage if you create a minor NPC from a character
+    // one-way change; caught in preUpdateToken for reversing it
+    onBecomeMinorNPC(event) {
+        event.preventDefault();
+       
+
+       let element = event.currentTarget;
+       let minorType = element.dataset.minorType;
+       let actorData = duplicate(this.actor.data.data);
+      
+        let downgrade = element.checked;
+
+        ui.notifications.warn(game.i18n.localize("EW.warnings.onewaytrip"));
+        
+        if(downgrade){
+            switch(minorType) {
+                case "tough": {
+                    console.log("resources", actorData.resources);
+                    actorData.resources.lifeblood.max = 5 + actorData.main_attributes.strength.rank;
+                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
+                    actorData.resources.resolve.max = 5 + actorData.main_attributes.mind.rank;
+                    actorData.resources.resolve.value = actorData.resources.resolve.max;
+                    return this.actor.update({ "data": actorData});
+                }
+                case "rabble": {
+                    let actorData = duplicate(this.actor.data.data);
+                   // console.log("resources");
+                    actorData.resources.lifeblood.max = Math.floor(Math.random() * 4);
+                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
+                    actorData.resources.resolve.max = 1;
+                    actorData.resources.resolve.value = 1;
+                    return this.actor.update({ "data": actorData});
+                }
+                default: {
+                    actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
+                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
+                    actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
+                    actorData.resources.resolve.value = actorData.resources.resolve.max;
+                    return this.actor.update({ "data": actorData});
+                };
+            }
+        } else {
+            let actorData = duplicate(this.actor.data.data);
+            // console.log("resources");
+             actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
+             actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
+             actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
+             actorData.resources.resolve.value = actorData.resources.resolve.max;
+             return this.actor.update({ "data": actorData});
+        }
     }
 
     // Handle changes to the lifeblood/resolve and critical tracks

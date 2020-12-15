@@ -15,11 +15,16 @@ export class EWActor extends Actor {
       DEFENSE: "defense",
       INITIATIVE: "initiative"
   }
-  // @override
+
+ 
+  /**
+   * @override
+   */
+  
   prepareBaseData(){
         super.prepareBaseData();
    
-        const actorData = this.data;
+        const actorData = this.data; // actorData is "actor.data.data"
         const data = actorData.data;
         const flags = actorData.flags;
         
@@ -39,24 +44,26 @@ export class EWActor extends Actor {
 
        
         // Initialize derived traits - lifeblood and resolve
-        data.resources.lifeblood.max = Number(str) + 10;
+        setProperty(actorData, 'data.resources.lifeblood.max', Number(str) + 10);
        
-        data.resources.resolve.max = Number(mnd) + 10;
+        setProperty(actorData, 'data.resources.resolve.max', Number(mnd) + 10);
        
+
         if (data.resources.lifeblood.value == 0 
             && data.resources.lifeblood.fatigue == 0
              && data.resources.lifeblood.regular == 0 
              && data.resources.lifeblood.lasting == 0) {
             
-                data.resources.lifeblood.value = data.resources.lifeblood.max;
+                setProperty(actorData, 'data.resources.lifeblood.value', data.resources.lifeblood.max);
         }
         if (data.resources.resolve.value == 0 
             && data.resources.resolve.fatigue == 0
              && data.resources.resolve.regular == 0 
              && data.resources.resolve.lasting == 0) {
             
-                data.resources.resolve.value = data.resources.resolve.max;
+                setProperty(actorData, 'data.resources.resolve.value', data.resources.resolve.max);
         }
+
 
     }
 

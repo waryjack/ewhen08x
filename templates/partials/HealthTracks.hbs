@@ -17,8 +17,9 @@
                             <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
                         </td>
-                        <td>{{#if (setting "useResolve")}}<a class="adj-resource res-track" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}}</a>{{/if}}</td>
+                        <td>{{#if (setting "useResolve")}}{{#unless data.isRabble}}<a class="adj-resource res-track" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}}</a>{{/unless}}{{/if}}</td>
                         <td>{{#if (setting "useResolve")}}
+                            {{#unless data.isRabble}}
                             {{#times data.resources.resolve.lasting}}
                             <i class="fas fa-circle res-box"></i>
                             {{/times}}
@@ -31,11 +32,13 @@
                             {{#times data.resources.resolve.fatigue}}
                             <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
+                            {{/unless}}
                             {{/if}}
                         </td>
                         
                     </tr>
                     {{#if (setting "useCritical")}}
+                    {{#unless (or data.isTough data.isRabble)}}
                     <tr>
                         <td class="res-track">{{localize "EW.attribute.resource.critical"}}</td>
                         <td>
@@ -56,7 +59,9 @@
                         </td>
                         <td colspan='4'></td>
                     </tr>
+                    {{/unless}}
                     {{/if}}
+                    
                     </table>
                  
                 

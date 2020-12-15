@@ -92,5 +92,3 @@ Hooks.on('updateCombatant', function(combat, changed, diff) {
 
     changed.initiative = newInit;
 });
-
-

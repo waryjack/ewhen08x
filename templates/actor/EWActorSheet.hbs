@@ -1,7 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="ewhen sheethead">
         <div class="ewhen header-flexitem">
-        <img class="ewhen charimg" style="float:left;" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        <img class="profile-img" style="min-width:64px !important; min-height:64px !imporant" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
         </div>
         <div class="ewhen header-flexitem name-block">
             <div class="charname">
@@ -32,7 +32,6 @@
                     {{/unless}}
 					</table>
             
-                {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
             
         </div>
        <div class="ewhen flexcol">
@@ -62,6 +61,11 @@
                 <div class="ewhen flex-item">
                     {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}	
                     {{> 'systems/ewhen/templates/partials/ArmorList.hbs'}}
+                </div>
+            </div>
+            <div class="ewhen flexrow">
+                <div class="ewhen flex-item">
+                {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
                 </div>
             </div>
     </section> 

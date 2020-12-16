@@ -48,23 +48,17 @@ export class EWActor extends Actor {
        
         setProperty(actorData, 'data.resources.resolve.max', Number(mnd) + 10);
        
+        let totalLbd = data.resources.lifeblood.regular + data.resources.lifeblood.lasting + data.resources.lifeblood.fatigue;
+        let totalRsd = data.resources.resolve.regular + data.resources.resolve.lasting + data.resources.resolve.fatigue;
 
-        if (data.resources.lifeblood.value == 0 
-            && data.resources.lifeblood.fatigue == 0
-             && data.resources.lifeblood.regular == 0 
-             && data.resources.lifeblood.lasting == 0) {
-            
-                setProperty(actorData, 'data.resources.lifeblood.value', data.resources.lifeblood.max);
-        }
-        if (data.resources.resolve.value == 0 
-            && data.resources.resolve.fatigue == 0
-             && data.resources.resolve.regular == 0 
-             && data.resources.resolve.lasting == 0) {
-            
-                setProperty(actorData, 'data.resources.resolve.value', data.resources.resolve.max);
-        }
-
-
+        setProperty(actorData, 'data.resources.lifeblood.value', data.resources.lifeblood.max - totalLbd);
+    
+        setProperty(actorData, 'data.resources.resolve.value', data.resources.resolve.max - totalRsd);
+        console.warn("_prepareCharacterData just executed");
+        console.warn("totalLbd: ", totalLbd);
+        console.warn("totalRsd: ", totalRsd);
+        console.warn("revised lb: ", actorData.data.resources.lifeblood);
+        console.warn("revised rs: ", actorData.data.resources.resolve);
     }
 
     _prepareVehicleData(actorData) {
@@ -374,6 +368,29 @@ export class EWActor extends Actor {
 
         armorRoll.rollObj.getTooltip().then((tt) => armorRoll.createArmorMessage(tt));
 
+    }
+
+    /**
+     * Adjusts current lifeblood to match the maximum lifeblood, so it's rendered correctly on the sheet
+     * @param {String} res - the resource being changed
+     */
+    adjustResource(res) {
+        const data = this.data.data
+        let dmgSum = data.resources[res].regular + data.resources[res].lasting + data.resources[res].fatigue;
+
+        console.log("DmgSum: ", dmgSum);
+        console.log("Max: ", data.resources[res].max);
+        console.log("Value: ", data.resources[res].value);
+
+        let adjustedResource = data.resources[res].max - dmgSum;
+        
+    
+        console.log("Value after: ", adjustedResource);
+
+        this.data.data.resources[res].value = adjustedResource;
+        console.log("Actor updated or not? ", this);
+
+        setProperty(this, `data.data.resources.${res}.value`, adjustedResource);
     }
 
     //getters

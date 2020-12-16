@@ -78,19 +78,3 @@ export class EWCombat extends Combat {
     }
 
 }
-
-// Convert initiative to Everywhen Priority "ladder" if setting active
-Hooks.on('updateCombatant', function(combat, changed, diff) {  
-
-    if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
-
-    if (!("initiative" in changed)) { return; }
-
-    let cmbInit = diff.initiative;
-
-    let newInit = EWCombat.convertInitiative(changed);
-
-    console.log("Inits before and after: ", cmbInit, newInit);
-
-    changed.initiative = newInit;
-});

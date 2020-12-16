@@ -81,7 +81,6 @@ h3 {
 .name-block {
   
   max-height:128px !important;
-  min-height:128px;
   margin-right: 12px;
   flex-grow:2;
   align-items:stretch;
@@ -90,9 +89,9 @@ h3 {
 
 .roll-icon {
   margin:auto;
-  height:128px;
+  /* height:128px;
   max-height:128px;
-  line-height:128px;
+  line-height:128px; */
   padding-left:12px;
   padding-right:12px;
   background: rgb(124, 124, 124);
@@ -135,13 +134,13 @@ h3 {
   text-shadow:gray;
 }
 
-.ewhen .profile-img {
+/* .ewhen .profile-img {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 100px;
   flex: 0 0 100px;
   height: 150px;
   width: auto;
-}
+}*/
 
 .ewhen .flex-item {
   border:3px solid rgb(43, 42, 42);
@@ -290,8 +289,8 @@ h3 {
 }
 
 .ewhen .charimg {
-  width: 128px;
-  height:128px !important;
+  width: 64px;
+  height:64px !important;
   background:rgb(122, 122, 122);
   vertical-align:text-top;
 }

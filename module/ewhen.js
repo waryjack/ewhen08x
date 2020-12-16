@@ -128,6 +128,13 @@ Hooks.once("init", () => {
     });
 });
 
+/**
+ * Item Hooks - update, delete, make sure to adjust stats 
+ * for armor and so forth, initiative.
+ * 
+ * Todo - consolidate and move to method(s) in EWActor?
+ */
+
 Hooks.on('updateOwnedItem', function(actor, item, changed){
 
     console.log("Changed: ", changed);
@@ -271,5 +278,57 @@ Hooks.on('deleteOwnedItem', function(actor, item){
     }
 });
 
+/**
+ * Chat Display Hooks
+ */
+
+// Add the necessary tooltip toggles
+
+Hooks.on('renderChatMessage', (app, html) => {
+
+    html.on('click', '.taskroll-msg', event => {
+        event.preventDefault();
+        // NOTE: This depends on the exact card template HTML structure.
+        $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
+     });
+ 
+     html.on('click', '.taskroll-info', event => {
+        event.preventDefault();
+        // NOTE: This depends on the exact card template HTML structure.
+        $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
+     });
+
+});
+
+/**
+ * Initiative / Combat Hooks
+ */
+
+// Convert initiative to Everywhen Priority "ladder" if setting active
+Hooks.on('updateCombatant', function(combat, changed, diff) {  
+
+    if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+
+    if (!("initiative" in changed)) { return; }
+
+    let cmbInit = diff.initiative;
+
+    let newInit = EWCombat.convertInitiative(changed);
+
+    console.log("Inits before and after: ", cmbInit, newInit);
+
+    changed.initiative = newInit;
+});
 
 
+/**
+ * Actor / Token Hooks
+ */
+
+Hooks.on('updateToken', function(token, changed, diff){
+
+    console.log("Also Updating Token: ", token.name, token._id);
+
+});
+
+ 

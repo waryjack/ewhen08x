@@ -99,8 +99,8 @@ export const EW = {
         heavy: 'EW.armortype.heavy',
         complete: 'EW.armortype.complete',
         helmet: 'EW.armortype.helmet',
-        small_shield: 'EW.armortype.shield.small',
-        large_shield: 'EW.armortype.shield.large'
+        small_shield: 'EW.armortype.small_shield',
+        large_shield: 'EW.armortype.large_shield'
     }
 
 }

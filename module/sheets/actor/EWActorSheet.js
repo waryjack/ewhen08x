@@ -40,7 +40,7 @@ export default class EWActorSheet extends ActorSheet {
         data.crit = this.actor.data.data.resources.lifeblood.critical;
         data.cdmg = this.actor.data.data.resources.lifeblood.value;
 
-      //      console.log("Data current damage: ", data.cdmg);
+     console.log("Data current damage: ", data.cdmg);
         return data;
     }
 

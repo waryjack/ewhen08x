@@ -13,7 +13,7 @@ import EWPowerSheet from "./sheets/item/EWPowerSheet.js";
 import EWWeaponSheet from "./sheets/item/EWWeaponSheet.js";
 import EWTraitSheet from "./sheets/item/EWTraitSheet.js";
 import { registerSettings } from "./settings.js";
-// import EWVehicleSheet from "./sheets/actor/EWVehicleSheet.js";
+import EWVehicleSheet from "./sheets/actor/EWVehicleSheet.js";
 
 
 
@@ -44,7 +44,7 @@ Hooks.once("init", () => {
 
     // Register System sheets
     Actors.registerSheet("ewhen", EWActorSheet, { types:["character"], makeDefault:true });
-    //  Actors.registerSheet("ewhen", EWVehicleSheet, { types: ["vehicle"], makeDefault:true });
+    Actors.registerSheet("ewhen", EWVehicleSheet, { types: ["vehicle"], makeDefault:true });
     
     Items.registerSheet("ewhen", EWCareerSheet, { types: ["career"], makeDefault:true });
     Items.registerSheet("ewhen", EWArmorSheet, { types: ["armor"], makeDefault: true });

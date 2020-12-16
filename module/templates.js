@@ -15,6 +15,7 @@ export const preloadHandlebarsTemplates = async function() {
       "systems/ewhen/templates/partials/PowerList.hbs",
       "systems/ewhen/templates/partials/WeaponList.hbs",
       "systems/ewhen/templates/partials/ArmorList.hbs",
+      "systems/ewhen/templates/partials/VehicleSpecs.hbs",
   
       // Item Sheet Partials
       "systems/ewhen/templates/partials/EraSelect.hbs",

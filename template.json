@@ -111,7 +111,7 @@
 				"scale":1,
 				"mod":0
 			},
-			"defense":{
+			"def":{
 				"rank":0,
 				"scale":1,
 				"mod":0
@@ -119,12 +119,26 @@
 			"frame":{
 				"rank":0,
 				"scale":2,
-				"mod":0
+				"mod":0,
+				"max":0,
+				"value":0,
+				"lasting":0,
+				"critical":0
 			},
 			"armor":{
 				"rank":0,
 				"scale":0,
 				"mod":0
+			},
+			"resources": {
+				"shield": {
+					"max":0,
+					"value":0,
+					"regular":0,
+					"lasting":0,
+					"fatigue":0,
+					"critical":0
+				}
 			}
 		}
 	},

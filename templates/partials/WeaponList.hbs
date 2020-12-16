@@ -23,7 +23,7 @@
                                         {{/if}}
                                         , AP{{weapon.data.damage.ap}} {{#if (gt weapon.data.range 0)}}, Range {{weapon.data.range}}{{/if}}  
                                         {{#if (setting "useScale")}}{{#if (ne weapon.data.damage.scale 1)}}, scale {{weapon.data.damage.scale}}{{/if}}{{/if}}</em></td>
-                            <td>
+                            <td style="right:100%;">
                                 <a class="item-edit item" data-item-id="{{weapon._id}}">
                                     <i class="fas fa-edit"></i>
                                 </a>

@@ -13,6 +13,15 @@ export const EW = {
         defense: 'EW.attributes.combat.defense',
         initiative: 'EW.attributes.combat.initiative'
     },
+    vehicle_attributes: {
+        type: 'EW.attributes.vehicle.type',
+        crew: 'EW.attributes.vehicle.crew',
+        scan: 'EW.attributes.vehicle.scan',
+        speed: 'EW.attributes.vehicle.speed',
+        defense: 'EW.attributes.vehicle.defense',
+        frame: 'EW.attributes.vehicle.frame',
+        armor: 'EW.attributes.vehicle.armor'
+    },
     game_terms: {
         attributes: 'EW.game_term.attributes',
         boons: 'EW.game_term.boons',

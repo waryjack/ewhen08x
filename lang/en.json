@@ -9,8 +9,19 @@
     "EW.attribute.combat.defense": "Defense",
     "EW.attribute.combat.initiative": "Initiative",
     
+    "EW.attribute.vehicle.type": "Vehicle Type",
+    "EW.attribute.vehicle.crew": "Crew Rank",
+    "EW.attribute.vehicle.scan": "Scan",
+    "EW.attribute.vehicle.speed": "Speed",
+    "EW.attribute.vehicle.defense": "Defense",
+    "EW.attribute.vehicle.frame": "Frame",
+    "EW.attribute.vehicle.armor": "Armor",
+    "EW.attribute.vehicle.size": "Size",
+    "EW.attribute.vehicle.shield": "Shields",
+
     "EW.game_term.attributes.attribute": "Attribute",
     "EW.game_term.attributes.main": "Main Attributes",
+    "EW.game_term.vehicle.specs": "Specs",
     "EW.game_term.attributes.combat": "Combat Attributes",
     "EW.game_term.attribute.singular.main": "Main Attribute",
     "EW.game_term.attribute.singular.combat": "Combat Attribute",
@@ -52,6 +63,7 @@
     "EW.game_term.halfattribute": "Halve?",
     "EW.game_term.dice": "Dice",
     "EW.game_term.primod": "Priority Mod",
+    "EW.game_term.vehicle": "Vehicle",
 
     "EW.era.ancient": "Ancient",
     "EW.era.steampunk": "Steampunk",
@@ -144,6 +156,8 @@
 
     "EW.activity.adjustlifeblood": "Update Lifeblood",
     "EW.activity.adjustresolve": "Update Resolve",
+    "EW.activity.adjustframe": "Update Frame",
+    "EW.activity.adjustshield": "Update Shields",
 
     "EW.weapontype.lightmelee": "Light Melee",
     "EW.weapontype.heavymelee": "Heavy Melee",
@@ -173,6 +187,8 @@
     "heavyMelee": "heavy melee",
     "lightRanged": "light ranged",
     "heavyRanged": "heavy ranged",
+    "rabbleAttack": "armed rabble",
+    "hordeAttack": "horde attack",
 
     "2d6kl1": "d6L",
     "2d6kh1": "d6H",
@@ -206,5 +222,7 @@
     "EW.SETTINGS.UsePsionicsDesc": "Enable Psionic Points display on character sheet.",
     "EW.SETTINGS.UseScale": "Display Scale",
     "EW.SETTINGS.UseScaleDesc": "Show scale values for attributes and weapons.",
-    "EW.SETTINGS.RerollPer": "Reroll Initiative Every Round"
+    "EW.SETTINGS.RerollPer": "Reroll Initiative Every Round",
+    "EW.SETTINGS.rabbleStrength": "Rabble Lifeblood Amount",
+    "EW.SETTINGS.rabbleStrengthDesc": "How much lifeblood should Rabble have in your game?"
 }

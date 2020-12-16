@@ -1,12 +1,12 @@
 <form class="ewhen roll-dialog">
  <header class="roll-header">
-        <h1 class="roll-name">{{localize resname}}</h1>
+        <h1 class="roll-name">{{localize resname}}</h1>{{log resname}}
     </header>
 
 {{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
 {{!-- combat - combat attributes object - combat.(attribute), blah blah .rank --}}
 {{!-- careers - careers object - career, (career).rank --}}
- <div class="ewhen roll-dialog">
+ {{#unless (eq type "vehicle")}}<div class="ewhen roll-dialog">
      <div class="form-group">
          <label for="fatigue-dmg">{{localize "EW.damage.type.fatigue"}}</label>
          <input type="text" id="fatigue-dmg" value="{{resinfo.fatigue}}" data-dtype="Number"/>
@@ -15,16 +15,18 @@
          <label for="regular-dmg">{{localize "EW.damage.type.normal"}}</label>
          <input type="text" id="regular-dmg" value="{{resinfo.regular}}" data-dtype="Number"/>
      </div>
+ {{/unless}}
      <div class="form-group">
          <label for="lasting-dmg">{{localize "EW.damage.type.lasting"}}</label>
          <input type="text" id="lasting-dmg" value="{{resinfo.lasting}}" data-dtype="Number"/>
      </div>
-     {{#if (setting "useCritical")}}
+ {{#unless (eq resname "EW.activity.adjustshield")}} {{#if (setting "useCritical")}}
      <div class="form-group">
          <label for="crit-dmg">{{localize "EW.damage.type.critical"}}</label>
          <input type="text" id="crit-dmg" value="{{resinfo.critical}}" data-dtype="Number"/>
      </div>
      {{/if}}
+ {{/unless}}
  </div>
 
 

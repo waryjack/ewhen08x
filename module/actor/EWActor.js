@@ -25,11 +25,13 @@ export class EWActor extends Actor {
         super.prepareBaseData();
    
         const actorData = this.data; // actorData is "actor.data.data"
+
+        console.warn("prepareBaseData object: ", actorData);
         const data = actorData.data;
         const flags = actorData.flags;
         
         if (actorData.type === 'character') this._prepareCharacterData(actorData);
-        else if (actorData.type === 'vehicle') this._prepareVehicleData(data);
+        else if (actorData.type === 'vehicle') this._prepareVehicleData(actorData);
     }
 
     /**
@@ -44,16 +46,29 @@ export class EWActor extends Actor {
 
        
         // Initialize derived traits - lifeblood and resolve
+        // but not for rabble or toughs!
+        if (!data.isRabble && !data.isTough){
         setProperty(actorData, 'data.resources.lifeblood.max', Number(str) + 10);
        
         setProperty(actorData, 'data.resources.resolve.max', Number(mnd) + 10);
+        }
+
+        if (data.isRabble) {
+            setProperty(actorData, 'data.resources.lifeblood.max', game.settings.get('ewhen', 'rabbleStrength'));
+            setProperty(actorData, 'data.resources.resolve.max', game.settings.get('ewhen', 'rabbleStrength'));
+        }
+
+        if (data.isTough) {
+            setProperty(actorData, 'data.resources.lifeblood.max', Number(str)+5);
+            setProperty(actorData, 'data.resources.resolve.max', Number(mnd)+5);
+        }
        
         let totalLbd = data.resources.lifeblood.regular + data.resources.lifeblood.lasting + data.resources.lifeblood.fatigue;
         let totalRsd = data.resources.resolve.regular + data.resources.resolve.lasting + data.resources.resolve.fatigue;
 
-        setProperty(actorData, 'data.resources.lifeblood.value', data.resources.lifeblood.max - totalLbd);
+        setProperty(actorData, 'data.resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
     
-        setProperty(actorData, 'data.resources.resolve.value', data.resources.resolve.max - totalRsd);
+        setProperty(actorData, 'data.resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
         console.warn("_prepareCharacterData just executed");
         console.warn("totalLbd: ", totalLbd);
         console.warn("totalRsd: ", totalRsd);
@@ -63,6 +78,18 @@ export class EWActor extends Actor {
 
     _prepareVehicleData(actorData) {
         // Stub
+        super.prepareDerivedData();
+        const data = actorData.data;
+        console.warn("vehicle data", data);
+
+        var frame = data.frame.rank;
+        var lasting = data.frame.lasting;
+        var shieldDmg = data.resources.shield.lasting + data.resources.shield.regular + data.resources.shield.fatigue;
+
+        setProperty(actorData, "data.frame.max", Math.max(5, frame));
+        setProperty(actorData, "data.frame.value", Math.max(0, data.frame.max - lasting));
+        setProperty(actorData, "data.resources.shield.max", Math.max(5, frame));
+        setProperty(actorData, "data.resources.shield.value", Math.max(0, data.resources.shield.max - shieldDmg));
     }
 
     /** 
@@ -185,6 +212,64 @@ export class EWActor extends Actor {
 
 
     }
+
+    /**
+    * @param res {String} - the name of the resource being updated (lifeblood or resolve)
+    */
+   updateVehicleResource() {
+    const actorData = duplicate(this.data);
+    const resData = duplicate(actorData.data.frame);
+    console.log(resData);
+    let dialogData = {
+        resname: "EW.activity.adjustframe",
+        resinfo: resData,
+        type: "vehicle"
+    }
+    
+    renderTemplate('systems/ewhen/templates/actor/EWAdjustResource.hbs', dialogData).then((dlg)=>{ 
+       new Dialog({
+        title: game.i18n.localize("EW.activity.adjustframe"),
+        content: dlg,
+        buttons: {
+            ok: {
+                icon: '<i class="fas fa-check"></i>',
+                label: "Continue",
+                callback: (html) => { 
+
+                    let lastDmg = Number(html.find("#lasting-dmg").val());
+                    let critDmg = Number(html.find("#crit-dmg").val());
+
+                    resData.lasting = lastDmg;
+                    resData.critical = Math.min(critDmg, 5);
+                    let totalDmg = lastDmg;
+                    let currentLb = resData.max - totalDmg;
+                    resData.value = currentLb;
+
+                    if(totalDmg > resData.max) { 
+                        ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
+                    } else {  
+                    
+                        actorData.data.frame = resData;
+
+                     //  console.log("Actor Data post-update: ", actorData);
+         
+                        this.update(actorData);
+                        this.sheet.render(true);
+                    }
+                }
+            },
+            cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: "Cancel",
+                callback: () => { console.log("Clicked cancel", res); return; }
+            }
+        },
+        default: "ok"
+        }).render(true);
+    });
+
+
+}
 
     /**
     * @param attr {String} - the main attribute in the roll (e.g., "strength")
@@ -376,21 +461,29 @@ export class EWActor extends Actor {
      */
     adjustResource(res) {
         const data = this.data.data
-        let dmgSum = data.resources[res].regular + data.resources[res].lasting + data.resources[res].fatigue;
 
-        console.log("DmgSum: ", dmgSum);
-        console.log("Max: ", data.resources[res].max);
-        console.log("Value: ", data.resources[res].value);
+        if (res == "frame") {
+            let dmgSum = data.frame.lasting;
+            let adjustedResource = data.frame.max - dmgSum;
+            setProperty(this, "data.data.frame.value", adjustedResource);
 
-        let adjustedResource = data.resources[res].max - dmgSum;
+        } else {
+            let dmgSum = data.resources[res].regular + data.resources[res].lasting + data.resources[res].fatigue;
+
+            console.log("DmgSum: ", dmgSum);
+            console.log("Max: ", data.resources[res].max);
+            console.log("Value: ", data.resources[res].value);
+
+            let adjustedResource = data.resources[res].max - dmgSum;
+            
         
-    
-        console.log("Value after: ", adjustedResource);
+            console.log("Value after: ", adjustedResource);
 
-        this.data.data.resources[res].value = adjustedResource;
-        console.log("Actor updated or not? ", this);
+            this.data.data.resources[res].value = adjustedResource;
+            console.log("Actor updated or not? ", this);
 
-        setProperty(this, `data.data.resources.${res}.value`, adjustedResource);
+            setProperty(this, `data.data.resources.${res}.value`, adjustedResource);
+        }
     }
 
     //getters

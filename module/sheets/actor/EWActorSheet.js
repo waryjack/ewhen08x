@@ -39,6 +39,7 @@ export default class EWActorSheet extends ActorSheet {
         data.ldmg = this.actor.data.data.resources.lifeblood.lasting;
         data.crit = this.actor.data.data.resources.lifeblood.critical;
         data.cdmg = this.actor.data.data.resources.lifeblood.value;
+        data.EWActorType = "character";
 
      console.log("Data current damage: ", data.cdmg);
         return data;
@@ -91,10 +92,40 @@ export default class EWActorSheet extends ActorSheet {
        let element = event.currentTarget;
        let minorType = element.dataset.minorType;
        let actorData = duplicate(this.actor.data.data);
+       let rabbleAttack = {
+        wpn_type:"rabbleAttack",
+			damage: {
+				dice:"1d3",
+				scale:1,
+				add_attribute:"none",
+				half_attribute:false,
+				mod:0,
+				ap:0
+			},
+			hands:"one handed",
+			range:0,
+			recoil:0,
+			era:""
+       }
+       let hordeAttack = {
+        wpn_type:"hordeAttack",
+			damage: {
+				dice:"2d6kl1",
+				scale:1,
+				add_attribute:"none",
+				half_attribute:false,
+				mod:0,
+				ap:0
+			},
+			hands:"one handed",
+			range:0,
+			recoil:0,
+			era:""
+       }
       
         let downgrade = element.checked;
 
-        ui.notifications.warn(game.i18n.localize("EW.warnings.onewaytrip"));
+       // ui.notifications.warn(game.i18n.localize("EW.warnings.onewaytrip"));
         
         if(downgrade){
             switch(minorType) {
@@ -113,6 +144,13 @@ export default class EWActorSheet extends ActorSheet {
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
                     actorData.resources.resolve.max = 1;
                     actorData.resources.resolve.value = 1;
+                    let rAtk = new Item({"name": "Rabble Attack", "type":"weapon"});
+                    let hAtk = new Item({"name": "Rabble Attack", "type":"weapon"});
+                    setProperty(rAtk, "data.data", rabbleAttack);
+                    setProperty(hAtk, "data.data", hordeAttack);
+                    console.warn("rAtk: ", rAtk);
+                    this.actor.createOwnedItem(rAtk);
+                    this.actor.createOwnedItem(hAtk);
                     return this.actor.update({ "data": actorData});
                 }
                 default: {

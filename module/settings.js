@@ -89,5 +89,14 @@ export const registerSettings = function() {
         type: Boolean,
         default: true
     });
+
+    game.settings.register("ewhen", "rabbleStrength", {
+        name: "EW.SETTINGS.rabbleStrength",
+        hint: "EW.SETTINGS.rabbleStrengthDesc",
+        scope: "world",
+        config: true,
+        type: Number,
+        default:1
+    });
     
 }

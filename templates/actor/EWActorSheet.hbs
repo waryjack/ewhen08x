@@ -6,14 +6,14 @@
         <div class="ewhen header-flexitem name-block">
             <div class="charname">
                 <input class="ewhen charname" style="width:50%; vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-                <div class="form-group" style="float:right">
+                <div class="form-group" style="float:right; color:white;">
                 <input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="data.isRival" type="checkbox" {{checked data.isRival}} /><label for="isRival">Rival</label>
                 <input class="npc-boxes" data-minor-type="tough" id="minorNpc" name="data.isTough" type="checkbox" {{checked data.isTough}} /><label for="isTough">Tough</label>
                 <input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="data.isRabble" type="checkbox" {{checked data.isRabble}} /><label for="isRabble">Rabble</label>
                 </div>
             </div>
         
-            <table>
+            <table class="item-table">
                     {{#unless (or data.isRabble data.isTough)}}
 					<tr>
 					  <td style="border-left:2px">  
@@ -44,6 +44,9 @@
 
     <section class="sheetbody">
         <div class="ewhen flexcol"> {{!--Outermost Flex Container--}}
+             <div class="ewhen flexrow" style="color:white; ">
+                {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
+            </div>
             <div class="ewhen flexrow">
                 {{> 'systems/ewhen/templates/partials/MainAttributes.hbs'}}
                 {{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
@@ -56,17 +59,13 @@
                 <div class="ewhen flex-item">
                     {{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
                     {{> 'systems/ewhen/templates/partials/FlawList.hbs'}}
-                   {{#unless data.isRabble}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
+                   {{#unless (or data.isTough data.isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
                 </div>
                 <div class="ewhen flex-item">
                     {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}	
                    {{#unless data.isRabble}} {{> 'systems/ewhen/templates/partials/ArmorList.hbs'}} {{/unless}}
                 </div>
             </div>
-            <div class="ewhen flexrow">
-                <div class="ewhen flex-item">
-                {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
-                </div>
-            </div>
+           
     </section> 
 </form>

@@ -2,7 +2,7 @@
 {{#if (eq EWActorType "character")}}
 <div class="ewhen flex-item">
                    <h3 class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</h3>
-                <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">    
+                <table class="nostretch item-table">    
                     <tr>
                         <td><a class="att-roll" data-attribute="strength">{{localize "EW.attribute.main.strength"}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.strength.rank" value="{{data.main_attributes.strength.rank}}"></td>
@@ -29,7 +29,7 @@
 {{#if (eq EWActorType "vehicle")}}
 <div class="ewhen flex-item">
                    <h3 class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</h3>
-                <table class="nostretch" style="border:none; width:100%; margin:auto; padding:3px;">    
+                <table class="nostretch item-table">    
                     <tr>
                         <td>{{localize "EW.attribute.vehicle.size"}}</td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.size.rank" value="{{data.size.rank}}"></td>

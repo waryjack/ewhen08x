@@ -7,7 +7,7 @@ The system has a a relatively low-automation approach, with the focus on a chara
 ## Todo
 
 * Equipment editing and creation (regular gear; weapons/worn armor are done)
-* Modifying the character sheet for rabble & toughs to hide unnecessary info
-* Documentation and localizing some text
-* Refactoring like, lots of crap
-* Error catching...everywhere
+* Tab on character sheet for notes / other stuff (like Gear?)
+* Prettifying character sheet
+* Localization fixes
+* Refactoring - it's spaghetti at the moment

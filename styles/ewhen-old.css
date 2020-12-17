@@ -8,17 +8,13 @@
           box-sizing: border-box;
 }
 
-table tr:nth-child(even) {
-  background:rgb(12, 12, 12) !important;
-}
-
 h3 {
   padding-left:3px;
   padding-top:3px;
 }
 
 .ewhen .window-content {
-  background: rgb(14, 14, 14);
+  background: rgb(255, 255, 255);
 }
 
 .editor {
@@ -39,7 +35,7 @@ h3 {
 
 .basic-roll {
   font-size:4em;
-  color:rgb(255, 255, 255);
+  color:rgb(27, 27, 31);
   
 }
 
@@ -100,8 +96,11 @@ h3 {
   line-height:128px; */
   padding-left:12px;
   padding-right:12px;
-  background: rgb(0, 0, 0);
-  border-left:3px solid white;
+  background: rgb(255, 255, 255);
+  border:4px solid rgb(138, 138, 138);
+  -webkit-border-radius: 4px; 
+  -moz-border-radius: 4px; 
+  border-radius: 4px; 
 }
 
 .roll-icon i {
@@ -146,14 +145,14 @@ h3 {
 }*/
 
 .ewhen .flex-item {
-  border:4px solid rgb(255, 255, 255);
+  border:4px solid rgb(138, 138, 138);
   -webkit-border-radius: 8px; 
   -moz-border-radius: 8px; 
   border-radius: 8px; 
-  background: #000000;
-  color:rgb(255, 255, 255);
+  background: #ffffff;
+  color:rgb(27, 27, 31);
   font-size:1em;
-  margin-top:8px;
+  margin-top:15px;
   margin-left:6px;
   margin-right:6px;  
   height:auto;
@@ -168,11 +167,6 @@ h3 {
   margin-left:auto;
   right:100%;
   text-align:right;
-  color:white;
-}
-
-.ewhen .statfield input {
-  color:white;
 }
 
 .cell {
@@ -191,16 +185,6 @@ h3 {
   align-self:flex-start;
 }
 
-.item-table {
-  background:none;
-  color:white;
-  border:none !important; 
-  height:auto; 
-  width:100%; 
-  margin:auto; 
-  padding:3px;
-}
-
 .ewhen .trait-desc {
   resize:none;
 }
@@ -211,7 +195,7 @@ h3 {
   font-weight: 700;
   display:flex;
   flex-direction:row;
-  background:rgb(255, 255, 255);
+  background:rgb(138,138,138);
   color:rgb(0, 0, 0);
 }
 
@@ -259,7 +243,6 @@ h3 {
 .healthbar {
   align-items:start !important;
   width:100%;
-  border:none !important;
 }
 
 .taskroll-final {
@@ -319,7 +302,7 @@ h3 {
 
 .res-track {
   font-family:'Cuprum', sans-serif;
-  color:rgb(255, 255, 255);
+  color:black;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -328,7 +311,7 @@ h3 {
 
 .weapon-image:hover img {
   content: url('../assets/dice-target.svg');
-  /* filter:invert(1); */
+  filter:invert(1);
 
 }
 

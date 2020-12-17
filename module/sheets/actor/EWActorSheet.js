@@ -145,7 +145,7 @@ export default class EWActorSheet extends ActorSheet {
                     actorData.resources.resolve.max = 1;
                     actorData.resources.resolve.value = 1;
                     let rAtk = new Item({"name": "Rabble Attack", "type":"weapon"});
-                    let hAtk = new Item({"name": "Rabble Attack", "type":"weapon"});
+                    let hAtk = new Item({"name": "Horde Attack", "type":"weapon"});
                     setProperty(rAtk, "data.data", rabbleAttack);
                     setProperty(hAtk, "data.data", hordeAttack);
                     console.warn("rAtk: ", rAtk);

@@ -266,7 +266,8 @@ export class EWRoll {
             tooltip: new Handlebars.SafeString(tt),
             d: this.rollInfo,
             outcome: outcome,
-            outclass: outcomeClass
+            outclass: outcomeClass,
+            actor:this.actor._id
         }
 
         renderTemplate('systems/ewhen/templates/roll/EWRollMessage.hbs', chatData).then((msg)=>{
@@ -299,7 +300,8 @@ export class EWRoll {
             tooltip: new Handlebars.SafeString(tt),
             d: this.rollInfo,
             outcome: "",
-            outclass: "roll-sux"
+            outclass: "roll-sux",
+            actor:this.actor._id
         }
 
        // console.log("D mods: ", chatData.d.mods);
@@ -324,7 +326,8 @@ export class EWRoll {
             name: this.item.name,
             img: this.item.img,
             protection: this.item.data.data.protection.variable,
-            armorbonus: this.actor.data.data.armorbonus
+            armorbonus: this.actor.data.data.armorbonus,
+            actor: this.actor._id
         }
 
         renderTemplate('systems/ewhen/templates/roll/EWArmorMessage.hbs', chatData).then((msg)=>{

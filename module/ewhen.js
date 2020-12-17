@@ -298,6 +298,21 @@ Hooks.on('renderChatMessage', (app, html) => {
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
      });
 
+     html.on('click', '#legendize', event => {
+        event.preventDefault();
+
+        let element = event.currentTarget;
+       
+        let actorId = element.dataset.actorId;
+
+        let actor = game.actors.get(actorId);
+
+
+        if(!actor.data.data.isRival && !actor.data.data.isRabble && !actor.data.data.isTough) {
+            actor.spendHeroPoint();
+        }
+     });
+
 });
 
 /**

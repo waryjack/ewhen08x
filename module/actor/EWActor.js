@@ -486,6 +486,16 @@ export class EWActor extends Actor {
         }
     }
 
+    spendHeroPoint() {
+        let hp = this.data.data.resources.hero_points;
+        if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
+        hp = Math.max(0, hp - 1);
+
+        
+
+        setProperty(this, "data.data.resources.hero_points", hp);
+    }
+
     //getters
     getAttribute(attribute){
         var attSet;

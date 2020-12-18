@@ -73,7 +73,8 @@
 					"regular":0,
 					"lasting":0,
 					"fatigue":0,
-					"critical":0
+					"critical":0,
+					"misc_lfb":0
 				},
 				"resolve":
 				{
@@ -82,7 +83,8 @@
 					"regular":0,
 					"lasting":0,
 					"fatigue":0,
-					"critical":0
+					"critical":0,
+					"misc_res":0
 				}
 			},
 			"traits":{

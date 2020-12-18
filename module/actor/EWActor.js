@@ -43,14 +43,16 @@ export class EWActor extends Actor {
 
         var str = data.main_attributes.strength.rank;
         var mnd = data.main_attributes.mind.rank;
-
+        var mlf = data.resources.lifeblood.misc_lfb;
+        var mre = data.resources.resolve.misc_res;
        
+        console.warn("MRes: ", mre);
         // Initialize derived traits - lifeblood and resolve
         // but not for rabble or toughs!
         if (!data.isRabble && !data.isTough){
-        setProperty(actorData, 'data.resources.lifeblood.max', Number(str) + 10);
+        setProperty(actorData, 'data.resources.lifeblood.max', Number(str) + 10 + mlf);
        
-        setProperty(actorData, 'data.resources.resolve.max', Number(mnd) + 10);
+        setProperty(actorData, 'data.resources.resolve.max', Number(mnd) + 10 + mre);
         }
 
         if (data.isRabble) {

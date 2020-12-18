@@ -487,13 +487,29 @@ export class EWActor extends Actor {
     }
 
     spendHeroPoint() {
-        let hp = this.data.data.resources.hero_points;
+        const hp = this.getHeroPoints();
         if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
-        hp = Math.max(0, hp - 1);
+        let newHp= Math.max(0, hp - 1);
+        this.update({'data.data.resources.hero_points': 4});
 
+        console.warn("Spending Hero Point: ", hp, newHp, this.data.data.resources.hero_points, this.name, this);
+   
+        let chatData = {
+            actor:this.name
+        }
+
+        renderTemplate('systems/ewhen/templates/roll/EWHeroPoint.hbs', chatData).then((msg)=>{
+            ChatMessage.create({
+                user: game.user._id,
+                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
+                speaker: ChatMessage.getSpeaker(),
+                content: msg
+            });
+            
+
+
+        });
         
-
-        setProperty(this, "data.data.resources.hero_points", hp);
     }
 
     //getters

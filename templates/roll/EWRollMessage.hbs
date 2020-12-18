@@ -1,7 +1,7 @@
 <form class="ewhen roll-dialog">
  <header class="roll-header taskroll-info">
         <h1 class="roll-name">{{localize (proper d.chosenAttribute)}} Roll
-            {{#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if}}
+            
             <div class="taskroll-final {{outclass}}" style="">
                 {{roll.total}}
             </div>
@@ -22,6 +22,7 @@
     <div>{{tooltip}}</div>
 </div>
 <div class="taskroll-outcome {{outclass}}">
-    {{outcome}}
+    {{outcome}} {{!--#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if--}}
 </div>
+
 </form>

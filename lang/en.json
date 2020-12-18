@@ -202,6 +202,7 @@
     "EW.warnings.mustbenumber": "Bonuses and penalties must be numbers.",
 
     "EW.dialog.weaponinfo": "Weapon Information",
+    "EW.dialog.legendarysuccess": "Legendary Success!",
 
     "EW.SETTINGS.ConventionalInit": "Conventional Initiative",
     "EW.SETTINGS.ConventionalInitDesc": "Sort initiative in conventional order, not by character type.",

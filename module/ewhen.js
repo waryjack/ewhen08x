@@ -298,7 +298,7 @@ Hooks.on('renderChatMessage', (app, html) => {
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
      });
 
-     html.on('click', '#legendize', event => {
+     /* html.on('click', '#legendize', event => {
         event.preventDefault();
 
         let element = event.currentTarget;
@@ -311,7 +311,7 @@ Hooks.on('renderChatMessage', (app, html) => {
         if(!actor.data.data.isRival && !actor.data.data.isRabble && !actor.data.data.isTough) {
             actor.spendHeroPoint();
         }
-     });
+     }); */
 
 });
 

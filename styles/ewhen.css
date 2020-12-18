@@ -9,7 +9,7 @@
 }
 
 table tr:nth-child(even) {
-  background:rgb(12, 12, 12) !important;
+  background:none !important;
 }
 
 h3 {
@@ -18,7 +18,11 @@ h3 {
 }
 
 .ewhen .window-content {
-  background: rgb(14, 14, 14);
+  /* background: rgb(14, 14, 14); */
+  background-color: rgb(32, 32, 32);
+  background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+  background-size: 10px 10px, 10px 10px, 10px 5px;
+  background-position: 0px 0px, 5px 5px, 0px 0px;
 }
 
 .editor {
@@ -100,7 +104,7 @@ h3 {
   line-height:128px; */
   padding-left:12px;
   padding-right:12px;
-  background: rgb(0, 0, 0);
+  background: none;
   border-left:3px solid white;
 }
 
@@ -192,7 +196,7 @@ h3 {
 }
 
 .item-table {
-  background:none;
+  background:none !important;
   color:white;
   border:none !important; 
   height:auto; 
@@ -292,6 +296,11 @@ h3 {
 .roll-fail, .roll-auto-fail {
   background:rgb(110, 0, 0);
   color:white;
+}
+
+.roll-mods {
+  color:black;
+  background:rgb(221, 221, 221);
 }
 
 .taskroll-outcome {

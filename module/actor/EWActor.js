@@ -487,13 +487,11 @@ export class EWActor extends Actor {
     }
 
     spendHeroPoint() {
-        const hp = this.getHeroPoints();
+        const hp = this.data.data.resources.hero_points;
         if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
         let newHp= Math.max(0, hp - 1);
-        this.update({'data.data.resources.hero_points': 4});
+        setProperty(this, "_data.data.resources.hero_points", newHp);
 
-        console.warn("Spending Hero Point: ", hp, newHp, this.data.data.resources.hero_points, this.name, this);
-   
         let chatData = {
             actor:this.name
         }

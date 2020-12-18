@@ -22,7 +22,9 @@
     <div>{{tooltip}}</div>
 </div>
 <div class="taskroll-outcome {{outclass}}">
-    {{outcome}} {{!--#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if--}}
+    {{outcome}}
 </div>
-
+<div>
+ {{#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if}}
+ </div>
 </form>

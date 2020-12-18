@@ -12,7 +12,8 @@ export default class EWActorSheet extends ActorSheet {
         classes: ['ewhen', 'sheet', 'actor', 'actor-sheet'],
         width: 750,
         height: 685,
-        left:120
+        left:120,
+        tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheetbody", initial: "main"}],
         });
     }
     

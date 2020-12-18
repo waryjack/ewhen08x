@@ -71,6 +71,9 @@
     "EW.game_term.difficulty": "Difficulty",
     "EW.game_term.prereq": "Prerequisite",
     "EW.game_term.resourcecost": "Resource Cost",
+    "EW.game_term.biography": "Biography",
+    "EW.game_term.notes": "Notes",
+    "EW.game_term.miscmods": "Miscellaneous Modifiers",
 
     "EW.era.ancient": "Ancient",
     "EW.era.steampunk": "Steampunk",

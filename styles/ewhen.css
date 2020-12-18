@@ -48,12 +48,16 @@ h3 {
   
 }
 
-.tox .tox-tinymce {
+/* .tox .tox-tinymce {
   visibility:visible;
   height:250px;
   min-height:210px !important;
-}
+  color:white;
+}*/
 
+.edit-cont {
+  background:whitesmoke !important;
+}
 
 .ewhen .sidebar {
   display:flex;
@@ -76,6 +80,31 @@ h3 {
   flex-flow:row nowrap;
   justify-content:start;
   max-height:128px;
+}
+
+.sheet nav.sheet-tabs {
+  height: 32px;
+  flex: 0 0 32px;
+  margin: 4px 0;
+  line-height: 32px;
+ border: none;
+  color:white;
+  font-family:"Cuprum", sans-serif;
+  text-transform:uppercase;
+  font-weight: 700;
+  font-size:1.25em;
+}
+
+.sheet nav.sheet-tabs .item {
+  border: 1px solid #b5b3a4;
+  margin-left:6px;
+  margin-right:6px;
+}
+
+.tabs .ewhen.item.active {
+  text-shadow:none !important;
+  background:rgb(252, 252, 252);
+  color:black;
 }
 
 .ewhen .header-flexitem {

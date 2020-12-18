@@ -1,7 +1,7 @@
 export default class EWPowerSheet extends ItemSheet {
 
     get template() {
-        return "systems/ewhen/templates/item/EWTraitSheet.hbs"
+        return "systems/ewhen/templates/item/EWPowerSheet.hbs"
     }
 
     getData () {

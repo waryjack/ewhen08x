@@ -66,6 +66,7 @@
 				"faith_points":0,
 				"psi_points":0,
 				"credit_rating":0,
+				"currency":0,
 				"lifeblood": {
 					"max":0,
 					"value":0,
@@ -149,7 +150,8 @@
             {
                 "currency_cost":0,
                 "credit_cost":0,
-				"description":""
+				"description":"",
+				"quantity":0
             }
         },
         "trait":{
@@ -209,8 +211,8 @@
             "templates":["gear_common"]
         },
 		"power":{
-			"description":"",
-			"pwr_type":"",
+			"effect":"",
+			"power_type":"",
 			"arcana_magnitude":"",
 			"success_roll":"",
 			"difficulty":"",

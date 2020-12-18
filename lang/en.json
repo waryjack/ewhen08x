@@ -29,6 +29,7 @@
     "EW.game_term.boons": "Boons",
     "EW.game_term.flaws": "Flaws",
     "EW.game_term.powers": "Powers",
+    "EW.game_term.powertype": "Power Type",
     "EW.game_term.spells": "Spells",
     "EW.game_term.abilities": "Abilities",
     "EW.game_term.rank": "Rank",
@@ -64,6 +65,12 @@
     "EW.game_term.dice": "Dice",
     "EW.game_term.primod": "Priority Mod",
     "EW.game_term.vehicle": "Vehicle",
+    "EW.game_term.effect": "Effect",
+    "EW.game_term.magnitude": "Magnitude",
+    "EW.game_term.successroll": "Success Roll",
+    "EW.game_term.difficulty": "Difficulty",
+    "EW.game_term.prereq": "Prerequisite",
+    "EW.game_term.resourcecost": "Resource Cost",
 
     "EW.era.ancient": "Ancient",
     "EW.era.steampunk": "Steampunk",
@@ -120,7 +127,11 @@
     "EW.power.psionic": "Psionic Power",
     "EW.power.faith": "Faith Power",
     "EW.power.superhero": "Superhero Power",
-    "EW.power.martial_arts": "Martial Arts Power",
+    "EW.power.martialarts": "Martial Arts Power",
+    "EW.power.magnitude.cantrip": "Cantrip",
+    "EW.power.magnitude.first": "First Magnitude",
+    "EW.power.magnitude.second": "Second Magnitude",
+    "EW.power.magnitude.third": "Third Magnitude",
 
     "EW.trait.source.normal": "Normal",
     "EW.trait.source.origin": "Origin",
@@ -225,5 +236,14 @@
     "EW.SETTINGS.UseScaleDesc": "Show scale values for attributes and weapons.",
     "EW.SETTINGS.RerollPer": "Reroll Initiative Every Round",
     "EW.SETTINGS.rabbleStrength": "Rabble Lifeblood Amount",
-    "EW.SETTINGS.rabbleStrengthDesc": "How much lifeblood should Rabble have in your game?"
+    "EW.SETTINGS.rabbleStrengthDesc": "How much lifeblood should Rabble have in your game?",
+
+    "EW.difficulty.very_easy": "Very Easy (+2)",
+    "EW.difficulty.easy": "Easy (+1)", 
+    "EW.difficulty.moderate": "Moderate (+0)",
+    "EW.difficulty.hard": "Hard (-1)",
+    "EW.difficulty.tough": "Tough (-2)",
+    "EW.difficulty.demanding": "Demanding (-4)",
+    "EW.difficulty.formidable": "Formidable (-6)",
+    "EW.difficulty.heroic": "Heroic (-8)"
 }

@@ -1,0 +1,65 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
+        <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </header>
+
+    <div>
+        <table>
+            <tr>
+                <th>{{localize "EW.game_term.powertype"}}</th>
+                <th>{{localize "EW.game_term.magnitude"}}</th>
+                <th>{{localize "EW.game_term.prereq"}}</th>
+            </tr>
+            <tr>
+                <td style="text-align: center;"> 
+                    <select style="width:100%;" name="data.power_type" id="data.power_type">
+                        {{#select data.power_type}}
+                        {{#each config.powerTypes as |name type|}}
+                        <option value="{{type}}">{{localize (proper name)}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </td>
+                <td style="text-align: center;">
+                    <select style="width:100%;" name="data.magnitude" id="data.magnitude">
+                        {{#select data.magnitude}}
+                        <option value="none"></option>
+                        {{#each config.magnitudes as |name type|}}
+                        <option value="{{type}}">{{localize (proper name)}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </td>
+                <td style="text-align:center;">
+                    <input type="text" class="ewhen statfield" name="data.prereq" value="{{data.prereq}}" />
+                </td>
+            </tr>
+            <tr>
+                <th>{{localize "EW.game_term.successroll"}}</th>
+                <th>{{localize "EW.game_term.difficulty"}}</th>
+                <th>{{localize "EW.game_term.resourcecost"}}</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="data.success_roll" value="{{data.success_roll}}" />
+                </td>
+                <td>
+                    <select style="width:100%" name="data.difficulty" id="data.difficulty">
+                        {{#select data.difficulty}}
+                        {{#each config.difficulty as |diff type|}}
+                        <option value="{{type}}" {{#ife type "moderate"}}selecte{{/ife}}>{{localize diff}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="data.resource_cost" value="{{data.resource_cost}}" data-dtype="Number" />
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <h3>{{localize "EW.game_term.effect"}}</h3>
+                <textarea class="ewhen trait-desc" id="effect" name="data.effect">{{data.effect}}</textarea>           
+    </div>
+</form>

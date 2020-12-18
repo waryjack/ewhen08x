@@ -49,10 +49,11 @@ export const EW = {
         lasting:'EW.damage.type.lasting'
     },
     powerTypes: {
-        arcane:'EW.power.type.arcane',
-        psionic:'EW.power.type.psionic',
-        faith:'EW.power.type.faith',
-        superhero:'EW.power.type.superhero',
+        arcane:'EW.power.arcane',
+        psionic:'EW.power.psionic',
+        faith:'EW.power.faith',
+        superhero:'EW.power.superhero',
+        martialarts:'EW.power.martialarts'
     },
     traitSources: {
         normal:'EW.trait.source.normal',
@@ -110,6 +111,22 @@ export const EW = {
         helmet: 'EW.armortype.helmet',
         small_shield: 'EW.armortype.small_shield',
         large_shield: 'EW.armortype.large_shield'
+    },
+    magnitudes: {
+        cantrip: 'EW.power.magnitude.cantrip',
+        first: 'EW.power.magnitude.first',
+        second: 'EW.power.magnitude.second',
+        third: 'EW.power.magnitude.third'
+    },
+    difficulty: {
+        very_easy: 'EW.difficulty.very_easy',
+        easy: 'EW.difficulty.easy',
+        moderate: 'EW.difficulty.moderate',
+        hard: 'EW.difficulty.hard',
+        tough: 'EW.difficulty.tough',
+        demanding: 'EW.difficulty.demanding',
+        formidable: 'EW.difficulty.formidable',
+        heroic: 'EW.difficulty.heroic'
     }
 
 }

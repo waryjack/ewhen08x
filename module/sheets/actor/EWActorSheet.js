@@ -14,6 +14,7 @@ export default class EWActorSheet extends ActorSheet {
         height: 685,
         left:120,
         tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheetbody", initial: "main"}],
+        dragDrop: [{dragSelector: ".dragline", dropSelector: null}]
         });
     }
     
@@ -42,7 +43,8 @@ export default class EWActorSheet extends ActorSheet {
         data.cdmg = this.actor.data.data.resources.lifeblood.value;
         data.EWActorType = "character";
 
-     console.log("Data current damage: ", data.cdmg);
+     console.warn("Data current equipment: ", data.equipment);
+     console.warn("Data current weapons: ", data.weapons);
         return data;
     }
 
@@ -81,6 +83,14 @@ export default class EWActorSheet extends ActorSheet {
         html.find('.equip-item').change(this._onEquipItem.bind(this));
 
         html.find('.npc-boxes').change(this.onBecomeMinorNPC.bind(this));
+
+        let handler = (ev) => this._onDragStart(ev);
+        html.find('.item-name').each((i, item) => {
+            if (item.dataset && item.dataset.itemId) {
+                item.setAttribute('draggable', true);
+                item.addEventListener('dragstart', handler, false);
+            }
+        });
 
     }
 
@@ -313,6 +323,7 @@ export default class EWActorSheet extends ActorSheet {
 
     _addItem(event) {
         event.preventDefault();
+        console.warn("_addItem fired: ");
         var subtype = "";
         var locString = "EW.sheet.new";
 

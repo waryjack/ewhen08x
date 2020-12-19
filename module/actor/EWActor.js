@@ -26,7 +26,7 @@ export class EWActor extends Actor {
    
         const actorData = this.data; // actorData is "actor.data.data"
 
-        console.warn("prepareBaseData object: ", actorData);
+       // console.warn("prepareBaseData object: ", actorData);
         const data = actorData.data;
         const flags = actorData.flags;
         
@@ -46,7 +46,7 @@ export class EWActor extends Actor {
         var mlf = data.resources.lifeblood.misc_lfb;
         var mre = data.resources.resolve.misc_res;
        
-        console.warn("MRes: ", mre);
+        // console.warn("MRes: ", mre);
         // Initialize derived traits - lifeblood and resolve
         // but not for rabble or toughs!
         if (!data.isRabble && !data.isTough){
@@ -71,11 +71,11 @@ export class EWActor extends Actor {
         setProperty(actorData, 'data.resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
     
         setProperty(actorData, 'data.resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
-        console.warn("_prepareCharacterData just executed");
+        /* console.warn("_prepareCharacterData just executed");
         console.warn("totalLbd: ", totalLbd);
         console.warn("totalRsd: ", totalRsd);
         console.warn("revised lb: ", actorData.data.resources.lifeblood);
-        console.warn("revised rs: ", actorData.data.resources.resolve);
+        console.warn("revised rs: ", actorData.data.resources.resolve); */
     }
 
     _prepareVehicleData(actorData) {

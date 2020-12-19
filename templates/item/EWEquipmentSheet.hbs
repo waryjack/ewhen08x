@@ -1,0 +1,37 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
+        <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </header>
+
+ <div>
+        <div>
+            <h3>{{localize "EW.game_term.description"}}</h3>
+              <textarea class="ewhen trait-desc" id="description" name="data.description">{{data.description}}</textarea>           
+        </div>
+        <div>
+        <table>
+            <tr>
+                <th>{{localize "EW.game_term.quantity"}}</th>
+                <th>{{localize "EW.game_term.weight"}}</th>
+                <th>{{localize "EW.game_term.currencyval"}}</th>
+                <th>{{localize "EW.game_term.creditval"}}</th>
+            </tr>
+            <tr>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
+                </td>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.weight" value="{{data.weight}}" data-dtype="Number"/>
+                </td>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.currency_cost" value="{{data.currency_cost}}" data-dtype="Number"/>
+                </td>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.credit_cost" value="{{data.credit_cost}}" data-dtype="Number" />
+                </td>
+            </tr>
+        </table>
+        </div>
+</div>
+

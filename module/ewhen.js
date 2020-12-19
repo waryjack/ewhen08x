@@ -4,7 +4,6 @@ import { preloadHandlebarsTemplates } from "./templates.js";
 import { EW } from "./config.js";
 import { EWActor } from "./actor/EWActor.js";
 import { EWCombat } from "./combat/EWCombat.js";
-// import { EWItem } from "./item/EWItem.js";
 import EWActorSheet from "./sheets/actor/EWActorSheet.js";
 import EWCareerSheet from "./sheets/item/EWCareerSheet.js";
 import EWArmorSheet from "./sheets/item/EWArmorSheet.js";
@@ -54,7 +53,7 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWWeaponSheet, { types: ["weapon"], makeDefault: true });
 
 
-    // CONFIG.debug.hooks = true;
+    CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     CONFIG.Combat.entityClass = EWCombat;
 
@@ -138,7 +137,7 @@ Hooks.once("init", () => {
 Hooks.on('updateOwnedItem', function(actor, item, changed){
 
     console.log("Changed: ", changed);
-    console.log("Change contains equipped: ", ("equipped" in changed.data));
+   
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
 

@@ -70,21 +70,21 @@
             </div>
         </div>
         <div class="tab gear" data-group="primary" data-tab="gear">
-            <div class="ewhen flexcol tab gear" data-group="primary" data-tab="gear">
-                <div class="ewhen flexrow">
-                    <div class="ewhen flex-item">
-                    {{#unless (or data.isTough data.isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
-                    </div>
-                </div>
+            <div class="ewhen flexcol">
                 <div class="ewhen flexrow">
                      <div class="ewhen flex-item">
                     {{> 'systems/ewhen/templates/partials/EquipmentList.hbs'}}
                     </div>
                 </div>
+                <div class="ewhen flexrow">
+                    <div class="ewhen flex-item">
+                    {{#unless (or data.isTough data.isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="tab gear" data-group="primary" data-tab="misc">
-            <div class="ewhen flexcol tab gear" data-group="primary" data-tab="gear">
+        <div class="tab misc" data-group="primary" data-tab="misc">
+            <div class="ewhen flexcol">
                 <div class="ewhen flexrow">
                      <div class="ewhen flex-item">
                          <h3 class="traitsheet-header"><div>{{localize "EW.game_term.miscmods"}}</div>

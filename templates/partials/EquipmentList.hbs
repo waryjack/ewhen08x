@@ -1,36 +1,41 @@
 
                      <h3 class="traitsheet-header"><div>Gear and Possessions</div>
-                        <a class="item-create" title="Add Weapon" data-type="weapon">
+                        <a class="item-create" title="Add Gear" data-type="equipment">
                             <i class="fas fa-plus-square"></i>
                         </a>
                     </h3>
                     <table class="item-table">
-                        {{#each weapons as |weapon id|}}
                         <tr>
-                            <td class="item-name item" data-item-id="{{weapon._id}}">
-                                <a class="weapon-roll weapon-image" title="Roll Damage"><img src="{{weapon.img}}" height="24" width="24"/>
-                                <strong>{{weapon.name}}</strong></a>
-                                <br><em>{{localize weapon.data.wpn_type}}, 
-                                        {{localize weapon.data.damage.dice}}
-                                        {{#if (ne weapon.data.damage.add_attribute "none")}}
-                                        +{{#if (eq weapon.data.damage.half_attribute true)}}
-                                        &#189;
-                                        {{/if}}
-                                        {{weapon.data.damage.add_attribute}}
-                                        {{/if}}
-                                        {{#if (ne weapon.data.damage.mod 0)}}
-                                        +{{weapon.data.damage.mod}}
-                                        {{/if}}
-                                        , AP{{weapon.data.damage.ap}} {{#if (gt weapon.data.range 0)}}, Range {{weapon.data.range}}{{/if}}  
-                                        {{#if (setting "useScale")}}{{#if (ne weapon.data.damage.scale 1)}}, scale {{weapon.data.damage.scale}}{{/if}}{{/if}}</em></td>
-                            <td style="right:100%;">
-                                <a class="item-edit item" data-item-id="{{weapon._id}}">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a class="item-delete item" data-item-id="{{weapon._id}}">
+                            <th colspan=2 style="text-align:left;">{{localize "EW.game_term.gearitem"}}</th>
+                            <th style="text-align:left">{{localize "EW.game_term.description"}}</th>
+                            <th>{{localize "EW.game_term.quantity"}}</th>
+                            <th>{{localize "EW.game_term.currencyval"}} ({{localize "EW.game_term.creditval"}})</th>
+                            <th>{{localize "EW.game_term.totalweight"}}</th>
+                            <th></th>
+                        </tr>
+                        {{#each equipment as |equipment id|}} 
+                        {{log equipment.data}}
+                        <tr>
+                            <td><img src="{{equipment.img}}" height="24" width="24"/></td>
+                            <td class="item-name item" data-item-id="{{equipment._id}}">
+                               <a class="item-edit"><strong>{{equipment.name}}</strong></a>
+                            </td>
+                            <td>
+                                {{equipment.data.description}}
+                            </td>
+                            <td style="text-align:center;">
+                                {{equipment.data.quantity}}
+                            </td>
+                            <td style="text-align:center;">
+                                {{equipment.data.currency_cost}} ({{equipment.data.credit_cost}})
+                            </td>
+                            <td style="text-align:center;">
+                                {{equipment.data.weight}}
+                            </td>
+                             <td>
+                                <a class="item-delete item" data-item-id="{{equipment._id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
-                            </td>
                             </td>
                         </tr>
                         {{/each}}

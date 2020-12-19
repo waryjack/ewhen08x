@@ -6,10 +6,7 @@ The system has a a relatively low-automation approach, with the focus on a chara
 
 ## Todo
 
-* Equipment editing and creation (regular gear; weapons/worn armor are done)
-* Misc bonuses / penalties to stats (e.g. misc +/- to lifeblood, resolve, etc.) - shadowrun model is probably best
-* Incorporating costs / currency and credit rating into sheet
-* Tab on character sheet for notes / other stuff (like Gear?)
-* Prettifying character sheet
+* Incorporating encumbrance / weight counting
+* Weights and costs for weapons and armor (there, but not wired in yet)
 * Localization fixes
 * Refactoring - it's spaghetti and redundantly redundant at the moment

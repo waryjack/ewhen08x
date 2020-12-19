@@ -8,7 +8,8 @@ export default class EWEquipmentSheet extends ItemSheet {
         const data = super.getData();
 
         data.config = CONFIG.ewhen; 
-        
+        console.warn("Equipment Creation Data: ", data); 
         return data;
+        
     }
 }

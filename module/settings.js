@@ -26,6 +26,8 @@ export const registerSettings = function() {
         }
     });
 
+  
+
     game.settings.register("ewhen", "rerollPerRound", {
         name:"EW.SETTINGS.RerollPer",
         hint:"",
@@ -88,6 +90,15 @@ export const registerSettings = function() {
         config: true,
         type: Boolean,
         default: true
+    });
+
+    game.settings.register("ewhen", "useCredit", {
+        name: "EW.SETTINGS.UseCredit",
+        hint: "EW.SETTINGS.UseCreditDesc",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false
     });
 
     game.settings.register("ewhen", "rabbleStrength", {

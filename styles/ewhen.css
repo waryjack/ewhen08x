@@ -201,6 +201,13 @@ h3 {
   width: 3ch;
   margin-left:auto;
   right:100%;
+  text-align:center;
+  color:white;
+}
+.ewhen .money {
+  width:8ch !important;
+  margin-left:auto;
+  right:100%;
   text-align:right;
   color:white;
 }
@@ -208,6 +215,8 @@ h3 {
 .ewhen .statfield input {
   color:white;
 }
+
+
 
 .cell {
   padding-right:3px;

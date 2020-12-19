@@ -22,6 +22,8 @@
                              {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>{{/if}}
                               {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/>{{/if}}
                             {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input style="background:black;" class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>{{/if}}
+                             {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="data.resources.credit_rating" value="{{data.resources.credit_rating}}" data-dtype="Number"/>{{/if}}
+                             {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="data.resources.currency" value="{{data.resources.currency}}" data-dtype="Number"/>{{/unless}}
                         </td>
 					</tr>
                     {{/unless}}

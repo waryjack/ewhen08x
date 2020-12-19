@@ -8,8 +8,8 @@
                         {{#each weapons as |weapon id|}}
                         <tr>
                             <td class="item-name item" data-item-id="{{weapon._id}}">
-                                <a class="weapon-roll weapon-image" title="Roll Damage"><img src="{{weapon.img}}" height="24" width="24"/>
-                                <strong>{{weapon.name}}</strong></a>
+                                <a class="weapon-roll weapon-image" title="Roll Damage"><img src="{{weapon.img}}" height="24" width="24"/></a>
+                                 <a class="item-edit" title="Edit"><strong>{{weapon.name}}</strong></a>
                                 <br><em>{{localize weapon.data.wpn_type}}, 
                                         {{localize weapon.data.damage.dice}}
                                         {{#if (ne weapon.data.damage.add_attribute "none")}}
@@ -24,9 +24,6 @@
                                         , AP{{weapon.data.damage.ap}} {{#if (gt weapon.data.range 0)}}, Range {{weapon.data.range}}{{/if}}  
                                         {{#if (setting "useScale")}}{{#if (ne weapon.data.damage.scale 1)}}, scale {{weapon.data.damage.scale}}{{/if}}{{/if}}</em></td>
                             <td style="right:100%;">
-                                <a class="item-edit item" data-item-id="{{weapon._id}}">
-                                    <i class="fas fa-edit"></i>
-                                </a>
                                 <a class="item-delete item" data-item-id="{{weapon._id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>

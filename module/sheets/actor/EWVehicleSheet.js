@@ -45,6 +45,14 @@ export default class EWVehicleSheet extends ActorSheet {
 
         html.find('.item-delete').click(this._deleteItem.bind(this));
 
+        let handler = (ev) => this._onDragStart(ev);
+        html.find('.item-name').each((i, item) => {
+            if (item.dataset && item.dataset.itemId) {
+                item.setAttribute('draggable', true);
+                item.addEventListener('dragstart', handler, false);
+            }
+        });
+
     }
 
     _adjustResource(event) {

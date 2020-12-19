@@ -122,7 +122,7 @@ export class EWActor extends Actor {
                 buttons: {
                     roll: {
                      icon: '<i class="fas fa-check"></i>',
-                     label: "Yes",
+                     label: "Roll!",
                      callback: (html) => {
                       //  console.log("passed html: ", html); 
                         let rdata = {
@@ -167,7 +167,7 @@ export class EWActor extends Actor {
             buttons: {
                 ok: {
                     icon: '<i class="fas fa-check"></i>',
-                    label: "Continue",
+                    label: "Update",
                     callback: (html) => { console.log("Clicked continue", res);
 
                         let fatDmg = Number(html.find("#fatigue-dmg").val());
@@ -235,7 +235,7 @@ export class EWActor extends Actor {
         buttons: {
             ok: {
                 icon: '<i class="fas fa-check"></i>',
-                label: "Continue",
+                label: "Update",
                 callback: (html) => { 
 
                     let lastDmg = Number(html.find("#lasting-dmg").val());
@@ -319,7 +319,7 @@ export class EWActor extends Actor {
                 buttons: {
                     roll: {
                      icon: '<i class="fas fa-check"></i>',
-                     label: "Roll",
+                     label: "Roll!",
                      callback: (html) => {
                       
                         let rdata = {
@@ -402,7 +402,7 @@ export class EWActor extends Actor {
                 buttons: {
                     roll: {
                      icon: '<i class="fas fa-check"></i>',
-                     label: "Roll",
+                     label: "Roll!",
                      callback: (html) => {
                       
                         let rdata = {

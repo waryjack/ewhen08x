@@ -198,14 +198,14 @@ h3 {
 }
 
 .ewhen .statfield {
-  width: 3ch;
+  width: 4ch;
   margin-left:auto;
   right:100%;
   text-align:center;
   color:white;
 }
 .ewhen .money {
-  width:8ch !important;
+  width:6ch !important;
   margin-left:auto;
   right:100%;
   text-align:right;

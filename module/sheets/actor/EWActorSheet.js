@@ -10,7 +10,7 @@ export default class EWActorSheet extends ActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
         classes: ['ewhen', 'sheet', 'actor', 'actor-sheet'],
-        width: 750,
+        width: 775,
         height: 685,
         left:120,
         tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheetbody", initial: "main"}],

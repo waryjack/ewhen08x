@@ -51,15 +51,15 @@
      <div class="form-group">
          <table class="roll-mods">
              <tr>
-                 <th>{{localize "EW.game_term.bonuses"}}</th>
+                 <th>{{localize "EW.game_term.difficulty"}}</th>
                  <th>{{localize "EW.game_term.penalties"}}</th>
              </tr>
-             <tr >
-                 <td class="roll-mods">
-                    <input id="bonus" type="text" value="0" data-dtype="Number"/>
+             <tr>
+                 <td>
+                   {{> "systems/ewhen/templates/partials/DiffList.hbs"}}
                  </td>
                  <td class="roll-mods">
-                     <input id="penalty" type="text" value="0" data-dtype="Number"/>
+                     <input id="othermods" type="text" value="0" data-dtype="Number"/>
                  </td>
              </tr>
              <tr>

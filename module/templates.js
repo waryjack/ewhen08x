@@ -2,7 +2,7 @@ export const preloadHandlebarsTemplates = async function() {
     return loadTemplates([
   
       // Shared Partials
-      
+      "systems/ewhen/templates/partials/DiffList.hbs",
       
   
       // Actor Sheet Partials

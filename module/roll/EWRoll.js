@@ -54,11 +54,13 @@ export class EWRoll {
         let bdNum = 0;
         let pdNum = 0;
         let totalDiceMods = 0;
+        let baseDiff = 0;
+        
 
         let attr = this.html.find("#pattr").val().toLowerCase();
         let combat = this.html.find("#cattr").val().toLowerCase();
-        let bonus = this.html.find("#bonus").val();
-        let penalty = this.html.find("#penalty").val();
+        let othermods = this.html.find("#othermods").val();
+        let difflevel = this.html.find("#difficulty").val();
         let careerName = this.html.find("#career").val();
     
         /*
@@ -95,8 +97,28 @@ export class EWRoll {
 
        }
 
+       /*
+       * Get the base difficulty modifier
+       */ 
+       switch (difflevel) {
+           case "very_easy": baseDiff = 2; break;
+           case "easy": baseDiff = 1; break;
+           case "moderate": baseDiff = 0; break;
+           case "hard": baseDiff = -1; break;
+           case "tough": baseDiff = -2; break;
+           case "demanding": baseDiff = -4; break;
+           case "formidable": baseDiff = -6; break;
+           case "heroic": baseDiff = -8; break;
+       };
+
+       let diffStr = "EW.difficulty."+difflevel;
+       console.warn("diffStr", diffStr);
+
+       /*
+       * Get the other difficulty modifier; needs streamlining
+       */
       
-       let totalMods = Number(bonus) - Number(penalty);
+       let totalMods = baseDiff + Number(othermods);
        attr == "none" ? attrVal = 0 : attrVal = this.actor.data.data.main_attributes[attr].rank;
        combat == "none" ? comVal = 0 : comVal = this.actor.data.data.combat_attributes[combat].rank;
 
@@ -115,8 +137,7 @@ export class EWRoll {
            attrVal: attrVal,
            comVal: comVal,
            cVal: cVal,
-           bonus: bonus,
-           penalty: penalty,
+           diffStr: diffStr,
            mods: totalMods,
            bdNum: bdNum,
            pdNum: pdNum,

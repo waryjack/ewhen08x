@@ -38,6 +38,9 @@ Click on the name of the item to open the item editor window. Note: since the on
 
 # Rolling Dice
 
+## Modifiers
+**Note**: The general modifier field accepts both positive and negative numbers. 
+
 ## Attribute and General Rolls
 Dice rolls can be triggered from the die icon on the character sheet, or by clicking on an attribute or combat attribute. 
 

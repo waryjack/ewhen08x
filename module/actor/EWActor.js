@@ -371,15 +371,21 @@ export class EWActor extends Actor {
         half = weaponDamage.half_attribute;
         miscMod = weaponDamage.mod;
 
+        console.warn("Added Attribute: ", addAttr);
+
         if (addAttr != "none") {
             attRank = this.data.data.main_attributes[addAttr].rank;
         } else {
             attRank = 0
         }
 
-        let attMod = half ? Math.floor(attRank) : attRank;
+        console.warn("Added Rank: ", attRank);
+
+        let attMod = half ? Math.floor(attRank/2) : attRank;
 
         let finalExpr = baseExpr + "+" + attMod + "+" + miscMod;
+
+        console.warn("Final Attmod: ", attMod, baseExpr, finalExpr);
 
         let dialogData = {
             wname: wName,

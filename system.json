@@ -2,7 +2,7 @@
     "name": "ewhen",
     "title": "Everywhen",
     "description": "Everywhen (Barbarians of Lemuria) System",
-    "version": "0.01",
+    "version": "0.1.1",
     "author": "Cannyjack",
     "esmodules": [
         "module/ewhen.js"

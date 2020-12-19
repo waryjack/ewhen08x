@@ -182,6 +182,7 @@ export class EWRoll {
         var bdNum = 0;
         var pdNum = 0;
         var friendlyDmgExtension = "";
+        var attBonus = 0;
 
         // Weapon / item details
         let wpnName = this.item.data.name;
@@ -193,11 +194,15 @@ export class EWRoll {
         let wpnAttrib = this.item.data.data.damage.add_attribute;
         let wpnHalfAtt = this.item.data.data.damage.half_attribute;
 
+       console.warn("My Actor, half: ", this.actor, wpnHalfAtt);
+
         if(wpnAttrib != "none") {
             let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
             friendlyDmgExtension = wpnHalfAtt ? "+ 1/2 " + properAttrib : "+ "+properAttrib;
+            attBonus = this.actor.data.data.main_attributes[wpnAttrib].rank;
         }
 
+        attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
         bonus = this.html.find("#bonus").val();
         penalty = this.html.find("#penalty").val();
 
@@ -210,7 +215,8 @@ export class EWRoll {
 
 
         let totalMods = bonus - penalty;
-        let dmgExpr = wpnDmg + "+" + totalMods;
+        let dmgExpr = wpnDmg + "+" + attBonus + "+" + totalMods;
+        console.warn("Compiled formula: ", dmgExpr);
 
         let rollInfo = {
             friendlyExt: friendlyDmgExtension,

@@ -25,10 +25,27 @@
      <div class="form-group">
          <table>
              <tr>
+                 <th>{{localize "EW.game_term.scaledamage"}}</th>
                  <th>{{localize "EW.game_term.bonuses"}}</th>
                  <th>{{localize "EW.game_term.penalties"}}</th>
              </tr>
              <tr>
+                 <td>
+                     <select style="width:100%;" name="scaled-damage" id="scaled-damage">
+                        <option value="0"></option>
+                        <option value="1">1</option>
+                        <option value="1d3">d3</option>
+                        <option value="1d6">d6</option>
+                        <option value="2d6kl1">d6L</option>
+                        <option value="2d6kh1">d6H</option>
+                        <option value="3d6kl2">2d6L</option>
+                        <option value="2d6">2d6</option>
+                        <option value="3d6kh2">2d6H</option>
+                        <option value="4d6kl3">3d6L</option>
+                        <option value="3d6">3d6</option>
+                        <option value="4d6kh3">3d6H</option>
+                     </select>
+                 </td>
                  <td>
                     <input id="bonus" type="text" value="0" data-dtype="Number"/>
                  </td>
@@ -37,27 +54,6 @@
                  </td>
              </tr>
              <tr>
-             <!--th>{{localize "EW.game_term.bonusdice"}}</th>
-             <th>{{localize "EW.game_term.penaltydice"}}</th>
-             </tr>
-             <tr>
-                 <td>
-                    <select id="bdice" style="width:100%" name="bdice">
-                        <option value="0" selected>None</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                 </td>
-                 <td>
-                    <select id="pdice" style="width:100%" name="pdice">
-                        <option value="0" selected>None</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                 </td>
-             </tr-->
          </table>         
      </div>
  </div>

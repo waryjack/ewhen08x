@@ -91,6 +91,7 @@
     "EW.game_term.initpd": "Init PD",
     "EW.game_term.initmod": "Init Mod",
     "EW.game_term.size": "Size",
+    "EW.game_term.scaledamage": "Scale Damage",
 
     "EW.era.ancient": "Ancient",
     "EW.era.steampunk": "Steampunk",

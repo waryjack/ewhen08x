@@ -183,6 +183,7 @@ export class EWRoll {
         console.log("Weapon item: ", this.item);
         var bonus = 0;
         var penalty = 0;
+        var scaledDmg = "0";
         var bdNum = 0;
         var pdNum = 0;
         var friendlyDmgExtension = "";
@@ -194,11 +195,14 @@ export class EWRoll {
 
         let wpnImg = this.item.data.img;
 
-        let wpnDmg = this.item.data.data.damage.dice;
+        bonus = this.html.find("#bonus").val();
+        penalty = this.html.find("#penalty").val();
+        scaledDmg = this.html.find("#scaled-damage").val();
+        let wpnDmg = scaledDmg == "0" ? this.item.data.data.damage.dice : scaledDmg;
         let wpnAttrib = this.item.data.data.damage.add_attribute;
         let wpnHalfAtt = this.item.data.data.damage.half_attribute;
 
-       console.warn("My Actor, half: ", this.actor, wpnHalfAtt);
+       console.warn("ScaledDmg / WpnDmg: ", scaledDmg, wpnDmg);
 
         if(wpnAttrib != "none") {
             let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
@@ -207,8 +211,7 @@ export class EWRoll {
         }
 
         attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
-        bonus = this.html.find("#bonus").val();
-        penalty = this.html.find("#penalty").val();
+        
 
        
        // Not handling weapon bonus/penalty dice right now

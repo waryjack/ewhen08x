@@ -127,6 +127,18 @@ export const EW = {
         demanding: 'EW.difficulty.demanding',
         formidable: 'EW.difficulty.formidable',
         heroic: 'EW.difficulty.heroic'
+    },
+    MESSAGE_TYPE: {
+        TASK: "systems/ewhen/templates/roll/EWRollMessage.hbs",
+        DAMAGE: "systems/ewhen/templates/roll/EWDamageMessage.hbs",
+        ARMOR: "systems/ewhen/templates/roll/EWArmorMessage.hbs",
+        HEROPOINT: "systems/ewhen/templates/roll/EWHeroPoint.hbs"
+    },
+    DIALOG_TYPE: {
+        TASK: "systems/ewhen/templates/roll/EWBasicRoll.hbs",
+        DAMAGE: "systems/ewhen/templates/roll/EWDamageRoll.hbs",
+        ARMOR: "systems/ewhen/templates/roll/EWArmorRoll.hbs",
+        RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustResource.hbs"
     }
 
 }

@@ -8,7 +8,8 @@ import EWItemSheet from "./sheets/item/EWItemSheet.js";
 import EWActorSheet from "./sheets/actor/EWActorSheet.js";
 import { registerSettings } from "./settings.js";
 import EWVehicleSheet from "./sheets/actor/EWVehicleSheet.js";
-import { EWMessageHelper } from "./interaction/EWMessage.js";
+import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
+import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
 
 
 
@@ -26,6 +27,7 @@ Hooks.once("init", () => {
         EWItemSheet,
         EWCombat,
         EWMessageHelper,
+        EWDialogHelper,
         registerSettings
     };
 

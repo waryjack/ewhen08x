@@ -1,4 +1,5 @@
 import { EWRoll } from "../roll/EWRoll.js";
+import { EWDialogHelper } from "../interaction/EWDialogHelper.js";
 
 export class EWActor extends Actor {
 
@@ -71,11 +72,7 @@ export class EWActor extends Actor {
         setProperty(actorData, 'data.resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
     
         setProperty(actorData, 'data.resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
-        /* console.warn("_prepareCharacterData just executed");
-        console.warn("totalLbd: ", totalLbd);
-        console.warn("totalRsd: ", totalRsd);
-        console.warn("revised lb: ", actorData.data.resources.lifeblood);
-        console.warn("revised rs: ", actorData.data.resources.resolve); */
+
     }
 
     _prepareVehicleData(actorData) {
@@ -105,173 +102,86 @@ export class EWActor extends Actor {
         const com = duplicate(this.data.data.combat_attributes);
         const car = this.items.filter(function(item) {return item.type == "career"});
 
-        // console.log("Careers", car);
-
         let dialogData = {
             primary: pri,
             combat: com,
             careers: car,
             attr: "",
-            isCombat: false
+            isCombat: false,
+            actor:this,
+            item:{}
         }
 
-        renderTemplate('systems/ewhen/templates/roll/EWBasicRoll.hbs', dialogData).then((dlg) => {
-            new Dialog({
-                title:game.i18n.localize("EW.rolltype.basicroll"),
-                content: dlg,
-                buttons: {
-                    roll: {
-                     icon: '<i class="fas fa-check"></i>',
-                     label: "Roll!",
-                     callback: (html) => {
-                      //  console.log("passed html: ", html); 
-                        let rdata = {
-                            html: html,
-                            actor: this,
-                            isDamage: false,
-                            item: {}
-                        };
-                        let ewroll = new EWRoll(rdata);
-                        ewroll.rollDice();
-                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt));
-                        }
-                    },
-                    close: {
-                     icon: '<i class="fas fa-times"></i>',
-                     label: "Cancel",
-                     callback: () => { console.log("Clicked Cancel"); return; }
-                    }
-                   },
-                default: "close"
-            }).render(true);
+        EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.TASK, dialogData);
 
-        });
     }
 
     /**
     * @param res {String} - the name of the resource being updated (lifeblood or resolve)
     */
-    updateResource(res) {
+    updateResource(res, html) {
         const actorData = duplicate(this.data);
         const resData = duplicate(actorData.data.resources[res]);
-        console.log(resData);
-        let dialogData = {
-            resname: "EW.activity.adjust"+res,
-            resinfo: resData
-        }
-        
-        renderTemplate('systems/ewhen/templates/actor/EWAdjustResource.hbs', dialogData).then((dlg)=>{ 
-           new Dialog({
-            title: game.i18n.localize("EW.activity.adjust"+res),
-            content: dlg,
-            buttons: {
-                ok: {
-                    icon: '<i class="fas fa-check"></i>',
-                    label: "Update",
-                    callback: (html) => { console.log("Clicked continue", res);
+        const type = this.data.type;
+        var totalDmg = 0
 
-                        let fatDmg = Number(html.find("#fatigue-dmg").val());
-                        let regDmg = Number(html.find("#regular-dmg").val());
-                        let lastDmg = Number(html.find("#lasting-dmg").val());
-                        let critDmg = Number(html.find("#crit-dmg").val());
+        console.warn("HTML passed back: ", html, type); 
 
-                       // console.log("Submitted (reg, fat, last): ", regDmg, fatDmg, lastDmg);
-                       // console.log("ResData (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
+        if (type == "character" || res == "shields") {
 
-                        resData.regular = regDmg;
-                        resData.fatigue = fatDmg;
-                        resData.lasting = lastDmg;
-                        resData.critical = Math.min(critDmg, 5);
-                        let totalDmg = regDmg + fatDmg + lastDmg;
-                        let currentLb = resData.max - totalDmg;
-                        resData.value = currentLb;
+            let fatDmg = Number(html.find("#fatigue-dmg").val());
+            let regDmg = Number(html.find("#regular-dmg").val());
+            let lastDmg = Number(html.find("#lasting-dmg").val());
+            let critDmg = Number(html.find("#crit-dmg").val());
 
-                        // console.log("ResData after math (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
+            resData.regular = regDmg;
+            resData.fatigue = fatDmg;
+            resData.lasting = lastDmg;
+            resData.critical = Math.min(critDmg, 5);
+            totalDmg = regDmg + fatDmg + lastDmg;
+            let currentLb = resData.max - totalDmg;
+            resData.value = currentLb;
+            
+                if(totalDmg > resData.max) { 
+                    ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
+                } else {  
+                    actorData.data.resources[res] = resData;
 
+                    //  console.log("Actor Data post-update: ", actorData);
 
-                        if(totalDmg > resData.max) { 
-                            ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
-                        } else {  
-                        
-                            actorData.data.resources[res] = resData;
-
-                         //  console.log("Actor Data post-update: ", actorData);
-             
-                            this.update(actorData);
-                            this.sheet.render(true);
-                        }
-                    }
-                },
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
-                    label: "Cancel",
-                    callback: () => { console.log("Clicked cancel", res); return; }
+                    this.update(actorData);
+                    this.sheet.render(true);
                 }
-            },
-            default: "ok"
-            }).render(true);
-        });
 
+        } else {
 
-    }
+            let lastDmg = Number(html.find("#lasting-dmg").val());
+            let critDmg = Number(html.find("#crit-dmg").val());
 
-    /**
-    * @param res {String} - the name of the resource being updated (lifeblood or resolve)
-    */
-   updateVehicleResource() {
-    const actorData = duplicate(this.data);
-    const resData = duplicate(actorData.data.frame);
-    console.log(resData);
-    let dialogData = {
-        resname: "EW.activity.adjustframe",
-        resinfo: resData,
-        type: "vehicle"
-    }
-    
-    renderTemplate('systems/ewhen/templates/actor/EWAdjustResource.hbs', dialogData).then((dlg)=>{ 
-       new Dialog({
-        title: game.i18n.localize("EW.activity.adjustframe"),
-        content: dlg,
-        buttons: {
-            ok: {
-                icon: '<i class="fas fa-check"></i>',
-                label: "Update",
-                callback: (html) => { 
+            resData.lasting = lastDmg;
+            resData.critical = Math.min(critDmg, 5);
+            totalDmg = lastDmg;
+            let currentLb = resData.max - totalDmg;
+            resData.value = currentLb
 
-                    let lastDmg = Number(html.find("#lasting-dmg").val());
-                    let critDmg = Number(html.find("#crit-dmg").val());
+            
+            if(totalDmg > resData.max) { 
+                ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
+            } else {  
+                actorData.data.frame = resData;
 
-                    resData.lasting = lastDmg;
-                    resData.critical = Math.min(critDmg, 5);
-                    let totalDmg = lastDmg;
-                    let currentLb = resData.max - totalDmg;
-                    resData.value = currentLb;
+                //  console.log("Actor Data post-update: ", actorData);
 
-                    if(totalDmg > resData.max) { 
-                        ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
-                    } else {  
-                    
-                        actorData.data.frame = resData;
-
-                     //  console.log("Actor Data post-update: ", actorData);
-         
-                        this.update(actorData);
-                        this.sheet.render(true);
-                    }
-                }
-            },
-            cancel: {
-                icon: '<i class="fas fa-times"></i>',
-                label: "Cancel",
-                callback: () => { console.log("Clicked cancel", res); return; }
+                this.update(actorData);
+                this.sheet.render(true);
             }
-        },
-        default: "ok"
-        }).render(true);
-    });
 
+        }
+   
+ 
+        // console.log("ResData after math (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
 
-}
+    }
 
     /**
     * @param attr {String} - the main attribute in the roll (e.g., "strength")
@@ -309,41 +219,14 @@ export class EWActor extends Actor {
             isWeapon: isWeapon,
             itemImg: itemImg,
             itemName: itemName,
+            item: {},
+            actor:this
           
         }
-      
-        renderTemplate('systems/ewhen/templates/roll/EWBasicRoll.hbs', dialogData).then((dlg) => {
-            new Dialog({
-                title:game.i18n.localize("EW.rolltype.basicroll"),
-                content: dlg,
-                buttons: {
-                    roll: {
-                     icon: '<i class="fas fa-check"></i>',
-                     label: "Roll!",
-                     callback: (html) => {
-                      
-                        let rdata = {
-                            html: html,
-                            actor: this,
-                            isDamage: false,
-                            item: {}
-                        };
-                       let ewroll = new EWRoll(rdata);
-                       ewroll.rollDice();
-                       ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt));
-                       }
-                    },
-                    close: {
-                     icon: '<i class="fas fa-times"></i>',
-                     label: "Cancel",
-                     callback: () => { console.log("Clicked Cancel"); return; }
-                    }
-                   },
-                default: "close"
-            }).render(true);
 
-        });
-        
+        EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.TASK, dialogData);
+      
+       
     }
 
     /** 
@@ -396,43 +279,13 @@ export class EWActor extends Actor {
             half:half,
             attMod: attMod,
             miscMod: miscMod,
-            finalExpr: finalExpr
+            finalExpr: finalExpr,
+            item:weapon,
+            actor:this
         }
 
-        // these render template calls should be refactored out smartly
-        // it's that last word that's the problem
-        renderTemplate('systems/ewhen/templates/roll/EWDamageRoll.hbs', dialogData).then((dlg) => {
-            new Dialog({
-                title:game.i18n.localize("EW.rolltype.damageroll"),
-                content: dlg,
-                buttons: {
-                    roll: {
-                     icon: '<i class="fas fa-check"></i>',
-                     label: "Roll!",
-                     callback: (html) => {
-                      
-                        let rdata = {
-                            html: html,
-                            actor: this,
-                            isDamage: true,
-                            item: weapon
-                        };
-                      let ewroll = new EWRoll(rdata);
-                      ewroll.rollDice();
-                      ewroll.rollObj.getTooltip().then((tt) => ewroll.createDamageMessage(tt));
-                       }
-                    },
-                    close: {
-                     icon: '<i class="fas fa-times"></i>',
-                     label: "Cancel",
-                     callback: () => { console.log("Clicked Cancel"); return; }
-                    }
-                   },
-                default: "close"
-            }).render(true);
-
-        });
-
+        EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.DAMAGE, dialogData);
+      
         
     }
 

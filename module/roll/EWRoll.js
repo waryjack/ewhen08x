@@ -5,6 +5,10 @@
 * functional at the moment, if clumsy.
 */ 
 
+import { EWMessageHelper } from "../interaction/EWMessageHelper.js";
+
+
+
 export class EWRoll {
 
     rollInfo = {};
@@ -296,19 +300,8 @@ export class EWRoll {
             outclass: outcomeClass,
             actor:this.actor._id
         }
-
-        renderTemplate('systems/ewhen/templates/roll/EWRollMessage.hbs', chatData).then((msg)=>{
-            ChatMessage.create({
-                user: game.user._id,
-                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessage.getSpeaker(),
-                content: msg
-            });
-            
-
-
-        });
         
+        EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData); 
 
     }
 
@@ -333,15 +326,7 @@ export class EWRoll {
 
        // console.log("D mods: ", chatData.d.mods);
 
-        renderTemplate('systems/ewhen/templates/roll/EWDamageMessage.hbs', chatData).then((msg)=>{
-            ChatMessage.create({
-                user: game.user._id,
-                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessage.getSpeaker(),
-                content: msg
-            });
-        });
-
+       EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPES.DAMAGE);
 
     }
 
@@ -357,17 +342,8 @@ export class EWRoll {
             actor: this.actor._id
         }
 
-        renderTemplate('systems/ewhen/templates/roll/EWArmorMessage.hbs', chatData).then((msg)=>{
-            ChatMessage.create({
-                user: game.user._id,
-                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessage.getSpeaker(),
-                content: msg
-            });
-            
-
-
-        });
+        EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPES.ARMOR);
+     
     }
 
 }

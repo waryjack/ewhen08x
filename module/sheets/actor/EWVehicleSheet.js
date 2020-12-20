@@ -68,7 +68,7 @@ export default class EWVehicleSheet extends ActorSheet {
     _adjustFrame(event) {
         event.preventDefault();
 
-        return this.actor.updateVehicleResource();
+        return this.actor.updateResource();
 
     }
 

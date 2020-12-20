@@ -1,3 +1,5 @@
+import { EWDialogHelper } from "../../interaction/EWDialogHelper.js";
+
 export default class EWActorSheet extends ActorSheet {
 
     get template() {
@@ -191,7 +193,16 @@ export default class EWActorSheet extends ActorSheet {
 
         let res = element.dataset.resourceName;
 
-        return this.actor.updateResource(res);
+        const resData = duplicate(this.actor.data.data.resources[res]);
+    
+        let dialogData = {
+            actor: this.actor,
+            resname: "EW.activity.adjust"+res,
+            resinfo: resData,
+            res: res
+        }
+        
+        return EWDialogHelper.generateUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.RESOURCE_UPDATE, dialogData);
     }
 
     // Not in use at the moment; not sure if it's necessary

@@ -160,7 +160,7 @@ export class EWRoll {
 
         let expr = armorData.protection.variable;
  
-        let armorbonus = this.actor.data.data.armorbonus;
+        let armorbonus = this.actor.data.data.armorbonus + this.actor.data.data.miscarmor;
         
         expr = expr + "+" + armorbonus;
 
@@ -259,49 +259,65 @@ export class EWRoll {
     * @param tt - the generated tooltip for the dice roll
     *             it will be put in a show/hide div in the actual
     *             message
+    * @param isDamage - boolean indicating if we should use the damage roll template or regular roll template
     */
 
-    createChatMessage(tt) {
+    createChatMessage(tt, isDamage) {
         var outcome = "";
         var outcomeClass = "";  
         
         let keptDice = this.rollObj.terms[0].values;
         let total = this.rollObj.total;
-        let mightyThreshold = 9 + Number(this.rollInfo.penalty);
+        let mightyThreshold = 9 + (Number(this.rollInfo.mods) < 0 ? Math.abs(Number(this.rollInfo.mods)) : 0);
+
+        console.warn("mightThreshold", mightyThreshold);
 
      
         /*
         * Figure out the level of success; there are like 3 types of 
         * critical success and frankly they're a bit of a pain
         */
+        if(isDamage) {
+            let chatData = {
+                roll: this.rollObj,
+                tooltip: new Handlebars.SafeString(tt),
+                d: this.rollInfo,
+                outcome: "",
+                outclass: "roll-sux",
+                actor:this.actor._id
+            }
+    
+            EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.DAMAGE, chatData);
 
-        if (keptDice[0]==6 && keptDice[1]==6 && mightyThreshold <= 12){
-            outcome = "Mighty Success!";
-            outcomeClass = "roll-mighty-sux";
-        } else if (keptDice[0] == 6 && keptDice[1]==6) {
-            outcome = "Automatic Success!";
-            outcomeClass = "roll-auto-sux";
-        } else if (keptDice[0]==1 && keptDice[1]==1) {
-            outcome = "Automatic Failure!";
-            outcomeClass = "roll-auto-fail";
-        } else if (total >= 9) {
-            outcome = "Success!";
-            outcomeClass = "roll-sux";
-        } else if (total < 9 ) {
-            outcome = "Failure!";
-            outcomeClass = "roll-fail";
-        }
+        } else {
+            if (keptDice[0]==6 && keptDice[1]==6 && mightyThreshold <= 12){
+                outcome = "Mighty Success!";
+                outcomeClass = "roll-mighty-sux";
+            } else if (keptDice[0] == 6 && keptDice[1]==6) {
+                outcome = "Automatic Success!";
+                outcomeClass = "roll-auto-sux";
+            } else if (keptDice[0]==1 && keptDice[1]==1) {
+                outcome = "Automatic Failure!";
+                outcomeClass = "roll-auto-fail";
+            } else if (total >= 9) {
+                outcome = "Success!";
+                outcomeClass = "roll-sux";
+            } else if (total < 9 ) {
+                outcome = "Failure!";
+                outcomeClass = "roll-fail";
+            }
 
-        let chatData = {
-            roll: this.rollObj,
-            tooltip: new Handlebars.SafeString(tt),
-            d: this.rollInfo,
-            outcome: outcome,
-            outclass: outcomeClass,
-            actor:this.actor._id
+            let chatData = {
+                roll: this.rollObj,
+                tooltip: new Handlebars.SafeString(tt),
+                d: this.rollInfo,
+                outcome: outcome,
+                outclass: outcomeClass,
+                actor:this.actor._id
+            }
+            
+            EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData); 
         }
-        
-        EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData); 
 
     }
 
@@ -311,7 +327,7 @@ export class EWRoll {
     * If I was smarter and more patient, I'd figure out 
     * how to combine this with the createChatMessage() 
     * method. But I am a simple and impatient man.
-    */
+
 
     createDamageMessage(tt) {
 
@@ -326,9 +342,9 @@ export class EWRoll {
 
        // console.log("D mods: ", chatData.d.mods);
 
-       EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPES.DAMAGE);
+       EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.DAMAGE, chatData);
 
-    }
+    } */
 
     createArmorMessage(tt) {
         let chatData = {
@@ -342,7 +358,7 @@ export class EWRoll {
             actor: this.actor._id
         }
 
-        EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPES.ARMOR);
+        EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.ARMOR, chatData);
      
     }
 

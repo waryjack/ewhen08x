@@ -22,6 +22,14 @@ export const EW = {
         frame: 'EW.attributes.vehicle.frame',
         armor: 'EW.attributes.vehicle.armor'
     },
+    sizes: {
+        tiny: "EW.creature.size.tiny",
+        small: "EW.creature.size.small",
+        medium: "EW.creature.size.medium",
+        large: "EW.creature.size.large",
+        huge: "EW.creature.size.huge",
+        enormous: "EW.creature.size.enormous"
+    },
     game_terms: {
         attributes: 'EW.game_term.attributes',
         boons: 'EW.game_term.boons',

@@ -3,7 +3,8 @@ import { EWDialogHelper } from "../../interaction/EWDialogHelper.js";
 export default class EWActorSheet extends ActorSheet {
 
     get template() {
-        return "systems/ewhen/templates/actor/EWActorSheet.hbs"
+        const path = 'systems/ewhen/templates/actor/';
+        return `${path}${this.actor.data.type}sheet.hbs`;
     }
 
     /**
@@ -29,10 +30,13 @@ export default class EWActorSheet extends ActorSheet {
         //console.log(data);
 
         data.config = CONFIG.ewhen; 
+       
         
         data.weapons = data.items.filter(function(item) {return item.type == "weapon"});
-        data.careers = data.items.filter(function(item) {return item.type == "career"});
         data.traits = data.items.filter(function(item) {return item.type == "trait"});
+
+        if (this.actor.data.type == "character") {
+        data.careers = data.items.filter(function(item) {return item.type == "career"});
         data.armors = data.items.filter(function(item) {return item.type == "armor"});
         data.powers = data.items.filter(function(item) {return item.type == "power"});
         data.equipment = data.items.filter(function(item) {return item.type == "equipment"});
@@ -44,9 +48,10 @@ export default class EWActorSheet extends ActorSheet {
         data.crit = this.actor.data.data.resources.lifeblood.critical;
         data.cdmg = this.actor.data.data.resources.lifeblood.value;
         data.EWActorType = "character";
+        } else {
+            data.EWActorType = "vehicle";
+        }
 
-     console.warn("Data current equipment: ", data.equipment);
-     console.warn("Data current weapons: ", data.weapons);
         return data;
     }
 
@@ -85,6 +90,8 @@ export default class EWActorSheet extends ActorSheet {
         html.find('.equip-item').change(this._onEquipItem.bind(this));
 
         html.find('.npc-boxes').change(this.onBecomeMinorNPC.bind(this));
+
+        html.find('.adj-frame').click(this._adjustFrame.bind(this));
 
         let handler = (ev) => this._onDragStart(ev);
         html.find('.item-name').each((i, item) => {
@@ -203,6 +210,15 @@ export default class EWActorSheet extends ActorSheet {
         }
         
         return EWDialogHelper.generateUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.RESOURCE_UPDATE, dialogData);
+    }
+
+    // May not be needed...testing required
+
+    _adjustFrame(event) {
+        event.preventDefault();
+
+        return this.actor.updateResource();
+
     }
 
     // Not in use at the moment; not sure if it's necessary

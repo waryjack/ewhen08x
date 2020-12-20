@@ -7,7 +7,6 @@ import { EWCombat } from "./combat/EWCombat.js";
 import EWItemSheet from "./sheets/item/EWItemSheet.js";
 import EWActorSheet from "./sheets/actor/EWActorSheet.js";
 import { registerSettings } from "./settings.js";
-import EWVehicleSheet from "./sheets/actor/EWVehicleSheet.js";
 import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
 import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
 
@@ -22,7 +21,6 @@ Hooks.once("init", () => {
     
     game.EW = {
         EWActor,
-        EWVehicleSheet,
         EWActorSheet,
         EWItemSheet,
         EWCombat,
@@ -37,9 +35,8 @@ Hooks.once("init", () => {
     Items.unregisterSheet("core", ItemSheet);
 
     // Register System sheets
-    Actors.registerSheet("ewhen", EWActorSheet, { types:["character"], makeDefault:true });
-    Actors.registerSheet("ewhen", EWVehicleSheet, { types: ["vehicle"], makeDefault:true });
-
+    Actors.registerSheet("ewhen", EWActorSheet, { types:["character", "vehicle"], makeDefault:true });
+    
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
     //CONFIG.debug.hooks = true;
@@ -126,6 +123,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
 
+    /* Removed for simpler on-sheet editing
     if(item.type == "trait") {
     
         // actor.traitModHandler(item, "update");
@@ -142,6 +140,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
 
         actor.update({ "data.priority_roll": adata});
     }
+    */
     
     if(item.type == "armor" && ("equipped" in changed.data)) {
 
@@ -217,6 +216,7 @@ Hooks.on('deleteOwnedItem', function(actor, item){
     
     let type = item.type;
 
+    /* Removed for on-sheet editin
     if (type == "trait") {
 
         // actor.traitModHanlder(item, "remove");
@@ -232,6 +232,7 @@ Hooks.on('deleteOwnedItem', function(actor, item){
    
          actor.update({ "data.priority_roll": adata});
     }
+    */
 
     if (type == "armor") {
 

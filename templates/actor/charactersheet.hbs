@@ -95,9 +95,21 @@
                     <table class="nostretch">
                         <tr>
                      <td>
+                            {{localize "EW.game_term.size"}}: <select name="data.size" id="data.size" style="color:white">
+                                {{#select data.size}}
+                                    {{#each config.sizes as |loc size|}}
+                                    <option value="{{size}}" {{#ife size "medium"}}selected{{/ife}} style="color:black;">{{localize loc}}</option>
+                                    {{/each}}
+                                {{/select}}
+                            </select>
                             {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.lifeblood.misc_lfb" value="{{data.resources.lifeblood.misc_lfb}}" data-dtype="Number"/> 
                             {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.resolve.misc_res" value="{{data.resources.resolve.misc_res}}" data-dtype="Number"/>  
-                            {{localize "EW.game_term.armor"}} <input style="background:black;" class="ewhen statfield" type="text" name="data.armorbonus" value="{{data.armorbonus}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.armor"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.miscarmor" value="{{data.miscarmor}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.initbd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.bd" value="{{data.priority_roll.bd}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.initpd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.pd" value="{{data.priority_roll.pd}}" data-dtype="Number"/>
+                             {{localize "EW.game_term.initmod"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.miscMod" value="{{data.priority_roll.miscMod}}" data-dtype="Number"/>
+                            
+                           
                         </td>
                         </tr>
                     </table>

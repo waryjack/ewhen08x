@@ -73,6 +73,9 @@ export class EWActor extends Actor {
     
         setProperty(actorData, 'data.resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
 
+        // Calculate priority roll expression based on base info and misc BD/PD bonuses
+
+        setProperty(actorData, 'data.priority_roll', this.setPriorityRoll());
     }
 
     _prepareVehicleData(actorData) {
@@ -91,6 +94,25 @@ export class EWActor extends Actor {
         setProperty(actorData, "data.resources.shield.value", Math.max(0, data.resources.shield.max - shieldDmg));
     }
 
+    /**
+     * Calculate the roll formula for priority rolls based on various character bonuses
+     */
+    setPriorityRoll() {
+        const priority = duplicate(this.data.data.priority_roll);
+        var newSuffix;
+        let netExtraDice = priority.bd - priority.pd;
+
+        netExtraDice < 0 ? newSuffix = "kl2" : newSuffix = priority.suffix;
+
+        let finalFormula = (Number(priority.numDice) + Math.abs(netExtraDice)) + "d6" + newSuffix + "+" + priority.miscMod;
+
+        priority.expression = finalFormula;
+
+        console.warn("Priority Final Expression: ", finalFormula);
+
+        return priority;
+
+    }
     /** 
     * Generate a basic Everywhen dice roll
     * Could be refactored out to its own class eventually

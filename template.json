@@ -10,12 +10,15 @@
             "size":"medium",
 			"backstory":"Born in a tiny village",
 			"armorbonus": 0,
+			"miscarmor": 0,
 			"encumbrance": 0,
 			"priority_roll": {
 				"numDice":"2",
 				"suffix":"kh2",
 				"miscMod":0,
-				"expression":"2d6kh2"
+				"expression":"2d6kh2",
+				"bd": 0,
+				"pd": 0
 			},
 			"main_attributes": {
 				"strength":{

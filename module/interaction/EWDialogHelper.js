@@ -9,11 +9,14 @@ export class EWDialogHelper {
 
     static generateRollDialog(template, data) {
 
-        let isDamage = template == CONFIG.ewhen.MESSAGE_TYPE.DAMAGE ? true : false;
+        let isDamage = template == CONFIG.ewhen.DIALOG_TYPE.DAMAGE ? true : false;
+
+        console.warn("Template: ", template);
+        console.warn("IsDamage: ", isDamage);
         
         renderTemplate(template, data).then((dlg) => {
             new Dialog({
-                title:game.i18n.localize("EW.rolltype.basicroll"),
+                title:game.i18n.localize("EW.rolltype.basicroll"), // figure this out at some point...not localized right
                 content: dlg,
                 buttons: {
                     roll: {
@@ -29,7 +32,7 @@ export class EWDialogHelper {
                         };
                         let ewroll = new EWRoll(rdata);
                         ewroll.rollDice();
-                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt));
+                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt, isDamage));
                         }
                     },
                     close: {

@@ -8,6 +8,7 @@ import EWItemSheet from "./sheets/item/EWItemSheet.js";
 import EWActorSheet from "./sheets/actor/EWActorSheet.js";
 import { registerSettings } from "./settings.js";
 import EWVehicleSheet from "./sheets/actor/EWVehicleSheet.js";
+import { EWMessageHelper } from "./interaction/EWMessage.js";
 
 
 
@@ -24,6 +25,7 @@ Hooks.once("init", () => {
         EWActorSheet,
         EWItemSheet,
         EWCombat,
+        EWMessageHelper,
         registerSettings
     };
 
@@ -124,6 +126,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
 
     if(item.type == "trait") {
     
+        // actor.traitModHandler(item, "update");
         let type = item.type;
         let pmod = item.data.priority_dieMod;
         const adata = duplicate(actor.data.data.priority_roll);
@@ -158,7 +161,9 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
         console.log("bAttrib / val: ", bAttrib, bVal);
         console.log("pAttrib / val: ", pAttrib, pVal);
 
+        // actor.equipHandler(item, equipped);
         if(equipped) {
+        
             if(bAttrib != "none" && ma.includes(bAttrib)) {
                 actorData.main_attributes[bAttrib].rank += bVal;
             } else if (bAttrib != "none" && ca.includes(bAttrib)) {
@@ -175,6 +180,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
             }
         }
         if(!equipped) {
+    
             if(bAttrib != "none" && ma.includes(bAttrib)) {
                 actorData.main_attributes[bAttrib].rank -= bVal;
             } else if (bAttrib != "none" && ca.includes(bAttrib)) {
@@ -198,7 +204,11 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
 });
 
 
-Hooks.on('deleteOwnedItem', function(actor, item){
+// should probably become preDeleteOwnedItem, to handle it before
+// the item actually vanishes from the inventory
+
+Hooks.on('deleteOwnedItem', function(actor, item){ 
+
 
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
@@ -206,6 +216,8 @@ Hooks.on('deleteOwnedItem', function(actor, item){
     let type = item.type;
 
     if (type == "trait") {
+
+        // actor.traitModHanlder(item, "remove");
         let pmod = item.data.priority_dieMod;
         const adata = duplicate(actor.data.data.priority_roll);
 
@@ -234,6 +246,7 @@ Hooks.on('deleteOwnedItem', function(actor, item){
         let pAttrib = armData.penalty.to;
         let pVal = armData.penalty.amount;
 
+        // actor.equipHandler(item, equipped);
         console.log("actor data", actorData);
         console.log("bAttrib / val: ", bAttrib, bVal);
         console.log("pAttrib / val: ", pAttrib, pVal);

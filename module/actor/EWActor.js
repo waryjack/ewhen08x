@@ -519,6 +519,105 @@ export class EWActor extends Actor {
         
     }
 
+    /** 
+     * Handles updating or removing modifiers derived from traits; considering whether this should not 
+     * just be manual even for initiative
+     * 
+     * @param {Item} item - the trait being handled
+     * @param {String} action - whether to update (overwrite) or remove the modifier - this is where it's tricky
+     */
+
+    applyRemoveTraitModifier (item, action) {
+
+        if(item.type == "trait") {
+        
+            let type = item.type;
+            let pmod = item.data.priority_dieMod;
+            const adata = duplicate(actor.data.data.priority_roll);
+
+        
+            if(pmod == "bonus") {
+                adata.expression = "3d6kh2";
+            } else if (type == "trait" && pmod == "penalty") {
+                adata.expression = "3d6kl2";
+            }
+
+            actor.update({ "data.priority_roll": adata});
+        }
+
+    }
+
+    /**
+     * Handle equipping or unequipping items like armor and shields, and 
+     * applying necessary modifiers.
+     * @param {Item} item - the item being equipped or unequipped
+     * @param {Boolean} equip - if true, the item is being equipped; if false, it's being removed
+     */
+
+    equipItem(item, equip) {
+        const ma = ["strength", "agility", "mind", "appeal"];
+        const ca = ["melee", "ranged", "defense", "initiative"];
+
+       
+        
+        if(item.type == "armor" && ("equipped" in changed.data)) {
+
+            var bonusIsMain;
+            var penaltyIsMain;
+            const armData = item.data;
+            const actorData = duplicate(actor.data.data);
+            let equipped = armData.equipped;
+            let fixed = armData.protection.fixed;
+            let vbl = armData.protection.variable;
+            let isAccessory = armData.accessory;
+            let bAttrib = armData.bonus.to;
+            let bVal = armData.bonus.amount;
+            let pAttrib = armData.penalty.to;
+            let pVal = armData.penalty.amount;
+
+
+            console.log("actor data", actorData);
+            console.log("bAttrib / val: ", bAttrib, bVal);
+            console.log("pAttrib / val: ", pAttrib, pVal);
+
+            if(equipped) {
+                if(bAttrib != "none" && ma.includes(bAttrib)) {
+                    actorData.main_attributes[bAttrib].rank += bVal;
+                } else if (bAttrib != "none" && ca.includes(bAttrib)) {
+                    actorData.combat_attributes[bAttrib].rank += bVal;
+                }
+                if(pAttrib != "none" && ma.includes(pAttrib)) {
+                    actorData.main_attributes[pAttrib].rank -= pVal;
+                } else if (pAttrib != "none" && ca.includes(pAttrib)) {
+                    actorData.combat_attributes[pAttrib].rank -= pVal;
+                }
+                if(isAccessory){
+                    actorData.armorbonus += fixed;
+                    console.log("Actor armor bonus: ", actorData.armorbonus);
+                }
+            }
+            if(!equipped) {
+                if(bAttrib != "none" && ma.includes(bAttrib)) {
+                    actorData.main_attributes[bAttrib].rank -= bVal;
+                } else if (bAttrib != "none" && ca.includes(bAttrib)) {
+                    actorData.combat_attributes[bAttrib].rank -= bVal;
+                }
+                if(pAttrib != "none" && ma.includes(pAttrib)) {
+                    actorData.main_attributes[pAttrib].rank += pVal;
+                } else if (pAttrib != "none" && ca.includes(pAttrib)) {
+                    actorData.combat_attributes[pAttrib].rank += pVal;
+                }
+                if(isAccessory) {
+                    actorData.armorbonus = Math.max(0, actorData.armorbonus - fixed);
+                    console.log("Actor armor bonus: ", actorData.armorbonus);
+                }
+            }
+            
+            actor.update({ "data": actorData});
+
+        }
+    }
+
     //getters
     getAttribute(attribute){
         var attSet;

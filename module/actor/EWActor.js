@@ -145,11 +145,11 @@ export class EWActor extends Actor {
         const actorData = duplicate(this.data);
         const resData = duplicate(actorData.data.resources[res]);
         const type = this.data.type;
-        var totalDmg = 0
-
+        var totalDmg = 0;
+        
         console.warn("HTML passed back: ", html, type); 
 
-        if (type == "character" || res == "shields") {
+        if (type == "character") {
 
             let fatDmg = Number(html.find("#fatigue-dmg").val());
             let regDmg = Number(html.find("#regular-dmg").val());
@@ -177,6 +177,24 @@ export class EWActor extends Actor {
 
         } else {
 
+           ui.notifications.warn("Not a character"); 
+           return;
+
+        }
+   
+ 
+        // console.log("ResData after math (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
+
+    }
+
+    updateFrame(html) {
+        console.warn("Called UpdateFrame");
+        const actorData = duplicate(this.data);
+        const resData = duplicate(actorData.data.frame);
+        var totalDmg = 0;
+        
+        
+
             let lastDmg = Number(html.find("#lasting-dmg").val());
             let critDmg = Number(html.find("#crit-dmg").val());
 
@@ -184,25 +202,56 @@ export class EWActor extends Actor {
             resData.critical = Math.min(critDmg, 5);
             totalDmg = lastDmg;
             let currentLb = resData.max - totalDmg;
-            resData.value = currentLb
-
+            resData.value = currentLb;
             
-            if(totalDmg > resData.max) { 
-                ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
-            } else {  
-                actorData.data.frame = resData;
+                if(totalDmg > resData.max) { 
+                    ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
+                } else {  
+                    actorData.data.frame = resData;
 
-                //  console.log("Actor Data post-update: ", actorData);
+                    //  console.log("Actor Data post-update: ", actorData);
 
-                this.update(actorData);
-                this.sheet.render(true);
-            }
+                    this.update(actorData);
+                    this.sheet.render(true);
+                }
 
-        }
-   
- 
-        // console.log("ResData after math (current,reg,fat,last): ", resData.current, resData.regular, resData.fatigue, resData.lasting);
+    }
 
+    updateShield(html) {
+        console.warn("Called UpdateShields");
+
+        const actorData = duplicate(this.data);
+        console.warn("updateShield actorData: ", actorData);
+
+        const resData = duplicate(actorData.data.resources.shield);
+
+        console.warn("Updateshield data: ", resData);
+        var totalDmg = 0;
+        
+            let fatDmg = Number(html.find("#fatigue-dmg").val());
+            let regDmg = Number(html.find("#regular-dmg").val());
+            let lastDmg = Number(html.find("#lasting-dmg").val());
+            
+
+            resData.regular = regDmg;
+            resData.fatigue = fatDmg;
+            resData.lasting = lastDmg;
+            
+            totalDmg = regDmg + fatDmg + lastDmg;
+            let currentLb = resData.max - totalDmg;
+            resData.value = currentLb;
+            
+                if(totalDmg > resData.max) { 
+                    ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
+                } else {  
+                    actorData.data.resources.shield = resData;
+
+                    //  console.log("Actor Data post-update: ", actorData);
+
+                    this.update(actorData);
+                    this.sheet.render(true);
+                }
+        
     }
 
     /**

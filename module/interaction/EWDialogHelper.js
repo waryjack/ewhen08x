@@ -71,4 +71,36 @@ export class EWDialogHelper {
          });
     }
 
+    static async generateVehicleUpdateDialog(template, data) {
+
+        console.warn("vehicle update dialogData: ", data); 
+
+        renderTemplate(template, data).then((dlg)=>{ 
+            new Dialog({
+             title: game.i18n.localize(data.resname),
+             content: dlg,
+             buttons: {
+                 ok: {
+                     icon: '<i class="fas fa-check"></i>',
+                     label: "Update",
+                     callback: (html) => {
+                         console.warn('clicked submit');
+                         if(data.res == "frame") {
+                             data.actor.updateFrame(html);
+                        } else {
+                            data.actor.updateShield(html);
+                        }
+                    }
+                 },
+                 cancel: {
+                     icon: '<i class="fas fa-times"></i>',
+                     label: "Cancel",
+                     callback: () => { return; }
+                 }
+             },
+             default: "ok"
+             }).render(true);
+         });
+    }
+
 }

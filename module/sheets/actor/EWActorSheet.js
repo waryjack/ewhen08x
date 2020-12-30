@@ -93,6 +93,8 @@ export default class EWActorSheet extends ActorSheet {
 
         html.find('.adj-frame').click(this._adjustFrame.bind(this));
 
+        html.find('.adj-shield').click(this._adjustShield.bind(this));
+
         let handler = (ev) => this._onDragStart(ev);
         html.find('.item-name').each((i, item) => {
             if (item.dataset && item.dataset.itemId) {
@@ -195,13 +197,19 @@ export default class EWActorSheet extends ActorSheet {
     // Handle changes to the lifeblood/resolve and critical tracks
     _adjustResource(event) {
         event.preventDefault();
-
+        let resData = {};
         let element = event.currentTarget;
 
         let res = element.dataset.resourceName;
+        console.warn("Vehicle update: ", res);
 
-        const resData = duplicate(this.actor.data.data.resources[res]);
-    
+        if (res == "frame") {
+            resData = duplicate(this.actor.data.data.frame);
+        } else {
+            resData = duplicate(this.actor.data.data.resources[res]);
+        }
+        
+            
         let dialogData = {
             actor: this.actor,
             resname: "EW.activity.adjust"+res,
@@ -209,6 +217,8 @@ export default class EWActorSheet extends ActorSheet {
             res: res
         }
         
+        
+
         return EWDialogHelper.generateUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.RESOURCE_UPDATE, dialogData);
     }
 
@@ -216,9 +226,33 @@ export default class EWActorSheet extends ActorSheet {
 
     _adjustFrame(event) {
         event.preventDefault();
+       
 
-        return this.actor.updateResource();
+        let dialogData = {
+            actor: this.actor,
+            resinfo: duplicate(this.actor.data.data.frame),
+            resname: "EW.activity.adjustframe",
+            res:"frame"
+        }
 
+        return EWDialogHelper.generateVehicleUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.VEHICLE_RESOURCE_UPDATE, dialogData);
+
+    }
+
+    _adjustShield(event) {
+        event.preventDefault();
+
+       
+
+        let dialogData = {
+            actor: this.actor,
+            resinfo: duplicate(this.actor.data.data.resources.shield),
+            resname: "EW.activity.adjustshield",
+            res: "shield"
+        }
+
+        return EWDialogHelper.generateVehicleUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.VEHICLE_RESOURCE_UPDATE, dialogData);
+        
     }
 
     // Not in use at the moment; not sure if it's necessary

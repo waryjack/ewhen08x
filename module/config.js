@@ -146,7 +146,8 @@ export const EW = {
         TASK: "systems/ewhen/templates/roll/EWBasicRoll.hbs",
         DAMAGE: "systems/ewhen/templates/roll/EWDamageRoll.hbs",
         ARMOR: "systems/ewhen/templates/roll/EWArmorRoll.hbs",
-        RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustResource.hbs"
+        RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustResource.hbs",
+        VEHICLE_RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustVehicleResource.hbs"
     }
 
 }

@@ -82,7 +82,7 @@ h3 {
   max-height:128px;
 }
 
-.sheet nav.sheet-tabs {
+.ewhen .sheet-tabs .tabs {
   height: 32px;
   flex: 0 0 32px;
   margin: 4px 0;
@@ -95,16 +95,21 @@ h3 {
   font-size:1.25em;
 }
 
-.sheet nav.sheet-tabs .item {
+.ewhen .sheet nav.sheet-tabs .item {
   border: 1px solid #b5b3a4;
   margin-left:6px;
   margin-right:6px;
+
 }
 
 .tabs .ewhen.item.active {
   text-shadow:none !important;
   background:rgb(252, 252, 252);
   color:black;
+}
+
+.ewhen .item {
+  color:white;
 }
 
 .ewhen .header-flexitem {

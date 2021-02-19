@@ -1,5 +1,7 @@
 # Everywhen (Unofficial) Foundry VTT system
 
+## This is the test branch for Foundry 0.8.x development.
+
 This is an unofficial Foundry VTT system for the *Everywhen* RPG from Filigree Forge, based on *Barbarians of Lemuria* written by Simon Washbourne.
 
 The system takes a low-automation approach, with the focus on a character sheet to manage the basics, the unique initiative and damage tracking, and dice rolling. Targeting and automatic damage stuff is not currently implemented (may be a future wishlist item).

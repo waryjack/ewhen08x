@@ -40,8 +40,8 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
     //CONFIG.debug.hooks = true;
-    CONFIG.Actor.entityClass = EWActor;
-    CONFIG.Combat.entityClass = EWCombat;
+    CONFIG.Actor.documentClass = EWActor;
+    CONFIG.Combat.documentClass = EWCombat;
 
     // Register system settings
     registerSettings();

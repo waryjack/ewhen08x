@@ -7,27 +7,27 @@
                     <table class="item-table">
                         
                         {{#each armors as |armor id|}}
-                     
+                        {{log "armor" armor}}
                         <tr>
-                            <td class="item-name item" style="max-width:50%;" data-item-id="{{armor._id}}">
+                            <td class="item-name item" style="max-width:50%;" data-item-id="{{armor.id}}">
                                 <a class="armor-roll weapon-image" title="Roll Defense"><img src="{{armor.img}}" height="24" width="24"/></a>
                                  <a class="item-edit" title="Edit"><strong>{{armor.name}}</strong></a>
-                                <br><em>{{localize armor.data.armor_type}}, 
-                                        {{#if (ne armor.data.protection.variable "none")}}{{armor.data.protection.variable}}/{{/if}}
-                                        {{#if armor.data.accessory}}+{{/if}}{{armor.data.protection.fixed}}, 
-                                        {{#if (ne armor.data.bonus.to "none")}}+{{armor.data.bonus.amount}} {{armor.data.bonus.to}},{{/if}}
-                                        {{#if (ne armor.data.penalty.to "none")}}-{{armor.data.penalty.amount}} {{armor.data.penalty.to}}{{/if}}
-                                        {{#if (ne armor.data.diffmod.to "none")}}, {{armor.data.diffmod.to}}{{/if}}
-                                        {{#if armor.data.accessory}}, accessory{{/if}}
+                                <br><em>{{localize armor.data.data.armor_type}}, 
+                                        {{#if (ne armor.data.data.protection.variable "none")}}{{armor.data.data.protection.variable}}/{{/if}}
+                                        {{#if armor.data.data.accessory}}+{{/if}}{{armor.data.data.protection.fixed}}, 
+                                        {{#if (ne armor.data.data.bonus.to "none")}}+{{armor.data.data.bonus.amount}} {{armor.data.data.bonus.to}},{{/if}}
+                                        {{#if (ne armor.data.data.penalty.to "none")}}-{{armor.data.data.penalty.amount}} {{armor.data.data.penalty.to}}{{/if}}
+                                        {{#if (ne armor.data.data.diffmod.to "none")}}, {{armor.data.data.diffmod.to}}{{/if}}
+                                        {{#if armor.data.data.accessory}}, accessory{{/if}}
                             </em>
                             </td>
-                           <td class="align-center item-name item" data-item-id="{{armor._id}}">
-                            Eqp <input data-field="data.equipped" value="{{data.equipped}}" class="equip-item" name="data.equipped" type="checkbox" {{checked data.equipped}} />
+                           <td class="align-center item-name item" data-item-id="{{armor.id}}">
+                            Eqp <input data-field="data.equipped" value="{{armor.data.data.equipped}}" class="equip-item" name="armor.data.data.equipped" type="checkbox" {{checked armor.data.data.equipped}} />
                            </td>
                                     
 
                             <td>
-                                <a class="item-delete item" data-item-id="{{armor._id}}">
+                                <a class="item-delete item" data-item-id="{{armor.id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

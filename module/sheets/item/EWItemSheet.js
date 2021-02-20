@@ -8,8 +8,10 @@ export default class EWItemSheet extends ItemSheet {
     }
 
     getData () {
-        const data = super.getData();
-
+        const data = this.item.data;
+        data.item = this.item;
+        data.myName = data.name;
+        console.warn("new data: ", data);
         data.config = CONFIG.ewhen; 
         
         return data;

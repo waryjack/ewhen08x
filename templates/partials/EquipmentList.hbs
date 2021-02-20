@@ -14,26 +14,26 @@
                             <th></th>
                         </tr>
                         {{#each equipment as |equipment id|}} 
-                        {{log equipment.data}}
+                        {{log equipment.data.data}}
                         <tr>
                             <td><img src="{{equipment.img}}" height="24" width="24"/></td>
-                            <td class="item-name item" data-item-id="{{equipment._id}}">
+                            <td class="item-name item" data-item-id="{{equipment.id}}">
                                <a class="item-edit"><strong>{{equipment.name}}</strong></a>
                             </td>
                             <td>
-                                {{equipment.data.description}}
+                                {{equipment.data.data.description}}
                             </td>
                             <td style="text-align:center;">
-                                {{equipment.data.quantity}}
+                                {{equipment.data.data.quantity}}
                             </td>
                             <td style="text-align:center;">
-                                {{equipment.data.currency_cost}} ({{equipment.data.credit_cost}})
+                                {{equipment.data.data.currency_cost}} ({{equipment.data.data.credit_cost}})
                             </td>
                             <td style="text-align:center;">
-                                {{equipment.data.weight}}
+                                {{equipment.data.data.weight}}
                             </td>
                              <td>
-                                <a class="item-delete item" data-item-id="{{equipment._id}}">
+                                <a class="item-delete item" data-item-id="{{equipment.id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

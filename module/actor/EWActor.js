@@ -69,7 +69,7 @@ export class EWActor extends Actor {
         let totalLbd = data.resources.lifeblood.regular + data.resources.lifeblood.lasting + data.resources.lifeblood.fatigue;
         let totalRsd = data.resources.resolve.regular + data.resources.resolve.lasting + data.resources.resolve.fatigue;
 
-        setProperty(actorData, 'data.resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
+       setProperty(actorData, 'data.resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
     
         setProperty(actorData, 'data.resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
 
@@ -142,13 +142,13 @@ export class EWActor extends Actor {
     * @param res {String} - the name of the resource being updated (lifeblood or resolve)
     */
     updateResource(res, html) {
-        const actorData = duplicate(this.data);
-        const resData = duplicate(actorData.data.resources[res]);
+        const resData = deepClone(this.data.data.resources[res]);
+        console.warn("Actor Pre: ", this);
+        console.warn("ResData Pre: ", resData);
+
         const type = this.data.type;
         var totalDmg = 0;
         
-        console.warn("HTML passed back: ", html, type); 
-
         if (type == "character") {
 
             let fatDmg = Number(html.find("#fatigue-dmg").val());
@@ -163,16 +163,20 @@ export class EWActor extends Actor {
             totalDmg = regDmg + fatDmg + lastDmg;
             let currentLb = resData.max - totalDmg;
             resData.value = currentLb;
+        
             
+            console.warn("Resdata post: ", resData);
+            console.warn("Total Damage: ", totalDmg);
+
                 if(totalDmg > resData.max) { 
                     ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
                 } else {  
-                    actorData.data.resources[res] = resData;
-
-                    //  console.log("Actor Data post-update: ", actorData);
-
-                    this.update(actorData);
-                    this.sheet.render(true);
+                  
+                   let field = `data.data.resources.${res}`;
+                   console.warn(field);
+                   this.update({[field]: resData});
+                   // setProperty(this, `data.data.resources.${res}`, resData);
+                   // this.sheet.render(true);
                 }
 
         } else {

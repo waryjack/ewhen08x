@@ -5,7 +5,8 @@ export default class EWWeaponSheet extends ItemSheet {
     }
 
     getData () {
-        const data = super.getData();
+        const data = this.data;
+        console.warn("New Item Data: ", data);
 
         data.config = CONFIG.ewhen; 
         

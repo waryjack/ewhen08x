@@ -210,7 +210,7 @@ Hooks.on('updateItem', function(actor, item, changed){
 // should probably become preDeleteOwnedItem, to handle it before
 // the item actually vanishes from the inventory
 
-Hooks.on('deleteOwnedItem', function(actor, item){ 
+Hooks.on('deleteItem', function(actor, item){ 
 
 
     const ma = ["strength", "agility", "mind", "appeal"];
@@ -240,7 +240,7 @@ Hooks.on('deleteOwnedItem', function(actor, item){
 
         var bonusIsMain;
         var penaltyIsMain;
-        const armData = item.data;
+        const armData = item.data.data;
         const actorData = duplicate(actor.data.data);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;

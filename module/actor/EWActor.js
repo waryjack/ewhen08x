@@ -108,7 +108,7 @@ export class EWActor extends Actor {
 
         priority.expression = finalFormula;
 
-        console.warn("Priority Final Expression: ", finalFormula);
+       // console.warn("Priority Final Expression: ", finalFormula);
 
         return priority;
 
@@ -172,7 +172,7 @@ export class EWActor extends Actor {
                     ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
                 } else {  
                   
-                   let field = `data.data.resources.${res}`;
+                   let field = `data.resources.${res}`;
                    console.warn(field);
                    this.update({[field]: resData});
                    // setProperty(this, `data.data.resources.${res}`, resData);
@@ -193,8 +193,8 @@ export class EWActor extends Actor {
 
     updateFrame(html) {
         console.warn("Called UpdateFrame");
-        const actorData = duplicate(this.data);
-        const resData = duplicate(actorData.data.frame);
+        // const actorData = duplicate(this.data);
+        const resData = deepClone(this.data.data.frame);
         var totalDmg = 0;
         
         
@@ -211,12 +211,8 @@ export class EWActor extends Actor {
                 if(totalDmg > resData.max) { 
                     ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
                 } else {  
-                    actorData.data.frame = resData;
-
-                    //  console.log("Actor Data post-update: ", actorData);
-
-                    this.update(actorData);
-                    this.sheet.render(true);
+                    this.update({ "data.frame": resData });
+                    
                 }
 
     }
@@ -224,12 +220,7 @@ export class EWActor extends Actor {
     updateShield(html) {
         console.warn("Called UpdateShields");
 
-        const actorData = duplicate(this.data);
-        console.warn("updateShield actorData: ", actorData);
-
-        const resData = duplicate(actorData.data.resources.shield);
-
-        console.warn("Updateshield data: ", resData);
+        const resData = deepClone(this.data.data.resources.shield);
         var totalDmg = 0;
         
             let fatDmg = Number(html.find("#fatigue-dmg").val());
@@ -248,12 +239,12 @@ export class EWActor extends Actor {
                 if(totalDmg > resData.max) { 
                     ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun")); 
                 } else {  
-                    actorData.data.resources.shield = resData;
+
 
                     //  console.log("Actor Data post-update: ", actorData);
 
-                    this.update(actorData);
-                    this.sheet.render(true);
+                    this.update({ "data.resources.shield" : resData} );
+                    
                 }
         
     }

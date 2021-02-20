@@ -121,36 +121,44 @@ export default class EWActorSheet extends ActorSheet {
        let minorType = element.dataset.minorType;
        let actorData = duplicate(this.actor.data.data);
        let rabbleAttack = {
-        wpn_type:"rabbleAttack",
-			damage: {
-				dice:"1d3",
-				scale:1,
-				add_attribute:"none",
-				half_attribute:false,
-				mod:0,
-				ap:0
-			},
-			hands:"one handed",
-			range:0,
-			recoil:0,
-			era:""
-       }
+        name: "Rabble Attack",
+        type: "weapon",
+        data: {
+            wpn_type:"hordeAttack",
+                damage: {
+                    dice:"1d3",
+                    scale:1,
+                    add_attribute:"none",
+                    half_attribute:false,
+                    mod:0,
+                    ap:0
+                },
+                hands:"one handed",
+                range:0,
+                recoil:0,
+                era:""
+            }
+        }
        let hordeAttack = {
-        wpn_type:"hordeAttack",
-			damage: {
-				dice:"2d6kl1",
-				scale:1,
-				add_attribute:"none",
-				half_attribute:false,
-				mod:0,
-				ap:0
-			},
-			hands:"one handed",
-			range:0,
-			recoil:0,
-			era:""
-       }
-      
+        name: "Horde Attack",
+        type: "weapon",
+        data: {
+            wpn_type:"hordeAttack",
+                damage: {
+                    dice:"2d6kl1",
+                    scale:1,
+                    add_attribute:"none",
+                    half_attribute:false,
+                    mod:0,
+                    ap:0
+                },
+                hands:"one handed",
+                range:0,
+                recoil:0,
+                era:""
+            }
+        }
+
         let downgrade = element.checked;
 
        // ui.notifications.warn(game.i18n.localize("EW.warnings.onewaytrip"));
@@ -172,13 +180,8 @@ export default class EWActorSheet extends ActorSheet {
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
                     actorData.resources.resolve.max = 1;
                     actorData.resources.resolve.value = 1;
-                    let rAtk = new Item({"name": "Rabble Attack", "type":"weapon"});
-                    let hAtk = new Item({"name": "Horde Attack", "type":"weapon"});
-                    setProperty(rAtk, "data.data", rabbleAttack);
-                    setProperty(hAtk, "data.data", hordeAttack);
-                    console.warn("rAtk: ", rAtk);
-                    this.actor.createOwnedItem(rAtk);
-                    this.actor.createOwnedItem(hAtk);
+                    Item.create(rabbleAttack, { parent: this.actor});
+                    Item.create(hordeAttack, { parent: this.actor});
                     return this.actor.update({ "data": actorData});
                 }
                 default: {
@@ -219,7 +222,7 @@ export default class EWActorSheet extends ActorSheet {
         let dialogData = {
             actor: this.actor,
             resname: "EW.activity.adjust"+res,
-            // resinfo: resData,
+            resinfo: resData,
             res: res
         }
         
@@ -427,7 +430,7 @@ export default class EWActorSheet extends ActorSheet {
              one: {
               icon: '<i class="fas fa-check"></i>',
               label: "Yes",
-              callback: () => { this.actor.deleteEmbeddedDocuments("Item", itemId) }
+              callback: () => { this.actor.deleteOwnedItem(itemId) }
              },
              two: {
               icon: '<i class="fas fa-times"></i>',

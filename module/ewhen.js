@@ -39,7 +39,7 @@ Hooks.once("init", () => {
     
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
-    //CONFIG.debug.hooks = true;
+    CONFIG.debug.hooks = true;
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
 
@@ -116,9 +116,11 @@ Hooks.once("init", () => {
  * Todo - consolidate and move to method(s) in EWActor?
  */
 
-Hooks.on('updateOwnedItem', function(actor, item, changed){
+Hooks.on('updateItem', function(actor, item, changed){
 
-    console.log("Changed: ", changed);
+    console.warn("updateOwnedItem Hook fired");
+    console.warn("Changed: ", changed);
+    console.warn("Item: ", item);
    
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
@@ -146,7 +148,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
 
         var bonusIsMain;
         var penaltyIsMain;
-        const armData = item.data;
+        const armData = item.data.data;
         const actorData = duplicate(actor.data.data);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
@@ -318,6 +320,10 @@ Hooks.on('renderChatMessage', (app, html) => {
 // Convert initiative to Everywhen Priority "ladder" if setting active
 Hooks.on('updateCombatant', function(combat, changed, diff) {  
 
+    console.warn("Combat object: ", combat); 
+    console.warn("changed: ", changed);
+    console.warn("diff: ", diff);
+
     if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
 
     if (!("initiative" in changed)) { return; }
@@ -328,7 +334,8 @@ Hooks.on('updateCombatant', function(combat, changed, diff) {
 
     console.log("Inits before and after: ", cmbInit, newInit);
 
-    changed.initiative = newInit;
+    setProperty(changed, "data.initiative", newInit);
+    //changed.initiative = newInit;
 });
 
 

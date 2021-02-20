@@ -11,7 +11,7 @@ export default class EWItemSheet extends ItemSheet {
         const data = this.item.data;
         data.item = this.item;
         data.myName = data.name;
-        console.warn("new data: ", data);
+
         data.config = CONFIG.ewhen; 
         
         return data;

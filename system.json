@@ -19,11 +19,11 @@
         }
       ],
     
-    "initiative":"@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank",
+    "initiative":"@priority_roll.expression + @main_attributes.mind.rank + @combat_attributes.initiative.rank",
     "gridDistance": 5,
     "gridUnits": "ft",
-    "primaryTokenAttribute": "@resources.lifeblood",
-    "secondaryTokenAttribute":"@resources.resolve",
+    "primaryTokenAttribute": "resources.lifeblood",
+    "secondaryTokenAttribute":"resources.resolve",
     "minimumCoreVersion": "0.8.0",
     "compatibleCoreVersion": "0.8.0"
 

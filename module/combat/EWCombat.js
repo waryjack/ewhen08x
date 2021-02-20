@@ -54,7 +54,7 @@ export class EWCombat extends Combat {
             
         }
 
-        console.log(name, " isPC: ", isPC);;
+      //  console.log(name, " isPC: ", isPC);;
 
         if (isPC) {
             if(boxCars) {

@@ -1,6 +1,9 @@
 export class EWCombat extends Combat {
 
        
+    constructor(...args) {
+        super(...args);
+    }
      /**
      * @override
      */
@@ -9,8 +12,10 @@ export class EWCombat extends Combat {
         super.nextRound();
         let rrlist = new Array();
 
+        console.warn("Combatants: ", this.combatants);
+
         for (let c of this.combatants) {
-            rrlist.push(c._id);
+            rrlist.push(c.id);
         }
 
         this.rollInitiative(rrlist);

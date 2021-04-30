@@ -3,12 +3,12 @@
     "EW.attribute.main.strength": "Strength",
     "EW.attribute.main.appeal": "Appeal",
     "EW.attribute.main.agility": "Agility",
-    
+
     "EW.attribute.combat.melee": "Melee",
     "EW.attribute.combat.ranged": "Ranged",
     "EW.attribute.combat.defense": "Defense",
     "EW.attribute.combat.initiative": "Initiative",
-    
+
     "EW.attribute.vehicle.type": "Vehicle Type",
     "EW.attribute.vehicle.crew": "Crew Rank",
     "EW.attribute.vehicle.scan": "Scan",
@@ -64,6 +64,7 @@
     "EW.game_term.hands": "Hands",
     "EW.game_term.range": "Range",
     "EW.game_term.recoil": "Recoil",
+    "EW.game_term.weaponhands": "Hands",
     "EW.game_term.era": "Era",
     "EW.game_term.halfattribute": "Halve?",
     "EW.game_term.dice": "Dice",
@@ -116,7 +117,7 @@
     "EW.rolltype.roll": "Roll",
     "EW.rolltype.damageroll": "Damage Roll",
     "EW.rolltype.armorroll": "Armor Roll",
-    
+
     "EW.sheet.newcareer": "New Career",
     "EW.sheet.newboon": "New Boon",
     "EW.sheet.newflaw": "New Flaw",
@@ -163,7 +164,7 @@
     "EW.trait.source.martial_arts": "Martial Arts",
     "EW.trait.source.custom": "Custom",
     "EW.trait.source.creature": "Creature",
-    
+
     "EW.trait.type.career": "Career",
     "EW.trait.type.boon": "Boon",
     "EW.trait.type.flaw": "Flaw",
@@ -192,9 +193,12 @@
     "EW.activity.adjustshield": "Update Shields",
 
     "EW.weapontype.lightmelee": "Light Melee",
+    "EW.weapontype.mediummelee": "Medium Melee",
     "EW.weapontype.heavymelee": "Heavy Melee",
     "EW.weapontype.lightranged": "Light Ranged",
+    "EW.weapontype.mediumranged": "Medium Ranged",
     "EW.weapontype.heavyranged": "Heavy Ranged",
+
     "EW.weaponhands.onehanded": "One Handed",
     "EW.weaponhands.twohanded": "Two Handed",
 
@@ -208,13 +212,13 @@
 
     "EW.armor.protection.accessory": "Accessory",
     "EW.armor.protection.accessoryHint": "(use for accessory armor)",
-    
+
     "EW.armor.protection.fixedval": "Fixed Protection",
     "EW.armor.protection.variable": "Variable Protection",
     "EW.armor.armorbonuses": "Armor Bonus",
     "EW.armor.armorpenalty": "Armor Penalties",
     "EW.armor.otherdiffmods": "Difficulty Modifiers",
-    
+
     "lightMelee": "light melee",
     "heavyMelee": "heavy melee",
     "lightRanged": "light ranged",
@@ -262,7 +266,7 @@
     "EW.SETTINGS.UseCreditDesc": "Use credit rating instead of currency in your game. Enabling this will hide currency info on the character sheet.",
 
     "EW.difficulty.very_easy": "Very Easy (+2)",
-    "EW.difficulty.easy": "Easy (+1)", 
+    "EW.difficulty.easy": "Easy (+1)",
     "EW.difficulty.moderate": "Moderate (+0)",
     "EW.difficulty.hard": "Hard (-1)",
     "EW.difficulty.tough": "Tough (-2)",

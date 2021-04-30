@@ -1,12 +1,11 @@
 export class EWCombat extends Combat {
 
-       
      /**
      * @override
      */
     nextRound(){
-        if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         super.nextRound();
+        if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         let rrlist = new Array();
 
         for (let c of this.combatants) {
@@ -36,7 +35,7 @@ export class EWCombat extends Combat {
         let isRival = actor.data.data.isRival;
         let isTough = actor.data.data.isTough;
         let isRabble = actor.data.data.isRabble;
-        
+
         if(!isRival && !isTough && !isRabble) { isPC = true; } else { isPC = false; }
 
         let mnd = actor.getAttribute("mind").rank;
@@ -51,7 +50,7 @@ export class EWCombat extends Combat {
             if (isRival) { adjInit = 5; }
             if (isTough) { adjInit = 4; }
             if (isRabble) { adjInit = 2; }
-            
+
         }
 
         console.log(name, " isPC: ", isPC);;
@@ -60,7 +59,7 @@ export class EWCombat extends Combat {
             if(boxCars) {
                 // mighty success; initiative = 8
                 adjInit = 8;
-            } else if (initRoll >= 9 && diceOnly < 12 && diceOnly > 2) { 
+            } else if (initRoll >= 9 && diceOnly < 12 && diceOnly > 2) {
                 // regular success; initiative = 6
                 adjInit = 6;
             } else if (initRoll < 9 && diceOnly < 12 && diceOnly > 2) {

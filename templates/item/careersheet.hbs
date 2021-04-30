@@ -5,8 +5,8 @@
     </header>
 
     <div>
-        <table>    
+        <table>
         <h3>{{localize "EW.game_term.career"}} {{localize "EW.game_term.description"}}</h3>
-                <textarea class="ewhen trait-desc" id="description" name="data.description">{{data.description}}</textarea>           
+        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
     </div>
 </form>

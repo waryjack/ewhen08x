@@ -12,13 +12,13 @@
                 <input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="data.isRabble" type="checkbox" {{checked data.isRabble}} /><label for="isRabble">Rabble</label>
                 </div>
             </div>
-        
+
             <table class="item-table">
                     {{#unless (or data.isRabble data.isTough)}}
 					<tr>
-					  <td style="border-left:2px">  
+					  <td style="border-left:2px">
                            {{localize "EW.attribute.resource.hero_points"}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
-                        
+
                              {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>{{/if}}
                               {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/>{{/if}}
                             {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input style="background:black;" class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>{{/if}}
@@ -28,21 +28,21 @@
 					</tr>
                     {{/unless}}
 					</table>
-            
-            
+
+
         </div>
        <div class="ewhen flexcol">
         <div style="align-items:flex-start;"><a class="basic-roll roll-icon" style="margin:0px !important;"><i class="fa fa-dice-six"></i></a></div>
-        
+
         </div>
-        
+
     </header>
     <div class="ewhen flexcol">
          <div class="ewhen flexrow" style="color:white; ">
                 {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
             </div>
     </div>
-    
+
 {{!-- Sheet Tab Navigation --}}
     <nav class="ewhen sheet-tabs tabs" data-group="primary">
         <a class="ewhen item" data-tab="main">Essentials</a>
@@ -62,10 +62,10 @@
                     <div class="ewhen flex-item">
                         {{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
                         {{> 'systems/ewhen/templates/partials/FlawList.hbs'}}
-                    
+
                     </div>
                     <div class="ewhen flex-item">
-                        {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}	
+                        {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}
                         {{> 'systems/ewhen/templates/partials/ArmorList.hbs'}}
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                      <div class="ewhen flex-item">
                          <h3 class="traitsheet-header"><div>{{localize "EW.game_term.miscmods"}}</div>
                     </h3>
-                    
+
                     <table class="nostretch">
                         <tr>
                      <td>
@@ -102,14 +102,14 @@
                                     {{/each}}
                                 {{/select}}
                             </select>
-                            {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.lifeblood.misc_lfb" value="{{data.resources.lifeblood.misc_lfb}}" data-dtype="Number"/> 
-                            {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.resolve.misc_res" value="{{data.resources.resolve.misc_res}}" data-dtype="Number"/>  
+                            {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.lifeblood.misc_lfb" value="{{data.resources.lifeblood.misc_lfb}}" data-dtype="Number"/>
+                            {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.resolve.misc_res" value="{{data.resources.resolve.misc_res}}" data-dtype="Number"/>
                             {{localize "EW.game_term.armor"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.miscarmor" value="{{data.miscarmor}}" data-dtype="Number"/>
                             {{localize "EW.game_term.initbd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.bd" value="{{data.priority_roll.bd}}" data-dtype="Number"/>
                             {{localize "EW.game_term.initpd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.pd" value="{{data.priority_roll.pd}}" data-dtype="Number"/>
                              {{localize "EW.game_term.initmod"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.miscMod" value="{{data.priority_roll.miscMod}}" data-dtype="Number"/>
-                            
-                           
+
+
                         </td>
                         </tr>
                     </table>
@@ -119,12 +119,12 @@
                     <div class="ewhen flex-item edit-cont">
                         <h3 class="traitsheet-header"><div>{{localize "EW.game_term.biography"}} / {{localize "EW.game_term.notes"}}</div>
                     </h3>
-                    {{editor content=data.biography target="data.backstory" button=true owner=owner editable=editable}}
+                    {{editor content=data.backstory target="data.backstory" button=true owner=owner editable=editable}}
                     </div>
                 </div>
-                
+
             </div>
         </div>
-           
-    </section> 
+
+    </section>
 </form>

@@ -16,9 +16,9 @@ Hooks.once("init", () => {
     console.log("ewhen | Initializing Everywhen System");
 
     CONFIG.ewhen = EW;
-   
-    // Add namespace in global 
-    
+
+    // Add namespace in global
+
     game.EW = {
         EWActor,
         EWActorSheet,
@@ -29,14 +29,14 @@ Hooks.once("init", () => {
         registerSettings
     };
 
-    
+
     // Unregister core sheets
     Actors.unregisterSheet("core", ActorSheet);
     Items.unregisterSheet("core", ItemSheet);
 
     // Register System sheets
     Actors.registerSheet("ewhen", EWActorSheet, { types:["character", "vehicle"], makeDefault:true });
-    
+
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
     //CONFIG.debug.hooks = true;
@@ -45,10 +45,10 @@ Hooks.once("init", () => {
 
     // Register system settings
     registerSettings();
-    
+
     // Register partials templates
     preloadHandlebarsTemplates();
-   
+
     // Register handlebar helpers
     Handlebars.registerHelper('ife', function(arg1, arg2, options) {
         return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
@@ -60,7 +60,7 @@ Hooks.once("init", () => {
        for (let i = 0; i < n; i++) {
            result += content.fn(i)
        }
-       
+
        return result;
 
     });
@@ -82,13 +82,13 @@ Hooks.once("init", () => {
     });
 
     Handlebars.registerHelper("render", function(arg1){
-        
+
         return new Handlebars.SafeString(arg1);
     });
 
     // Checks whether a game setting is active
     Handlebars.registerHelper("setting", function(arg){
-        return game.settings.get('ewhen', arg); 
+        return game.settings.get('ewhen', arg);
     });
 
     Handlebars.registerHelper("concat", function(...args){
@@ -101,7 +101,7 @@ Hooks.once("init", () => {
     });
 
     Handlebars.registerHelper("and", function(a, b){
-        return (a && b); 
+        return (a && b);
     });
 
     Handlebars.registerHelper("or", function(a, b){
@@ -110,28 +110,28 @@ Hooks.once("init", () => {
 });
 
 /**
- * Item Hooks - update, delete, make sure to adjust stats 
+ * Item Hooks - update, delete, make sure to adjust stats
  * for armor and so forth, initiative.
- * 
+ *
  * Todo - consolidate and move to method(s) in EWActor?
  */
 
 Hooks.on('updateOwnedItem', function(actor, item, changed){
 
     console.log("Changed: ", changed);
-   
+
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
 
     /* Removed for simpler on-sheet editing
     if(item.type == "trait") {
-    
+
         // actor.traitModHandler(item, "update");
         let type = item.type;
         let pmod = item.data.priority_dieMod;
         const adata = duplicate(actor.data.data.priority_roll);
 
-    
+
         if(pmod == "bonus") {
             adata.expression = "3d6kh2";
         } else if (type == "trait" && pmod == "penalty") {
@@ -141,7 +141,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
         actor.update({ "data.priority_roll": adata});
     }
     */
-    
+
     if(item.type == "armor" && ("equipped" in changed.data)) {
 
         var bonusIsMain;
@@ -164,7 +164,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
 
         // actor.equipHandler(item, equipped);
         if(equipped) {
-        
+
             if(bAttrib != "none" && ma.includes(bAttrib)) {
                 actorData.main_attributes[bAttrib].rank += bVal;
             } else if (bAttrib != "none" && ca.includes(bAttrib)) {
@@ -181,7 +181,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
             }
         }
         if(!equipped) {
-    
+
             if(bAttrib != "none" && ma.includes(bAttrib)) {
                 actorData.main_attributes[bAttrib].rank -= bVal;
             } else if (bAttrib != "none" && ca.includes(bAttrib)) {
@@ -197,23 +197,23 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
                 console.log("Actor armor bonus: ", actorData.armorbonus);
             }
         }
-        
+
         actor.update({ "data": actorData});
 
     }
-        
+
 });
 
 
 // should probably become preDeleteOwnedItem, to handle it before
 // the item actually vanishes from the inventory
 
-Hooks.on('deleteOwnedItem', function(actor, item){ 
+Hooks.on('deleteOwnedItem', function(actor, item){
 
 
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
-    
+
     let type = item.type;
 
     /* Removed for on-sheet editin
@@ -228,8 +228,8 @@ Hooks.on('deleteOwnedItem', function(actor, item){
         if(type=="trait" && pmod != "none") {
             adata.expression = "2d6kh2";
         }
-    
-   
+
+
          actor.update({ "data.priority_roll": adata});
     }
     */
@@ -269,7 +269,7 @@ Hooks.on('deleteOwnedItem', function(actor, item){
                 actorData.armorbonus = Math.max(0, actorData.armorbonus - fixed);
             }
         }
-        
+
         actor.update({ "data": actorData});
     }
 });
@@ -287,7 +287,7 @@ Hooks.on('renderChatMessage', (app, html) => {
         // NOTE: This depends on the exact card template HTML structure.
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
      });
- 
+
      html.on('click', '.taskroll-info', event => {
         event.preventDefault();
         // NOTE: This depends on the exact card template HTML structure.
@@ -298,7 +298,7 @@ Hooks.on('renderChatMessage', (app, html) => {
         event.preventDefault();
 
         let element = event.currentTarget;
-       
+
         let actorId = element.dataset.actorId;
 
         let actor = game.actors.get(actorId);
@@ -316,7 +316,7 @@ Hooks.on('renderChatMessage', (app, html) => {
  */
 
 // Convert initiative to Everywhen Priority "ladder" if setting active
-Hooks.on('updateCombatant', function(combat, changed, diff) {  
+Hooks.on('updateCombatant', function(combat, changed, diff) {
 
     if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
 
@@ -342,4 +342,3 @@ Hooks.on('updateToken', function(token, changed, diff){
 
 });
 
- 

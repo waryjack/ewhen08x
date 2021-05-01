@@ -94,9 +94,11 @@ export const EW = {
         greater:'EW.entity.type.greater'
     },
     weapon_types: {
-        lightMelee: 'EW.weapontype.lightmelee',
+        lightMelee: 'EW.weapontype.lightmelee', 
+        mediumMelee: 'EW.weapontype.mediummelee',
         heavyMelee: 'EW.weapontype.heavymelee',
         lightRanged: 'EW.weapontype.lightranged',
+        mediumRanged: 'EW.weapontype.mediumranged',
         heavyRanged: 'EW.weapontype.heavyranged'
     },
     weapon_hands: {

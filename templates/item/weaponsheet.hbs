@@ -8,6 +8,7 @@
         <table>
             <tr>
                 <th>{{localize "EW.game_term.weapontype"}}</th>
+                <th>{{localize "EW.game_term.weaponhands"}}</th>
                 <th>{{localize "EW.game_term.era"}}</th>
             </tr>
             <tr>
@@ -16,6 +17,15 @@
                         {{#select data.data.wpn_type}}
                         {{#each config.weapon_types as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    </td>
+                    <td>
+                    <select style="width:100%;" name="data.hands" id="data.hands">
+                        {{#select data.hands}}
+                        {{#each config.weapon_hands as |name hand|}}
+                        <option value="{{hand}}">{{localize name}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
@@ -94,6 +104,16 @@
                 </td>
                 <td>
                     <input class="ewhen statfield" type="text" name="data.damage.scale" value="{{data.damage.scale}}" data-dtype="Number"/>
+                </td>
+            </tr>
+        </table>
+         <table>
+            <tr>
+                <th style="text-align: left;">{{localize "EW.game_term.notes"}}</th>
+            </tr>
+            <tr>
+                <td>
+                    <input class="ewhen statfield" type="text" name="data.notes" value="{{data.notes}}" data-dtype="String"/>
                 </td>
             </tr>
         </table>

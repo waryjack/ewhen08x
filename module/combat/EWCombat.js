@@ -1,6 +1,5 @@
 export class EWCombat extends Combat {
-
-       
+  
     constructor(...args) {
         super(...args);
     }
@@ -8,8 +7,8 @@ export class EWCombat extends Combat {
      * @override
      */
     nextRound(){
-        if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         super.nextRound();
+        if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         let rrlist = new Array();
 
         console.warn("Combatants: ", this.combatants);

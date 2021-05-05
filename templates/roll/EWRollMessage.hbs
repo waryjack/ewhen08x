@@ -1,6 +1,6 @@
 <form class="ewhen roll-dialog">
  <header class="roll-header taskroll-info">
-        <h1 class="roll-name">{{localize (proper d.chosenAttribute)}} Roll
+        <h1 class="roll-name">{{#proper (setting (getCustomName d.chosenAttribute))}}{{/proper}}{{!--localize (proper d.chosenAttribute)--}} Roll
              {{#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if}}
             <div class="taskroll-final {{outclass}}" style="">
                 {{roll.total}}
@@ -8,8 +8,8 @@
         </h1>
 </header>
 <div class="taskroll-msg">
-    <p> <strong>{{#proper d.chosenAttribute}}{{/proper}} ({{d.attrVal}})</strong>
-        {{#if (ne d.chosenCombat "none")}} <strong>+ {{#proper d.chosenCombat}}{{/proper}} ({{d.comVal}})</strong>{{/if}}
+    <p> <strong>{{#proper (setting (getCustomName d.chosenAttribute))}}{{/proper}} ({{d.attrVal}})</strong>
+        {{#if (ne d.chosenCombat "none")}} <strong>+ {{#proper (setting (getCustomName d.chosenCombat))}}{{/proper}} ({{d.comVal}})</strong>{{/if}}
         {{#if (ne d.chosenCareer "none")}} <strong>+ {{d.chosenCareer}} ({{d.cVal}})</strong>{{/if}}
         {{#if (ne d.mods 0)}} {{#if (gt d.mods 0)}}<strong>+</strong>{{/if}} <strong>{{d.mods}}</strong>{{/if}}
     </p>

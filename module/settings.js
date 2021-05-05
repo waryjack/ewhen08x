@@ -22,7 +22,7 @@ export const registerSettings = function() {
                 case "EWhenTrad": expr = "@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
                 case "BoL": expr = "1d6+@main_attributes.agility.rank"; break;
                 case "EWhenPriority": expr="@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
-                case "H+I": expr="@priority_roll.expression+@main_attributes.mind.rank"; break;
+                case "H+I": expr="1d6+@main_attributes.mind.rank"; break;
             }
             game.data.system.data.initiative = expr;
         }
@@ -148,5 +148,40 @@ export const registerSettings = function() {
         type: String,
         default: "Appeal"
     });
+
+    game.settings.register("ewhen", "melName", {
+        name: "EW.SETTINGS.melName",
+        hint: "EW.SETTINGS.melNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Melee"
+    });
     
+    game.settings.register("ewhen", "ranName", {
+        name: "EW.SETTINGS.ranName",
+        hint: "EW.SETTINGS.ranNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Ranged"
+    });
+
+    game.settings.register("ewhen", "defName", {
+        name: "EW.SETTINGS.defName",
+        hint: "EW.SETTINGS.defNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Defense"
+    });
+
+    game.settings.register("ewhen", "iniName", {
+        name: "EW.SETTINGS.iniName",
+        hint: "EW.SETTINGS.iniNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Initiative"
+    });
 }

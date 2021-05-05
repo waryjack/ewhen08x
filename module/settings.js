@@ -12,7 +12,8 @@ export const registerSettings = function() {
         choices: {
             'EWhenPriority': 'EW.SETTINGS.Priority',
             'EWhenTrad': 'EW.SETTINGS.EwhenConventional',
-            'BoL': 'EW.SETTINGS.Barbarians'
+            'BoL': 'EW.SETTINGS.Barbarians',
+            'H+I': 'EW.SETTINGS.HonorIntrigue'
             
         },
         onChange: (rule) => { 
@@ -21,6 +22,7 @@ export const registerSettings = function() {
                 case "EWhenTrad": expr = "@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
                 case "BoL": expr = "1d6+@main_attributes.agility.rank"; break;
                 case "EWhenPriority": expr="@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
+                case "H+I": expr="@priority_roll.expression+@main_attributes.mind.rank"; break;
             }
             game.data.system.data.initiative = expr;
         }

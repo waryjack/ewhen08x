@@ -118,6 +118,33 @@ export const registerSettings = function() {
         type: String,
         default: "Strength"
     });
+
+
+    game.settings.register("ewhen", "agiName", {
+        name: "EW.SETTINGS.agiName",
+        hint: "EW.SETTINGS.agiNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Agility"
+    });
+
+    game.settings.register("ewhen", "minName", {
+        name: "EW.SETTINGS.minName",
+        hint: "EW.SETTINGS.minNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Mind"
+    });
     
+    game.settings.register("ewhen", "appName", {
+        name: "EW.SETTINGS.appName",
+        hint: "EW.SETTINGS.appNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Appeal"
+    });
     
 }

@@ -100,6 +100,14 @@ Hooks.once("init", () => {
         return result;
     });
 
+    Handlebars.registerHelper("getCustomName", function(a) {
+        let result = "Name";
+        let truncA = a.substring(0,3);
+        result = truncA+result;
+        console.warn("Custom Name", result);
+        return result;
+    });
+
     Handlebars.registerHelper("and", function(a, b){
         return (a && b);
     });

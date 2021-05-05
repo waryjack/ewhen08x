@@ -9,17 +9,17 @@
                         {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.strength.scale}})</td>{{/if}}
                     </tr>
                     <tr>
-                        <td><a class="att-roll" data-attribute="agility">{{localize "EW.attribute.main.agility"}}</a></td>
+                        <td><a class="att-roll" data-attribute="agility">{{setting "agiName"}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.agility.rank" value="{{data.main_attributes.agility.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.agility.scale}})</td>{{/if}}
                     </tr>
                     <tr>
-                        <td><a class="att-roll" data-attribute="mind">{{localize "EW.attribute.main.mind"}}</a></td>
+                        <td><a class="att-roll" data-attribute="mind">{{setting "minName"}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.mind.rank" value="{{data.main_attributes.mind.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.agility.scale}})</td>{{/if}}
                     </tr>
                     <tr>
-                        <td><a class="att-roll" data-attribute="appeal">{{localize "EW.attribute.main.appeal"}}</a></td>
+                        <td><a class="att-roll" data-attribute="appeal">{{setting "appName"}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.main_attributes.appeal.rank" value="{{data.main_attributes.appeal.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{data.main_attributes.appeal.scale}})</td>{{/if}}
                     </tr>

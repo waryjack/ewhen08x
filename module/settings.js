@@ -109,5 +109,15 @@ export const registerSettings = function() {
         type: Number,
         default:1
     });
+
+    game.settings.register("ewhen", "strName", {
+        name: "EW.SETTINGS.strName",
+        hint: "EW.SETTINGS.strNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Strength"
+    });
+    
     
 }

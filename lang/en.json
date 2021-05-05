@@ -264,6 +264,8 @@
     "EW.SETTINGS.rabbleStrengthDesc": "How much lifeblood should Rabble have in your game?",
     "EW.SETTINGS.UseCredit": "Enable Credit Rating",
     "EW.SETTINGS.UseCreditDesc": "Use credit rating instead of currency in your game. Enabling this will hide currency info on the character sheet.",
+    "EW.SETTINGS.strName": "Strength",
+    "EW.SETTINGS.strNameDesc": "Custom name for Strength Attribute",
 
     "EW.difficulty.very_easy": "Very Easy (+2)",
     "EW.difficulty.easy": "Easy (+1)",

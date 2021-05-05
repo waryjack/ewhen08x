@@ -91,6 +91,7 @@ Hooks.once("init", () => {
         return game.settings.get('ewhen', arg);
     });
 
+    
     Handlebars.registerHelper("concat", function(...args){
         let result = "";
         for (let a of args) {

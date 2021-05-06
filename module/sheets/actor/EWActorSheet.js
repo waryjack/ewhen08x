@@ -298,10 +298,11 @@ export default class EWActorSheet extends ActorSheet {
             rank = this.actor.data.data.main_attributes[attribute].rank;
         }
 
+        // todo - set up attribute-ability links as a setting? or just remove defaults? 
         if(isCombat) {
             switch (attribute) {
                 // select the likely attribute if it's a combat roll
-                case "initiative": attribute2 = "mind"; break;
+                // case "initiative": attribute2 = "mind"; break;
                 default: attribute2 = "agility";
             }
         }

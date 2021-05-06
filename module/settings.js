@@ -12,7 +12,8 @@ export const registerSettings = function() {
         choices: {
             'EWhenPriority': 'EW.SETTINGS.Priority',
             'EWhenTrad': 'EW.SETTINGS.EwhenConventional',
-            'BoL': 'EW.SETTINGS.Barbarians'
+            'BoL': 'EW.SETTINGS.Barbarians',
+            'H+I': 'EW.SETTINGS.HonorIntrigue'
             
         },
         onChange: (rule) => { 
@@ -21,6 +22,7 @@ export const registerSettings = function() {
                 case "EWhenTrad": expr = "@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
                 case "BoL": expr = "1d6+@main_attributes.agility.rank"; break;
                 case "EWhenPriority": expr="@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
+                case "H+I": expr="1d6+@main_attributes.mind.rank"; break;
             }
             game.data.system.data.initiative = expr;
         }
@@ -109,5 +111,77 @@ export const registerSettings = function() {
         type: Number,
         default:1
     });
+
+    game.settings.register("ewhen", "strName", {
+        name: "EW.SETTINGS.strName",
+        hint: "EW.SETTINGS.strNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Strength"
+    });
+
+
+    game.settings.register("ewhen", "agiName", {
+        name: "EW.SETTINGS.agiName",
+        hint: "EW.SETTINGS.agiNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Agility"
+    });
+
+    game.settings.register("ewhen", "minName", {
+        name: "EW.SETTINGS.minName",
+        hint: "EW.SETTINGS.minNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Mind"
+    });
     
+    game.settings.register("ewhen", "appName", {
+        name: "EW.SETTINGS.appName",
+        hint: "EW.SETTINGS.appNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Appeal"
+    });
+
+    game.settings.register("ewhen", "melName", {
+        name: "EW.SETTINGS.melName",
+        hint: "EW.SETTINGS.melNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Melee"
+    });
+    
+    game.settings.register("ewhen", "ranName", {
+        name: "EW.SETTINGS.ranName",
+        hint: "EW.SETTINGS.ranNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Ranged"
+    });
+
+    game.settings.register("ewhen", "defName", {
+        name: "EW.SETTINGS.defName",
+        hint: "EW.SETTINGS.defNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Defense"
+    });
+
+    game.settings.register("ewhen", "iniName", {
+        name: "EW.SETTINGS.iniName",
+        hint: "EW.SETTINGS.iniNameDesc",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "Initiative"
+    });
 }

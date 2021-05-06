@@ -1,6 +1,6 @@
 <form class="ewhen roll-dialog">
  <header class="roll-header">
-        <h1 class="ewhen roll-name">{{#if (ne attr "")}}{{#proper attr}}{{/proper}} {{localize "EW.rolltype.roll"}}{{else}}{{localize "EW.rolltype.taskroll"}}{{/if}}</h1>
+        <h1 class="ewhen roll-name">{{#if (ne attr "")}}{{#proper (setting (getCustomName attr))}}{{/proper}} {{localize "EW.rolltype.roll"}}{{else}}{{localize "EW.rolltype.taskroll"}}{{/if}}</h1>
     </header>
 
 {{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
@@ -19,7 +19,7 @@
     
                     {{#if (eq name ../attr)}}
                     selected
-                    {{/if}}>{{localize (proper name)}}</option>
+                    {{/if}}>{{setting (getCustomName name)}}{{!--localize (proper name)--}}</option>
                 {{/each}}
             {{/select}}
          </select>
@@ -30,7 +30,7 @@
              <option value="none" {{#unless isCombat}}selected{{/unless}}></option>
             {{#select combat}}
                 {{#each combat as |a name|}}
-                    <option value="{{name}}" {{#ife ../attr name}}selected{{/ife}}>{{localize (proper name)}}</option>
+                    <option value="{{name}}" {{#ife ../attr name}}selected{{/ife}}>{{proper (setting (getCustomName name))}}</option>
                 {{/each}}
             {{/select}}
          </select>

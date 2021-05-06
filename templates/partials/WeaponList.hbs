@@ -16,7 +16,7 @@
                                         +{{#if (eq weapon.data.damage.half_attribute true)}}
                                         &#189;
                                         {{/if}}
-                                        {{weapon.data.damage.add_attribute}}
+                                        {{setting (getCustomName weapon.data.damage.add_attribute)}}
                                         {{/if}}
                                         {{#if (ne weapon.data.damage.mod 0)}}
                                         +{{weapon.data.damage.mod}}

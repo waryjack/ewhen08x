@@ -74,7 +74,7 @@
                         {{#select data.damage.add_attribute}}
                         <option value="none"></option>
                         {{#each config.main_attributes as |a attr|}}
-                            <option value="{{attr}}">{{localize (proper attr)}}</option>
+                            <option value="{{attr}}">{{setting (getCustomName attr)}}</option>
                         {{/each}}
                         {{/select}}
                     </select>

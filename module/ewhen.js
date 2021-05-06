@@ -39,7 +39,7 @@ Hooks.once("init", () => {
 
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
-    //CONFIG.debug.hooks = true;
+  //  CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     CONFIG.Combat.entityClass = EWCombat;
 
@@ -347,6 +347,42 @@ Hooks.on('updateCombatant', function(combat, changed, diff) {
 Hooks.on('updateToken', function(token, changed, diff){
 
     console.log("Also Updating Token: ", token.name, token._id);
+
+});
+
+Hooks.on('preCreateItem', function(constructor, data) {
+    console.warn(constructor, data);
+    if(data.type == "weapon") {
+        data.img = "icons/svg/sword.svg";
+    } else if (data.type == "armor") {
+        data.img = "icons/svg/shield.svg";
+    } else if (data.type == "trait") {
+        data.img = "icons/svg/dice-target.svg";
+    } else if (data.type == "career") {
+        data.img = "icons/svg/book.svg";
+    } else if (data.type == "equipment") {
+        data.img = "icons/svg/chest.svg";
+    } else if (data.type == "power") {
+        data.img = "icons/svg/daze.svg";
+    }
+
+});
+
+Hooks.on('preCreateOwnedItem', function(constructor, data) {
+    console.warn(constructor, data);
+    if(data.type == "weapon") {
+        data.img = "icons/svg/sword.svg";
+    } else if (data.type == "armor") {
+        data.img = "icons/svg/shield.svg";
+    } else if (data.type == "trait") {
+        data.img = "icons/svg/dice-target.svg";
+    } else if (data.type == "career") {
+        data.img = "icons/svg/book.svg";
+    } else if (data.type == "equipment") {
+        data.img = "icons/svg/chest.svg";
+    } else if (data.type == "power") {
+        data.img = "icons/svg/daze.svg";
+    }
 
 });
 

@@ -27,7 +27,7 @@
     "minimumCoreVersion": "0.8.0",
     "compatibleCoreVersion": "0.8.3",
     "url": "https://github.com/waryjack/ewhen08x",
-    "manifest": "https://github.com/waryjack/ewhen08x/releases/latest/download/system.json",
-    "download": "https://github.com/waryjack/ewhen08x/releases/latest/download/ewhen08x-master.zip"
+    "manifest": "https://github.com/waryjack/ewhen08x/releases/download/v0.8.0-beta/system.json",
+    "download": "https://github.com/waryjack/ewhen08x/releases/download/v0.8.0-beta/ewhen08x-master.zip"
 
 }

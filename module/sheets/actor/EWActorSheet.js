@@ -456,9 +456,7 @@ export default class EWActorSheet extends ActorSheet {
           let itemId = element.closest(".item").dataset.itemId;
 
           let item = this.actor.items.get(itemId);
-  
-          let item = this.actor.getOwnedItem(itemId);
-
+          
           let field = element.dataset.field;
 
           let val = element.checked;

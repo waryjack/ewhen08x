@@ -24,22 +24,27 @@ export default class EWActorSheet extends ActorSheet {
     /**
      * @override
      */
-    getData () {
-        const data = super.getData();
+    getData() {
+        const data = deepClone(this.actor.data);
 
-        //console.log(data);
+       // console.warn("080 super getdata, data.items: ", data);
+        
+        data.config = CONFIG.ewhen; 
+        let ownedItems = this.actor.items;
+        data.actor = this.actor; 
 
-        data.config = CONFIG.ewhen;
-
-
-        data.weapons = data.items.filter(function(item) {return item.type == "weapon"});
-        data.traits = data.items.filter(function(item) {return item.type == "trait"});
+        // console.warn("Owned Items: ", ownedItems);
+        
+        data.weapons = ownedItems.filter(function(item) {return item.type == "weapon"});
+        //console.warn("data.weapons: ", data.weapons);
+        data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
+        //console.warn("data.traits: ", data.traits);
 
         if (this.actor.data.type == "character") {
-        data.careers = data.items.filter(function(item) {return item.type == "career"});
-        data.armors = data.items.filter(function(item) {return item.type == "armor"});
-        data.powers = data.items.filter(function(item) {return item.type == "power"});
-        data.equipment = data.items.filter(function(item) {return item.type == "equipment"});
+        data.careers = ownedItems.filter(function(item) {return item.type == "career"});
+        data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
+        data.powers = ownedItems.filter(function(item) {return item.type == "power"});
+        data.equipment = ownedItems.filter(function(item) {return item.type == "equipment"});
         data.main_attributes = this.actor.data.data.main_attributes;
         data.combat_attributes = this.actor.data.data.combat_attributes;
         data.fdmg = this.actor.data.data.resources.lifeblood.fatigue;
@@ -115,37 +120,45 @@ export default class EWActorSheet extends ActorSheet {
        let minorType = element.dataset.minorType;
        let actorData = duplicate(this.actor.data.data);
        let rabbleAttack = {
-        wpn_type:"rabbleAttack",
-			damage: {
-				dice:"1d3",
-				scale:1,
-				add_attribute:"none",
-				half_attribute:false,
-				mod:0,
-				ap:0
-			},
-			hands:"one handed",
-            notes: "",
-			range:0,
-			recoil:0,
-			era:""
-       }
+
+        name: "Rabble Attack",
+        type: "weapon",
+        data: {
+            wpn_type:"hordeAttack",
+                damage: {
+                    dice:"1d3",
+                    scale:1,
+                    add_attribute:"none",
+                    half_attribute:false,
+                    mod:0,
+                    ap:0
+                },
+                hands:"one handed",
+                range:0,
+                recoil:0,
+                era:""
+            }
+        }
        let hordeAttack = {
-        wpn_type:"hordeAttack",
-			damage: {
-				dice:"2d6kl1",
-				scale:1,
-				add_attribute:"none",
-				half_attribute:false,
-				mod:0,
-				ap:0
-			},
-			hands:"one handed",
-            notes: "",
-			range:0,
-			recoil:0,
-			era:""
-       }
+        name: "Horde Attack",
+        type: "weapon",
+        data: {
+            wpn_type:"hordeAttack",
+                damage: {
+                    dice:"2d6kl1",
+                    scale:1,
+                    add_attribute:"none",
+                    half_attribute:false,
+                    mod:0,
+                    ap:0
+                },
+                hands:"one handed",
+                range:0,
+                recoil:0,
+                era:""
+            }
+        }
+
 
         let downgrade = element.checked;
 
@@ -168,13 +181,9 @@ export default class EWActorSheet extends ActorSheet {
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
                     actorData.resources.resolve.max = 1;
                     actorData.resources.resolve.value = 1;
-                    let rAtk = new Item({"name": "Rabble Attack", "type":"weapon"});
-                    let hAtk = new Item({"name": "Horde Attack", "type":"weapon"});
-                    setProperty(rAtk, "data.data", rabbleAttack);
-                    setProperty(hAtk, "data.data", hordeAttack);
-                    console.warn("rAtk: ", rAtk);
-                   /*  this.actor.createOwnedItem(rAtk);
-                    this.actor.createOwnedItem(hAtk); */
+                    // Item.create(rabbleAttack, { parent: this.actor});
+                    // Item.create(hordeAttack, { parent: this.actor});
+
                     return this.actor.update({ "data": actorData});
                 }
                 default: {
@@ -203,7 +212,7 @@ export default class EWActorSheet extends ActorSheet {
         let element = event.currentTarget;
 
         let res = element.dataset.resourceName;
-        console.warn("Vehicle update: ", res);
+        
 
         if (res == "frame") {
             resData = duplicate(this.actor.data.data.frame);
@@ -265,7 +274,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let itemId = element.closest(".item").dataset.itemId;
 
-        let item = this.actor.getOwnedItem(itemId);
+        let item = this.actor.items.get(itemId);
 
         let itemRank = item.data.data.rank;
 
@@ -328,7 +337,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let itemId = element.closest(".item").dataset.itemId;
 
-        let item = this.actor.getOwnedItem(itemId);
+        let item = this.actor.items.get(itemId);
 
         return this.actor.rollWeaponDamage(item);
 
@@ -339,7 +348,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let element = event.currentTarget;
         let itemId = element.closest(".item").dataset.itemId;
-        let item = this.actor.getOwnedItem(itemId);
+        let item = this.actor.items.get(itemId);
         return this.actor.rollArmor(item);
     }
 
@@ -350,7 +359,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let itemId = element.closest(".item").dataset.itemId;
 
-        let item = this.actor.getOwnedItem(itemId);
+        let item = this.actor.items.get(itemId);
 
         item.sheet.render(true);
 
@@ -362,7 +371,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let itemId = element.closest(".item").dataset.itemId;
 
-        let item = this.actor.getOwnedItem(itemId);
+        let item = this.actor.items.get(itemId);
 
         let field = element.dataset.field;
 
@@ -376,7 +385,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let itemId = element.closest(".item").dataset.itemId;
 
-        let item = this.actor.getOwnedItem(itemId);
+        let item = this.actor.items.get(itemId);
 
         let field = element.dataset.field;
 
@@ -406,7 +415,8 @@ export default class EWActorSheet extends ActorSheet {
                     type: subtype
             }
         }
-        return this.actor.createOwnedItem(itemData, {renderSheet:true});
+
+        return Item.create(itemData, {parent: this.actor, renderSheet:true});
 
       }
 
@@ -445,6 +455,8 @@ export default class EWActorSheet extends ActorSheet {
 
           let itemId = element.closest(".item").dataset.itemId;
 
+          let item = this.actor.items.get(itemId);
+  
           let item = this.actor.getOwnedItem(itemId);
 
           let field = element.dataset.field;

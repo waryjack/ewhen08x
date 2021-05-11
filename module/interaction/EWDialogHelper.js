@@ -11,8 +11,8 @@ export class EWDialogHelper {
 
         let isDamage = template == CONFIG.ewhen.DIALOG_TYPE.DAMAGE ? true : false;
 
-        console.warn("Template: ", template);
-        console.warn("IsDamage: ", isDamage);
+     //   console.warn("Template: ", template);
+      //  console.warn("IsDamage: ", isDamage);
         
         renderTemplate(template, data).then((dlg) => {
             new Dialog({
@@ -73,7 +73,7 @@ export class EWDialogHelper {
 
     static async generateVehicleUpdateDialog(template, data) {
 
-        console.warn("vehicle update dialogData: ", data); 
+       // console.warn("vehicle update dialogData: ", data); 
 
         renderTemplate(template, data).then((dlg)=>{ 
             new Dialog({

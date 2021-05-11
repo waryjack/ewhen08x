@@ -40,8 +40,10 @@ Hooks.once("init", () => {
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
     CONFIG.debug.hooks = true;
-    CONFIG.Actor.entityClass = EWActor;
-    CONFIG.Combat.entityClass = EWCombat;
+
+    CONFIG.Actor.documentClass = EWActor;
+    CONFIG.Combat.documentClass = EWCombat;
+
 
     // Register system settings
     registerSettings();
@@ -128,9 +130,7 @@ Hooks.once("init", () => {
  * Todo - consolidate and move to method(s) in EWActor?
  */
 
-Hooks.on('updateOwnedItem', function(actor, item, changed){
-
-    console.log("Changed: ", changed);
+Hooks.on('updateItem', function(actor, item, changed){
 
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
@@ -158,7 +158,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
 
         var bonusIsMain;
         var penaltyIsMain;
-        const armData = item.data;
+        const armData = item.data.data;
         const actorData = duplicate(actor.data.data);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
@@ -220,7 +220,7 @@ Hooks.on('updateOwnedItem', function(actor, item, changed){
 // should probably become preDeleteOwnedItem, to handle it before
 // the item actually vanishes from the inventory
 
-Hooks.on('deleteOwnedItem', function(actor, item){
+Hooks.on('deleteItem', function(actor, item){ 
 
 
     const ma = ["strength", "agility", "mind", "appeal"];
@@ -250,7 +250,7 @@ Hooks.on('deleteOwnedItem', function(actor, item){
 
         var bonusIsMain;
         var penaltyIsMain;
-        const armData = item.data;
+        const armData = item.data.data;
         const actorData = duplicate(actor.data.data);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
@@ -330,6 +330,10 @@ Hooks.on('renderChatMessage', (app, html) => {
 // Convert initiative to Everywhen Priority "ladder" if setting active
 Hooks.on('updateCombatant', function(combat, changed, diff) {
 
+    console.warn("Combat object: ", combat); 
+    console.warn("changed: ", changed);
+    console.warn("diff: ", diff);
+
     if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
 
     if (!("initiative" in changed)) { return; }
@@ -340,7 +344,8 @@ Hooks.on('updateCombatant', function(combat, changed, diff) {
 
     console.log("Inits before and after: ", cmbInit, newInit);
 
-    changed.initiative = newInit;
+    setProperty(changed, "data.initiative", newInit);
+    //changed.initiative = newInit;
 });
 
 

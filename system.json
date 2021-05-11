@@ -25,6 +25,9 @@
     "primaryTokenAttribute": "resources.lifeblood",
     "secondaryTokenAttribute":"resources.resolve",
     "minimumCoreVersion": "0.8.0",
-    "compatibleCoreVersion": "0.8.3"
+    "compatibleCoreVersion": "0.8.3",
+    "url": "https://github.com/waryjack/ewhen08x",
+    "manifest": "https://github.com/waryjack/ewhen08x/releases/latest/download/system.json",
+    "download": "https://github.com/waryjack/ewhen08x/releases/latest/download/ewhen08x-master.zip"
 
 }

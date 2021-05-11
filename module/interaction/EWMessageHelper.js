@@ -1,3 +1,4 @@
+
 export class EWMessageHelper {
 
     static generateMessage(template, data) {
@@ -9,7 +10,7 @@ export class EWMessageHelper {
             ChatMessage.create({
                 user: game.user._id,
                 roll: data.roll,
-                type:CHAT_MESSAGE_TYPES.ROLL,
+                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
                 speaker: ChatMessage.getSpeaker(),
                 content: msg
             });

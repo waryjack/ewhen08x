@@ -9,12 +9,12 @@
                     <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
                         {{#each powers as |power id|}}
                         <tr>
-                            <td class="item-name item" data-item-id="{{power._id}}">
+                            <td class="item-name item" data-item-id="{{power.id}}">
                                 <img src="{{power.img}}" data-edit="img" height="24" width="24"/>
-                                <a class="item-edit" title="Edit">{{power.name}} (<i>{{power.data.power_type}}{{#if (ne power.data.magnitude "none")}},{{power.data.magnitude}}{{/if}}</i>)</a><br>{{power.data.effect}}. 
-                                <em>{{power.data.success_roll}}, {{power.data.difficulty}}, {{power.data.resource_cost}}P</em></td>
+                                <a class="item-edit" title="Edit">{{power.name}} (<i>{{power.data.data.power_type}}{{#if (ne power.data.data.magnitude "none")}},{{power.data.data.magnitude}}{{/if}}</i>)</a><br>{{power.data.data.effect}}. 
+                                <em>{{power.data.data.success_roll}}, {{power.data.data.difficulty}}, {{power.data.data.resource_cost}}P</em></td>
                             <td>
-                                <a class="item-delete item" data-item-id="{{power._id}}">
+                                <a class="item-delete item" data-item-id="{{power.id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

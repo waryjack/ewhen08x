@@ -17,7 +17,8 @@ export default class EWArmorSheet extends ItemSheet {
     }
 
     getData () {
-        const data = super.getData();
+        const data = this.data;
+   //     console.warn("item data: ", data);
 
         data.config = CONFIG.ewhen; 
         

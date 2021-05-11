@@ -3,7 +3,7 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
         <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
     </header>
-
+{{log "Data in item sheet: " data}}
     <div>
         <table>
             <tr>
@@ -14,7 +14,7 @@
             <tr>
                     <td>
                     <select style="width:100%;" name="data.wpn_type" id="data.wpn_type">
-                        {{#select data.wpn_type}}
+                        {{#select data.data.wpn_type}}
                         {{#each config.weapon_types as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
@@ -107,7 +107,9 @@
                 </td>
             </tr>
         </table>
+
         <table>
+
             <tr>
                 <th style="text-align: left;">{{localize "EW.game_term.notes"}}</th>
             </tr>

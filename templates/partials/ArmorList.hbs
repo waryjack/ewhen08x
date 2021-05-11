@@ -15,8 +15,8 @@
                                 <br><em>{{localize armor.data.data.armor_type}}, 
                                         {{#if (ne armor.data.data.protection.variable "none")}}{{armor.data.data.protection.variable}}/{{/if}}
                                         {{#if armor.data.data.accessory}}+{{/if}}{{armor.data.data.protection.fixed}}, 
-                                        {{#if (ne armor.data.data.bonus.to "none")}}+{{armor.data.data.bonus.amount}} {{armor.data.data.bonus.to}},{{/if}}
-                                        {{#if (ne armor.data.data.penalty.to "none")}}-{{armor.data.data.penalty.amount}} {{armor.data.data.penalty.to}}{{/if}}
+                                        {{#if (ne armor.data.data.bonus.to "none")}}+{{armor.data.data.bonus.amount}} {{setting (getCustomName armor.data.data.bonus.to)}},{{/if}}
+                                        {{#if (ne armor.data.data.penalty.to "none")}}-{{armor.data.data.penalty.amount}} {{setting (getCustomName armor.data.data.penalty.to)}}{{/if}}
                                         {{#if (ne armor.data.data.diffmod.to "none")}}, {{armor.data.data.diffmod.to}}{{/if}}
                                         {{#if armor.data.data.accessory}}, accessory{{/if}}
                             </em>

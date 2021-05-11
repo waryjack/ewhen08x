@@ -1,6 +1,6 @@
 export const EW = {
 
-    main_attributes: { 
+    main_attributes: {
 
         strength: 'EW.attributes.primary.strength',
         agility: 'EW.attributes.primary.agility',
@@ -94,7 +94,7 @@ export const EW = {
         greater:'EW.entity.type.greater'
     },
     weapon_types: {
-        lightMelee: 'EW.weapontype.lightmelee', 
+        lightMelee: 'EW.weapontype.lightmelee',
         mediumMelee: 'EW.weapontype.mediummelee',
         heavyMelee: 'EW.weapontype.heavymelee',
         lightRanged: 'EW.weapontype.lightranged',
@@ -112,7 +112,7 @@ export const EW = {
         cyberpunk: "EW.era.cyberpunk",
         future: "EW.era.future",
         other: "EW.era.other"
-    }, 
+    },
     armor_types: {
         light: 'EW.armortype.light',
         medium: 'EW.armortype.medium',

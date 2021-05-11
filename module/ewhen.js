@@ -16,9 +16,9 @@ Hooks.once("init", () => {
     console.log("ewhen | Initializing Everywhen System");
 
     CONFIG.ewhen = EW;
-   
-    // Add namespace in global 
-    
+
+    // Add namespace in global
+
     game.EW = {
         EWActor,
         EWActorSheet,
@@ -29,26 +29,28 @@ Hooks.once("init", () => {
         registerSettings
     };
 
-    
+
     // Unregister core sheets
     Actors.unregisterSheet("core", ActorSheet);
     Items.unregisterSheet("core", ItemSheet);
 
     // Register System sheets
     Actors.registerSheet("ewhen", EWActorSheet, { types:["character", "vehicle"], makeDefault:true });
-    
+
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
     CONFIG.debug.hooks = true;
+
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
 
+
     // Register system settings
     registerSettings();
-    
+
     // Register partials templates
     preloadHandlebarsTemplates();
-   
+
     // Register handlebar helpers
     Handlebars.registerHelper('ife', function(arg1, arg2, options) {
         return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
@@ -60,7 +62,7 @@ Hooks.once("init", () => {
        for (let i = 0; i < n; i++) {
            result += content.fn(i)
        }
-       
+
        return result;
 
     });
@@ -82,15 +84,18 @@ Hooks.once("init", () => {
     });
 
     Handlebars.registerHelper("render", function(arg1){
-        
+
         return new Handlebars.SafeString(arg1);
     });
 
     // Checks whether a game setting is active
     Handlebars.registerHelper("setting", function(arg){
-        return game.settings.get('ewhen', arg); 
+        // console.warn("Passed Setting Name: ", arg);
+        if (arg == "" || arg == "non" || arg == undefined) { return ; }
+        return game.settings.get('ewhen', arg);
     });
 
+    
     Handlebars.registerHelper("concat", function(...args){
         let result = "";
         for (let a of args) {
@@ -100,8 +105,17 @@ Hooks.once("init", () => {
         return result;
     });
 
+    Handlebars.registerHelper("getCustomName", function(a) {
+        if (a == "none" || a == "None" || a == "") { return; }
+        let result = "Name";
+        let truncA = a.substring(0,3);
+        result = truncA+result;
+       // console.warn("Custom Name", result);
+        return result;
+    });
+
     Handlebars.registerHelper("and", function(a, b){
-        return (a && b); 
+        return (a && b);
     });
 
     Handlebars.registerHelper("or", function(a, b){
@@ -110,30 +124,26 @@ Hooks.once("init", () => {
 });
 
 /**
- * Item Hooks - update, delete, make sure to adjust stats 
+ * Item Hooks - update, delete, make sure to adjust stats
  * for armor and so forth, initiative.
- * 
+ *
  * Todo - consolidate and move to method(s) in EWActor?
  */
 
 Hooks.on('updateItem', function(actor, item, changed){
 
-    console.warn("updateOwnedItem Hook fired");
-    console.warn("Changed: ", changed);
-    console.warn("Item: ", item);
-   
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
 
     /* Removed for simpler on-sheet editing
     if(item.type == "trait") {
-    
+
         // actor.traitModHandler(item, "update");
         let type = item.type;
         let pmod = item.data.priority_dieMod;
         const adata = duplicate(actor.data.data.priority_roll);
 
-    
+
         if(pmod == "bonus") {
             adata.expression = "3d6kh2";
         } else if (type == "trait" && pmod == "penalty") {
@@ -143,7 +153,7 @@ Hooks.on('updateItem', function(actor, item, changed){
         actor.update({ "data.priority_roll": adata});
     }
     */
-    
+
     if(item.type == "armor" && ("equipped" in changed.data)) {
 
         var bonusIsMain;
@@ -166,7 +176,7 @@ Hooks.on('updateItem', function(actor, item, changed){
 
         // actor.equipHandler(item, equipped);
         if(equipped) {
-        
+
             if(bAttrib != "none" && ma.includes(bAttrib)) {
                 actorData.main_attributes[bAttrib].rank += bVal;
             } else if (bAttrib != "none" && ca.includes(bAttrib)) {
@@ -183,7 +193,7 @@ Hooks.on('updateItem', function(actor, item, changed){
             }
         }
         if(!equipped) {
-    
+
             if(bAttrib != "none" && ma.includes(bAttrib)) {
                 actorData.main_attributes[bAttrib].rank -= bVal;
             } else if (bAttrib != "none" && ca.includes(bAttrib)) {
@@ -199,11 +209,11 @@ Hooks.on('updateItem', function(actor, item, changed){
                 console.log("Actor armor bonus: ", actorData.armorbonus);
             }
         }
-        
+
         actor.update({ "data": actorData});
 
     }
-        
+
 });
 
 
@@ -215,7 +225,7 @@ Hooks.on('deleteItem', function(actor, item){
 
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
-    
+
     let type = item.type;
 
     /* Removed for on-sheet editin
@@ -230,8 +240,8 @@ Hooks.on('deleteItem', function(actor, item){
         if(type=="trait" && pmod != "none") {
             adata.expression = "2d6kh2";
         }
-    
-   
+
+
          actor.update({ "data.priority_roll": adata});
     }
     */
@@ -271,7 +281,7 @@ Hooks.on('deleteItem', function(actor, item){
                 actorData.armorbonus = Math.max(0, actorData.armorbonus - fixed);
             }
         }
-        
+
         actor.update({ "data": actorData});
     }
 });
@@ -289,7 +299,7 @@ Hooks.on('renderChatMessage', (app, html) => {
         // NOTE: This depends on the exact card template HTML structure.
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
      });
- 
+
      html.on('click', '.taskroll-info', event => {
         event.preventDefault();
         // NOTE: This depends on the exact card template HTML structure.
@@ -300,7 +310,7 @@ Hooks.on('renderChatMessage', (app, html) => {
         event.preventDefault();
 
         let element = event.currentTarget;
-       
+
         let actorId = element.dataset.actorId;
 
         let actor = game.actors.get(actorId);
@@ -318,7 +328,7 @@ Hooks.on('renderChatMessage', (app, html) => {
  */
 
 // Convert initiative to Everywhen Priority "ladder" if setting active
-Hooks.on('updateCombatant', function(combat, changed, diff) {  
+Hooks.on('updateCombatant', function(combat, changed, diff) {
 
     console.warn("Combat object: ", combat); 
     console.warn("changed: ", changed);
@@ -349,4 +359,43 @@ Hooks.on('updateToken', function(token, changed, diff){
 
 });
 
- 
+Hooks.on('preCreateItem', function(constructor, data) {
+    console.warn("Constructor: ", constructor);
+    console.warn("Data: ", data);
+    console.warn("constructor type: ", constructor.type, constructor.img);
+    console.warn("args: ", ...arguments);
+    
+    if (constructor.type == "weapon") {
+        constructor.img = "icons/svg/sword.svg";
+    } else if (constructor.type == "armor") {
+        constructor.img = "icons/svg/shield.svg";
+    } else if (constructor.type == "trait") {
+        constructor.img = "icons/svg/dice-target.svg";
+    } else if (constructor.type == "career") {
+        constructor.img = "icons/svg/book.svg";
+    } else if (constructor.type == "equipment") {
+        constructor.img = "icons/svg/chest.svg";
+    } else if (constructor.type == "power") {
+        constructor.img = "icons/svg/daze.svg";
+    }
+
+});
+
+Hooks.on('preCreateOwnedItem', function(constructor, data) {
+   
+    if (data.type == "weapon") {
+        data.img = "icons/svg/sword.svg";
+    } else if (data.type == "armor") {
+        data.img = "icons/svg/shield.svg";
+    } else if (data.type == "trait") {
+        data.img = "icons/svg/dice-target.svg";
+    } else if (data.type == "career") {
+        data.img = "icons/svg/book.svg";
+    } else if (data.type == "equipment") {
+        data.img = "icons/svg/chest.svg";
+    } else if (data.type == "power") {
+        data.img = "icons/svg/daze.svg";
+    }
+
+});
+

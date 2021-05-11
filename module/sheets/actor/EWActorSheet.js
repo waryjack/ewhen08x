@@ -20,7 +20,7 @@ export default class EWActorSheet extends ActorSheet {
         dragDrop: [{dragSelector: ".dragline", dropSelector: null}]
         });
     }
-    
+
     /**
      * @override
      */
@@ -29,7 +29,6 @@ export default class EWActorSheet extends ActorSheet {
 
        // console.warn("080 super getdata, data.items: ", data);
         
-
         data.config = CONFIG.ewhen; 
         let ownedItems = this.actor.items;
         data.actor = this.actor; 
@@ -69,10 +68,10 @@ export default class EWActorSheet extends ActorSheet {
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
-        html.find('.item-create').click(this._addItem.bind(this)); 
+        html.find('.item-create').click(this._addItem.bind(this));
 
         html.find('.inline-edit').change(this._onCareerRankEdit.bind(this));
-    
+
         html.find('.inline-edit-ce').blur(this._onCareerNameEdit.bind(this));
 
         html.find('.item-edit').click(this._onItemEdit.bind(this));
@@ -115,12 +114,13 @@ export default class EWActorSheet extends ActorSheet {
     // one-way change; caught in preUpdateToken for reversing it
     onBecomeMinorNPC(event) {
         event.preventDefault();
-       
+
 
        let element = event.currentTarget;
        let minorType = element.dataset.minorType;
        let actorData = duplicate(this.actor.data.data);
        let rabbleAttack = {
+
         name: "Rabble Attack",
         type: "weapon",
         data: {
@@ -159,10 +159,11 @@ export default class EWActorSheet extends ActorSheet {
             }
         }
 
+
         let downgrade = element.checked;
 
        // ui.notifications.warn(game.i18n.localize("EW.warnings.onewaytrip"));
-        
+
         if(downgrade){
             switch(minorType) {
                 case "tough": {
@@ -177,16 +178,17 @@ export default class EWActorSheet extends ActorSheet {
                     let actorData = duplicate(this.actor.data.data);
                    // console.log("resources");
                     actorData.resources.lifeblood.max = Math.floor(Math.random() * 4);
-                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
+                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
                     actorData.resources.resolve.max = 1;
                     actorData.resources.resolve.value = 1;
-                    Item.create(rabbleAttack, { parent: this.actor});
-                    Item.create(hordeAttack, { parent: this.actor});
+                    // Item.create(rabbleAttack, { parent: this.actor});
+                    // Item.create(hordeAttack, { parent: this.actor});
+
                     return this.actor.update({ "data": actorData});
                 }
                 default: {
                     actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
-                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
+                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
                     actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
                     actorData.resources.resolve.value = actorData.resources.resolve.max;
                     return this.actor.update({ "data": actorData});
@@ -196,7 +198,7 @@ export default class EWActorSheet extends ActorSheet {
             let actorData = duplicate(this.actor.data.data);
             // console.log("resources");
              actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
-             actorData.resources.lifeblood.value = actorData.resources.lifeblood.max; 
+             actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
              actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
              actorData.resources.resolve.value = actorData.resources.resolve.max;
              return this.actor.update({ "data": actorData});
@@ -217,16 +219,16 @@ export default class EWActorSheet extends ActorSheet {
         } else {
             resData = duplicate(this.actor.data.data.resources[res]);
         }
-        
-            
+
+
         let dialogData = {
             actor: this.actor,
             resname: "EW.activity.adjust"+res,
             resinfo: resData,
             res: res
         }
-        
-        
+
+
 
         return EWDialogHelper.generateUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.RESOURCE_UPDATE, dialogData);
     }
@@ -235,7 +237,7 @@ export default class EWActorSheet extends ActorSheet {
 
     _adjustFrame(event) {
         event.preventDefault();
-       
+
 
         let dialogData = {
             actor: this.actor,
@@ -251,7 +253,7 @@ export default class EWActorSheet extends ActorSheet {
     _adjustShield(event) {
         event.preventDefault();
 
-       
+
 
         let dialogData = {
             actor: this.actor,
@@ -261,7 +263,7 @@ export default class EWActorSheet extends ActorSheet {
         }
 
         return EWDialogHelper.generateVehicleUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.VEHICLE_RESOURCE_UPDATE, dialogData);
-        
+
     }
 
     // Not in use at the moment; not sure if it's necessary
@@ -275,7 +277,7 @@ export default class EWActorSheet extends ActorSheet {
         let item = this.actor.items.get(itemId);
 
         let itemRank = item.data.data.rank;
-        
+
     }
 
     // trigger the basic, non-pre-populated roll dialog
@@ -305,18 +307,19 @@ export default class EWActorSheet extends ActorSheet {
             rank = this.actor.data.data.main_attributes[attribute].rank;
         }
 
+        // todo - set up attribute-ability links as a setting? or just remove defaults? 
         if(isCombat) {
             switch (attribute) {
-                // select the likely attribute if it's a combat roll 
-                case "initiative": attribute2 = "mind"; break;
+                // select the likely attribute if it's a combat roll
+                // case "initiative": attribute2 = "mind"; break;
                 default: attribute2 = "agility";
             }
         }
-        
+
 
         // console.log("Attribute 1:", attribute, " Rank: ", rank);
         // console.log("Attribute 2: ", attribute2);
-        
+
         return this.actor.rollAttribute(attribute, attribute2, isCombat, "");
 
     }
@@ -325,9 +328,9 @@ export default class EWActorSheet extends ActorSheet {
     _onWeaponRoll(event) {
         event.preventDefault();
 
-       /* 
+       /*
         let att2 = "agility";
-        var att1; 
+        var att1;
        */
 
         let element = event.currentTarget;
@@ -335,7 +338,7 @@ export default class EWActorSheet extends ActorSheet {
         let itemId = element.closest(".item").dataset.itemId;
 
         let item = this.actor.items.get(itemId);
-        
+
         return this.actor.rollWeaponDamage(item);
 
     }
@@ -371,8 +374,8 @@ export default class EWActorSheet extends ActorSheet {
         let item = this.actor.items.get(itemId);
 
         let field = element.dataset.field;
-        
-        return item.update({ [field]: element.innerText}); 
+
+        return item.update({ [field]: element.innerText});
 
     }
 
@@ -385,9 +388,9 @@ export default class EWActorSheet extends ActorSheet {
         let item = this.actor.items.get(itemId);
 
         let field = element.dataset.field;
-        
+
        // console.log("Career rank: ", field, element.value);
-        return item.update({ [field]: element.value}); 
+        return item.update({ [field]: element.value});
 
     }
 
@@ -413,9 +416,8 @@ export default class EWActorSheet extends ActorSheet {
             }
         }
 
-       
         return Item.create(itemData, {parent: this.actor, renderSheet:true});
-         
+
       }
 
       _deleteItem(event) {
@@ -450,16 +452,18 @@ export default class EWActorSheet extends ActorSheet {
           event.preventDefault();
 
           let element = event.currentTarget;
-          
+
           let itemId = element.closest(".item").dataset.itemId;
-  
+
           let item = this.actor.items.get(itemId);
   
+          let item = this.actor.getOwnedItem(itemId);
+
           let field = element.dataset.field;
 
           let val = element.checked;
 
-          return item.update({ [field]: val}); 
+          return item.update({ [field]: val});
 
       }
 

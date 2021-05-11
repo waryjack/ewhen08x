@@ -50,7 +50,7 @@
                 <th>{{localize "EW.game_term.ap"}}</th>
             </tr>
             <tr>
-                <td style="text-align: center;"> 
+                <td style="text-align: center;">
                     <select style="width:100%" name="data.damage.dice">
                         {{#select data.damage.dice}}
                         <option value="0"></option>
@@ -67,17 +67,17 @@
                         <option value="4d6kh3">3d6H</option>
                         {{/select}}
                     </select>
-                   
+
                 </td>
                 <td>
                     <select style="width:100%" name="data.damage.add_attribute" id="data.damage.add_attribute">
                         {{#select data.damage.add_attribute}}
                         <option value="none"></option>
                         {{#each config.main_attributes as |a attr|}}
-                            <option value="{{attr}}">{{localize (proper attr)}}</option>
+                            <option value="{{attr}}">{{setting (getCustomName attr)}}</option>
                         {{/each}}
                         {{/select}}
-                    </select>    
+                    </select>
                 </td>
                 <td>
                     <input name="data.damage.half_attribute" type="checkbox" {{checked data.damage.half_attribute}} />
@@ -107,7 +107,9 @@
                 </td>
             </tr>
         </table>
-         <table>
+
+        <table>
+
             <tr>
                 <th style="text-align: left;">{{localize "EW.game_term.notes"}}</th>
             </tr>

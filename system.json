@@ -25,7 +25,6 @@
     "primaryTokenAttribute": "resources.lifeblood",
     "secondaryTokenAttribute":"resources.resolve",
     "minimumCoreVersion": "0.8.0",
-    "compatibleCoreVersion": "0.8.0"
-
+    "compatibleCoreVersion": "0.8.3"
 
 }

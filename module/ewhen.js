@@ -39,7 +39,7 @@ Hooks.once("init", () => {
 
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
-  //  CONFIG.debug.hooks = true;
+    CONFIG.debug.hooks = true;
     CONFIG.Actor.entityClass = EWActor;
     CONFIG.Combat.entityClass = EWCombat;
 
@@ -88,6 +88,8 @@ Hooks.once("init", () => {
 
     // Checks whether a game setting is active
     Handlebars.registerHelper("setting", function(arg){
+        // console.warn("Passed Setting Name: ", arg);
+        if (arg == "" || arg == "non" || arg == undefined) { return ; }
         return game.settings.get('ewhen', arg);
     });
 
@@ -102,10 +104,11 @@ Hooks.once("init", () => {
     });
 
     Handlebars.registerHelper("getCustomName", function(a) {
+        if (a == "none" || a == "None" || a == "") { return; }
         let result = "Name";
         let truncA = a.substring(0,3);
         result = truncA+result;
-        console.warn("Custom Name", result);
+       // console.warn("Custom Name", result);
         return result;
     });
 
@@ -352,26 +355,30 @@ Hooks.on('updateToken', function(token, changed, diff){
 });
 
 Hooks.on('preCreateItem', function(constructor, data) {
-    console.warn(constructor, data);
-    if(data.type == "weapon") {
-        data.img = "icons/svg/sword.svg";
-    } else if (data.type == "armor") {
-        data.img = "icons/svg/shield.svg";
-    } else if (data.type == "trait") {
-        data.img = "icons/svg/dice-target.svg";
-    } else if (data.type == "career") {
-        data.img = "icons/svg/book.svg";
-    } else if (data.type == "equipment") {
-        data.img = "icons/svg/chest.svg";
-    } else if (data.type == "power") {
-        data.img = "icons/svg/daze.svg";
+    console.warn("Constructor: ", constructor);
+    console.warn("Data: ", data);
+    console.warn("constructor type: ", constructor.type, constructor.img);
+    console.warn("args: ", ...arguments);
+    
+    if (constructor.type == "weapon") {
+        constructor.img = "icons/svg/sword.svg";
+    } else if (constructor.type == "armor") {
+        constructor.img = "icons/svg/shield.svg";
+    } else if (constructor.type == "trait") {
+        constructor.img = "icons/svg/dice-target.svg";
+    } else if (constructor.type == "career") {
+        constructor.img = "icons/svg/book.svg";
+    } else if (constructor.type == "equipment") {
+        constructor.img = "icons/svg/chest.svg";
+    } else if (constructor.type == "power") {
+        constructor.img = "icons/svg/daze.svg";
     }
 
 });
 
 Hooks.on('preCreateOwnedItem', function(constructor, data) {
-    console.warn(constructor, data);
-    if(data.type == "weapon") {
+   
+    if (data.type == "weapon") {
         data.img = "icons/svg/sword.svg";
     } else if (data.type == "armor") {
         data.img = "icons/svg/shield.svg";

@@ -173,8 +173,8 @@ export default class EWActorSheet extends ActorSheet {
                     setProperty(rAtk, "data.data", rabbleAttack);
                     setProperty(hAtk, "data.data", hordeAttack);
                     console.warn("rAtk: ", rAtk);
-                    this.actor.createOwnedItem(rAtk);
-                    this.actor.createOwnedItem(hAtk);
+                   /*  this.actor.createOwnedItem(rAtk);
+                    this.actor.createOwnedItem(hAtk); */
                     return this.actor.update({ "data": actorData});
                 }
                 default: {

@@ -2,7 +2,7 @@
     "name": "ewhen",
     "title": "Everywhen (Unofficial)",
     "description": "Everywhen RPG System (Unofficial)",
-    "version": "0.9.1",
+    "version": "0.9.2",
     "author": "Cannyjack (Chris Clouser)",
     "esmodules": [
         "module/ewhen.js"
@@ -30,7 +30,7 @@
     "primaryTokenAttribute": "resources.lifeblood",
     "secondaryTokenAttribute":"resources.resolve",
     "minimumCoreVersion": "0.8.6",
-    "compatibleCoreVersion": "0.8.6",
+    "compatibleCoreVersion": "0.8.7",
     "url": "https://github.com/waryjack/ewhen08x",
     "manifest": "https://github.com/waryjack/ewhen08x/releases/latest/download/system.json",
     "download": "https://github.com/waryjack/ewhen08x/releases/latest/download/ewhen-master.zip"

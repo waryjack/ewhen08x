@@ -97,7 +97,7 @@ export class EWRoll {
 
             let itemId = thisCareer[0]._id;
        
-            cVal = this.actor.getOwnedItem(itemId).data.data.rank;
+            cVal = this.actor.getOwnedItem(itemId).data.data.data.rank;
 
        }
 

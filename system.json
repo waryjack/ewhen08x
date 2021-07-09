@@ -16,14 +16,14 @@
           "lang": "en",
           "name": "English",
           "path": "lang/en.json"
-        }, 
+        },
         {
           "lang": "fr",
           "name": "French",
           "path": "lang/fr.json"
         }
       ],
-    
+
     "initiative":"@priority_roll.expression + @main_attributes.mind.rank + @combat_attributes.initiative.rank",
     "gridDistance": 5,
     "gridUnits": "ft",

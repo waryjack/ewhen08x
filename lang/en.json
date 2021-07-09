@@ -240,6 +240,13 @@
     "EW.dialog.weaponinfo": "Weapon Information",
     "EW.dialog.legendarysuccess": "Legendary Success!",
 
+    "EW.SETTINGS.DiceType": "Dice Type",
+    "EW.SETTINGS.DiceTypeDesc": "Allows you to change the basic dice used to resolve tasks (see Everywhen, p. 27)",
+    "EW.SETTINGS.2d6": "2d6",
+    "EW.SETTINGS.2d10": "2d10",
+    "EW.SETTINGS.2d12": "2d12",
+    "EW.SETTINGS.3d6": "3d6",
+
     "EW.SETTINGS.ConventionalInit": "Conventional Initiative",
     "EW.SETTINGS.ConventionalInitDesc": "Sort initiative in conventional order, not by character type.",
     "EW.SETTINGS.InitiativeMode": "Initiative Style",

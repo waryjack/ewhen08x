@@ -7,7 +7,7 @@
 
 import { EWMessageHelper } from "../interaction/EWMessageHelper.js";
 
-import { DICE_MODELS, DEFAULT_DICE_MODEL, getDiceModel } from '../diceModels.js'
+import { getDiceModel } from '../diceModels.js'
 
 export class EWRoll {
 

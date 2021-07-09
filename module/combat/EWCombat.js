@@ -26,7 +26,7 @@ export class EWCombat extends Combat {
      * @param {Combatant} com - combatant object drawn from the current combat
      */
     static convertInitiative(com) {
-
+    
         if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
 
         var adjInit = 0;
@@ -34,8 +34,8 @@ export class EWCombat extends Combat {
         console.log("Combatant in convertInit: ", com);
         var snakeEyes = false;
         var boxCars = false;
-        let initRoll = com.initiative;
-        let actorId = com.actor.data._id;
+        let initRoll = com.data.initiative;
+        let actorId = com.data.actorId;
         let actor = game.actors.get(actorId);
         let name = actor.name;
         let isRival = actor.data.data.isRival;

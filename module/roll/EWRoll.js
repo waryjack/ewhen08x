@@ -76,7 +76,7 @@ export class EWRoll {
         pdNum = Number(this.html.find("#pdice").val());
         const diceModel = getDiceModel(game)
         totalDiceMods = bdNum - pdNum;
-        const diceSuffix = totalDiceMods > 0 ? "kh2" : "kl2";
+        const diceSuffix = totalDiceMods > 0 ? `kh${diceModel.numberOfDice}` : `kl${diceModel.numberOfDice}`;
 
         let dice = `${diceModel.numberOfDice}${diceModel.baseDie}`
         if (totalDiceMods != 0) {

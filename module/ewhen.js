@@ -340,7 +340,7 @@ Hooks.on('updateCombatant', function(combat, changed, diff) {
 
     let cmbInit = diff.initiative;
 
-    let newInit = EWCombat.convertInitiative(changed);
+    let newInit = EWCombat.convertInitiative(combat);
 
     console.log("Inits before and after: ", cmbInit, newInit);
 

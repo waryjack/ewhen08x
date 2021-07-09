@@ -36,8 +36,8 @@ export class EWCombat extends Combat {
         var adjInit = 0;
         var isPC;
         console.log("Combatant in convertInit: ", com);
-        let initRoll = com.initiative;
-        let actorId = com.actor.data._id;
+        let initRoll = com.data.initiative;
+        let actorId = com.data.actorId;
         let actor = game.actors.get(actorId);
         let name = actor.name;
         let isRival = actor.data.data.isRival;

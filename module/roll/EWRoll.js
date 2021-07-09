@@ -199,6 +199,7 @@ export class EWRoll {
         penalty = this.html.find("#penalty").val();
         scaledDmg = this.html.find("#scaled-damage").val();
         let wpnDmg = scaledDmg == "0" ? this.item.data.data.damage.dice : scaledDmg;
+        let dmgMod = this.item.data.data.damage.mod || 0
         let wpnAttrib = this.item.data.data.damage.add_attribute;
         let wpnHalfAtt = this.item.data.data.damage.half_attribute;
 
@@ -206,7 +207,8 @@ export class EWRoll {
 
         if(wpnAttrib != "none") {
             let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
-            friendlyDmgExtension = wpnHalfAtt ? "+ 1/2 " + properAttrib : "+ "+properAttrib;
+            friendlyDmgExtension = wpnHalfAtt ? " + 1/2 " + properAttrib : " + " + properAttrib;
+            if (dmgMod) friendlyDmgExtension += ` + ${dmgMod}`
             attBonus = this.actor.data.data.main_attributes[wpnAttrib].rank;
         }
 
@@ -221,8 +223,8 @@ export class EWRoll {
 
 
 
-        let totalMods = bonus - penalty;
-        let dmgExpr = wpnDmg + "+" + attBonus + "+" + totalMods;
+        let totalMods = bonus - penalty + dmgMod;
+        let dmgExpr = wpnDmg + "+" + attBonus + (totalMods < 0 ? totalMods : `+${totalMods}`);
         console.warn("Compiled formula: ", dmgExpr);
 
         let rollInfo = {

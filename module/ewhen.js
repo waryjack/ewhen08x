@@ -39,7 +39,7 @@ Hooks.once("init", () => {
 
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
-    CONFIG.debug.hooks = true;
+   // CONFIG.debug.hooks = true;
 
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
@@ -328,9 +328,9 @@ Hooks.on('renderChatMessage', (app, html) => {
  */
 
 // Convert initiative to Everywhen Priority "ladder" if setting active
-Hooks.on('updateCombatant', function(combat, changed, diff) {
+Hooks.on('preUpdateCombatant', function(combatant, changed, diff) {
 
-    console.warn("Combat object: ", combat); 
+    console.warn("Combat object: ", combatant); 
     console.warn("changed: ", changed);
     console.warn("diff: ", diff);
 
@@ -338,14 +338,6 @@ Hooks.on('updateCombatant', function(combat, changed, diff) {
 
     if (!("initiative" in changed)) { return; }
 
-    let cmbInit = diff.initiative;
-
-    let newInit = EWCombat.convertInitiative(combat);
-
-    console.log("Inits before and after: ", cmbInit, newInit);
-
-    setProperty(changed, "data.initiative", newInit);
-    //changed.initiative = newInit;
 });
 
 

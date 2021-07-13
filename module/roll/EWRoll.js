@@ -3,7 +3,7 @@
 * or stand alone. It *uses* Roll, but I could extend it and
 * remove the "rollDice()" method it seems. Maybe later; it's
 * functional at the moment, if clumsy.
-*/ 
+*/
 
 import { EWMessageHelper } from "../interaction/EWMessageHelper.js";
 
@@ -21,21 +21,21 @@ export class EWRoll {
     actor;
 
     /**
-    * 
+    *
     * @param data - object including submitted HTML from dialog,
     *               actor making the roll, whether it's
     *               a damage roll, and what weapon is being
     *               rolled.
     */
     constructor(data){
-        
+
         console.log("Data: ", data);
         this.html = data.html;
         this.actor = data.actor;
         this.isDamage = data.isDamage;
         this.item = data.item;
 
-       
+
         if(this.isDamage){
             this.compileDamageRollInfo();
         } else if (this.item.type == "armor") {
@@ -46,12 +46,12 @@ export class EWRoll {
        //  console.log("This.actor: ", this.actor, "This.html: ", this.html);
     }
 
-    /** 
+    /**
     *  Uses the html from the dialog to build the roll expression
     *  Ungainly and awkward, like a 13-year-old
     */
     compileRollInfo() {
-        
+
         var attrVal = 0;
         var comVal = 0;
         var cVal = 0;
@@ -59,51 +59,51 @@ export class EWRoll {
         let pdNum = 0;
         let totalDiceMods = 0;
         let baseDiff = 0;
-        
+
 
         let attr = this.html.find("#pattr").val().toLowerCase();
         let combat = this.html.find("#cattr").val().toLowerCase();
         let othermods = this.html.find("#othermods").val();
         let difflevel = this.html.find("#difficulty").val();
         let careerName = this.html.find("#career").val();
-    
+
         /*
         *  Figure out actual roll based on penalty / bonus dice
         *  Bonus dice cancel penalties, so the net amount is determined
         *  Then that tells us whether diceSuffix is kh2 or kl2
         */
-        
+
         bdNum = Number(this.html.find("#bdice").val());
         pdNum = Number(this.html.find("#pdice").val());
         let diceSuffix = "kh2";
         let dice = "2d6";
         totalDiceMods = bdNum - pdNum;
- 
-       
+
+
         if (totalDiceMods != 0) {
             totalDiceMods > 0 ? diceSuffix = diceSuffix : diceSuffix = "kl2";
             let diceCount = Math.abs(totalDiceMods) + 2;
             dice = diceCount + "d6" + diceSuffix;
         }
-       
+
         /*
         * If a career is involved, get its rank
         */
 
        if (careerName != "none") {
             let careers = this.actor.data.items.filter(function(item) {return item.type == "career"});
-            
+
             let thisCareer = careers.filter(function(item) { return item.name == careerName});
 
             let itemId = thisCareer[0]._id;
-       
+
             cVal = this.actor.getOwnedItem(itemId).data.data.data.rank;
 
        }
 
        /*
        * Get the base difficulty modifier
-       */ 
+       */
        switch (difflevel) {
            case "very_easy": baseDiff = 2; break;
            case "easy": baseDiff = 1; break;
@@ -121,14 +121,14 @@ export class EWRoll {
        /*
        * Get the other difficulty modifier; needs streamlining
        */
-      
+
        let totalMods = baseDiff + Number(othermods);
        attr == "none" ? attrVal = 0 : attrVal = this.actor.data.data.main_attributes[attr].rank;
        combat == "none" ? comVal = 0 : comVal = this.actor.data.data.combat_attributes[combat].rank;
 
        let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + totalMods;
 
-       /* 
+       /*
        * Stash the data in the object; this is probably extreme overkill
        * but this class also generates the roll message (maybe refactor that later?)
        */
@@ -159,9 +159,9 @@ export class EWRoll {
         let armorData = this.item.data.data;
 
         let expr = armorData.protection.variable;
- 
+
         let armorbonus = this.actor.data.data.armorbonus + this.actor.data.data.miscarmor;
-        
+
         expr = expr + "+" + armorbonus;
 
         console.log("armorbonus, expr", armorbonus, expr);
@@ -203,19 +203,20 @@ export class EWRoll {
         let wpnAttrib = this.item.data.data.damage.add_attribute;
         let wpnHalfAtt = this.item.data.data.damage.half_attribute;
 
+        let totalMods = bonus - penalty + dmgMod;
+
        console.warn("ScaledDmg / WpnDmg: ", scaledDmg, wpnDmg);
 
         if(wpnAttrib != "none") {
-            let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
-            friendlyDmgExtension = wpnHalfAtt ? " + 1/2 " + properAttrib : " + " + properAttrib;
-            if (dmgMod) friendlyDmgExtension += ` + ${dmgMod}`
             attBonus = this.actor.data.data.main_attributes[wpnAttrib].rank;
+            attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
+
+            let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
+            friendlyDmgExtension = ` + ${wpnHalfAtt ? '1/2' : ''}${properAttrib} (${attBonus})`
         }
+        if (totalMods > 0) friendlyDmgExtension += ` + ${totalMods}`
+        else if (totalMods < 0) friendlyDmgExtension += ` - ${Math.abs(totalMods)}`
 
-        attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
-        
-
-       
        // Not handling weapon bonus/penalty dice right now
 
         // bdNum = Number(this.html.find("#bdice").val());
@@ -223,7 +224,6 @@ export class EWRoll {
 
 
 
-        let totalMods = bonus - penalty + dmgMod;
         let dmgExpr = wpnDmg + "+" + attBonus + (totalMods < 0 ? totalMods : `+${totalMods}`);
         console.warn("Compiled formula: ", dmgExpr);
 
@@ -241,12 +241,12 @@ export class EWRoll {
             wpnDmg: wpnDmg
         }
 
-      
+
         this.rollInfo = rollInfo;
 
     }
 
-    /* 
+    /*
     * Instantiates a new Roll to do the actual dice rolling,
     * no need to reinvent the wheel there
     */
@@ -269,17 +269,17 @@ export class EWRoll {
 
     createChatMessage(tt, isDamage) {
         var outcome = "";
-        var outcomeClass = "";  
-        
+        var outcomeClass = "";
+
         let keptDice = this.rollObj.terms[0].values;
         let total = this.rollObj.total;
         let mightyThreshold = 9 + (Number(this.rollInfo.mods) < 0 ? Math.abs(Number(this.rollInfo.mods)) : 0);
 
         console.warn("mightThreshold", mightyThreshold);
 
-     
+
         /*
-        * Figure out the level of success; there are like 3 types of 
+        * Figure out the level of success; there are like 3 types of
         * critical success and frankly they're a bit of a pain
         */
         if(isDamage) {
@@ -291,7 +291,7 @@ export class EWRoll {
                 outclass: "roll-sux",
                 actor:this.actor._id
             }
-    
+
             EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.DAMAGE, chatData);
 
         } else {
@@ -320,8 +320,8 @@ export class EWRoll {
                 outclass: outcomeClass,
                 actor:this.actor._id
             }
-            
-            EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData); 
+
+            EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData);
         }
 
     }
@@ -329,8 +329,8 @@ export class EWRoll {
     /**
     * @param tt - tooltip for display in chat message
     *
-    * If I was smarter and more patient, I'd figure out 
-    * how to combine this with the createChatMessage() 
+    * If I was smarter and more patient, I'd figure out
+    * how to combine this with the createChatMessage()
     * method. But I am a simple and impatient man.
 
 
@@ -365,7 +365,7 @@ export class EWRoll {
         }
 
         EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.ARMOR, chatData);
-     
+
     }
 
 }

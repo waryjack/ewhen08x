@@ -197,20 +197,23 @@ export class EWRoll {
         penalty = this.html.find("#penalty").val();
         scaledDmg = this.html.find("#scaled-damage").val();
         let wpnDmg = scaledDmg == "0" ? this.item.data.data.damage.dice : scaledDmg;
+        let dmgMod = this.item.data.data.damage.mod || 0
         let wpnAttrib = this.item.data.data.damage.add_attribute;
         let wpnHalfAtt = this.item.data.data.damage.half_attribute;
+
+        let totalMods = bonus - penalty + dmgMod;
 
        console.warn("ScaledDmg / WpnDmg: ", scaledDmg, wpnDmg);
 
         if(wpnAttrib != "none") {
-            let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
-            friendlyDmgExtension = wpnHalfAtt ? "+ 1/2 " + properAttrib : "+ "+properAttrib;
             attBonus = this.actor.data.data.main_attributes[wpnAttrib].rank;
+            attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
+
+            let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
+            friendlyDmgExtension = ` + ${wpnHalfAtt ? '1/2' : ''}${properAttrib} (${attBonus})`
         }
-
-        attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
-
-
+        if (totalMods > 0) friendlyDmgExtension += ` + ${totalMods}`
+        else if (totalMods < 0) friendlyDmgExtension += ` - ${Math.abs(totalMods)}`
 
        // Not handling weapon bonus/penalty dice right now
 
@@ -219,8 +222,7 @@ export class EWRoll {
 
 
 
-        let totalMods = bonus - penalty;
-        let dmgExpr = wpnDmg + "+" + attBonus + "+" + totalMods;
+        let dmgExpr = wpnDmg + "+" + attBonus + (totalMods < 0 ? totalMods : `+${totalMods}`);
         console.warn("Compiled formula: ", dmgExpr);
 
         let rollInfo = {

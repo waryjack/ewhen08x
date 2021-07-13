@@ -6,6 +6,26 @@ export class EWCombat extends Combat {
         super(...args);
     }
 
+    /**
+     * @override
+     */
+
+    startCombat() {
+        let updateDiffs = new Array();
+        if(game.settings.get("ewhen", "initType") === "EWhenPriority") {
+            this.combatants.forEach(combatant => {
+                let adjInit = this.convertInitiative(combatant);
+                let diff = {_id:combatant._id, "data.initiative":adjInit, "initiative":adjInit};
+                updateDiffs.push(diff);
+                // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
+            });
+            // console.warn("Priority List Array: ", priorityList);
+            this.updateEmbeddedDocuments("Combatant",  updateDiffs);
+            super.startCombat();
+        } else {
+            super.startCombat();
+        }
+    }
      /**
      * @override
      */
@@ -13,21 +33,34 @@ export class EWCombat extends Combat {
         super.nextRound();
         if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         let rrlist = new Array();
+        let updateDiffs = new Array();
 
         console.warn("Combatants: ", this.combatants);
 
-        for (let c of this.combatants) {
-            rrlist.push(c.id);
-        }
 
-        this.rollInitiative(rrlist);
+
+        if(game.settings.get("ewhen", "initType") === "EWhenPriority") {
+            this.combatants.forEach(combatant => {
+                let adjInit = this.convertInitiative(combatant);
+                let diff = {_id:combatant._id, "data.initiative":adjInit, "initiative":adjInit};
+                updateDiffs.push(diff);
+                // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
+            });
+            // console.warn("Priority List Array: ", priorityList);
+            this.updateEmbeddedDocuments("Combatant",  updateDiffs);
+        } else {
+            for (let c of this.combatants) {
+                rrlist.push(c.id);
+            }
+            this.rollInitiative(rrlist);
+        }
     }
 
     /**
      * Converts initiative from rolled initiative to Priority Ladder position
      * @param {Combatant} com - combatant object drawn from the current combat
      */
-    static convertInitiative(com) {
+    convertInitiative(com, init) {
 
         if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
 
@@ -39,6 +72,9 @@ export class EWCombat extends Combat {
         let initRoll = com.data.initiative;
         let actorId = com.data.actorId;
         let actor = game.actors.get(actorId);
+        let initExpr = actor.data.data.priority_roll.expression;
+        let initiative = new Roll(initExpr).evaluate({async:false});
+        let initRoll = initiative.total;
         let name = actor.name;
         let isRival = actor.data.data.isRival;
         let isTough = actor.data.data.isTough;
@@ -75,9 +111,12 @@ export class EWCombat extends Combat {
                 adjInit = 1;
             }
         }
+      console.warn("Combatant: ", com.name);
+      console.warn("Init Expression: ", initExpr);
+      console.warn("Incoming Init Roll: ", initiative, initRoll, typeof(initRoll));
+      console.warn("Adjusted Init Roll: ", adjInit);
 
-       return adjInit;
-
+      return adjInit;
 
     }
 

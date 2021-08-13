@@ -102,10 +102,19 @@ export class EWActor extends Actor {
         const diceModel = getDiceModel(game)
         const priority = duplicate(this.data.data.priority_roll);
         let netExtraDice = priority.bd - priority.pd;
-        const newSuffix = netExtraDice < 0 ? `kl${diceModel.numberOfDice}` : `kh${diceModel.numberOfDice}`;
+        let numberOfDice = diceModel.numberOfDice;
+        let baseDie = diceModel.baseDie;
+
+        // If using H+I or BoL compatible initiative - uses just a single D6
+        if(game.settings.get("ewhen", "singleDieInit")) {
+            numberOfDice = 1;
+            baseDie = "d6";
+        }
+
+        const newSuffix = netExtraDice < 0 ? `kl${numberOfDice}` : `kh${numberOfDice}`;
         console.warn("net extra dice: ", netExtraDice);
 
-        let finalFormula = (Number(diceModel.numberOfDice) + Math.abs(netExtraDice)) + diceModel.baseDie + newSuffix + "+" + priority.miscMod;
+        let finalFormula = (Number(numberOfDice) + Math.abs(netExtraDice)) + baseDie + newSuffix + "+" + priority.miscMod;
 
         priority.expression = finalFormula;
 

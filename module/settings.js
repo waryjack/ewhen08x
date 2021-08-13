@@ -39,7 +39,7 @@ export const registerSettings = function() {
             '2d6': 'EW.SETTINGS.2d6',
             '2d10': 'EW.SETTINGS.2d10',
             '2d12': 'EW.SETTINGS.2d12',
-            '3d6': 'EW.SETTINGS.3d6'
+            '3d6': 'EW.SETTINGS.3d6',
         },
         onChange: (rule) => {
             console.log(rule);
@@ -47,18 +47,27 @@ export const registerSettings = function() {
         }
     });
 
+    game.settings.register("ewhen", 'singleDieInit', {
+        name: 'EW.SETTINGS.SingleDieInit',
+        hint: 'EW.SETTINGS.SingleDieInitDesc',
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+    });
+
     game.settings.register("ewhen", "initAttribute", {
-        name:"Attribute Initiative Bonus",
-        hint:"Select the Attribute that adds to initiative (if any)",
+        name:"EW.SETTINGS.InitAttribute",
+        hint:"EW.SETTINGS.InitAttributeDesc",
         config:true,
         type:String,
         default:"0",
         choices: {
             '0':'None',
-            '@main_attributes.strength.rank':'Strength',
-            '@main_attributes.agility.rank':'Agility',
-            '@main_attributes.mind.rank':'Mind',
-            '@main_attributes.appeal.rank':'Appeal'
+            '@main_attributes.strength.rank':'EW.attribute.main.strength',
+            '@main_attributes.agility.rank':'EW.attribute.main.agility',
+            '@main_attributes.mind.rank':'EW.attribute.main.mind',
+            '@main_attributes.appeal.rank':'EW.attribute.main.appeal'
         },
         onChange: () => {
             game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
@@ -66,17 +75,17 @@ export const registerSettings = function() {
     });
     
     game.settings.register("ewhen", "initCombat", {
-        name:"Combat Ability Initiative Bonus",
-        hint:"Select the Combat Ability that adds to initiative (if any)",
+        name:"EW.SETTINGS.InitCombat",
+        hint:"EW.SETTINGS.InitCombatDesc",
         config:true,
         type:String,
         default:"0",
         choices: {
             '0':'None',
-            '@combat_attributes.melee.rank':'Melee',
-            '@combat_attributes.ranged.rank':'Ranged',
-            '@combat_attributes.defense.rank':'Defense',
-            '@combat_attributes.initiative.rank':'Initiative'
+            '@combat_attributes.melee.rank':'EW.attribute.combat.melee',
+            '@combat_attributes.ranged.rank':'EW.attribute.combat.ranged',
+            '@combat_attributes.defense.rank':'EW.attribute.combat.defense',
+            '@combat_attributes.initiative.rank':'EW.attribute.combat.initiative'
         },
         onChange: () => {
             game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`

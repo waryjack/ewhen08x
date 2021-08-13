@@ -43,28 +43,45 @@ export const registerSettings = function() {
         },
         onChange: (rule) => {
             console.log(rule);
-            let keepSuffix = (rule === "3d6") ? "kh3" : "kh2";
             game.data.system.data.baseRoll = rule;
-            game.data.system.data.initiative = rule + keepSuffix;
         }
     });
 
-    /* game.settings.register("ewhen", "initBasicAbil", {
-        name:"Basic Initiative Bonus",
-        hint:"Select the ability that adds to initiative",
+    game.settings.register("ewhen", "initAttribute", {
+        name:"Attribute Initiative Bonus",
+        hint:"Select the Attribute that adds to initiative (if any)",
         config:true,
         type:String,
-        default:"",
+        default:"0",
         choices: {
-            'agility':'Agility',
-            'strength':'Strength',
-            'mind':'Mind',
-            'appeal':'Appeal'
+            '0':'None',
+            '@main_attributes.strength.rank':'Strength',
+            '@main_attributes.agility.rank':'Agility',
+            '@main_attributes.mind.rank':'Mind',
+            '@main_attributes.appeal.rank':'Appeal'
         },
-        onChange: (rule) => {
-            game.data.system.data.initiative = game.data.system.data.initiative + "@main_attributes." + rule + ".rank";
+        onChange: () => {
+            game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
         }
-    }); */
+    });
+    
+    game.settings.register("ewhen", "initCombat", {
+        name:"Combat Ability Initiative Bonus",
+        hint:"Select the Combat Ability that adds to initiative (if any)",
+        config:true,
+        type:String,
+        default:"0",
+        choices: {
+            '0':'None',
+            '@combat_attributes.melee.rank':'Melee',
+            '@combat_attributes.ranged.rank':'Ranged',
+            '@combat_attributes.defense.rank':'Defense',
+            '@combat_attributes.initiative.rank':'Initiative'
+        },
+        onChange: () => {
+            game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
+        }
+    });
 
     game.settings.register("ewhen", "priority", {
         name: "EW.SETTINGS.PriorityToggle",

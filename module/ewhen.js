@@ -48,6 +48,16 @@ Hooks.once("init", () => {
     // Register system settings
     registerSettings();
 
+    // Set initiative formulat in system data 
+        /*check if initiative mods are undefined
+        if (game.data.system.data.initAttribute === undefined || game.data.system.data.initAttribute === "none") {game.data.system.data.initAttribute = "";}
+        if (game.data.system.data.initCombatAbil === undefined || game.data.system.data.initCombatAbil === "none") {game.data.system.data.initCombatAbil = "";}
+        */
+
+        // set initiative @string
+        game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`;
+        console.warn("Initiative: ", game.data.system.data.initiative);
+
     // Register partials templates
     preloadHandlebarsTemplates();
 

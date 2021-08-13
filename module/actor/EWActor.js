@@ -102,13 +102,14 @@ export class EWActor extends Actor {
         const diceModel = getDiceModel(game)
         const priority = duplicate(this.data.data.priority_roll);
         let netExtraDice = priority.bd - priority.pd;
-        const newSuffix = netExtraDice < 0 ? `kl${diceModel.numberOfDice}` : priority.suffix
+        const newSuffix = netExtraDice < 0 ? `kl${diceModel.numberOfDice}` : `kh${diceModel.numberOfDice}`;
+        console.warn("net extra dice: ", netExtraDice);
 
-        let finalFormula = (Number(priority.numDice) + Math.abs(netExtraDice)) + diceModel.baseDie + newSuffix + "+" + priority.miscMod;
+        let finalFormula = (Number(diceModel.numberOfDice) + Math.abs(netExtraDice)) + diceModel.baseDie + newSuffix + "+" + priority.miscMod;
 
         priority.expression = finalFormula;
 
-       // console.warn("Priority Final Expression: ", finalFormula);
+        console.warn("Priority Final Expression: ", finalFormula);
 
         return priority;
 

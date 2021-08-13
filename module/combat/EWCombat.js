@@ -34,6 +34,7 @@ export class EWCombat extends Combat {
         if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         let rrlist = new Array();
         let updateDiffs = new Array();
+        const diceModel = getDiceModel(game);
 
         console.warn("Combatants: ", this.combatants);
 
@@ -52,7 +53,9 @@ export class EWCombat extends Combat {
             for (let c of this.combatants) {
                 rrlist.push(c.id);
             }
-            this.rollInitiative(rrlist);
+            let combatantInitMods = c.data.data.priority_roll.bd + c.data.data.priority_roll.pd + c.data.data.priority_roll.miscMod;
+            let initFormula = (combatantInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
+            this.rollInitiative(rrlist, {formula:initFormula});
         }
     }
 
@@ -69,10 +72,14 @@ export class EWCombat extends Combat {
         var adjInit = 0;
         var isPC;
         console.log("Combatant in convertInit: ", com);
-        let initRoll = com.data.initiative;
+   
         let actorId = com.data.actorId;
         let actor = game.actors.get(actorId);
-        let initExpr = actor.data.data.priority_roll.expression;
+   
+
+        let actorInitMods = actor.data.data.priority_roll.bd + actor.data.data.priority_roll.pd + actor.data.data.priority_roll.miscMod;
+        let initExpr = (actorInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
+
         let initiative = new Roll(initExpr).evaluate({async:false});
         let initRoll = initiative.total;
         let name = actor.name;

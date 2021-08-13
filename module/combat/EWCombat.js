@@ -36,7 +36,7 @@ export class EWCombat extends Combat {
         let updateDiffs = new Array();
         const diceModel = getDiceModel(game);
 
-        // console.warn("Combatants: ", this.combatants);
+        console.warn("Combatants: ", this.combatants);
         console.warn("DiceModel: ", diceModel);
 
 
@@ -50,10 +50,16 @@ export class EWCombat extends Combat {
             // console.warn("Priority List Array: ", priorityList);
             this.updateEmbeddedDocuments("Combatant",  updateDiffs);
         } else {
+            let cibd = 0;
+            let cipd = 0;
+            let cimd = 0;
             for (let c of this.combatants) {
                 rrlist.push(c.id);
+                cibd = c.actor.data.data.priority_roll.bd;
+                cipd = c.actor.data.data.priority_roll.pd;
+                cimd = c.actor.data.data.priority_roll.md;
             }
-            // let combatantInitMods = c.data.data.priority_roll.bd + c.data.data.priority_roll.pd + c.data.data.priority_roll.miscMod;
+            let tInitDiceMods = cibd + cipd + cimd;
             let initFormula = diceModel.numberOfDice + diceModel.baseDie + "kh" + diceModel.numberOfDice;
             console.warn(initFormula);
             this.rollInitiative(rrlist, {formula:initFormula});

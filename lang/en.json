@@ -241,7 +241,7 @@
     "EW.dialog.legendarysuccess": "Legendary Success!",
 
     "EW.SETTINGS.DiceType": "Dice Type",
-    "EW.SETTINGS.DiceTypeDesc": "Allows you to change the basic dice used to resolve tasks (see Everywhen, p. 27)",
+    "EW.SETTINGS.DiceTypeDesc": "Allows you to change the basic dice used to resolve tasks (see Everywhen, p. 27); also sets base Initiative dice",
     "EW.SETTINGS.2d6": "2d6",
     "EW.SETTINGS.2d10": "2d10",
     "EW.SETTINGS.2d12": "2d12",

@@ -28,6 +28,44 @@ export const registerSettings = function() {
         }
     }); */
 
+    game.settings.register("ewhen", 'diceType', {
+        name: 'EW.SETTINGS.DiceType',
+        hint: 'EW.SETTINGS.DiceTypeDesc',
+        scope: 'world',
+        config: true,
+        type: String,
+        default: '2d6',
+        choices: {
+            '2d6': 'EW.SETTINGS.2d6',
+            '2d10': 'EW.SETTINGS.2d10',
+            '2d12': 'EW.SETTINGS.2d12',
+            '3d6': 'EW.SETTINGS.3d6'
+        },
+        onChange: (rule) => {
+            console.log(rule);
+            let keepSuffix = (rule === "3d6") ? "kh3" : "kh2";
+            game.data.system.data.baseRoll = rule;
+            game.data.system.data.initiative = rule + keepSuffix;
+        }
+    });
+
+    /* game.settings.register("ewhen", "initBasicAbil", {
+        name:"Basic Initiative Bonus",
+        hint:"Select the ability that adds to initiative",
+        config:true,
+        type:String,
+        default:"",
+        choices: {
+            'agility':'Agility',
+            'strength':'Strength',
+            'mind':'Mind',
+            'appeal':'Appeal'
+        },
+        onChange: (rule) => {
+            game.data.system.data.initiative = game.data.system.data.initiative + "@main_attributes." + rule + ".rank";
+        }
+    }); */
+
     game.settings.register("ewhen", "priority", {
         name: "EW.SETTINGS.PriorityToggle",
         hint: "",
@@ -45,25 +83,7 @@ export const registerSettings = function() {
     });
 
 
-    game.settings.register("ewhen", 'diceType', {
-        name: 'EW.SETTINGS.DiceType',
-        hint: 'EW.SETTINGS.DiceTypeDesc',
-        scope: 'world',
-        config: true,
-        type: String,
-        default: '2d6',
-        choices: {
-            '2d6': 'EW.SETTINGS.2d6',
-            '2d10': 'EW.SETTINGS.2d10',
-            '2d12': 'EW.SETTINGS.2d12',
-            '3d6': 'EW.SETTINGS.3d6'
-        },
-        onChange: (rule) => {
-            console.log(rule);
-            game.data.system.data.baseRoll = rule;
-        }
-    });
-
+    
     // Settings for various optional rules
 
     game.settings.register("ewhen", "useResolve", {

@@ -1,3 +1,5 @@
+import { DICE_MODELS, DEFAULT_DICE_MODEL, getDiceModel } from '../diceModels.js'
+
 export class EWCombat extends Combat {
 
     constructor(...args) {
@@ -32,6 +34,7 @@ export class EWCombat extends Combat {
         if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         let rrlist = new Array();
         let updateDiffs = new Array();
+        const diceModel = getDiceModel(game);
 
         console.warn("Combatants: ", this.combatants);
 
@@ -50,7 +53,9 @@ export class EWCombat extends Combat {
             for (let c of this.combatants) {
                 rrlist.push(c.id);
             }
-            this.rollInitiative(rrlist);
+            let combatantInitMods = c.data.data.priority_roll.bd + c.data.data.priority_roll.pd + c.data.data.priority_roll.miscMod;
+            let initFormula = (combatantInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
+            this.rollInitiative(rrlist, {formula:initFormula});
         }
     }
 
@@ -59,18 +64,22 @@ export class EWCombat extends Combat {
      * @param {Combatant} com - combatant object drawn from the current combat
      */
     convertInitiative(com, init) {
-    
+
         if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+
+        const diceModel = getDiceModel(game)
 
         var adjInit = 0;
         var isPC;
         console.log("Combatant in convertInit: ", com);
-        var snakeEyes = false;
-        var boxCars = false;
-        
+   
         let actorId = com.data.actorId;
         let actor = game.actors.get(actorId);
-        let initExpr = actor.data.data.priority_roll.expression;
+   
+
+        let actorInitMods = actor.data.data.priority_roll.bd + actor.data.data.priority_roll.pd + actor.data.data.priority_roll.miscMod;
+        let initExpr = (actorInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
+
         let initiative = new Roll(initExpr).evaluate({async:false});
         let initRoll = initiative.total;
         let name = actor.name;
@@ -84,9 +93,6 @@ export class EWCombat extends Combat {
         let ini = actor.getAttribute("initiative").rank;
         let diceOnly = initRoll - mnd - ini;
 
-        if (diceOnly == 12) { boxCars = true; }
-        if (diceOnly == 2) { snakeEyes = true;}
-
         if(!isPC){
         // todo - work on Rivals with "Diabolical Plan" feat;
             if (isRival) { adjInit = 5; }
@@ -98,17 +104,16 @@ export class EWCombat extends Combat {
       //  console.log(name, " isPC: ", isPC);;
 
         if (isPC) {
-            if(boxCars) {
+            if(diceOnly >= diceModel.success) {
                 // mighty success; initiative = 8
                 adjInit = 8;
-            } else if (initRoll >= 9 && diceOnly < 12 && diceOnly > 2) {
+            } else if (initRoll >= diceModel.tn && diceOnly < diceModel.success && diceOnly > diceModel.failure) {
                 // regular success; initiative = 6
-
                 adjInit = 6;
-            } else if (initRoll < 9 && diceOnly < 12 && diceOnly > 2) {
+            } else if (initRoll < diceModel.tn && diceOnly < diceModel.success && diceOnly > diceModel.failure) {
                 // regular failure; initiative = 3
                 adjInit = 3;
-            } else if (snakeEyes) {
+            } else if (diceOnly <= diceModel.failure) {
                 // calam failure, initiative = 1
                 adjInit = 1;
             }

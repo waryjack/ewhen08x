@@ -7,7 +7,7 @@
 
 import { EWMessageHelper } from "../interaction/EWMessageHelper.js";
 
-
+import { getDiceModel } from '../diceModels.js'
 
 export class EWRoll {
 
@@ -51,7 +51,6 @@ export class EWRoll {
     *  Ungainly and awkward, like a 13-year-old
     */
     compileRollInfo() {
-
         var attrVal = 0;
         var comVal = 0;
         var cVal = 0;
@@ -75,15 +74,14 @@ export class EWRoll {
 
         bdNum = Number(this.html.find("#bdice").val());
         pdNum = Number(this.html.find("#pdice").val());
-        let diceSuffix = "kh2";
-        let dice = "2d6";
+        const diceModel = getDiceModel(game)
         totalDiceMods = bdNum - pdNum;
+        const diceSuffix = totalDiceMods > 0 ? `kh${diceModel.numberOfDice}` : `kl${diceModel.numberOfDice}`;
 
-
+        let dice = `${diceModel.numberOfDice}${diceModel.baseDie}`
         if (totalDiceMods != 0) {
-            totalDiceMods > 0 ? diceSuffix = diceSuffix : diceSuffix = "kl2";
-            let diceCount = Math.abs(totalDiceMods) + 2;
-            dice = diceCount + "d6" + diceSuffix;
+            let diceCount = Math.abs(totalDiceMods) + diceModel.numberOfDice;
+            dice = diceCount + diceModel.baseDie + diceSuffix;
         }
 
         /*
@@ -91,14 +89,14 @@ export class EWRoll {
         */
 
        if (careerName != "none") {
-            let careers = this.actor.data.items.filter(function(item) {return item.type == "career"});
+            let career = this.actor.data.items
+                .filter(item => item.type == "career")
+                .find(item => item.name == careerName);
 
-            let thisCareer = careers.filter(function(item) { return item.name == careerName});
-
-            let itemId = thisCareer[0]._id;
-
-            cVal = this.actor.getOwnedItem(itemId).data.data.data.rank;
-
+            if (career) {
+                let itemId = career._id;
+                cVal = this.actor.getOwnedItem(itemId).data.data.rank;
+            }
        }
 
        /*
@@ -123,8 +121,8 @@ export class EWRoll {
        */
 
        let totalMods = baseDiff + Number(othermods);
-       attr == "none" ? attrVal = 0 : attrVal = this.actor.data.data.main_attributes[attr].rank;
-       combat == "none" ? comVal = 0 : comVal = this.actor.data.data.combat_attributes[combat].rank;
+       attrVal = attr == "none" ? 0 : this.actor.data.data.main_attributes[attr].rank;
+       comVal = combat == "none" ? 0 : this.actor.data.data.combat_attributes[combat].rank;
 
        let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + totalMods;
 
@@ -253,7 +251,8 @@ export class EWRoll {
 
     rollDice() {
         let expr = this.rollInfo.expr;
-        expr == "none" ? expr = "0d6" : expr = expr;
+        const diceModel = getDiceModel(game)
+        expr = expr == "none" ? `0${diceModel.baseDie}` : expr;
 
         let r = new Roll(expr);
         r.evaluate();
@@ -268,12 +267,14 @@ export class EWRoll {
     */
 
     createChatMessage(tt, isDamage) {
+        const diceModel = getDiceModel(game)
+
         var outcome = "";
         var outcomeClass = "";
 
         let keptDice = this.rollObj.terms[0].values;
         let total = this.rollObj.total;
-        let mightyThreshold = 9 + (Number(this.rollInfo.mods) < 0 ? Math.abs(Number(this.rollInfo.mods)) : 0);
+        let mightyThreshold = diceModel.tn + (Number(this.rollInfo.mods) < 0 ? Math.abs(Number(this.rollInfo.mods)) : 0);
 
         console.warn("mightThreshold", mightyThreshold);
 
@@ -295,19 +296,21 @@ export class EWRoll {
             EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.DAMAGE, chatData);
 
         } else {
-            if (keptDice[0]==6 && keptDice[1]==6 && mightyThreshold <= 12){
+            const diceTotal = keptDice.reduce((acc, value) => (acc + value), 0)
+            // TODO: failure/success type based on dice model chosen
+            if (diceTotal >= diceModel.success && mightyThreshold <= diceModel.success){
                 outcome = "Mighty Success!";
                 outcomeClass = "roll-mighty-sux";
-            } else if (keptDice[0] == 6 && keptDice[1]==6) {
+            } else if (diceTotal >= diceModel.success) {
                 outcome = "Automatic Success!";
                 outcomeClass = "roll-auto-sux";
-            } else if (keptDice[0]==1 && keptDice[1]==1) {
+            } else if (diceTotal <= diceModel.failure) {
                 outcome = "Automatic Failure!";
                 outcomeClass = "roll-auto-fail";
-            } else if (total >= 9) {
+            } else if (total >= diceModel.tn) {
                 outcome = "Success!";
                 outcomeClass = "roll-sux";
-            } else if (total < 9 ) {
+            } else if (total < diceModel.tn ) {
                 outcome = "Failure!";
                 outcomeClass = "roll-fail";
             }

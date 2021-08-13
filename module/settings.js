@@ -1,5 +1,5 @@
 export const registerSettings = function() {
-    
+
     // Register initiative model
 
     game.settings.register("ewhen", 'initType', {
@@ -14,9 +14,9 @@ export const registerSettings = function() {
             'EWhenTrad': 'EW.SETTINGS.EwhenConventional',
             'BoL': 'EW.SETTINGS.Barbarians',
             'H+I': 'EW.SETTINGS.HonorIntrigue'
-            
+
         },
-        onChange: (rule) => { 
+        onChange: (rule) => {
             var expr;
             switch(rule){
                 case "EWhenTrad": expr = "@priority_roll.expression+@main_attributes.mind.rank+@combat_attributes.initiative.rank"; break;
@@ -28,7 +28,7 @@ export const registerSettings = function() {
         }
     });
 
-  
+
 
     game.settings.register("ewhen", "rerollPerRound", {
         name:"EW.SETTINGS.RerollPer",
@@ -36,6 +36,26 @@ export const registerSettings = function() {
         config:true,
         type:Boolean,
         default:true
+    });
+
+
+    game.settings.register("ewhen", 'diceType', {
+        name: 'EW.SETTINGS.DiceType',
+        hint: 'EW.SETTINGS.DiceTypeDesc',
+        scope: 'world',
+        config: true,
+        type: String,
+        default: '2d6',
+        choices: {
+            '2d6': 'EW.SETTINGS.2d6',
+            '2d10': 'EW.SETTINGS.2d10',
+            '2d12': 'EW.SETTINGS.2d12',
+            '3d6': 'EW.SETTINGS.3d6'
+        },
+        onChange: (rule) => {
+            console.log(rule);
+            game.data.system.data.baseRoll = rule;
+        }
     });
 
     // Settings for various optional rules
@@ -46,7 +66,7 @@ export const registerSettings = function() {
         scope:"world",
         config:true,
         type:Boolean,
-        default:true    
+        default:true
     });
 
     game.settings.register("ewhen", "useCritical", {
@@ -55,7 +75,7 @@ export const registerSettings = function() {
         scope:"world",
         config:true,
         type:Boolean,
-        default:true    
+        default:true
     });
 
     game.settings.register("ewhen", "useArcana", {
@@ -64,7 +84,7 @@ export const registerSettings = function() {
         scope:"world",
         config:true,
         type:Boolean,
-        default:true    
+        default:true
     });
 
     game.settings.register("ewhen", "useFaith", {
@@ -73,16 +93,16 @@ export const registerSettings = function() {
         scope:"world",
         config:true,
         type:Boolean,
-        default:true    
+        default:true
     });
-    
+
     game.settings.register("ewhen", "usePsionics", {
         name: "EW.SETTINGS.UsePsionics",
         hint: "EW.SETTINGS.UsePsionicsDesc",
         scope:"world",
         config:true,
         type:Boolean,
-        default:true    
+        default:true
     });
 
     game.settings.register("ewhen", "useScale", {
@@ -139,7 +159,7 @@ export const registerSettings = function() {
         type: String,
         default: "Mind"
     });
-    
+
     game.settings.register("ewhen", "appName", {
         name: "EW.SETTINGS.appName",
         hint: "EW.SETTINGS.appNameDesc",
@@ -157,7 +177,7 @@ export const registerSettings = function() {
         type: String,
         default: "Melee"
     });
-    
+
     game.settings.register("ewhen", "ranName", {
         name: "EW.SETTINGS.ranName",
         hint: "EW.SETTINGS.ranNameDesc",

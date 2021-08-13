@@ -54,6 +54,23 @@ Dice rolls can be triggered from the die icon on the character sheet, or by clic
 ## Weapon and Armor Damage
 Click on the weapon or armor image in inventory to roll weapon damage or armor protection, respectively. 
 
+# System Settings
+
+There are several optional settings available for the system - most of which I hope are self-explanatory (at least if you know Everywhen):
+
+* Initiative mode: choose from several options for initiative, based on different variants of the basic Everywhen system. Not all possibilities are included.
+* Resource tracks: depending on the setting/game you run, you can enable or disable certain resource tracks and pools, including **Resolve**, **Critical** tracks, and the different point pools (Hero Points, Arcana Points, etc.)
+* Display Scale: you can hide scale indicators if you're not using the Scale rules for your particular game; this is just a cosmetic tweak for the sheet displays
+* Enable Credit Rating: this hides currency info on the sheet (as the hint says) if credit rating is being used instead
+* Rabble Lifeblood: here you can set Rabble default lifeblood amounts to whatever your setting or game calls for
+
+## Custom Attribute/Ability Names
+
+It is possible to customize the display names of the 4 main and combat abilities in Settings. This will affect the *displayed* name of the attributes used in the system - e.g., if you set the custom name for **Strength** to be **Power**, then it will display as "Power" in the character and item sheets.
+
+Custom ability names is functional for characters only, not for vehicles. 
+
+*Note*: there may be issues with non-English localized systems; if so, please report them!
 
 # Todo
 
@@ -61,8 +78,3 @@ Click on the weapon or armor image in inventory to roll weapon damage or armor p
 * Weights and costs for weapons and armor (there, but not wired in yet)
 * Localization fixes
 * Refactoring and cleanup - ugly hacky code.
-
-## Fixes/Issues
-
-* Vehicle sheet image background removal
-* Alignment of elements / CSS revisions

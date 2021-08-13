@@ -12,7 +12,7 @@ export class EWCombat extends Combat {
 
     startCombat() {
         let updateDiffs = new Array();
-        if(game.settings.get("ewhen", "initType") === "EWhenPriority") {
+        if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
                 let adjInit = this.convertInitiative(combatant);
                 let diff = {_id:combatant._id, "data.initiative":adjInit, "initiative":adjInit};
@@ -36,14 +36,14 @@ export class EWCombat extends Combat {
         let updateDiffs = new Array();
         const diceModel = getDiceModel(game);
 
-        console.warn("Combatants: ", this.combatants);
+        // console.warn("Combatants: ", this.combatants);
+        console.warn("DiceModel: ", diceModel);
 
 
-
-        if(game.settings.get("ewhen", "initType") === "EWhenPriority") {
+        if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
                 let adjInit = this.convertInitiative(combatant);
-                let diff = {_id:combatant._id, "data.initiative":adjInit, "initiative":adjInit};
+                let diff = {_id:combatant.data._id, "data.initiative":adjInit, "initiative":adjInit};
                 updateDiffs.push(diff);
                 // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
             });
@@ -53,8 +53,9 @@ export class EWCombat extends Combat {
             for (let c of this.combatants) {
                 rrlist.push(c.id);
             }
-            let combatantInitMods = c.data.data.priority_roll.bd + c.data.data.priority_roll.pd + c.data.data.priority_roll.miscMod;
-            let initFormula = (combatantInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
+            // let combatantInitMods = c.data.data.priority_roll.bd + c.data.data.priority_roll.pd + c.data.data.priority_roll.miscMod;
+            let initFormula = diceModel.numberOfDice + diceModel.baseDie + "kh" + diceModel.numberOfDice;
+            console.warn(initFormula);
             this.rollInitiative(rrlist, {formula:initFormula});
         }
     }
@@ -68,10 +69,10 @@ export class EWCombat extends Combat {
         if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
 
         const diceModel = getDiceModel(game)
-
+        console.warn("DiceModel: ", diceModel);
         var adjInit = 0;
         var isPC;
-        console.log("Combatant in convertInit: ", com);
+       // console.log("Combatant in convertInit: ", com);
    
         let actorId = com.data.actorId;
         let actor = game.actors.get(actorId);
@@ -79,7 +80,7 @@ export class EWCombat extends Combat {
 
         let actorInitMods = actor.data.data.priority_roll.bd + actor.data.data.priority_roll.pd + actor.data.data.priority_roll.miscMod;
         let initExpr = (actorInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
-
+        console.warn("Init Expression: ", initExpr);
         let initiative = new Roll(initExpr).evaluate({async:false});
         let initRoll = initiative.total;
         let name = actor.name;
@@ -118,11 +119,7 @@ export class EWCombat extends Combat {
                 adjInit = 1;
             }
         }
-      console.warn("Combatant: ", com.name);
-      console.warn("Init Expression: ", initExpr);
-      console.warn("Incoming Init Roll: ", initiative, initRoll, typeof(initRoll));
-      console.warn("Adjusted Init Roll: ", adjInit);
-
+    
       return adjInit;
 
     }

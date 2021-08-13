@@ -330,11 +330,8 @@ Hooks.on('renderChatMessage', (app, html) => {
 // Convert initiative to Everywhen Priority "ladder" if setting active
 Hooks.on('preUpdateCombatant', function(combatant, changed, diff) {
 
-    console.warn("Combat object: ", combatant); 
-    console.warn("changed: ", changed);
-    console.warn("diff: ", diff);
-
-    if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+ 
+    if(game.settings.get("ewhen", "priority")) { return; }
 
     if (!("initiative" in changed)) { return; }
 

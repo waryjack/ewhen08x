@@ -255,6 +255,7 @@
     "EW.SETTINGS.Barbarians": "Barbarians of Lemuria (1d6+Agility, descending order)",
     "EW.SETTINGS.HonorIntrigue": "Honor+Intrigue (1d6+Mind)",
     "EW.SETTINGS.Priority": "Everywhen Priority Roll (see Everywhen, p. 35)",
+    "EW.SETTINGS.PriorityToggle": "Enable Priority Roll Initiative (Everywhen, p. 35)",
     "EW.SETTINGS.UseResolve": "Enable Resolve",
     "EW.SETTINGS.UseResolveDesc": "Enable the Resolve track alongside Lifeblood.",
     "EW.SETTINGS.UseCritical": "Enable Critical Tracks",

@@ -2,7 +2,7 @@ export const registerSettings = function() {
 
     // Register initiative model
 
-    game.settings.register("ewhen", 'initType', {
+    /* game.settings.register("ewhen", 'initType', {
         name: 'EW.SETTINGS.InitiativeMode',
         hint: 'EW.SETTINGS.InitiativeModeDesc',
         scope: 'world',
@@ -26,9 +26,15 @@ export const registerSettings = function() {
             }
             game.data.system.data.initiative = expr;
         }
+    }); */
+
+    game.settings.register("ewhen", "priority", {
+        name: "EW.SETTINGS.PriorityToggle",
+        hint: "",
+        config:true,
+        type:Boolean,
+        default:true
     });
-
-
 
     game.settings.register("ewhen", "rerollPerRound", {
         name:"EW.SETTINGS.RerollPer",

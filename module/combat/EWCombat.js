@@ -72,7 +72,7 @@ export class EWCombat extends Combat {
      */
     convertInitiative(com, init) {
 
-        if(game.settings.get("ewhen", "initType") != "EWhenPriority") { return; }
+        if(game.settings.get("ewhen", "priority") === false) { return; }
 
         const diceModel = getDiceModel(game)
         console.warn("DiceModel: ", diceModel);

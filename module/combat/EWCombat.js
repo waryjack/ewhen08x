@@ -15,7 +15,7 @@ export class EWCombat extends Combat {
         if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
                 let adjInit = this.convertInitiative(combatant);
-                let diff = {_id:combatant._id, "data.initiative":adjInit, "initiative":adjInit};
+                let diff = {_id:combatant.data._id, "data.initiative":adjInit, "initiative":adjInit};
                 updateDiffs.push(diff);
                 // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
             });
@@ -43,7 +43,7 @@ export class EWCombat extends Combat {
         if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
                 let adjInit = this.convertInitiative(combatant);
-                let diff = {_id:combatant.data.id, "data.initiative":adjInit, "initiative":adjInit};
+                let diff = {_id:combatant.data._id, "data.initiative":adjInit, "initiative":adjInit};
                 updateDiffs.push(diff);
                 // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
             });

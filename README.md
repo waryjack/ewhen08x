@@ -2,7 +2,7 @@
 
 ## Special Thanks
 
-* Thanks to *johannes* for contributions and bugfixes! 
+* Thanks to *johannes* for contributions, major features, and bugfixes! 
 * Thanks to *Gyaile* for the French translation files!
 
 ## This is the version for Foundry VTT 0.8.6 and higher.
@@ -58,7 +58,12 @@ Click on the weapon or armor image in inventory to roll weapon damage or armor p
 
 There are several optional settings available for the system - most of which I hope are self-explanatory (at least if you know Everywhen):
 
-* Initiative mode: choose from several options for initiative, based on different variants of the basic Everywhen system. Not all possibilities are included.
+* Dice Type: pick the base dice rolled for tests - you can choose 2d6, 2d10, 2d12, and 3d6
+* Use 1d6 for Initiative: overrides the above selection for initiative rolls only (useful for Barbarians of Lemuria and Honor+Intrigue)
+* Attribute Initiative Bonus: select the _attribute_ that adds to initiative
+* Combat Ability Initiative Bonus: select the _combat ability_ that adds to initiative
+* Enable Priority Roll Initiative: enables priority roll, instead of straight descending initiative order - see _Everywhen_, page 35. 
+* Reroll Initiative Every Round: choose whether to reroll each round, or keep the same initiative order for the whole combat
 * Resource tracks: depending on the setting/game you run, you can enable or disable certain resource tracks and pools, including **Resolve**, **Critical** tracks, and the different point pools (Hero Points, Arcana Points, etc.)
 * Display Scale: you can hide scale indicators if you're not using the Scale rules for your particular game; this is just a cosmetic tweak for the sheet displays
 * Enable Credit Rating: this hides currency info on the sheet (as the hint says) if credit rating is being used instead

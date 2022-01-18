@@ -279,7 +279,7 @@ export class EWActor extends Actor {
         var isWeapon = false;
 
         if(optStr != "") {
-            item = this.actor.getOwnedItem(optStr);
+            item = this.actor.items.get(optStr);
             itemImg = item.img;
             itemName = item.name;
             isWeapon = true;

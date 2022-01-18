@@ -79,7 +79,7 @@ export default class EWVehicleSheet extends ActorSheet {
 
         let itemId = element.closest(".item").dataset.itemId;
 
-        let item = this.actor.getOwnedItem(itemId);
+        let item = this.actor.items.get(itemId);
 
         item.sheet.render(true);
 
@@ -105,7 +105,9 @@ export default class EWVehicleSheet extends ActorSheet {
                     type: subtype
             }
         }
-        return this.actor.createOwnedItem(itemData, {renderSheet:true});
+        return Item.create(itemData, {parent:this.actor});
+        
+        // return this.actor.createOwnedItem(itemData, {renderSheet:true});
          
       }
 
@@ -121,7 +123,10 @@ export default class EWVehicleSheet extends ActorSheet {
              one: {
               icon: '<i class="fas fa-check"></i>',
               label: "Yes",
-              callback: () => { this.actor.deleteOwnedItem(itemId) }
+              callback: () => { 
+                  let itemToDelete = this.actor.items.get(itemId);
+                  itemToDelete.delete();
+                }
              },
              two: {
               icon: '<i class="fas fa-times"></i>',

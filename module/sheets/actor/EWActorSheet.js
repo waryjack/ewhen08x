@@ -432,7 +432,10 @@ export default class EWActorSheet extends ActorSheet {
              one: {
               icon: '<i class="fas fa-check"></i>',
               label: "Yes",
-              callback: () => { this.actor.deleteOwnedItem(itemId) }
+              callback: () => { 
+                  let itemToDelete = this.actor.items.get(itemId);
+                  itemToDelete.delete();
+                }
              },
              two: {
               icon: '<i class="fas fa-times"></i>',

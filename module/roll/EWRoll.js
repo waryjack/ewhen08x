@@ -15,6 +15,7 @@ export class EWRoll {
     actor={};
     roll={};
     rollObj={};
+    result; // for testing
     html;
     isDamage;
     item;
@@ -34,6 +35,7 @@ export class EWRoll {
         this.actor = data.actor;
         this.isDamage = data.isDamage;
         this.item = data.item;
+        this.result = 0;
 
 
         if(this.isDamage){
@@ -94,7 +96,7 @@ export class EWRoll {
                 .find(item => item.name == careerName);
 
             if (career) {
-                let itemId = career._id;
+                let itemId = career.data._id;
                 cVal = this.actor.items.get(itemId).data.data.data.rank;
             }
        }
@@ -255,8 +257,11 @@ export class EWRoll {
         expr = expr == "none" ? `0${diceModel.baseDie}` : expr;
 
         let r = new Roll(expr);
-        r.evaluate();
         this.rollObj = r;
+        this.rollObj.evaluate({async: false});
+        console.warn("Roll result: ", r.total);
+        this.result = r.total;
+
     }
 
     /**
@@ -279,6 +284,7 @@ export class EWRoll {
         console.warn("mightThreshold", mightyThreshold);
 
 
+        console.warn("Roll Object: ", this.rollObj);
         /*
         * Figure out the level of success; there are like 3 types of
         * critical success and frankly they're a bit of a pain
@@ -286,6 +292,7 @@ export class EWRoll {
         if(isDamage) {
             let chatData = {
                 roll: this.rollObj,
+                rollTotal: this.result,
                 tooltip: new Handlebars.SafeString(tt),
                 d: this.rollInfo,
                 outcome: "",
@@ -317,6 +324,7 @@ export class EWRoll {
 
             let chatData = {
                 roll: this.rollObj,
+                rollTotal: this.result,
                 tooltip: new Handlebars.SafeString(tt),
                 d: this.rollInfo,
                 outcome: outcome,
@@ -357,7 +365,7 @@ export class EWRoll {
     createArmorMessage(tt) {
         let chatData = {
             roll: this.rollObj,
-            total: this.rollObj.total,
+            rollTotal: this.result,
             tooltip: new Handlebars.SafeString(tt),
             outclass: "roll-sux",
             name: this.item.name,

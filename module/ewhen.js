@@ -55,8 +55,14 @@ Hooks.once("init", () => {
         */
 
         // set initiative @string
-        game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`;
-        console.warn("Initiative: ", game.data.system.data.initiative);
+
+        if ("data" in game.data.system) {
+            game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`;
+            console.warn("Initiative: ", game.data.system.data.initiative);
+        } else {
+            game.data.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`;
+            console.warn("Initiative: ", game.data.system.initiative);
+        }
 
     // Register partials templates
     preloadHandlebarsTemplates();

@@ -31,7 +31,7 @@ export class EWActor extends Actor {
        // console.warn("prepareBaseData object: ", actorData);
         // const data = actorData.data;
         // const flags = actorData.flags;
-        console.warn("Type: ", this.type);
+        console.warn("Actor Object: ", this);
         if (this.type === 'character') {
             this._prepareCharacterData(actorData);
         } else if (this.type === 'vehicle') {
@@ -105,7 +105,7 @@ export class EWActor extends Actor {
      */
     setPriorityRoll() {
         const diceModel = getDiceModel(game)
-        const priority = duplicate(this.data.data.priority_roll);
+        const priority = duplicate(this.system.priority_roll);
         let netExtraDice = priority.bd - priority.pd;
         let numberOfDice = diceModel.numberOfDice;
         let baseDie = diceModel.baseDie;
@@ -157,7 +157,7 @@ export class EWActor extends Actor {
     * @param res {String} - the name of the resource being updated (lifeblood or resolve)
     */
     updateResource(res, html) {
-        const resData = deepClone(this.data.data.resources[res]);
+        const resData = deepClone(this.system.resources[res]);
         console.warn("Actor Pre: ", this);
         console.warn("ResData Pre: ", resData);
 
@@ -187,7 +187,7 @@ export class EWActor extends Actor {
                     ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun"));
                 } else {
 
-                   let field = `data.resources.${res}`;
+                   let field = `system.resources.${res}`;
                    console.warn(field);
                    this.update({[field]: resData});
                    // setProperty(this, `data.data.resources.${res}`, resData);
@@ -209,7 +209,7 @@ export class EWActor extends Actor {
     updateFrame(html) {
         console.warn("Called UpdateFrame");
         // const actorData = duplicate(this.data);
-        const resData = deepClone(this.data.data.frame);
+        const resData = deepClone(this.system.frame);
         var totalDmg = 0;
 
 
@@ -226,7 +226,7 @@ export class EWActor extends Actor {
                 if(totalDmg > resData.max) {
                     ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun"));
                 } else {
-                    this.update({ "data.frame": resData });
+                    this.update({ "system.frame": resData });
 
                 }
 
@@ -235,7 +235,7 @@ export class EWActor extends Actor {
     updateShield(html) {
         console.warn("Called UpdateShields");
 
-        const resData = deepClone(this.data.data.resources.shield);
+        const resData = deepClone(this.system.resources.shield);
         var totalDmg = 0;
 
             let fatDmg = Number(html.find("#fatigue-dmg").val());
@@ -258,7 +258,7 @@ export class EWActor extends Actor {
 
                     //  console.log("Actor Data post-update: ", actorData);
 
-                    this.update({ "data.resources.shield" : resData} );
+                    this.update({ "system.resources.shield" : resData} );
 
                 }
 
@@ -274,9 +274,9 @@ export class EWActor extends Actor {
 
     rollAttribute(attr, attr2, isCombat, optStr){
 
-        const ma = duplicate(this.data.data.main_attributes);
-        const ca = duplicate(this.data.data.combat_attributes);
-        const cr = duplicate(this.data.items.filter(function(item) {return item.type == "career"}));
+        const ma = duplicate(this.system.main_attributes);
+        const ca = duplicate(this.system.combat_attributes);
+        const cr = duplicate(this.items.filter(function(item) {return item.type == "career"}));
 
         var item = null;
         var itemImg = "";
@@ -315,7 +315,7 @@ export class EWActor extends Actor {
     */
     rollWeaponDamage(weapon) {
 
-        let weaponData = weapon.data.data;
+        let weaponData = weapon.system;
 
         var baseExpr;
         var addAttr = "none";
@@ -375,7 +375,7 @@ export class EWActor extends Actor {
      */
     rollArmor(armor) {
 
-        let armorData = armor.data.data;
+        let armorData = armor.system;
         let expr = armorData.protection.variable;
         let img = armor.img;
         let name = armor.name;
@@ -402,12 +402,12 @@ export class EWActor extends Actor {
      * @param {String} res - the resource being changed
      */
     adjustResource(res) {
-        const data = this.data.data
+        const data = this.system;
 
         if (res == "frame") {
             let dmgSum = data.frame.lasting;
             let adjustedResource = data.frame.max - dmgSum;
-            setProperty(this, "data.data.frame.value", adjustedResource);
+            setProperty(this, "system.frame.value", adjustedResource);
 
         } else {
             let dmgSum = data.resources[res].regular + data.resources[res].lasting + data.resources[res].fatigue;
@@ -424,16 +424,16 @@ export class EWActor extends Actor {
             this.data.data.resources[res].value = adjustedResource;
             console.log("Actor updated or not? ", this);
 
-            setProperty(this, `data.data.resources.${res}.value`, adjustedResource);
+            setProperty(this, `system.resources.${res}.value`, adjustedResource);
         }
     }
 
     spendHeroPoint() {
-        const hp = this.data.data.resources.hero_points;
+        const hp = this.system.resources.hero_points;
         if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
         let newHp= Math.max(0, hp - 1);
         console.log("HP / NewHP: ", hp, newHp);
-        this.update({ "data.resources.hero_points": newHp});
+        this.update({"system.resources.hero_points": newHp});
 
         let chatData = {
             actor:this.name
@@ -467,8 +467,8 @@ export class EWActor extends Actor {
             const diceModel = getDiceModel(game)
 
             let type = item.type;
-            let pmod = item.data.priority_dieMod;
-            const adata = duplicate(actor.data.data.priority_roll);
+            let pmod = item.system.priority_dieMod;
+            const adata = duplicate(this.system.priority_roll);
 
 
             if(pmod == "bonus") {
@@ -478,7 +478,7 @@ export class EWActor extends Actor {
                 adata.expression = `${diceModel.numberOfDice + 1}${diceModel.baseDie}kl${diceModel.numberOfDice}`;
             }
 
-            actor.update({ "data.priority_roll": adata});
+            actor.update({ "system.priority_roll": adata});
         }
 
     }
@@ -501,7 +501,7 @@ export class EWActor extends Actor {
             var bonusIsMain;
             var penaltyIsMain;
             const armData = item.data;
-            const actorData = duplicate(actor.data.data);
+            const actorData = duplicate(actor.system);
             let equipped = armData.equipped;
             let fixed = armData.protection.fixed;
             let vbl = armData.protection.variable;
@@ -549,7 +549,7 @@ export class EWActor extends Actor {
                 }
             }
 
-            actor.update({ "data": actorData});
+            actor.update({ "system": actorData});
 
         }
     }
@@ -558,55 +558,55 @@ export class EWActor extends Actor {
     getAttribute(attribute){
         var attSet;
         Object.values(this.mainAttributes).includes(attribute) ? attSet="main_attributes" : attSet = "combat_attributes";
-        return this.data.data[attSet][attribute];
+        return this.system[attSet][attribute];
     }
 
     getLifeblood() {
-        return this.data.data.resources.lifeblood;
+        return this.system.resources.lifeblood;
     }
 
     getResolve() {
-        return this.data.data.resources.resolve;
+        return this.system.resources.resolve;
     }
 
     getHeroPoints() {
-        return this.data.data.resources.hero_points;
+        return this.system.resources.hero_points;
     }
 
     getArcanaPoints() {
-        return this.data.data.resources.arcana_points;
+        return this.system.resources.arcana_points;
     }
 
     getFaithPoints() {
-        return this.data.data.resources.faith_points;
+        return this.system.resources.faith_points;
     }
 
     getPsiPoints() {
-        return this.data.data.resources.psi_points;
+        return this.system.resources.psi_points;
     }
 
     get isTough() {
-        return this.data.data.isTough;
+        return this.system.isTough;
     }
 
     get isRabble() {
-        return this.data.data.isRabble;
+        return this.system.isRabble;
     }
 
     get isCreature() {
-        return this.data.data.isCreature;
+        return this.system.isCreature;
     }
 
     get isEntity() {
-        return this.data.data.isEntity;
+        return this.system.isEntity;
     }
 
     get isNPC() {
-        return this.data.data.isNPC;
+        return this.system.isNPC;
     }
 
     get size() {
-        return this.data.data.size;
+        return this.system.size;
     }
 }
 

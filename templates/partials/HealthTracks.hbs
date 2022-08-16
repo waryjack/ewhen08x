@@ -1,9 +1,11 @@
 <div class="ewhen header-flexitem healthbar">
  
                 <table style="background:none">
-                    
+                {{log "Healthtrack data: " data}}
+                {{log "Healthrack actor: " actor}}
+                {{log "Healthtrack system: " system}}
                     <tr>
-                        <td><a class="adj-resource res-track" data-resource-name="lifeblood">{{localize "EW.attribute.resource.lifeblood"}} ({{data.resources.lifeblood.max}})</a></td>
+                        <td><a class="adj-resource res-track" data-resource-name="lifeblood">{{localize "EW.attribute.resource.lifeblood"}} ({{actor.system.resources.lifeblood.max}})</a></td>
                         <td>
                             {{#times data.resources.lifeblood.lasting}}
                             <i class="fas fa-circle res-box"></i>

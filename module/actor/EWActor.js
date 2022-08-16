@@ -26,14 +26,17 @@ export class EWActor extends Actor {
   prepareBaseData(){
         super.prepareBaseData();
 
-        const actorData = this.data; // actorData is "actor.data.data"
+        const actorData = this.system; // actorData is "actor.data.data"
 
        // console.warn("prepareBaseData object: ", actorData);
-        const data = actorData.data;
-        const flags = actorData.flags;
-
-        if (actorData.type === 'character') this._prepareCharacterData(actorData);
-        else if (actorData.type === 'vehicle') this._prepareVehicleData(actorData);
+        // const data = actorData.data;
+        // const flags = actorData.flags;
+        console.warn("Type: ", this.type);
+        if (this.type === 'character') {
+            this._prepareCharacterData(actorData);
+        } else if (this.type === 'vehicle') {
+            this._prepareVehicleData(actorData);
+        }
     }
 
     /**
@@ -41,7 +44,9 @@ export class EWActor extends Actor {
     */
     _prepareCharacterData(actorData) {
         super.prepareDerivedData();
-        const data = actorData.data;
+
+        const data = actorData;
+        console.warn("PrepareCharacterData data object: ", data);
 
         var str = data.main_attributes.strength.rank;
         var mnd = data.main_attributes.mind.rank;
@@ -51,28 +56,28 @@ export class EWActor extends Actor {
         // console.warn("MRes: ", mre);
         // Initialize derived traits - lifeblood and resolve
         // but not for rabble or toughs!
+        console.warn("Rabble? ", data.isRabble, " Tough? ", data.isTough);
         if (!data.isRabble && !data.isTough){
-        setProperty(actorData, 'data.resources.lifeblood.max', Number(str) + 10 + mlf);
-
-        setProperty(actorData, 'data.resources.resolve.max', Number(mnd) + 10 + mre);
+            setProperty(actorData, 'resources.lifeblood.max', Number(str) + 10 + mlf);
+            setProperty(actorData, 'resources.resolve.max', Number(mnd) + 10 + mre);
         }
 
         if (data.isRabble) {
-            setProperty(actorData, 'data.resources.lifeblood.max', game.settings.get('ewhen', 'rabbleStrength'));
-            setProperty(actorData, 'data.resources.resolve.max', game.settings.get('ewhen', 'rabbleStrength'));
+            setProperty(actorData, 'resources.lifeblood.max', game.settings.get('ewhen', 'rabbleStrength'));
+            setProperty(actorData, 'resources.resolve.max', game.settings.get('ewhen', 'rabbleStrength'));
         }
 
         if (data.isTough) {
-            setProperty(actorData, 'data.resources.lifeblood.max', Number(str)+5);
-            setProperty(actorData, 'data.resources.resolve.max', Number(mnd)+5);
+            setProperty(actorData, 'resources.lifeblood.max', Number(str)+5);
+            setProperty(actorData, 'resources.resolve.max', Number(mnd)+5);
         }
 
         let totalLbd = data.resources.lifeblood.regular + data.resources.lifeblood.lasting + data.resources.lifeblood.fatigue;
         let totalRsd = data.resources.resolve.regular + data.resources.resolve.lasting + data.resources.resolve.fatigue;
 
-        setProperty(actorData, 'data.resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
+        setProperty(actorData, 'resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
 
-        setProperty(actorData, 'data.resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
+        setProperty(actorData, 'resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
 
         // Calculate priority roll expression based on base info and misc BD/PD bonuses
 
@@ -82,17 +87,17 @@ export class EWActor extends Actor {
     _prepareVehicleData(actorData) {
         // Stub
         super.prepareDerivedData();
-        const data = actorData.data;
+        const data = actorData;
         console.warn("vehicle data", data);
 
         var frame = data.frame.rank;
         var lasting = data.frame.lasting;
         var shieldDmg = data.resources.shield.lasting + data.resources.shield.regular + data.resources.shield.fatigue;
 
-        setProperty(actorData, "data.frame.max", Math.max(5, frame));
-        setProperty(actorData, "data.frame.value", Math.max(0, data.frame.max - lasting));
-        setProperty(actorData, "data.resources.shield.max", Math.max(5, frame));
-        setProperty(actorData, "data.resources.shield.value", Math.max(0, data.resources.shield.max - shieldDmg));
+        setProperty(actorData, "frame.max", Math.max(5, frame));
+        setProperty(actorData, "frame.value", Math.max(0, data.frame.max - lasting));
+        setProperty(actorData, "resources.shield.max", Math.max(5, frame));
+        setProperty(actorData, "resources.shield.value", Math.max(0, data.resources.shield.max - shieldDmg));
     }
 
     /**

@@ -4,8 +4,8 @@ export class EWMessageHelper {
     static generateMessage(template, data) {
 
 
-        console.warn("Requested Message Template: ", template);
-        console.warn("Data: ", data);
+        // console.warn("Requested Message Template: ", template);
+        // console.warn("Data: ", data);
         renderTemplate(template, data).then((msg)=>{
             ChatMessage.create({
                 user: game.user._id,

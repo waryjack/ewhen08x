@@ -27,18 +27,18 @@ export default class EWActorSheet extends ActorSheet {
     getData() {
         const data = deepClone(this.actor.system);
 
-       // console.warn("080 super getdata, data.items: ", data);
+       // // console.warn("080 super getdata, data.items: ", data);
         
         data.config = CONFIG.ewhen; 
         let ownedItems = this.actor.items;
         data.actor = this.actor; 
 
-        // console.warn("Owned Items: ", ownedItems);
+        // // console.warn("Owned Items: ", ownedItems);
         
         data.weapons = ownedItems.filter(function(item) {return item.type == "weapon"});
-        //console.warn("data.weapons: ", data.weapons);
+        //// console.warn("data.weapons: ", data.weapons);
         data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
-        //console.warn("data.traits: ", data.traits);
+        //// console.warn("data.traits: ", data.traits);
 
         if (this.actor.type == "character") {
             data.careers = ownedItems.filter(function(item) {return item.type == "career"});
@@ -389,14 +389,14 @@ export default class EWActorSheet extends ActorSheet {
 
         let field = element.dataset.field;
 
-       // console.log("Career rank: ", field, element.value);
+        console.log("Career rank: ", field, element.value);
         return item.update({ [field]: element.value});
 
     }
 
     _addItem(event) {
         event.preventDefault();
-        console.warn("_addItem fired: ");
+        // console.warn("_addItem fired: ");
         var subtype = "";
         var locString = "EW.sheet.new";
 

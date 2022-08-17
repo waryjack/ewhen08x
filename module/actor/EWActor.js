@@ -28,10 +28,7 @@ export class EWActor extends Actor {
 
         const actorData = this.system; // actorData is "actor.data.data"
 
-       // console.warn("prepareBaseData object: ", actorData);
-        // const data = actorData.data;
-        // const flags = actorData.flags;
-        console.warn("Actor Object: ", this);
+        //console.warn("Actor Object: ", this);
         if (this.type === 'character') {
             this._prepareCharacterData(actorData);
         } else if (this.type === 'vehicle') {
@@ -46,17 +43,16 @@ export class EWActor extends Actor {
         super.prepareDerivedData();
 
         const data = actorData;
-        console.warn("PrepareCharacterData data object: ", data);
+        // console.warn("PrepareCharacterData data object: ", data);
 
         var str = data.main_attributes.strength.rank;
         var mnd = data.main_attributes.mind.rank;
         var mlf = data.resources.lifeblood.misc_lfb;
         var mre = data.resources.resolve.misc_res;
 
-        // console.warn("MRes: ", mre);
         // Initialize derived traits - lifeblood and resolve
         // but not for rabble or toughs!
-        console.warn("Rabble? ", data.isRabble, " Tough? ", data.isTough);
+        // console.warn("Rabble? ", data.isRabble, " Tough? ", data.isTough);
         if (!data.isRabble && !data.isTough){
             setProperty(actorData, 'resources.lifeblood.max', Number(str) + 10 + mlf);
             setProperty(actorData, 'resources.resolve.max', Number(mnd) + 10 + mre);
@@ -88,7 +84,7 @@ export class EWActor extends Actor {
         // Stub
         super.prepareDerivedData();
         const data = actorData;
-        console.warn("vehicle data", data);
+        // console.warn("vehicle data", data);
 
         var frame = data.frame.rank;
         var lasting = data.frame.lasting;
@@ -117,13 +113,13 @@ export class EWActor extends Actor {
         }
 
         const newSuffix = netExtraDice < 0 ? `kl${numberOfDice}` : `kh${numberOfDice}`;
-        console.warn("net extra dice: ", netExtraDice);
+        // console.warn("net extra dice: ", netExtraDice);
 
         let finalFormula = (Number(numberOfDice) + Math.abs(netExtraDice)) + baseDie + newSuffix + "+" + priority.miscMod;
 
         priority.expression = finalFormula;
 
-        console.warn("Priority Final Expression: ", finalFormula);
+        // console.warn("Priority Final Expression: ", finalFormula);
 
         return priority;
 
@@ -158,8 +154,8 @@ export class EWActor extends Actor {
     */
     updateResource(res, html) {
         const resData = deepClone(this.system.resources[res]);
-        console.warn("Actor Pre: ", this);
-        console.warn("ResData Pre: ", resData);
+        // console.warn("Actor Pre: ", this);
+        // console.warn("ResData Pre: ", resData);
 
         const type = this.type;
         var totalDmg = 0;
@@ -180,8 +176,8 @@ export class EWActor extends Actor {
             resData.value = currentLb;
 
 
-            console.warn("Resdata post: ", resData);
-            console.warn("Total Damage: ", totalDmg);
+            // console.warn("Resdata post: ", resData);
+            // console.warn("Total Damage: ", totalDmg);
 
                 if(totalDmg > resData.max) {
                     ui.notifications.error(game.i18n.localize("EW.warnings.damageoverrun"));
@@ -207,7 +203,7 @@ export class EWActor extends Actor {
     }
 
     updateFrame(html) {
-        console.warn("Called UpdateFrame");
+        // console.warn("Called UpdateFrame");
         // const actorData = duplicate(this.data);
         const resData = deepClone(this.system.frame);
         var totalDmg = 0;
@@ -233,7 +229,7 @@ export class EWActor extends Actor {
     }
 
     updateShield(html) {
-        console.warn("Called UpdateShields");
+        // console.warn("Called UpdateShields");
 
         const resData = deepClone(this.system.resources.shield);
         var totalDmg = 0;
@@ -335,21 +331,21 @@ export class EWActor extends Actor {
         half = weaponDamage.half_attribute;
         miscMod = weaponDamage.mod;
 
-        console.warn("Added Attribute: ", addAttr);
+        // console.warn("Added Attribute: ", addAttr);
 
         if (addAttr != "none") {
-            attRank = this.data.data.main_attributes[addAttr].rank;
+            attRank = this.system.main_attributes[addAttr].rank;
         } else {
             attRank = 0
         }
 
-        console.warn("Added Rank: ", attRank);
+        // console.warn("Added Rank: ", attRank);
 
         let attMod = half ? Math.floor(attRank/2) : attRank;
 
         let finalExpr = baseExpr + "+" + attMod + "+" + miscMod;
 
-        console.warn("Final Attmod: ", attMod, baseExpr, finalExpr);
+        // console.warn("Final Attmod: ", attMod, baseExpr, finalExpr);
 
         let dialogData = {
             wname: wName,
@@ -412,17 +408,17 @@ export class EWActor extends Actor {
         } else {
             let dmgSum = data.resources[res].regular + data.resources[res].lasting + data.resources[res].fatigue;
 
-            console.log("DmgSum: ", dmgSum);
-            console.log("Max: ", data.resources[res].max);
-            console.log("Value: ", data.resources[res].value);
+            // console.log("DmgSum: ", dmgSum);
+            // console.log("Max: ", data.resources[res].max);
+            // console.log("Value: ", data.resources[res].value);
 
             let adjustedResource = data.resources[res].max - dmgSum;
 
 
-            console.log("Value after: ", adjustedResource);
+            // console.log("Value after: ", adjustedResource);
 
-            this.data.data.resources[res].value = adjustedResource;
-            console.log("Actor updated or not? ", this);
+            this.system.resources[res].value = adjustedResource;
+            // console.log("Actor updated or not? ", this);
 
             setProperty(this, `system.resources.${res}.value`, adjustedResource);
         }
@@ -432,7 +428,7 @@ export class EWActor extends Actor {
         const hp = this.system.resources.hero_points;
         if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
         let newHp= Math.max(0, hp - 1);
-        console.log("HP / NewHP: ", hp, newHp);
+        // console.log("HP / NewHP: ", hp, newHp);
         this.update({"system.resources.hero_points": newHp});
 
         let chatData = {
@@ -500,7 +496,7 @@ export class EWActor extends Actor {
 
             var bonusIsMain;
             var penaltyIsMain;
-            const armData = item.data;
+            const armData = item.system;
             const actorData = duplicate(actor.system);
             let equipped = armData.equipped;
             let fixed = armData.protection.fixed;

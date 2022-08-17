@@ -3,7 +3,8 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
         <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
     </header>
-
+{{log "Armor Data for handlebars: " data}}
+{{log "Armor data subfield type: " type}}
     <div>
         <table>
             <tr>
@@ -12,8 +13,8 @@
             </tr>
             <tr>
                 <td>
-                    <select style="width:100%;" name="data.armor_type" id="data.armor_type">
-                        {{#select data.armor_type}}
+                    <select style="width:100%;" name="system.armor_type" id="armor_type">
+                        {{#select armor_type}}
                         {{#each config.armor_types as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
@@ -33,11 +34,11 @@
             </tr>
             <tr>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.protection.fixed" value="{{data.protection.fixed}}" data-dtype="Number"/>
+                    <input class="ewhen statfield" type="text" name="system.protection.fixed" value="{{protection.fixed}}" data-dtype="Number"/>
                 </td>
                 <td>
-                    <select style="width:100%;" name="data.protection.variable" />
-                    {{#select data.protection.variable}}
+                    <select style="width:100%;" name="system.protection.variable" />
+                    {{#select protection.variable}}
                         <option value="none">{{localize "EW.game_term.none"}}</option>
                         <option value="1d6-3">1d6-3</option>
                         <option value="1d6-2">1d6-2</option>
@@ -47,14 +48,14 @@
                 </td>
                 {{#if (setting "useScale")}}
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.protection.scale" value="{{data.protection.scale}}" data-dtype="Number"/>
+                    <input class="ewhen statfield" type="text" name="system.protection.scale" value="{{protection.scale}}" data-dtype="Number"/>
                 </td>
                 {{/if}}
                 <td class="align-center">
-                    <input name="data.accessory" type="checkbox" {{checked data.accessory}} />
+                    <input name="system.accessory" type="checkbox" {{checked accessory}} />
                 </td>
                 <td class="align-center">
-                    <input name="data.equipped" type="checkbox" {{checked data.equipped}} />
+                    <input name="system.equipped" type="checkbox" {{checked equipped}} />
                 </td>
             </tr>
         </table>
@@ -72,27 +73,27 @@
             </tr>
             <tr>
                 <td>
-                    <select name="data.bonus.to">
-                    {{#select data.bonus.to}}
+                    <select name="system.bonus.to">
+                    {{#select bonus.to}}
                     {{> "systems/ewhen/templates/partials/AttributeSelect.hbs"}}
                     {{/select}}
                     </select>
                 </td>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.bonus.amount" value="{{data.bonus.amount}}" data-dtype="Number" />
+                    <input class="ewhen statfield" type="text" name="system.bonus.amount" value="{{bonus.amount}}" data-dtype="Number" />
                 </td>
                 <td>
-                    <select name="data.penalty.to">
-                    {{#select data.penalty.to}}
+                    <select name="system.penalty.to">
+                    {{#select penalty.to}}
                     {{> "systems/ewhen/templates/partials/AttributeSelect.hbs"}}
                     {{/select}}
                     </select>
                 </td>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.penalty.amount" value="{{data.penalty.amount}}" data-dtype="Number"/>
+                    <input class="ewhen statfield" type="text" name="system.penalty.amount" value="{{penalty.amount}}" data-dtype="Number"/>
                 </td>
                 <td>
-                    <input type="text" name="data.diffmod.to" value="{{data.diffmod.to}}" />
+                    <input type="text" name="system.diffmod.to" value="{{diffmod.to}}" />
                 </td>
                 
             </tr>

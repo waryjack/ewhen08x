@@ -13,8 +13,8 @@
             </tr>
             <tr>
                     <td>
-                    <select style="width:100%;" name="data.wpn_type" id="data.wpn_type">
-                        {{#select data.wpn_type}}
+                    <select style="width:100%;" name="system.wpn_type" id="wpn_type">
+                        {{#select wpn_type}}
                         {{#each config.weapon_types as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
@@ -22,8 +22,8 @@
                     </select>
                     </td>
                     <td>
-                    <select style="width:100%;" name="data.hands" id="data.hands">
-                        {{#select data.hands}}
+                    <select style="width:100%;" name="system.hands" id="hands">
+                        {{#select hands}}
                         {{#each config.weapon_hands as |name hand|}}
                         <option value="{{hand}}">{{localize name}}</option>
                         {{/each}}
@@ -31,8 +31,8 @@
                     </select>
                     </td>
                     <td>
-                    <select style="width:100%;" name="data.era" id="data.era">
-                        {{#select data.era}}
+                    <select style="width:100%;" name="system.era" id="era">
+                        {{#select era}}
                         <option value="none"></option>
                         {{#each config.era as |era name|}}
                         <option value="{{name}}">{{localize (proper name)}}</option>
@@ -51,8 +51,8 @@
             </tr>
             <tr>
                 <td style="text-align: center;">
-                    <select style="width:100%" name="data.damage.dice">
-                        {{#select data.damage.dice}}
+                    <select style="width:100%" name="system.damage.dice">
+                        {{#select damage.dice}}
                         <option value="0"></option>
                         <option value="1">1</option>
                         <option value="1d3">d3</option>
@@ -70,8 +70,8 @@
 
                 </td>
                 <td>
-                    <select style="width:100%" name="data.damage.add_attribute" id="data.damage.add_attribute">
-                        {{#select data.damage.add_attribute}}
+                    <select style="width:100%" name="system.damage.add_attribute" id="damage.add_attribute">
+                        {{#select damage.add_attribute}}
                         <option value="none"></option>
                         {{#each config.main_attributes as |a attr|}}
                             <option value="{{attr}}">{{setting (getCustomName attr)}}</option>
@@ -80,13 +80,13 @@
                     </select>
                 </td>
                 <td>
-                    <input name="data.damage.half_attribute" type="checkbox" {{checked data.damage.half_attribute}} />
+                    <input name="system.damage.half_attribute" type="checkbox" {{checked damage.half_attribute}} />
                 </td>
                 <td>
-                   <input class="ewhen statfield" type="text" name="data.damage.mod" value="{{data.damage.mod}}" data-dtype="Number"/>
+                   <input class="ewhen statfield" type="text" name="system.damage.mod" value="{{damage.mod}}" data-dtype="Number"/>
                 </td>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.damage.ap" value="{{data.damage.ap}}" data-dtype="Number" />
+                    <input class="ewhen statfield" type="text" name="system.damage.ap" value="{{damage.ap}}" data-dtype="Number" />
                 </td>
             </tr>
             </table>
@@ -97,13 +97,13 @@
                 <th>{{localize "EW.game_term.scale"}}</th>
               </tr>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.range" value="{{data.range}}" data-dtype="Number"/>
+                    <input class="ewhen statfield" type="text" name="system.range" value="{{range}}" data-dtype="Number"/>
                 </td>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.recoil" value="{{data.recoil}}" data-dtype="Number"/>
+                    <input class="ewhen statfield" type="text" name="system.recoil" value="{{recoil}}" data-dtype="Number"/>
                 </td>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.damage.scale" value="{{data.damage.scale}}" data-dtype="Number"/>
+                    <input class="ewhen statfield" type="text" name="system.damage.scale" value="{{damage.scale}}" data-dtype="Number"/>
                 </td>
             </tr>
         </table>
@@ -115,7 +115,7 @@
             </tr>
             <tr>
                 <td>
-                    <input class="ewhen statfield" type="text" name="data.notes" value="{{data.notes}}" data-dtype="String"/>
+                    <input class="ewhen statfield" type="text" name="system.notes" value="{{notes}}" data-dtype="String"/>
                 </td>
             </tr>
         </table>

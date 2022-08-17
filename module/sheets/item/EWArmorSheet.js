@@ -17,11 +17,13 @@ export default class EWArmorSheet extends ItemSheet {
     }
 
     getData () {
+        const superdata = super.getData();
         const data = this.data;
-   //     console.warn("item data: ", data);
-
+    
         data.config = CONFIG.ewhen; 
-        
-        return data;
+        console.warn("item data: ", data);
+    console.warn("superdata: ", superdata);
+
+        //return data;
     }
 }

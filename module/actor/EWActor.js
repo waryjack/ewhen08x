@@ -135,8 +135,8 @@ export class EWActor extends Actor {
     */
 
    basicRoll() {
-        const pri = duplicate(this.data.data.main_attributes);
-        const com = duplicate(this.data.data.combat_attributes);
+        const pri = duplicate(this.system.main_attributes);
+        const com = duplicate(this.system.combat_attributes);
         const car = this.items.filter(function(item) {return item.type == "career"});
 
         let dialogData = {

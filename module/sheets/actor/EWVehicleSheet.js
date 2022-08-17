@@ -24,6 +24,7 @@ export default class EWVehicleSheet extends ActorSheet {
         data.weapons = data.items.filter(function(item) {return item.type == "weapon"});
         
         data.traits = data.items.filter(function(item) {return item.type == "trait"});
+        console.warn("Vehicle date (is this even used?): ", data);
         return data;
     }
 

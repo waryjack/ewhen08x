@@ -161,7 +161,7 @@ export class EWActor extends Actor {
         console.warn("Actor Pre: ", this);
         console.warn("ResData Pre: ", resData);
 
-        const type = this.data.type;
+        const type = this.type;
         var totalDmg = 0;
 
         if (type == "character") {

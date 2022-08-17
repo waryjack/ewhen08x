@@ -11,8 +11,8 @@
                         <tr>
                             <td class="item-name item" data-item-id="{{power.id}}">
                                 <img src="{{power.img}}" data-edit="img" height="24" width="24"/>
-                                <a class="item-edit" title="Edit">{{power.name}} (<i>{{power.data.data.power_type}}{{#if (ne power.data.data.magnitude "none")}},{{power.data.data.magnitude}}{{/if}}</i>)</a><br>{{power.data.data.effect}}. 
-                                <em>{{power.data.data.success_roll}}, {{power.data.data.difficulty}}, {{power.data.data.resource_cost}}P</em></td>
+                                <a class="item-edit" title="Edit">{{power.name}} (<i>{{power.system.power_type}}{{#if (ne power.system.magnitude "none")}},{{power.system.magnitude}}{{/if}}</i>)</a><br>{{power.system.effect}}. 
+                                <em>{{power.system.success_roll}}, {{power.system.difficulty}}, {{power.system.resource_cost}}P</em></td>
                             <td>
                                 <a class="item-delete item" data-item-id="{{power.id}}">
                                     <i class="fas fa-trash"></i>

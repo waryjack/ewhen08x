@@ -4,23 +4,23 @@
                 
                     <tr>
                         <td ><a class="att-roll" data-attribute="melee">{{setting "melName"}}</a></td>
-                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.melee.rank" value="{{data.combat_attributes.melee.rank}}"/</td>
-                        {{#if (setting "useScale")}}<td class="align-center">({{data.combat_attributes.melee.scale}})</td>{{/if}}
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.melee.rank" value="{{combat_attributes.melee.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.melee.scale}})</td>{{/if}}
                     </tr>
                     <tr>
                         <td ><a class="att-roll" data-attribute="ranged">{{setting "ranName"}}</a></td>
-                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.ranged.rank" value="{{data.combat_attributes.ranged.rank}}"/</td>
-                        {{#if (setting "useScale")}}<td class="align-center">({{data.combat_attributes.ranged.scale}})</td>{{/if}}
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.ranged.rank" value="{{combat_attributes.ranged.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.ranged.scale}})</td>{{/if}}
                     </tr>
                     <tr>
                         <td ><a class="att-roll" data-attribute="defense">{{setting "defName"}}</a></td>
-                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.defense.rank" value="{{data.combat_attributes.defense.rank}}"/</td>
-                        {{#if (setting "useScale")}}<td class="align-center">({{data.combat_attributes.defense.scale}})</td>{{/if}}
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.defense.rank" value="{{combat_attributes.defense.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.defense.scale}})</td>{{/if}}
                     </tr>
                     <tr>
                         <td ><a class="att-roll" data-attribute="initiative">{{setting "iniName"}}</a></td>
-                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="data.combat_attributes.initiative.rank" value="{{data.combat_attributes.initiative.rank}}"/</td>
-                        {{#if (setting "useScale")}}<td class="align-center">({{data.combat_attributes.initiative.scale}})</td>{{/if}}
+                        <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.initiative.rank" value="{{combat_attributes.initiative.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.initiative.scale}})</td>{{/if}}
                     </tr>
                 
                 </table>

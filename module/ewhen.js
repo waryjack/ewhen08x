@@ -325,40 +325,39 @@ Hooks.on('updateToken', function(token, changed, diff){
 });
 
 Hooks.on('preCreateItem', function(item, data) {
-    console.warn("first argument: ", item, "second arg", data);
-    console.warn("item type: ", item.type);
-    /* if (item.type == "weapon") {
-         item.update({"img":"icons/svg/sword.svg"});
+    //console.warn("first argument: ", item, "second arg", data);
+    //console.warn("item type: ", item.type);
+    if (item.type == "weapon") {
+         item._source.img = "icons/svg/sword.svg";
      } else if (item.type == "armor") {
-        item.update({"img":"icons/svg/shield.svg"});
+        item._source.img = "icons/svg/shield.svg";
      } else if (item.type == "trait") {
-        item.update({"img":"icons/svg/dice-target.svg"});
+        item._source.img = "icons/svg/dice-target.svg";
      } else if (item.type == "career") {
-        item.update({"img":"icons/svg/book.svg"});
+        item._source.img = "icons/svg/book.svg";
      } else if (item.type == "equipment") {
-        item.update({"img":"icons/svg/chest.svg"});
+        item._source.img = "icons/svg/chest.svg";
      } else if (item.type == "power") {
-        item.update({"img":"icons/svg/daze.svg"});
-     } */
+        item._source.img = "icons/svg/daze.svg";
+     }
  
  });
  
  Hooks.on('preCreateOwnedItem', function(item, data) {
-   console.warn("enter precreateowneditem hook");
-    console.warn("first argument: ", item, "second arg", data);
-   /* if (item.type == "weapon") {
-        item.update({"img":"icons/svg/sword.svg"});
+   //console.warn("enter precreateowneditem hook");
+    //console.warn("first argument: ", item, "second arg", data);
+    if (item.type == "weapon") {
+        item._source.img = "icons/svg/sword.svg";
     } else if (item.type == "armor") {
-       item.update({"img":"icons/svg/shield.svg"});
+       item._source.img = "icons/svg/shield.svg";
     } else if (item.type == "trait") {
-       item.update({"img":"icons/svg/dice-target.svg"});
+       item._source.img = "icons/svg/dice-target.svg";
     } else if (item.type == "career") {
-       item.update({"img":"icons/svg/book.svg"});
+       item._source.img = "icons/svg/book.svg";
     } else if (item.type == "equipment") {
-       item.update({"img":"icons/svg/chest.svg"});
+       item._source.img = "icons/svg/chest.svg";
     } else if (item.type == "power") {
-       item.update({"img":"icons/svg/daze.svg"});
+       item._source.img = "icons/svg/daze.svg";
     }
-  */
  });
 

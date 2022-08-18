@@ -1,19 +1,19 @@
 {
-    "name": "ewhen",
+    "id": "ewhen",
     "title": "Everywhen (Unofficial)",
     "description": "Everywhen RPG System (Unofficial)",
     "version": "1.0.0",
+    "compatibility": {
+      "minimum": "10",
+      "verified": "10",
+      "maximum": "10"
+    }, 
     "authors": [
       {
         "name":"Chris Clouser",
         "discord":"Cannyjack"
       }
     ],
-    "compatibility": {
-      "minimum": "10",
-      "verified": "10",
-      "maximum": "10"
-    },  
     "esmodules": [
         "module/ewhen.js"
     ],

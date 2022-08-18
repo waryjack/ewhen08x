@@ -203,7 +203,7 @@ Hooks.on('updateItem', function(actor, item, changed){
             }
         }
 
-        actor.update({ "data": actorData});
+        actor.update({ "system": actorData});
 
     }
 
@@ -258,7 +258,7 @@ Hooks.on('deleteItem', function(actor, item){
             }
         }
 
-        actor.update({ "data": actorData});
+        actor.update({ "system": actorData});
     }
 });
 
@@ -325,39 +325,40 @@ Hooks.on('updateToken', function(token, changed, diff){
 });
 
 Hooks.on('preCreateItem', function(item, data) {
-    // console.warn("first argument: ", item, "second arg", data);
+    console.warn("first argument: ", item, "second arg", data);
     console.warn("item type: ", item.type);
-     if (item.type == "weapon") {
-         item.system.update({"img":"icons/svg/sword.svg"});
+    /* if (item.type == "weapon") {
+         item.update({"img":"icons/svg/sword.svg"});
      } else if (item.type == "armor") {
-        item.system.update({"img":"icons/svg/shield.svg"});
+        item.update({"img":"icons/svg/shield.svg"});
      } else if (item.type == "trait") {
-        item.system.update({"img":"icons/svg/dice-target.svg"});
+        item.update({"img":"icons/svg/dice-target.svg"});
      } else if (item.type == "career") {
-        item.system.update({"img":"icons/svg/book.svg"});
+        item.update({"img":"icons/svg/book.svg"});
      } else if (item.type == "equipment") {
-        item.system.update({"img":"icons/svg/chest.svg"});
+        item.update({"img":"icons/svg/chest.svg"});
      } else if (item.type == "power") {
-        item.system.update({"img":"icons/svg/daze.svg"});
-     }
+        item.update({"img":"icons/svg/daze.svg"});
+     } */
  
  });
  
  Hooks.on('preCreateOwnedItem', function(item, data) {
-    // console.warn("first argument: ", item, "second arg", data);
-    if (item.type == "weapon") {
-        item.system.update({"img":"icons/svg/sword.svg"});
+   console.warn("enter precreateowneditem hook");
+    console.warn("first argument: ", item, "second arg", data);
+   /* if (item.type == "weapon") {
+        item.update({"img":"icons/svg/sword.svg"});
     } else if (item.type == "armor") {
-       item.system.update({"img":"icons/svg/shield.svg"});
+       item.update({"img":"icons/svg/shield.svg"});
     } else if (item.type == "trait") {
-       item.system.update({"img":"icons/svg/dice-target.svg"});
+       item.update({"img":"icons/svg/dice-target.svg"});
     } else if (item.type == "career") {
-       item.system.update({"img":"icons/svg/book.svg"});
+       item.update({"img":"icons/svg/book.svg"});
     } else if (item.type == "equipment") {
-       item.system.update({"img":"icons/svg/chest.svg"});
+       item.update({"img":"icons/svg/chest.svg"});
     } else if (item.type == "power") {
-       item.system.update({"img":"icons/svg/daze.svg"});
+       item.update({"img":"icons/svg/daze.svg"});
     }
- 
+  */
  });
 

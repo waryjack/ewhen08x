@@ -77,7 +77,7 @@ export class EWActor extends Actor {
 
         // Calculate priority roll expression based on base info and misc BD/PD bonuses
 
-        setProperty(actorData, 'data.priority_roll', this.setPriorityRoll());
+        setProperty(actorData, 'system.priority_roll', this.setPriorityRoll());
     }
 
     _prepareVehicleData(actorData) {

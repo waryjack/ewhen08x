@@ -15,7 +15,7 @@
             </div>
 
             <table class="item-table">
-                    {{#unless (or data.isRabble data.isTough)}}
+                    {{#unless (or isRabble isTough)}}
 					<tr>
 					  <td style="border-left:2px">
                            {{localize "EW.attribute.resource.hero_points"}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
@@ -57,7 +57,7 @@
                 <div class="ewhen flexrow">
                     {{> 'systems/ewhen/templates/partials/MainAttributes.hbs'}}
                     {{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
-                {{#unless data.isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
+                {{#unless isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
                 </div>
                 <div class="ewhen flexrow">
                     <div class="ewhen flex-item">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="ewhen flexrow">
                     <div class="ewhen flex-item">
-                    {{#unless (or data.isTough data.isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
+                    {{#unless (or isTough isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
                     </div>
                 </div>
             </div>
@@ -96,8 +96,8 @@
                     <table class="nostretch">
                         <tr>
                      <td>
-                            {{localize "EW.game_term.size"}}: <select name="data.size" id="data.size" style="color:white">
-                                {{#select data.size}}
+                            {{localize "EW.game_term.size"}}: <select name="system.size" id="size" style="color:white">
+                                {{#select size}}
                                     {{#each config.sizes as |loc size|}}
                                     <option value="{{size}}" {{#ife size "medium"}}selected{{/ife}} style="color:black;">{{localize loc}}</option>
                                     {{/each}}

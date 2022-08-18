@@ -172,7 +172,7 @@ export default class EWActorSheet extends ActorSheet {
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
                     actorData.resources.resolve.max = 5 + actorData.main_attributes.mind.rank;
                     actorData.resources.resolve.value = actorData.resources.resolve.max;
-                    return this.actor.update({ "data": actorData});
+                    return this.actor.update({ "system": actorData});
                 }
                 case "rabble": {
                     let actorData = duplicate(this.actor.system);
@@ -184,14 +184,14 @@ export default class EWActorSheet extends ActorSheet {
                     // Item.create(rabbleAttack, { parent: this.actor});
                     // Item.create(hordeAttack, { parent: this.actor});
 
-                    return this.actor.update({ "data": actorData});
+                    return this.actor.update({ "system": actorData});
                 }
                 default: {
                     actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
                     actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
                     actorData.resources.resolve.value = actorData.resources.resolve.max;
-                    return this.actor.update({ "data": actorData});
+                    return this.actor.update({ "system": actorData});
                 };
             }
         } else {
@@ -201,7 +201,7 @@ export default class EWActorSheet extends ActorSheet {
              actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
              actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
              actorData.resources.resolve.value = actorData.resources.resolve.max;
-             return this.actor.update({ "data": actorData});
+             return this.actor.update({ "system": actorData});
         }
     }
 

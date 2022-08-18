@@ -158,11 +158,11 @@ export class EWRoll {
      * Compiles the roll for an armor item
      */
     compileArmorRollInfo() {
-        let armorData = this.item.data.data;
+        let armorData = this.item.system;
 
         let expr = armorData.protection.variable;
 
-        let armorbonus = this.actor.data.data.armorbonus + this.actor.data.data.miscarmor;
+        let armorbonus = this.actor.system.armorbonus + this.actor.system.miscarmor;
 
         expr = expr + "+" + armorbonus;
 
@@ -192,25 +192,25 @@ export class EWRoll {
         var attBonus = 0;
 
         // Weapon / item details
-        let wpnName = this.item.data.name;
+        let wpnName = this.item.name;
         console.log("wpn name: ", wpnName);
 
-        let wpnImg = this.item.data.img;
+        let wpnImg = this.item.img;
 
         bonus = this.html.find("#bonus").val();
         penalty = this.html.find("#penalty").val();
         scaledDmg = this.html.find("#scaled-damage").val();
-        let wpnDmg = scaledDmg == "0" ? this.item.data.data.damage.dice : scaledDmg;
-        let dmgMod = this.item.data.data.damage.mod || 0
-        let wpnAttrib = this.item.data.data.damage.add_attribute;
-        let wpnHalfAtt = this.item.data.data.damage.half_attribute;
+        let wpnDmg = scaledDmg == "0" ? this.item.system.damage.dice : scaledDmg;
+        let dmgMod = this.item.system.damage.mod || 0
+        let wpnAttrib = this.item.system.damage.add_attribute;
+        let wpnHalfAtt = this.item.system.damage.half_attribute;
 
         let totalMods = bonus - penalty + dmgMod;
 
        // console.warn("ScaledDmg / WpnDmg: ", scaledDmg, wpnDmg);
 
         if(wpnAttrib != "none") {
-            attBonus = this.actor.data.data.main_attributes[wpnAttrib].rank;
+            attBonus = this.actor.system.main_attributes[wpnAttrib].rank;
             attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
 
             let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
@@ -372,8 +372,8 @@ export class EWRoll {
             outclass: "roll-sux",
             name: this.item.name,
             img: this.item.img,
-            protection: this.item.data.data.protection.variable,
-            armorbonus: this.actor.data.data.armorbonus,
+            protection: this.item.system.protection.variable,
+            armorbonus: this.actor.system.armorbonus,
             actor: this.actor._id
         }
 

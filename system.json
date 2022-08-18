@@ -39,7 +39,7 @@
     "primaryTokenAttribute": "resources.lifeblood",
     "secondaryTokenAttribute":"resources.resolve",
     "url": "https://github.com/waryjack/ewhen08x",
-    "manifest": "https://github.com/waryjack/ewhen08x/releases/latest/download/system.json",
-    "download": "https://github.com/waryjack/ewhen08x/releases/latest/download/ewhen-master.zip"
+    "manifest": "https://github.com/waryjack/ewhen08x/releases/download/v1-beta/system.json",
+    "download": "https://github.com/waryjack/ewhen08x/releases/download/v1-beta/ewhen08x-foundry10.json"
 
 }

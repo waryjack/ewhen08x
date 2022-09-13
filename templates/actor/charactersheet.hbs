@@ -8,23 +8,23 @@
             <div class="charname">
                 <input class="ewhen charname" style="width:50%; vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
                 <div class="form-group" style="float:right; color:white;">
-                <input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="data.isRival" type="checkbox" {{checked data.isRival}} /><label for="isRival">Rival</label>
-                <input class="npc-boxes" data-minor-type="tough" id="minorNpc" name="data.isTough" type="checkbox" {{checked data.isTough}} /><label for="isTough">Tough</label>
-                <input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="data.isRabble" type="checkbox" {{checked data.isRabble}} /><label for="isRabble">Rabble</label>
+                <input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="system.isRival" type="checkbox" {{checked isRival}} /><label for="isRival">Rival</label>
+                <input class="npc-boxes" data-minor-type="tough" id="minorNpc" name="system.isTough" type="checkbox" {{checked isTough}} /><label for="isTough">Tough</label>
+                <input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="system.isRabble" type="checkbox" {{checked isRabble}} /><label for="isRabble">Rabble</label>
                 </div>
             </div>
 
             <table class="item-table">
-                    {{#unless (or data.isRabble data.isTough)}}
+                    {{#unless (or isRabble isTough)}}
 					<tr>
 					  <td style="border-left:2px">
-                           {{localize "EW.attribute.resource.hero_points"}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="data.resources.hero_points" value="{{data.resources.hero_points}}" data-dtype="Number"/>
+                           {{localize "EW.attribute.resource.hero_points"}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
 
-                             {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.arcana_points" value="{{data.resources.arcana_points}}" data-dtype="Number"/>{{/if}}
-                              {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.faith_points" value="{{data.resources.faith_points}}" data-dtype="Number"/>{{/if}}
-                            {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input style="background:black;" class="ewhen statfield" type="text" name="data.resources.psi_points" value="{{data.resources.psi_points}}" data-dtype="Number"/>{{/if}}
-                             {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="data.resources.credit_rating" value="{{data.resources.credit_rating}}" data-dtype="Number"/>{{/if}}
-                             {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="data.resources.currency" value="{{data.resources.currency}}" data-dtype="Number"/>{{/unless}}
+                             {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/>{{/if}}
+                              {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>{{/if}}
+                            {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>{{/if}}
+                             {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>{{/if}}
+                             {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>{{/unless}}
                         </td>
 					</tr>
                     {{/unless}}
@@ -57,7 +57,7 @@
                 <div class="ewhen flexrow">
                     {{> 'systems/ewhen/templates/partials/MainAttributes.hbs'}}
                     {{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
-                {{#unless data.isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
+                {{#unless isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
                 </div>
                 <div class="ewhen flexrow">
                     <div class="ewhen flex-item">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="ewhen flexrow">
                     <div class="ewhen flex-item">
-                    {{#unless (or data.isTough data.isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
+                    {{#unless (or isTough isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
                     </div>
                 </div>
             </div>
@@ -96,19 +96,19 @@
                     <table class="nostretch">
                         <tr>
                      <td>
-                            {{localize "EW.game_term.size"}}: <select name="data.size" id="data.size" style="color:white">
-                                {{#select data.size}}
+                            {{localize "EW.game_term.size"}}: <select name="system.size" id="size" style="color:white">
+                                {{#select size}}
                                     {{#each config.sizes as |loc size|}}
                                     <option value="{{size}}" {{#ife size "medium"}}selected{{/ife}} style="color:black;">{{localize loc}}</option>
                                     {{/each}}
                                 {{/select}}
                             </select>
-                            {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.lifeblood.misc_lfb" value="{{data.resources.lifeblood.misc_lfb}}" data-dtype="Number"/>
-                            {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.resources.resolve.misc_res" value="{{data.resources.resolve.misc_res}}" data-dtype="Number"/>
-                            {{localize "EW.game_term.armor"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.miscarmor" value="{{data.miscarmor}}" data-dtype="Number"/>
-                            {{localize "EW.game_term.initbd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.bd" value="{{data.priority_roll.bd}}" data-dtype="Number"/>
-                            {{localize "EW.game_term.initpd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.pd" value="{{data.priority_roll.pd}}" data-dtype="Number"/>
-                             {{localize "EW.game_term.initmod"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="data.priority_roll.miscMod" value="{{data.priority_roll.miscMod}}" data-dtype="Number"/>
+                            {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.lifeblood.misc_lfb" value="{{resources.lifeblood.misc_lfb}}" data-dtype="Number"/>
+                            {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.resolve.misc_res" value="{{resources.resolve.misc_res}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.armor"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.miscarmor" value="{{miscarmor}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.initbd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.priority_roll.bd" value="{{priority_roll.bd}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.initpd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.priority_roll.pd" value="{{priority_roll.pd}}" data-dtype="Number"/>
+                             {{localize "EW.game_term.initmod"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.priority_roll.miscMod" value="{{priority_roll.miscMod}}" data-dtype="Number"/>
 
 
                         </td>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="ewhen flexrow">
                     <div class="ewhen flex-item edit-cont">
-                        {{editor content=data.backstory target="data.backstory" button=true owner=owner editable="editable"}}
+                        {{editor backstory target="system.backstory" button=true owner=owner editable="editable"}}
                     </div>
                 </div>
 

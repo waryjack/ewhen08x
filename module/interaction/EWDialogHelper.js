@@ -38,7 +38,7 @@ export class EWDialogHelper {
                     close: {
                      icon: '<i class="fas fa-times"></i>',
                      label: "Cancel",
-                     callback: () => { console.log("Clicked Cancel"); return; }
+                     callback: () => { return; }
                     }
                    },
                 default: "close"
@@ -84,7 +84,7 @@ export class EWDialogHelper {
                      icon: '<i class="fas fa-check"></i>',
                      label: "Update",
                      callback: (html) => {
-                         console.warn('clicked submit');
+                         // console.warn('clicked submit');
                          if(data.res == "frame") {
                              data.actor.updateFrame(html);
                         } else {

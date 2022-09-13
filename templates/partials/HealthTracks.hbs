@@ -1,59 +1,61 @@
 <div class="ewhen header-flexitem healthbar">
  
                 <table style="background:none">
-                    
+                {{log "Healthtrack data: " data}}
+                {{log "Healthrack actor: " actor}}
+                {{log "Healthtrack system: " system}}
                     <tr>
-                        <td><a class="adj-resource res-track" data-resource-name="lifeblood">{{localize "EW.attribute.resource.lifeblood"}} ({{data.resources.lifeblood.max}})</a></td>
+                        <td><a class="adj-resource res-track" data-resource-name="lifeblood">{{localize "EW.attribute.resource.lifeblood"}} ({{resources.lifeblood.max}})</a></td>
                         <td>
-                            {{#times data.resources.lifeblood.lasting}}
+                            {{#times resources.lifeblood.lasting}}
                             <i class="fas fa-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.lifeblood.regular}}
+                            {{#times resources.lifeblood.regular}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.lifeblood.value}}
+                            {{#times resources.lifeblood.value}}
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.lifeblood.fatigue}}
+                            {{#times resources.lifeblood.fatigue}}
                             <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
                         </td>
                         <td class="res-track"><a class="adj-resource res-track" data-resource-name="lifeblood"><i class="fas fa-forward"></i> {{localize "EW.attribute.resource.critical"}}</a></td>
                         <td>
-                            {{#times data.resources.lifeblood.critical}}
+                            {{#times resources.lifeblood.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
-                            {{#times (minus 5 data.resources.lifeblood.critical)}}
+                            {{#times (minus 5 resources.lifeblood.critical)}}
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
                         </td>
                     </tr>
                     {{#if (setting "useCritical")}}
-                    {{#unless (or data.isTough data.isRabble)}}
+                    {{#unless (or isTough isRabble)}}
                     <tr>
-                        <td>{{#if (setting "useResolve")}}{{#unless data.isRabble}}<a class="adj-resource res-track" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}} ({{data.resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
+                        <td>{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
                         <td>{{#if (setting "useResolve")}}
-                            {{#unless data.isRabble}}
-                            {{#times data.resources.resolve.lasting}}
+                            {{#unless isRabble}}
+                            {{#times resources.resolve.lasting}}
                             <i class="fas fa-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.resolve.regular}}
+                            {{#times resources.resolve.regular}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.resolve.value}}
+                            {{#times resources.resolve.value}}
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.resolve.fatigue}}
+                            {{#times resources.resolve.fatigue}}
                             <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
                             {{/unless}}
                             {{/if}}
                         </td>
                         <td class="res-track">{{#if (setting "useResolve")}}<a class="adj-resource res-track" data-resource-name="resolve"><i class="fas fa-forward"></i> {{localize "EW.attribute.resource.critical"}}{{/if}}</a></td>
-                        <td>{{#if (setting "useResolve")}}{{#times data.resources.resolve.critical}}
+                        <td>{{#if (setting "useResolve")}}{{#times resources.resolve.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
-                            {{#times (minus 5 data.resources.resolve.critical)}}
+                            {{#times (minus 5 resources.resolve.critical)}}
                             <i class="far fa-circle res-box"></i>
                             {{/times}}{{/if}}
                         </td>

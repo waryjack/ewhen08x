@@ -13,8 +13,8 @@
             </tr>
             <tr>
                 <td style="text-align: center;"> 
-                    <select style="width:100%;" name="data.power_type" id="data.power_type">
-                        {{#select data.power_type}}
+                    <select style="width:100%;" name="system.power_type" id="power_type">
+                        {{#select power_type}}
                         {{#each config.powerTypes as |name type|}}
                         <option value="{{type}}">{{localize (proper name)}}</option>
                         {{/each}}
@@ -22,8 +22,8 @@
                     </select>
                 </td>
                 <td style="text-align: center;">
-                    <select style="width:100%;" name="data.magnitude" id="data.magnitude">
-                        {{#select data.magnitude}}
+                    <select style="width:100%;" name="system.magnitude" id="magnitude">
+                        {{#select magnitude}}
                         <option value="none"></option>
                         {{#each config.magnitudes as |name type|}}
                         <option value="{{type}}">{{localize (proper name)}}</option>
@@ -32,7 +32,7 @@
                     </select>
                 </td>
                 <td style="text-align:center;">
-                    <input type="text" class="ewhen statfield" name="data.prereq" value="{{data.prereq}}" />
+                    <input type="text" class="ewhen statfield" name="system.prereq" value="{{prereq}}" />
                 </td>
             </tr>
             <tr>
@@ -42,11 +42,11 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="data.success_roll" value="{{data.success_roll}}" />
+                    <input type="text" name="system.success_roll" value="{{success_roll}}" />
                 </td>
                 <td>
-                    <select style="width:100%" name="data.difficulty" id="data.difficulty">
-                        {{#select data.difficulty}}
+                    <select style="width:100%" name="system.difficulty" id="difficulty">
+                        {{#select difficulty}}
                         {{#each config.difficulty as |diff type|}}
                         <option value="{{type}}" {{#ife type "moderate"}}selecte{{/ife}}>{{localize diff}}</option>
                         {{/each}}
@@ -54,12 +54,12 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" name="data.resource_cost" value="{{data.resource_cost}}" data-dtype="Number" />
+                    <input type="text" name="system.resource_cost" value="{{resource_cost}}" data-dtype="Number" />
                 </td>
             </tr>
         </table>
         <hr>
         <h3>{{localize "EW.game_term.effect"}}</h3>
-                <textarea class="ewhen trait-desc" id="effect" name="data.effect">{{data.effect}}</textarea>           
+                <textarea class="ewhen trait-desc" id="effect" name="system.effect">{{effect}}</textarea>           
     </div>
 </form>

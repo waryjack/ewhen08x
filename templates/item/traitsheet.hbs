@@ -15,8 +15,8 @@
             </tr>
             <tr>
                 <td style="text-align: center;"> 
-                    <select style="width:100%;" name="data.type" id="data.type">
-                        {{#select data.type}}
+                    <select style="width:100%;" name="system.type" id="type">
+                        {{#select type}}
                         {{#each config.traitTypes as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
@@ -24,8 +24,8 @@
                     </select>
                 </td>
                 <td style="text-align: center;">
-                    <select style="width:100%;" name="data.source" id="data.source">
-                        {{#select data.source}}
+                    <select style="width:100%;" name="system.source" id="source">
+                        {{#select source}}
                         {{#each config.traitSources as |name source|}}
                         <option value="{{source}}">{{localize name}}</option>
                         {{/each}}
@@ -33,8 +33,8 @@
                     </select>
                 </td>
                 <td style="text-align:center;">
-                    <select style="width:100%;" name="data.priority_dieMod" id="data.priority_dieMod">
-                        {{#select data.priority_dieMod}}
+                    <select style="width:100%;" name="system.priority_dieMod" id="priority_dieMod">
+                        {{#select priority_dieMod}}
                         <option value="none">{{localize "EW.game_term.none"}}</option>
                         <option value="bonus">{{localize "EW.game_term.bonusdie"}}</option>
                         <option value="penalty">{{localize "EW.game_term.penaltydie"}}</option>
@@ -42,12 +42,12 @@
                     </select>
                 </td>
                 <td style="text-align: center;">
-                    <input name="data.isTemporary" type="checkbox" {{checked data.isTemporary}} />
+                    <input name="system.isTemporary" type="checkbox" {{checked isTemporary}} />
                 </td>
             </tr>
         </table>
         <hr>
         <h3>{{localize "EW.game_term.description"}}</h3>
-                <textarea class="ewhen trait-desc" id="description" name="data.description">{{data.description}}</textarea>           
+                <textarea class="ewhen trait-desc" id="description" name="system.description">{{description}}</textarea>           
     </div>
 </form>

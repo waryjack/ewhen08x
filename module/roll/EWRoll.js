@@ -91,13 +91,15 @@ export class EWRoll {
         */
 
        if (careerName != "none") {
-            let career = this.actor.data.items
+            let career = this.actor.items
                 .filter(item => item.type == "career")
                 .find(item => item.name == careerName);
 
             if (career) {
-                let itemId = career.data._id;
-                cVal = this.actor.items.get(itemId).data.data.data.rank;
+                let itemId = career._id;
+                // console.warn("EWRoll career item object: ", this.actor.items.get(itemId));
+                cVal = this.actor.items.get(itemId).system.rank;
+                // console.warn("EWRoll cVal: ", cVal);
             }
        }
 
@@ -116,15 +118,15 @@ export class EWRoll {
        };
 
        let diffStr = "EW.difficulty."+difflevel;
-       console.warn("diffStr", diffStr);
+       // console.warn("diffStr", diffStr);
 
        /*
        * Get the other difficulty modifier; needs streamlining
        */
 
        let totalMods = baseDiff + Number(othermods);
-       attrVal = attr == "none" ? 0 : this.actor.data.data.main_attributes[attr].rank;
-       comVal = combat == "none" ? 0 : this.actor.data.data.combat_attributes[combat].rank;
+       attrVal = attr == "none" ? 0 : this.actor.system.main_attributes[attr].rank;
+       comVal = combat == "none" ? 0 : this.actor.system.combat_attributes[combat].rank;
 
        let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + totalMods;
 
@@ -156,11 +158,11 @@ export class EWRoll {
      * Compiles the roll for an armor item
      */
     compileArmorRollInfo() {
-        let armorData = this.item.data.data;
+        let armorData = this.item.system;
 
         let expr = armorData.protection.variable;
 
-        let armorbonus = this.actor.data.data.armorbonus + this.actor.data.data.miscarmor;
+        let armorbonus = this.actor.system.armorbonus + this.actor.system.miscarmor;
 
         expr = expr + "+" + armorbonus;
 
@@ -190,25 +192,25 @@ export class EWRoll {
         var attBonus = 0;
 
         // Weapon / item details
-        let wpnName = this.item.data.name;
+        let wpnName = this.item.name;
         console.log("wpn name: ", wpnName);
 
-        let wpnImg = this.item.data.img;
+        let wpnImg = this.item.img;
 
         bonus = this.html.find("#bonus").val();
         penalty = this.html.find("#penalty").val();
         scaledDmg = this.html.find("#scaled-damage").val();
-        let wpnDmg = scaledDmg == "0" ? this.item.data.data.damage.dice : scaledDmg;
-        let dmgMod = this.item.data.data.damage.mod || 0
-        let wpnAttrib = this.item.data.data.damage.add_attribute;
-        let wpnHalfAtt = this.item.data.data.damage.half_attribute;
+        let wpnDmg = scaledDmg == "0" ? this.item.system.damage.dice : scaledDmg;
+        let dmgMod = this.item.system.damage.mod || 0
+        let wpnAttrib = this.item.system.damage.add_attribute;
+        let wpnHalfAtt = this.item.system.damage.half_attribute;
 
         let totalMods = bonus - penalty + dmgMod;
 
-       console.warn("ScaledDmg / WpnDmg: ", scaledDmg, wpnDmg);
+       // console.warn("ScaledDmg / WpnDmg: ", scaledDmg, wpnDmg);
 
         if(wpnAttrib != "none") {
-            attBonus = this.actor.data.data.main_attributes[wpnAttrib].rank;
+            attBonus = this.actor.system.main_attributes[wpnAttrib].rank;
             attBonus = wpnHalfAtt ? Math.floor(attBonus/2) : attBonus;
 
             let properAttrib = wpnAttrib[0].toUpperCase() + wpnAttrib.substring(1,3);
@@ -225,7 +227,7 @@ export class EWRoll {
 
 
         let dmgExpr = wpnDmg + "+" + attBonus + (totalMods < 0 ? totalMods : `+${totalMods}`);
-        console.warn("Compiled formula: ", dmgExpr);
+        // console.warn("Compiled formula: ", dmgExpr);
 
         let rollInfo = {
             friendlyExt: friendlyDmgExtension,
@@ -259,7 +261,7 @@ export class EWRoll {
         let r = new Roll(expr);
         this.rollObj = r;
         this.rollObj.evaluate({async: false});
-        console.warn("Roll result: ", r.total);
+        // console.warn("Roll result: ", r.total);
         this.result = r.total;
 
     }
@@ -281,10 +283,10 @@ export class EWRoll {
         let total = this.rollObj.total;
         let mightyThreshold = diceModel.tn + (Number(this.rollInfo.mods) < 0 ? Math.abs(Number(this.rollInfo.mods)) : 0);
 
-        console.warn("mightThreshold", mightyThreshold);
+        // console.warn("mightThreshold", mightyThreshold);
 
 
-        console.warn("Roll Object: ", this.rollObj);
+        // console.warn("Roll Object: ", this.rollObj);
         /*
         * Figure out the level of success; there are like 3 types of
         * critical success and frankly they're a bit of a pain
@@ -370,8 +372,8 @@ export class EWRoll {
             outclass: "roll-sux",
             name: this.item.name,
             img: this.item.img,
-            protection: this.item.data.data.protection.variable,
-            armorbonus: this.actor.data.data.armorbonus,
+            protection: this.item.system.protection.variable,
+            armorbonus: this.actor.system.armorbonus,
             actor: this.actor._id
         }
 

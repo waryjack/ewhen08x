@@ -15,11 +15,11 @@ export class EWCombat extends Combat {
         if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
                 let adjInit = this.convertInitiative(combatant);
-                let diff = {_id:combatant.data._id, "data.initiative":adjInit, "initiative":adjInit};
+                let diff = {_id:combatant._id, "initiative":adjInit, "initiative":adjInit};
                 updateDiffs.push(diff);
                 // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
             });
-            // console.warn("Priority List Array: ", priorityList);
+            // // console.warn("Priority List Array: ", priorityList);
             this.updateEmbeddedDocuments("Combatant",  updateDiffs);
             super.startCombat();
         } else {
@@ -36,18 +36,18 @@ export class EWCombat extends Combat {
         let updateDiffs = new Array();
         const diceModel = getDiceModel(game);
 
-        console.warn("Combatants: ", this.combatants);
-        console.warn("DiceModel: ", diceModel);
+        // console.warn("Combatants: ", this.combatants);
+        // console.warn("DiceModel: ", diceModel);
 
 
         if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
                 let adjInit = this.convertInitiative(combatant);
-                let diff = {_id:combatant.data._id, "data.initiative":adjInit, "initiative":adjInit};
+                let diff = {_id:combatant._id, "initiative":adjInit, "initiative":adjInit};
                 updateDiffs.push(diff);
                 // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
             });
-            // console.warn("Priority List Array: ", priorityList);
+            // // console.warn("Priority List Array: ", priorityList);
             this.updateEmbeddedDocuments("Combatant",  updateDiffs);
         } else {
             let cibd = 0;
@@ -55,13 +55,13 @@ export class EWCombat extends Combat {
             let cimd = 0;
             for (let c of this.combatants) {
                 rrlist.push(c.id);
-                cibd = c.actor.data.data.priority_roll.bd;
-                cipd = c.actor.data.data.priority_roll.pd;
-                cimd = c.actor.data.data.priority_roll.md;
+                cibd = c.actor.system.priority_roll.bd;
+                cipd = c.actor.system.priority_roll.pd;
+                cimd = c.actor.system.priority_roll.md;
             }
             let tInitDiceMods = cibd + cipd + cimd;
             let initFormula = diceModel.numberOfDice + diceModel.baseDie + "kh" + diceModel.numberOfDice;
-            console.warn(initFormula);
+            // console.warn(initFormula);
             this.rollInitiative(rrlist, {formula:initFormula});
         }
     }
@@ -75,24 +75,24 @@ export class EWCombat extends Combat {
         if(game.settings.get("ewhen", "priority") === false) { return; }
 
         const diceModel = getDiceModel(game)
-        console.warn("DiceModel: ", diceModel);
+        // console.warn("DiceModel: ", diceModel);
         var adjInit = 0;
         var isPC;
-       // console.log("Combatant in convertInit: ", com);
+       console.log("Combatant in convertInit: ", com);
    
-        let actorId = com.data.actorId;
+        let actorId = com.actorId;
         let actor = game.actors.get(actorId);
    
 
-        let actorInitMods = actor.data.data.priority_roll.bd + actor.data.data.priority_roll.pd + actor.data.data.priority_roll.miscMod;
+        let actorInitMods = actor.system.priority_roll.bd + actor.system.priority_roll.pd + actor.system.priority_roll.miscMod;
         let initExpr = (actorInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
-        console.warn("Init Expression: ", initExpr);
+        // console.warn("Init Expression: ", initExpr);
         let initiative = new Roll(initExpr).evaluate({async:false});
         let initRoll = initiative.total;
         let name = actor.name;
-        let isRival = actor.data.data.isRival;
-        let isTough = actor.data.data.isTough;
-        let isRabble = actor.data.data.isRabble;
+        let isRival = actor.system.isRival;
+        let isTough = actor.system.isTough;
+        let isRabble = actor.system.isRabble;
 
         if(!isRival && !isTough && !isRabble) { isPC = true; } else { isPC = false; }
 
@@ -108,7 +108,7 @@ export class EWCombat extends Combat {
 
         }
 
-      //  console.log(name, " isPC: ", isPC);;
+      //  // console.log(name, " isPC: ", isPC);;
 
         if (isPC) {
             if(diceOnly >= diceModel.success) {

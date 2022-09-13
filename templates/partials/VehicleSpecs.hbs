@@ -6,16 +6,16 @@
                             <a class="adj-shield res-track" data-resource-name="shield">{{localize "EW.attribute.vehicle.shield"}}</a>
                         </td>
                         <td>
-                            {{#times data.resources.shield.lasting}}
+                            {{#times resources.shield.lasting}}
                             <i class="fas fa-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.shield.regular}}
+                            {{#times resources.shield.regular}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.shield.value}}
+                            {{#times resources.shield.value}}
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
-                            {{#times data.resources.shield.fatigue}}
+                            {{#times resources.shield.fatigue}}
                             <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
                         </td>
@@ -25,10 +25,10 @@
                             <a class="adj-frame res-track" data-resource-name="frame">{{localize "EW.attribute.vehicle.frame"}}</a>
                         </td>
                         <td>
-                            {{#times data.frame.lasting}}
+                            {{#times frame.lasting}}
                                 <i class="fas fa-circle res-box"></i>
                             {{/times}}
-                            {{#times data.frame.value}}
+                            {{#times frame.value}}
                                 <i class="far fa-circle res-box"></i>
                             {{/times}}
                         </td>
@@ -37,10 +37,10 @@
                         <td>
                             <a class="adj-frame res-track" data-resource-name="frame">{{localize "EW.attribute.resource.critical"}}</a>
                         </td>
-                        <td> {{#times data.frame.critical}}
+                        <td> {{#times frame.critical}}
                              <i class="fas fa-times-circle res-box"></i>
                              {{/times}}
-                             {{#times (minus 5 data.frame.critical)}}
+                             {{#times (minus 5 frame.critical)}}
                              <i class="far fa-circle res-box"></i>
                              {{/times}}
                         </td>

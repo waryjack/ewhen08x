@@ -44,24 +44,21 @@ Hooks.once("init", () => {
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
 
+   
 
     // Register system settings
     registerSettings();
 
     // Set initiative formulat in system data 
-        /*check if initiative mods are undefined
-        if (game.data.system.data.initAttribute === undefined || game.data.system.data.initAttribute === "none") {game.data.system.data.initAttribute = "";}
-        if (game.data.system.data.initCombatAbil === undefined || game.data.system.data.initCombatAbil === "none") {game.data.system.data.initCombatAbil = "";}
-        */
-
+       
         // set initiative @string
 
         if ("data" in game.data.system) {
             game.data.system.data.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`;
-            console.warn("Initiative: ", game.data.system.data.initiative);
+            // console.warn("Initiative: ", game.data.system.data.initiative);
         } else {
             game.data.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`;
-            console.warn("Initiative: ", game.data.system.initiative);
+            // console.warn("Initiative: ", game.data.system.initiative);
         }
 
     // Register partials templates
@@ -151,31 +148,12 @@ Hooks.on('updateItem', function(actor, item, changed){
     const ma = ["strength", "agility", "mind", "appeal"];
     const ca = ["melee", "ranged", "defense", "initiative"];
 
-    /* Removed for simpler on-sheet editing
-    if(item.type == "trait") {
-
-        // actor.traitModHandler(item, "update");
-        let type = item.type;
-        let pmod = item.data.priority_dieMod;
-        const adata = duplicate(actor.data.data.priority_roll);
-
-
-        if(pmod == "bonus") {
-            adata.expression = "3d6kh2";
-        } else if (type == "trait" && pmod == "penalty") {
-            adata.expression = "3d6kl2";
-        }
-
-        actor.update({ "data.priority_roll": adata});
-    }
-    */
-
     if(item.type == "armor" && ("equipped" in changed.data)) {
 
         var bonusIsMain;
         var penaltyIsMain;
-        const armData = item.data.data;
-        const actorData = duplicate(actor.data.data);
+        const armData = item.system;
+        const actorData = duplicate(actor.system);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
         let vbl = armData.protection.variable;
@@ -190,7 +168,6 @@ Hooks.on('updateItem', function(actor, item, changed){
         console.log("bAttrib / val: ", bAttrib, bVal);
         console.log("pAttrib / val: ", pAttrib, pVal);
 
-        // actor.equipHandler(item, equipped);
         if(equipped) {
 
             if(bAttrib != "none" && ma.includes(bAttrib)) {
@@ -226,7 +203,7 @@ Hooks.on('updateItem', function(actor, item, changed){
             }
         }
 
-        actor.update({ "data": actorData});
+        actor.update({ "system": actorData});
 
     }
 
@@ -244,30 +221,14 @@ Hooks.on('deleteItem', function(actor, item){
 
     let type = item.type;
 
-    /* Removed for on-sheet editin
-    if (type == "trait") {
-
-        // actor.traitModHanlder(item, "remove");
-        let pmod = item.data.priority_dieMod;
-        const adata = duplicate(actor.data.data.priority_roll);
-
-        console.log("Adata (del): ", adata);
-
-        if(type=="trait" && pmod != "none") {
-            adata.expression = "2d6kh2";
-        }
-
-
-         actor.update({ "data.priority_roll": adata});
-    }
-    */
+  
 
     if (type == "armor") {
 
         var bonusIsMain;
         var penaltyIsMain;
-        const armData = item.data.data;
-        const actorData = duplicate(actor.data.data);
+        const armData = item.system;
+        const actorData = duplicate(actor.system);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
         let vbl = armData.protection.variable;
@@ -277,7 +238,6 @@ Hooks.on('deleteItem', function(actor, item){
         let pAttrib = armData.penalty.to;
         let pVal = armData.penalty.amount;
 
-        // actor.equipHandler(item, equipped);
         console.log("actor data", actorData);
         console.log("bAttrib / val: ", bAttrib, bVal);
         console.log("pAttrib / val: ", pAttrib, pVal);
@@ -298,7 +258,7 @@ Hooks.on('deleteItem', function(actor, item){
             }
         }
 
-        actor.update({ "data": actorData});
+        actor.update({ "system": actorData});
     }
 });
 
@@ -332,7 +292,7 @@ Hooks.on('renderChatMessage', (app, html) => {
         let actor = game.actors.get(actorId);
 
 
-        if(!actor.data.data.isRival && !actor.data.data.isRabble && !actor.data.data.isTough) {
+        if(!actor.system.isRival && !actor.system.isRabble && !actor.system.isTough) {
             actor.spendHeroPoint();
         }
      });
@@ -365,39 +325,39 @@ Hooks.on('updateToken', function(token, changed, diff){
 });
 
 Hooks.on('preCreateItem', function(item, data) {
-    // console.warn("first argument: ", item, "second arg", data);
-    console.warn("item type: ", item.type);
-     if (item.type == "weapon") {
-         item.data.update({"img":"icons/svg/sword.svg"});
+    //console.warn("first argument: ", item, "second arg", data);
+    //console.warn("item type: ", item.type);
+    if (item.type == "weapon") {
+         item._source.img = "icons/svg/sword.svg";
      } else if (item.type == "armor") {
-        item.data.update({"img":"icons/svg/shield.svg"});
+        item._source.img = "icons/svg/shield.svg";
      } else if (item.type == "trait") {
-        item.data.update({"img":"icons/svg/dice-target.svg"});
+        item._source.img = "icons/svg/dice-target.svg";
      } else if (item.type == "career") {
-        item.data.update({"img":"icons/svg/book.svg"});
+        item._source.img = "icons/svg/book.svg";
      } else if (item.type == "equipment") {
-        item.data.update({"img":"icons/svg/chest.svg"});
+        item._source.img = "icons/svg/chest.svg";
      } else if (item.type == "power") {
-        item.data.update({"img":"icons/svg/daze.svg"});
+        item._source.img = "icons/svg/daze.svg";
      }
  
  });
  
  Hooks.on('preCreateOwnedItem', function(item, data) {
-    // console.warn("first argument: ", item, "second arg", data);
+   //console.warn("enter precreateowneditem hook");
+    //console.warn("first argument: ", item, "second arg", data);
     if (item.type == "weapon") {
-        item.data.update({"img":"icons/svg/sword.svg"});
+        item._source.img = "icons/svg/sword.svg";
     } else if (item.type == "armor") {
-       item.data.update({"img":"icons/svg/shield.svg"});
+       item._source.img = "icons/svg/shield.svg";
     } else if (item.type == "trait") {
-       item.data.update({"img":"icons/svg/dice-target.svg"});
+       item._source.img = "icons/svg/dice-target.svg";
     } else if (item.type == "career") {
-       item.data.update({"img":"icons/svg/book.svg"});
+       item._source.img = "icons/svg/book.svg";
     } else if (item.type == "equipment") {
-       item.data.update({"img":"icons/svg/chest.svg"});
+       item._source.img = "icons/svg/chest.svg";
     } else if (item.type == "power") {
-       item.data.update({"img":"icons/svg/daze.svg"});
+       item._source.img = "icons/svg/daze.svg";
     }
- 
  });
 

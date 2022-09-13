@@ -4,7 +4,7 @@ export default class EWActorSheet extends ActorSheet {
 
     get template() {
         const path = 'systems/ewhen/templates/actor/';
-        return `${path}${this.actor.data.type}sheet.hbs`;
+        return `${path}${this.actor.type}sheet.hbs`;
     }
 
     /**
@@ -25,34 +25,34 @@ export default class EWActorSheet extends ActorSheet {
      * @override
      */
     getData() {
-        const data = deepClone(this.actor.data);
+        const data = deepClone(this.actor.system);
 
-       // console.warn("080 super getdata, data.items: ", data);
+       // // console.warn("080 super getdata, data.items: ", data);
         
         data.config = CONFIG.ewhen; 
         let ownedItems = this.actor.items;
         data.actor = this.actor; 
 
-        // console.warn("Owned Items: ", ownedItems);
+        // // console.warn("Owned Items: ", ownedItems);
         
         data.weapons = ownedItems.filter(function(item) {return item.type == "weapon"});
-        //console.warn("data.weapons: ", data.weapons);
+        //// console.warn("data.weapons: ", data.weapons);
         data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
-        //console.warn("data.traits: ", data.traits);
+        //// console.warn("data.traits: ", data.traits);
 
-        if (this.actor.data.type == "character") {
-        data.careers = ownedItems.filter(function(item) {return item.type == "career"});
-        data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
-        data.powers = ownedItems.filter(function(item) {return item.type == "power"});
-        data.equipment = ownedItems.filter(function(item) {return item.type == "equipment"});
-        data.main_attributes = this.actor.data.data.main_attributes;
-        data.combat_attributes = this.actor.data.data.combat_attributes;
-        data.fdmg = this.actor.data.data.resources.lifeblood.fatigue;
-        data.rdmg = this.actor.data.data.resources.lifeblood.regular;
-        data.ldmg = this.actor.data.data.resources.lifeblood.lasting;
-        data.crit = this.actor.data.data.resources.lifeblood.critical;
-        data.cdmg = this.actor.data.data.resources.lifeblood.value;
-        data.EWActorType = "character";
+        if (this.actor.type == "character") {
+            data.careers = ownedItems.filter(function(item) {return item.type == "career"});
+            data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
+            data.powers = ownedItems.filter(function(item) {return item.type == "power"});
+            data.equipment = ownedItems.filter(function(item) {return item.type == "equipment"});
+            data.main_attributes = this.actor.system.main_attributes;
+            data.combat_attributes = this.actor.system.combat_attributes;
+            data.fdmg = this.actor.system.resources.lifeblood.fatigue;
+            data.rdmg = this.actor.system.resources.lifeblood.regular;
+            data.ldmg = this.actor.system.resources.lifeblood.lasting;
+            data.crit = this.actor.system.resources.lifeblood.critical;
+            data.cdmg = this.actor.system.resources.lifeblood.value;
+            data.EWActorType = "character";
         } else {
             data.EWActorType = "vehicle";
         }
@@ -118,7 +118,7 @@ export default class EWActorSheet extends ActorSheet {
 
        let element = event.currentTarget;
        let minorType = element.dataset.minorType;
-       let actorData = duplicate(this.actor.data.data);
+       let actorData = duplicate(this.actor.system);
        let rabbleAttack = {
 
         name: "Rabble Attack",
@@ -172,10 +172,10 @@ export default class EWActorSheet extends ActorSheet {
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
                     actorData.resources.resolve.max = 5 + actorData.main_attributes.mind.rank;
                     actorData.resources.resolve.value = actorData.resources.resolve.max;
-                    return this.actor.update({ "data": actorData});
+                    return this.actor.update({ "system": actorData});
                 }
                 case "rabble": {
-                    let actorData = duplicate(this.actor.data.data);
+                    let actorData = duplicate(this.actor.system);
                    // console.log("resources");
                     actorData.resources.lifeblood.max = Math.floor(Math.random() * 4);
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
@@ -184,24 +184,24 @@ export default class EWActorSheet extends ActorSheet {
                     // Item.create(rabbleAttack, { parent: this.actor});
                     // Item.create(hordeAttack, { parent: this.actor});
 
-                    return this.actor.update({ "data": actorData});
+                    return this.actor.update({ "system": actorData});
                 }
                 default: {
                     actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
                     actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
                     actorData.resources.resolve.value = actorData.resources.resolve.max;
-                    return this.actor.update({ "data": actorData});
+                    return this.actor.update({ "system": actorData});
                 };
             }
         } else {
-            let actorData = duplicate(this.actor.data.data);
+            let actorData = duplicate(this.actor.system);
             // console.log("resources");
              actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
              actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
              actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
              actorData.resources.resolve.value = actorData.resources.resolve.max;
-             return this.actor.update({ "data": actorData});
+             return this.actor.update({ "system": actorData});
         }
     }
 
@@ -215,9 +215,9 @@ export default class EWActorSheet extends ActorSheet {
         
 
         if (res == "frame") {
-            resData = duplicate(this.actor.data.data.frame);
+            resData = duplicate(this.actor.system.frame);
         } else {
-            resData = duplicate(this.actor.data.data.resources[res]);
+            resData = duplicate(this.actor.system.resources[res]);
         }
 
 
@@ -241,7 +241,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let dialogData = {
             actor: this.actor,
-            resinfo: duplicate(this.actor.data.data.frame),
+            resinfo: duplicate(this.actor.system.frame),
             resname: "EW.activity.adjustframe",
             res:"frame"
         }
@@ -257,7 +257,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let dialogData = {
             actor: this.actor,
-            resinfo: duplicate(this.actor.data.data.resources.shield),
+            resinfo: duplicate(this.actor.system.resources.shield),
             resname: "EW.activity.adjustshield",
             res: "shield"
         }
@@ -276,7 +276,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let item = this.actor.items.get(itemId);
 
-        let itemRank = item.data.data.rank;
+        let itemRank = item.system.rank;
 
     }
 
@@ -301,10 +301,10 @@ export default class EWActorSheet extends ActorSheet {
         let ca = ["melee", "ranged", "defense", "initiative"];
 
         if(ca.includes(attribute)) {
-            rank = this.actor.data.data.combat_attributes[attribute].rank;
+            rank = this.actor.system.combat_attributes[attribute].rank;
             isCombat = true;
         } else {
-            rank = this.actor.data.data.main_attributes[attribute].rank;
+            rank = this.actor.system.main_attributes[attribute].rank;
         }
 
         // todo - set up attribute-ability links as a setting? or just remove defaults? 
@@ -389,14 +389,14 @@ export default class EWActorSheet extends ActorSheet {
 
         let field = element.dataset.field;
 
-       // console.log("Career rank: ", field, element.value);
+        console.log("Career rank: ", field, element.value);
         return item.update({ [field]: element.value});
 
     }
 
     _addItem(event) {
         event.preventDefault();
-        console.warn("_addItem fired: ");
+        // console.warn("_addItem fired: ");
         var subtype = "";
         var locString = "EW.sheet.new";
 

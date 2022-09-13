@@ -11,19 +11,19 @@
                             <td class="item-name item" data-item-id="{{weapon.id}}">
                                 <a class="weapon-roll weapon-image" title="Roll Damage"><img src="{{weapon.img}}" height="24" width="24"/></a>
                                  <a class="item-edit" title="Edit"><strong>{{weapon.name}}</strong></a>
-                                <br><em>{{localize weapon.data.data.wpn_type}}, 
-                                        {{localize weapon.data.data.damage.dice}}
-                                        {{#if (ne weapon.data.data.damage.add_attribute "none")}}
-                                        +{{#if (eq weapon.data.data.damage.half_attribute true)}}
+                                <br><em>{{localize weapon.system.wpn_type}}, 
+                                        {{localize weapon.system.damage.dice}}
+                                        {{#if (ne weapon.system.damage.add_attribute "none")}}
+                                        +{{#if (eq weapon.system.damage.half_attribute true)}}
                                         &#189;
                                         {{/if}}
-                                        {{setting (getCustomName weapon.data.data.damage.add_attribute)}}
+                                        {{setting (getCustomName weapon.system.damage.add_attribute)}}
                                         {{/if}}
-                                        {{#if (ne weapon.data.data.damage.mod 0)}}
-                                        +{{weapon.data.data.damage.mod}}
+                                        {{#if (ne weapon.system.damage.mod 0)}}
+                                        +{{weapon.system.damage.mod}}
                                         {{/if}}
-                                        , AP{{weapon.data.data.damage.ap}} {{#if (gt weapon.data.data.range 0)}}, Range {{weapon.data.data.range}}{{/if}}  
-                                        {{#if (setting "useScale")}}{{#if (ne weapon.data.data.damage.scale 1)}}, scale {{weapon.data.data.damage.scale}}{{/if}}{{/if}}</em></td>
+                                        , AP{{weapon.system.damage.ap}} {{#if (gt weapon.system.range 0)}}, Range {{weapon.system.range}}{{/if}}  
+                                        {{#if (setting "useScale")}}{{#if (ne weapon.system.damage.scale 1)}}, scale {{weapon.system.damage.scale}}{{/if}}{{/if}}</em></td>
                             <td style="right:100%;">
                                 <a class="item-delete item" data-item-id="{{weapon.id}}">
                                     <i class="fas fa-trash"></i>

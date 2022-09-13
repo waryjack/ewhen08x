@@ -4,14 +4,13 @@ export default class EWItemSheet extends ItemSheet {
     
     get template() {
         const path = 'systems/ewhen/templates/item/';
-        return `${path}${this.item.data.type}sheet.hbs`;
+        return `${path}${this.item.type}sheet.hbs`;
     }
 
     getData () {
-        const data = this.item.data;
+        const data = this.item.system;
         data.item = this.item;
         data.myName = data.name;
-
         data.config = CONFIG.ewhen; 
         
         return data;

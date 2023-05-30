@@ -39,10 +39,10 @@
         <div class="form-group">
          <label for="career">{{localize "EW.game_term.career"}}</label>
          <select id="career" style="width:100%;" name="career">
-             <option value="none" selected></option>
+             <option value="none"></option>
             {{#select careers}}
                 {{#each careers as |c|}}
-                    <option class="career-option" value="{{c.name}}" data-item-id="{{c._id}}">{{c.name}}</option>
+                    <option class="career-option" value="{{c.name}}" data-item-id="{{c._id}}" {{#ife ../itemName c.name}}selected{{/ife}}>{{c.name}}</option>
                 {{/each}}
             {{/select}}
          </select>

@@ -306,6 +306,31 @@ export class EWActor extends Actor {
 
     }
 
+    rollCareer(career) {
+        const cr = duplicate(this.items.filter(function(item) {return item.type == "career"}));
+        const ma = duplicate(this.system.main_attributes);
+        const ca = duplicate(this.system.combat_attributes);
+
+        let dialogData = {
+            
+            primary:ma,
+            combat:ca,
+            careers:cr,
+            attr:"",
+            attr2:"",
+            isCombat:false,
+            isWeapon:false,
+            itemImg:"",
+            itemName:career.name,
+            item:career,
+            actor:this
+        }
+
+        EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.TASK, dialogData);
+
+
+    }
+
     /**
     * @param weapon {Item} - the Item object for the weapon in use
     */

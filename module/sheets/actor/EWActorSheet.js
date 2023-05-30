@@ -278,6 +278,8 @@ export default class EWActorSheet extends ActorSheet {
 
         let itemRank = item.system.rank;
 
+        return this.actor.rollCareer(item);
+
     }
 
     // trigger the basic, non-pre-populated roll dialog

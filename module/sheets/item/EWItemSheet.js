@@ -12,6 +12,10 @@ export default class EWItemSheet extends ItemSheet {
         data.item = this.item;
         data.myName = data.name;
         data.config = CONFIG.ewhen; 
+
+       
+        data.enrichedDescription = TextEditor.enrichHTML(data.description, {async: false});
+        
         
         return data;
     }

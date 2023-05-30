@@ -10,10 +10,14 @@
                         <tr>
                             <td class="item-name item" data-item-id="{{career.id}}">
                                 <!--img src="{{trait.img}}" data-edit="img" height="24" width="24"/-->
-                                <a class="item-edit" title="Edit">{{career.name}}</a>
+                                <a class="career-roll" title="Edit">{{career.name}}</a>
                             </td>
-                            <td class="ewhen statfield" style="width:2ch;"><input class="career-rank inline-edit" data-field="system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='3' size='3' /></td>
+                            <td class="ewhen statfield item-name item" style="width:2ch;" data-item-id="{{career.id}}"><input class="career-rank inline-edit" data-field="system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='3' size='3' /></td>
                             <td class="item-icons">
+                                <a class="item-edit item" data-item-id="{{career.id}}"><i class="fas fa-pencil"></i></a>
+                            </td>
+                            <td class="item-icons">
+                                
                                 <a class="item-delete item" data-item-id="{{career.id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>

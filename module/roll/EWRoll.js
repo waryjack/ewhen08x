@@ -260,7 +260,7 @@ export class EWRoll {
 
         let r = new Roll(expr);
         this.rollObj = r;
-        this.rollObj.evaluate({async: false});
+        this.rollObj.evaluateSync();
         // console.warn("Roll result: ", r.total);
         this.result = r.total;
 

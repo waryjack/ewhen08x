@@ -11,7 +11,7 @@ export default class EWActorSheet extends ActorSheet {
      * @override
      */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
         classes: ['ewhen', 'sheet', 'actor', 'actor-sheet'],
         width: 775,
         height: 685,

@@ -34,8 +34,8 @@
         }
       ],
     
-    "gridDistance": 5,
-    "gridUnits": "ft",
+    "grid.distance": 5,
+    "grid.units": "ft",
     "primaryTokenAttribute": "resources.lifeblood",
     "secondaryTokenAttribute":"resources.resolve",
     "url": "https://github.com/waryjack/ewhen08x",

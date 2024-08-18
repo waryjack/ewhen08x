@@ -97,11 +97,11 @@
                         <tr>
                      <td>
                             {{localize "EW.game_term.size"}}: <select name="system.size" id="size" style="color:white">
-                                {{#selectOption size}}
+                                {{#selectOptions size}}
                                     {{#each config.sizes as |loc size|}}
                                     <option value="{{size}}" {{#ife size "medium"}}selected{{/ife}} style="color:black;">{{localize loc}}</option>
                                     {{/each}}
-                                {{/selectOption}}
+                                {{/selectOptions}}
                             </select>
                             {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.lifeblood.misc_lfb" value="{{resources.lifeblood.misc_lfb}}" data-dtype="Number"/>
                             {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.resolve.misc_res" value="{{resources.resolve.misc_res}}" data-dtype="Number"/>

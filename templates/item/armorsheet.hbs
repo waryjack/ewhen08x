@@ -14,11 +14,11 @@
             <tr>
                 <td>
                     <select style="width:100%;" name="system.armor_type" id="armor_type">
-                        {{#selectOption armor_type}}
+                        {{#selectOptions armor_type}}
                         {{#each config.armor_types as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
-                        {{/selectOption}}
+                        {{/selectOptions}}
                     </select>
                     </td>
                     {{> 'systems/ewhen/templates/partials/EraSelect.hbs'}}
@@ -38,14 +38,14 @@
                 </td>
                 <td>
                     <select style="width:100%;" name="system.protection.variable" />
-                    {{#selectOption protection.variable}}
+                    {{#selectOptions protection.variable}}
                         <option value="none">{{localize "EW.game_term.none"}}</option>
                         <option value="1d3">1d3</option>
                         <option value="1d6-3">1d6-3</option>
                         <option value="1d6-2">1d6-2</option>
                         <option value="1d6-1">1d6-1</option>
                         <option value="1d6">1d6</option>
-                    {{/selectOption}}
+                    {{/selectOptions}}
                 </td>
                 {{#if (setting "useScale")}}
                 <td>
@@ -75,9 +75,9 @@
             <tr>
                 <td>
                     <select name="system.bonus.to">
-                    {{#selectOption bonus.to}}
+                    {{#selectOptions bonus.to}}
                     {{> "systems/ewhen/templates/partials/AttributeSelect.hbs"}}
-                    {{/selectOption}}
+                    {{/selectOptions}}
                     </select>
                 </td>
                 <td>
@@ -85,9 +85,9 @@
                 </td>
                 <td>
                     <select name="system.penalty.to">
-                    {{#selectOption penalty.to}}
+                    {{#selectOptions penalty.to}}
                     {{> "systems/ewhen/templates/partials/AttributeSelect.hbs"}}
-                    {{/selectOption}}
+                    {{/selectOptions}}
                     </select>
                 </td>
                 <td>

@@ -16,29 +16,29 @@
             <tr>
                 <td style="text-align: center;"> 
                     <select style="width:100%;" name="system.type" id="type">
-                        {{#select type}}
+                        {{#selectOption type}}
                         {{#each config.traitTypes as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
-                        {{/select}}
+                        {{/selectOption}}
                     </select>
                 </td>
                 <td style="text-align: center;">
                     <select style="width:100%;" name="system.source" id="source">
-                        {{#select source}}
+                        {{#selectOption source}}
                         {{#each config.traitSources as |name source|}}
                         <option value="{{source}}">{{localize name}}</option>
                         {{/each}}
-                        {{/select}}
+                        {{/selectOption}}
                     </select>
                 </td>
                 <td style="text-align:center;">
                     <select style="width:100%;" name="system.priority_dieMod" id="priority_dieMod">
-                        {{#select priority_dieMod}}
+                        {{#selectOption priority_dieMod}}
                         <option value="none">{{localize "EW.game_term.none"}}</option>
                         <option value="bonus">{{localize "EW.game_term.bonusdie"}}</option>
                         <option value="penalty">{{localize "EW.game_term.penaltydie"}}</option>
-                        {{/select}}
+                        {{/selectOption}}
                     </select>
                 </td>
                 <td style="text-align: center;">

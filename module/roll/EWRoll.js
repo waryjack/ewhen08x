@@ -257,12 +257,12 @@ export class EWRoll {
         let expr = this.rollInfo.expr;
         const diceModel = getDiceModel(game)
         expr = expr == "none" ? `0${diceModel.baseDie}` : expr;
-
+        let res = {};
         let r = new Roll(expr);
         this.rollObj = r;
-        this.rollObj.evaluateSync();
+        this.rollObj.evaluate().then((outcome) => res = outcome);
         // console.warn("Roll result: ", r.total);
-        this.result = r.total;
+        this.result = res.total;
 
     }
 

@@ -463,7 +463,7 @@ export class EWActor extends Actor {
         renderTemplate('systems/ewhen/templates/roll/EWHeroPoint.hbs', chatData).then((msg)=>{
             ChatMessage.create({
                 user: game.user._id,
-                type:CONST.CHAT_MESSAGE_TYPES.ROLL,
+                type:CONST.CHAT_MESSAGE_STYLES.ROLL,
                 speaker: ChatMessage.getSpeaker(),
                 content: msg
             });

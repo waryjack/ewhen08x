@@ -87,8 +87,8 @@ export class EWCombat extends Combat {
         let actorInitMods = actor.system.priority_roll.bd + actor.system.priority_roll.pd + actor.system.priority_roll.miscMod;
         let initExpr = (actorInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
         // console.warn("Init Expression: ", initExpr);
-        let initiative = new Roll(initExpr).evaluateSync();
-        let initRoll = initiative.total;
+        let initiative = new Roll(initExpr).evaluate().then((outcome) => initResult = outcome);
+        let initRoll = initResult.total;
         let name = actor.name;
         let isRival = actor.system.isRival;
         let isTough = actor.system.isTough;

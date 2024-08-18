@@ -54,30 +54,30 @@ export class EWActor extends Actor {
         // but not for rabble or toughs!
         // console.warn("Rabble? ", data.isRabble, " Tough? ", data.isTough);
         if (!data.isRabble && !data.isTough){
-            setProperty(actorData, 'resources.lifeblood.max', Number(str) + 10 + mlf);
-            setProperty(actorData, 'resources.resolve.max', Number(mnd) + 10 + mre);
+            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', Number(str) + 10 + mlf);
+            foundry.utils.setProperty(actorData, 'resources.resolve.max', Number(mnd) + 10 + mre);
         }
 
         if (data.isRabble) {
-            setProperty(actorData, 'resources.lifeblood.max', game.settings.get('ewhen', 'rabbleStrength'));
-            setProperty(actorData, 'resources.resolve.max', game.settings.get('ewhen', 'rabbleStrength'));
+            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', game.settings.get('ewhen', 'rabbleStrength'));
+            foundry.utils.setProperty(actorData, 'resources.resolve.max', game.settings.get('ewhen', 'rabbleStrength'));
         }
 
         if (data.isTough) {
-            setProperty(actorData, 'resources.lifeblood.max', Number(str)+5);
-            setProperty(actorData, 'resources.resolve.max', Number(mnd)+5);
+            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', Number(str)+5);
+            foundry.utils.setProperty(actorData, 'resources.resolve.max', Number(mnd)+5);
         }
 
         let totalLbd = data.resources.lifeblood.regular + data.resources.lifeblood.lasting + data.resources.lifeblood.fatigue;
         let totalRsd = data.resources.resolve.regular + data.resources.resolve.lasting + data.resources.resolve.fatigue;
 
-        setProperty(actorData, 'resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
+        foundry.utils.setProperty(actorData, 'resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
 
-        setProperty(actorData, 'resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
+        foundry.utils.setProperty(actorData, 'resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
 
         // Calculate priority roll expression based on base info and misc BD/PD bonuses
 
-        setProperty(actorData, 'system.priority_roll', this.setPriorityRoll());
+        foundry.utils.setProperty(actorData, 'system.priority_roll', this.setPriorityRoll());
     }
 
     _prepareVehicleData(actorData) {
@@ -90,10 +90,10 @@ export class EWActor extends Actor {
         var lasting = data.frame.lasting;
         var shieldDmg = data.resources.shield.lasting + data.resources.shield.regular + data.resources.shield.fatigue;
 
-        setProperty(actorData, "frame.max", Math.max(5, frame));
-        setProperty(actorData, "frame.value", Math.max(0, data.frame.max - lasting));
-        setProperty(actorData, "resources.shield.max", Math.max(5, frame));
-        setProperty(actorData, "resources.shield.value", Math.max(0, data.resources.shield.max - shieldDmg));
+        foundry.utils.setProperty(actorData, "frame.max", Math.max(5, frame));
+        foundry.utils.setProperty(actorData, "frame.value", Math.max(0, data.frame.max - lasting));
+        foundry.utils.setProperty(actorData, "resources.shield.max", Math.max(5, frame));
+        foundry.utils.setProperty(actorData, "resources.shield.value", Math.max(0, data.resources.shield.max - shieldDmg));
     }
 
     /**
@@ -153,7 +153,7 @@ export class EWActor extends Actor {
     * @param res {String} - the name of the resource being updated (lifeblood or resolve)
     */
     updateResource(res, html) {
-        const resData = deepClone(this.system.resources[res]);
+        const resData = foundry.utils.deepClone(this.system.resources[res]);
         // console.warn("Actor Pre: ", this);
         // console.warn("ResData Pre: ", resData);
 
@@ -186,7 +186,7 @@ export class EWActor extends Actor {
                    let field = `system.resources.${res}`;
                    console.warn(field);
                    this.update({[field]: resData});
-                   // setProperty(this, `data.data.resources.${res}`, resData);
+                   // foundry.utils.setProperty(this, `data.data.resources.${res}`, resData);
                    // this.sheet.render(true);
                 }
 
@@ -205,7 +205,7 @@ export class EWActor extends Actor {
     updateFrame(html) {
         // console.warn("Called UpdateFrame");
         // const actorData = duplicate(this.data);
-        const resData = deepClone(this.system.frame);
+        const resData = foundry.utils.deepClone(this.system.frame);
         var totalDmg = 0;
 
 
@@ -231,7 +231,7 @@ export class EWActor extends Actor {
     updateShield(html) {
         // console.warn("Called UpdateShields");
 
-        const resData = deepClone(this.system.resources.shield);
+        const resData = foundry.utils.deepClone(this.system.resources.shield);
         var totalDmg = 0;
 
             let fatDmg = Number(html.find("#fatigue-dmg").val());
@@ -428,7 +428,7 @@ export class EWActor extends Actor {
         if (res == "frame") {
             let dmgSum = data.frame.lasting;
             let adjustedResource = data.frame.max - dmgSum;
-            setProperty(this, "system.frame.value", adjustedResource);
+            foundry.utils.setProperty(this, "system.frame.value", adjustedResource);
 
         } else {
             let dmgSum = data.resources[res].regular + data.resources[res].lasting + data.resources[res].fatigue;
@@ -445,7 +445,7 @@ export class EWActor extends Actor {
             this.system.resources[res].value = adjustedResource;
             // console.log("Actor updated or not? ", this);
 
-            setProperty(this, `system.resources.${res}.value`, adjustedResource);
+            foundry.utils.setProperty(this, `system.resources.${res}.value`, adjustedResource);
         }
     }
 

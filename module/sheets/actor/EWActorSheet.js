@@ -25,7 +25,7 @@ export default class EWActorSheet extends ActorSheet {
      * @override
      */
     getData() {
-        const data = deepClone(this.actor.system);
+        const data = foundry.utils.deepClone(this.actor.system);
 
        // // console.warn("080 super getdata, data.items: ", data);
         

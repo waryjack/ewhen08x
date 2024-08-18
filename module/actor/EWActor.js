@@ -101,7 +101,7 @@ export class EWActor extends Actor {
      */
     setPriorityRoll() {
         const diceModel = getDiceModel(game)
-        const priority = duplicate(this.system.priority_roll);
+        const priority = foundry.utils.duplicate(this.system.priority_roll);
         let netExtraDice = priority.bd - priority.pd;
         let numberOfDice = diceModel.numberOfDice;
         let baseDie = diceModel.baseDie;
@@ -131,8 +131,8 @@ export class EWActor extends Actor {
     */
 
    basicRoll() {
-        const pri = duplicate(this.system.main_attributes);
-        const com = duplicate(this.system.combat_attributes);
+        const pri = foundry.utils.duplicate(this.system.main_attributes);
+        const com = foundry.utils.duplicate(this.system.combat_attributes);
         const car = this.items.filter(function(item) {return item.type == "career"});
 
         let dialogData = {
@@ -204,7 +204,7 @@ export class EWActor extends Actor {
 
     updateFrame(html) {
         // console.warn("Called UpdateFrame");
-        // const actorData = duplicate(this.data);
+        // const actorData = foundry.utils.duplicate(this.data);
         const resData = foundry.utils.deepClone(this.system.frame);
         var totalDmg = 0;
 
@@ -270,9 +270,9 @@ export class EWActor extends Actor {
 
     rollAttribute(attr, attr2, isCombat, optStr){
 
-        const ma = duplicate(this.system.main_attributes);
-        const ca = duplicate(this.system.combat_attributes);
-        const cr = duplicate(this.items.filter(function(item) {return item.type == "career"}));
+        const ma = foundry.utils.duplicate(this.system.main_attributes);
+        const ca = foundry.utils.duplicate(this.system.combat_attributes);
+        const cr = foundry.utils.duplicate(this.items.filter(function(item) {return item.type == "career"}));
 
         var item = null;
         var itemImg = "";
@@ -307,9 +307,9 @@ export class EWActor extends Actor {
     }
 
     rollCareer(career) {
-        const cr = duplicate(this.items.filter(function(item) {return item.type == "career"}));
-        const ma = duplicate(this.system.main_attributes);
-        const ca = duplicate(this.system.combat_attributes);
+        const cr = foundry.utils.duplicate(this.items.filter(function(item) {return item.type == "career"}));
+        const ma = foundry.utils.duplicate(this.system.main_attributes);
+        const ca = foundry.utils.duplicate(this.system.combat_attributes);
 
         let dialogData = {
             
@@ -489,7 +489,7 @@ export class EWActor extends Actor {
 
             let type = item.type;
             let pmod = item.system.priority_dieMod;
-            const adata = duplicate(this.system.priority_roll);
+            const adata = foundry.utils.duplicate(this.system.priority_roll);
 
 
             if(pmod == "bonus") {
@@ -522,7 +522,7 @@ export class EWActor extends Actor {
             var bonusIsMain;
             var penaltyIsMain;
             const armData = item.system;
-            const actorData = duplicate(actor.system);
+            const actorData = foundry.utils.duplicate(actor.system);
             let equipped = armData.equipped;
             let fixed = armData.protection.fixed;
             let vbl = armData.protection.variable;

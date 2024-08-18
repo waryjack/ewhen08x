@@ -33,9 +33,10 @@
           "path": "lang/fr.json"
         }
       ],
-    
-    "grid.distance": 5,
-    "grid.units": "ft",
+    "grid":{
+      "distance":5,
+      "units":"ft"
+    },
     "primaryTokenAttribute": "resources.lifeblood",
     "secondaryTokenAttribute":"resources.resolve",
     "url": "https://github.com/waryjack/ewhen08x",

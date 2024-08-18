@@ -153,7 +153,7 @@ Hooks.on('updateItem', function(actor, item, changed){
         var bonusIsMain;
         var penaltyIsMain;
         const armData = item.system;
-        const actorData = duplicate(actor.system);
+        const actorData = foundry.utils.duplicate(actor.system);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
         let vbl = armData.protection.variable;
@@ -228,7 +228,7 @@ Hooks.on('deleteItem', function(actor, item){
         var bonusIsMain;
         var penaltyIsMain;
         const armData = item.system;
-        const actorData = duplicate(actor.system);
+        const actorData = foundry.utils.duplicate(actor.system);
         let equipped = armData.equipped;
         let fixed = armData.protection.fixed;
         let vbl = armData.protection.variable;

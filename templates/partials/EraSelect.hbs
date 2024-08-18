@@ -1,10 +1,10 @@
     <td>
     <select style="width:100%;" name="system.era" id="era">
-        {{#selectOptions era}}
+        {{#select era}}
         <option value="none"></option>
         {{#each config.era as |era name|}}
         <option value="{{name}}">{{localize (proper name)}}</option>
         {{/each}}
-        {{/selectOptions}}
+        {{/select}}
     </select>
     </td>

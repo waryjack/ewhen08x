@@ -14,21 +14,21 @@
             <tr>
                 <td style="text-align: center;"> 
                     <select style="width:100%;" name="system.power_type" id="power_type">
-                        {{#selectOptions power_type}}
+                        {{#select power_type}}
                         {{#each config.powerTypes as |name type|}}
                         <option value="{{type}}">{{localize (proper name)}}</option>
                         {{/each}}
-                        {{/selectOptions}}
+                        {{/select}}
                     </select>
                 </td>
                 <td style="text-align: center;">
                     <select style="width:100%;" name="system.magnitude" id="magnitude">
-                        {{#selectOptions magnitude}}
+                        {{#select magnitude}}
                         <option value="none"></option>
                         {{#each config.magnitudes as |name type|}}
                         <option value="{{type}}">{{localize (proper name)}}</option>
                         {{/each}}
-                        {{/selectOptions}}
+                        {{/select}}
                     </select>
                 </td>
                 <td style="text-align:center;">
@@ -46,11 +46,11 @@
                 </td>
                 <td>
                     <select style="width:100%" name="system.difficulty" id="difficulty">
-                        {{#selectOptions difficulty}}
+                        {{#select difficulty}}
                         {{#each config.difficulty as |diff type|}}
                         <option value="{{type}}" {{#ife type "moderate"}}selecte{{/ife}}>{{localize diff}}</option>
                         {{/each}}
-                        {{/selectOptions}}
+                        {{/select}}
                     </select>
                 </td>
                 <td>

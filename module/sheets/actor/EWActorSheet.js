@@ -118,7 +118,7 @@ export default class EWActorSheet extends ActorSheet {
 
        let element = event.currentTarget;
        let minorType = element.dataset.minorType;
-       let actorData = duplicate(this.actor.system);
+       let actorData = foundry.utils.duplicate(this.actor.system);
        let rabbleAttack = {
 
         name: "Rabble Attack",
@@ -175,7 +175,7 @@ export default class EWActorSheet extends ActorSheet {
                     return this.actor.update({ "system": actorData});
                 }
                 case "rabble": {
-                    let actorData = duplicate(this.actor.system);
+                    let actorData = foundry.utils.duplicate(this.actor.system);
                    // console.log("resources");
                     actorData.resources.lifeblood.max = Math.floor(Math.random() * 4);
                     actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
@@ -195,7 +195,7 @@ export default class EWActorSheet extends ActorSheet {
                 };
             }
         } else {
-            let actorData = duplicate(this.actor.system);
+            let actorData = foundry.utils.duplicate(this.actor.system);
             // console.log("resources");
              actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
              actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
@@ -215,9 +215,9 @@ export default class EWActorSheet extends ActorSheet {
         
 
         if (res == "frame") {
-            resData = duplicate(this.actor.system.frame);
+            resData = foundry.utils.duplicate(this.actor.system.frame);
         } else {
-            resData = duplicate(this.actor.system.resources[res]);
+            resData = foundry.utils.duplicate(this.actor.system.resources[res]);
         }
 
 
@@ -241,7 +241,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let dialogData = {
             actor: this.actor,
-            resinfo: duplicate(this.actor.system.frame),
+            resinfo: foundry.utils.duplicate(this.actor.system.frame),
             resname: "EW.activity.adjustframe",
             res:"frame"
         }
@@ -257,7 +257,7 @@ export default class EWActorSheet extends ActorSheet {
 
         let dialogData = {
             actor: this.actor,
-            resinfo: duplicate(this.actor.system.resources.shield),
+            resinfo: foundry.utils.duplicate(this.actor.system.resources.shield),
             resname: "EW.activity.adjustshield",
             res: "shield"
         }

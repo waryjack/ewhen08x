@@ -135,9 +135,32 @@ export class EWActor extends Actor {
         const com = foundry.utils.duplicate(this.system.combat_attributes);
         const car = this.items.filter(function(item) {return item.type == "career"});
 
+        let priSelect = {
+            "strength":game.settings.get("ewhen","strName"),
+            "agility":game.settings.get("ewhen", "agiName"),
+            "mind":game.settings.get("ewhen", "minName"),
+            "appeal":game.settings.get("ewhen", "appName")
+        }
+
+        let comSelect = {
+            "melee":game.settings.get("ewhen","melName"),
+            "ranged":game.settings.get("ewhen","ranName"),
+            "defense":game.settings.get("ewhen", "defName"),
+            "initiative":game.settings.get("ewhen","iniName")
+        }
+
+        console.log("Primary Attributes constant: ", pri);
+        console.log("Primary select: ", priSelect);
+        console.log("Careers: ", car);
+
+
+        
+
         let dialogData = {
             primary: pri,
+            priSelect: priSelect,
             combat: com,
+            comSelect: comSelect,
             careers: car,
             attr: "",
             isCombat: false,
@@ -145,6 +168,7 @@ export class EWActor extends Actor {
             item:{}
         }
 
+        console.log("Dialog Data: ", dialogData);
         EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.TASK, dialogData);
 
     }
@@ -274,6 +298,20 @@ export class EWActor extends Actor {
         const ca = foundry.utils.duplicate(this.system.combat_attributes);
         const cr = foundry.utils.duplicate(this.items.filter(function(item) {return item.type == "career"}));
 
+        let priSelect = {
+            "strength":game.settings.get("ewhen","strName"),
+            "agility":game.settings.get("ewhen", "agiName"),
+            "mind":game.settings.get("ewhen", "minName"),
+            "appeal":game.settings.get("ewhen", "appName")
+        }
+
+        let comSelect = {
+            "melee":game.settings.get("ewhen","melName"),
+            "ranged":game.settings.get("ewhen","ranName"),
+            "defense":game.settings.get("ewhen", "defName"),
+            "initiative":game.settings.get("ewhen","iniName")
+        }
+
         var item = null;
         var itemImg = "";
         var itemName = "";
@@ -288,7 +326,9 @@ export class EWActor extends Actor {
 
         let dialogData = {
             primary: ma,
+            priSelect: priSelect,
             combat: ca,
+            comSelect: comSelect,
             careers: cr,
             attr: attr,
             attr2: attr2,
@@ -311,10 +351,26 @@ export class EWActor extends Actor {
         const ma = foundry.utils.duplicate(this.system.main_attributes);
         const ca = foundry.utils.duplicate(this.system.combat_attributes);
 
+        let priSelect = {
+            "strength":game.settings.get("ewhen","strName"),
+            "agility":game.settings.get("ewhen", "agiName"),
+            "mind":game.settings.get("ewhen", "minName"),
+            "appeal":game.settings.get("ewhen", "appName")
+        }
+
+        let comSelect = {
+            "melee":game.settings.get("ewhen","melName"),
+            "ranged":game.settings.get("ewhen","ranName"),
+            "defense":game.settings.get("ewhen", "defName"),
+            "initiative":game.settings.get("ewhen","iniName")
+        }
+
         let dialogData = {
             
             primary:ma,
+            priSelect:priSelect,
             combat:ca,
+            comSelect:comSelect,
             careers:cr,
             attr:"",
             attr2:"",

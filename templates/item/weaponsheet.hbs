@@ -14,30 +14,17 @@
             <tr>
                     <td>
                     <select style="width:100%;" name="system.wpn_type" id="wpn_type">
-                        {{#select wpn_type}}
-                        {{#each config.weapon_types as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                        {{/each}}
-                        {{/select}}
+                        {{selectOptions wtypeOpts selected=wpn_type}}
                     </select>
                     </td>
                     <td>
                     <select style="width:100%;" name="system.hands" id="hands">
-                        {{#select hands}}
-                        {{#each config.weapon_hands as |name hand|}}
-                        <option value="{{hand}}">{{localize name}}</option>
-                        {{/each}}
-                        {{/select}}
+                       {{selectOptions whandOpts selected=hands}}
                     </select>
                     </td>
                     <td>
                     <select style="width:100%;" name="system.era" id="era">
-                        {{#select era}}
-                        <option value="none"></option>
-                        {{#each config.era as |era name|}}
-                        <option value="{{name}}">{{localize (proper name)}}</option>
-                        {{/each}}
-                        {{/select}}
+                      {{selectOptions eraOpts selected=era}}
                     </select>
                 </td>
             </tr>
@@ -52,37 +39,13 @@
             <tr>
                 <td style="text-align: center;">
                     <select style="width:100%" name="system.damage.dice">
-                        {{#select damage.dice}}
-                        <option value="0"></option>
-                        <option value="1">1</option>
-                        <option value="1d2">d2</option>
-                        <option value="1d3">d3</option>
-                        <option value="1d3+1">d3+1</option>
-                        <option value="1d6-1">d6-1</option>
-                        <option value="1d6">d6</option>
-                        <option value="1d6+1">d6+1</option>
-                        <option value="1d6+2">d6+2</option>
-                        <option value="1d6+3">d6+3</option>
-                        <option value="2d6kl1">d6L</option>
-                        <option value="2d6kh1">d6H</option>
-                        <option value="3d6kl2">2d6L</option>
-                        <option value="2d6">2d6</option>
-                        <option value="3d6kh2">2d6H</option>
-                        <option value="4d6kl3">3d6L</option>
-                        <option value="3d6">3d6</option>
-                        <option value="4d6kh3">3d6H</option>
-                        {{/select}}
+                       {{selectOptions dmgDiceOpts selected=damage.dice}}
                     </select>
 
                 </td>
                 <td>
                     <select style="width:100%" name="system.damage.add_attribute" id="damage.add_attribute">
-                        {{#select damage.add_attribute}}
-                        <option value="none"></option>
-                        {{#each config.main_attributes as |a attr|}}
-                            <option value="{{attr}}">{{setting (getCustomName attr)}}</option>
-                        {{/each}}
-                        {{/select}}
+                       {{selectOptions attOpts selected=damage.add_attribute}}
                     </select>
                 </td>
                 <td>

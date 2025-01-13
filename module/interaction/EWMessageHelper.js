@@ -10,7 +10,8 @@ export class EWMessageHelper {
             ChatMessage.create({
                 user: game.user._id,
                 roll: data.roll,
-                type:CONST.CHAT_MESSAGE_STYLES.ROLL,
+                rolls: [data.roll],
+                //type:CONST.CHAT_MESSAGE_STYLES.ROLL,
                 speaker: ChatMessage.getSpeaker(),
                 content: msg
             });

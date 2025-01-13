@@ -149,7 +149,7 @@ export class EWRoll {
            pdNum: pdNum,
            tt:""
        }
-       console.log(rollInfo);
+       console.log("Submitted roll information: ", rollInfo);
        this.rollInfo = rollInfo;
 
     }
@@ -253,16 +253,14 @@ export class EWRoll {
     * no need to reinvent the wheel there
     */
 
-    rollDice() {
+    async rollDice() {
+        console.info("In rollDice");
         let expr = this.rollInfo.expr;
         const diceModel = getDiceModel(game)
         expr = expr == "none" ? `0${diceModel.baseDie}` : expr;
-        let res = {};
         let r = new Roll(expr);
-        this.rollObj = r;
-        this.rollObj.evaluate().then((outcome) => res = outcome);
-        // console.warn("Roll result: ", r.total);
-        this.result = res.total;
+        this.rollObj = await r.evaluate();
+
 
     }
 
@@ -274,16 +272,19 @@ export class EWRoll {
     */
 
     createChatMessage(tt, isDamage) {
+        console.info("In createChatMessage");
         const diceModel = getDiceModel(game)
 
         var outcome = "";
         var outcomeClass = "";
 
+
+       
+
         let keptDice = this.rollObj.terms[0].values;
+        console.warn("KeptDice: ", keptDice);
         let total = this.rollObj.total;
         let mightyThreshold = diceModel.tn + (Number(this.rollInfo.mods) < 0 ? Math.abs(Number(this.rollInfo.mods)) : 0);
-
-        // console.warn("mightThreshold", mightyThreshold);
 
 
         // console.warn("Roll Object: ", this.rollObj);
@@ -294,7 +295,7 @@ export class EWRoll {
         if(isDamage) {
             let chatData = {
                 roll: this.rollObj,
-                rollTotal: this.result,
+                rollTotal: this.rollObj.total,
                 tooltip: new Handlebars.SafeString(tt),
                 d: this.rollInfo,
                 outcome: "",
@@ -306,6 +307,7 @@ export class EWRoll {
 
         } else {
             const diceTotal = keptDice.reduce((acc, value) => (acc + value), 0)
+            console.log("diceTotal: ", diceTotal);
             // TODO: failure/success type based on dice model chosen
             if (diceTotal >= diceModel.success && mightyThreshold <= diceModel.success){
                 outcome = "Mighty Success!";
@@ -326,7 +328,7 @@ export class EWRoll {
 
             let chatData = {
                 roll: this.rollObj,
-                rollTotal: this.result,
+                rollTotal: this.rollObj.total,
                 tooltip: new Handlebars.SafeString(tt),
                 d: this.rollInfo,
                 outcome: outcome,
@@ -334,6 +336,8 @@ export class EWRoll {
                 actor:this.actor._id
             }
 
+            console.warn("ChatData object: ", chatData);
+            console.trace();
             EWMessageHelper.generateMessage(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData);
         }
 

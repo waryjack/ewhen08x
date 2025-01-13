@@ -30,9 +30,14 @@ export class EWDialogHelper {
                             isDamage: isDamage,
                             item: data.item
                         };
+                        let thisRoll = {};
                         let ewroll = new EWRoll(rdata);
-                        ewroll.rollDice();
-                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt, isDamage));
+                        console.warn("New ewroll: ", ewroll);
+                        ewroll.rollDice().then(() =>
+                            {
+                                 ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt, isDamage));
+                            });
+                        
                         }
                     },
                     close: {

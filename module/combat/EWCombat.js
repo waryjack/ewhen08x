@@ -14,14 +14,22 @@ export class EWCombat extends Combat {
         let updateDiffs = new Array();
         if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
-                let adjInit = this.convertInitiative(combatant);
-                let diff = {_id:combatant._id, "initiative":adjInit, "initiative":adjInit};
-                updateDiffs.push(diff);
+                this.convertInitiative(combatant)
+                    .then((result) => {
+                        let updateDiffs = new Array();
+                        let combatant = result[1];
+                        let adjInit = result[0];
+                        let diff = {_id:combatant._id, "initiative":adjInit, "initiative":adjInit};
+                        updateDiffs.push(diff);
+                        console.log("Combatant: ", combatant);
+                        console.log("Adjinit: ", adjInit);
+                        console.log("Update Diffs: ", updateDiffs);
+                        return updateDiffs;
+                    })
+                    .then((updateDiffs) => this.updateEmbeddedDocuments("Combatant", updateDiffs))
+                    .then(() => super.startCombat());
                 // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
             });
-            // // console.warn("Priority List Array: ", priorityList);
-            this.updateEmbeddedDocuments("Combatant",  updateDiffs);
-            super.startCombat();
         } else {
             super.startCombat();
         }
@@ -33,7 +41,7 @@ export class EWCombat extends Combat {
         super.nextRound();
         if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
         let rrlist = new Array();
-        let updateDiffs = new Array();
+        
         const diceModel = getDiceModel(game);
 
         // console.warn("Combatants: ", this.combatants);
@@ -42,13 +50,20 @@ export class EWCombat extends Combat {
 
         if(game.settings.get("ewhen", "priority")) {
             this.combatants.forEach(combatant => {
-                let adjInit = this.convertInitiative(combatant);
-                let diff = {_id:combatant._id, "initiative":adjInit, "initiative":adjInit};
-                updateDiffs.push(diff);
-                // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
-            });
-            // // console.warn("Priority List Array: ", priorityList);
-            this.updateEmbeddedDocuments("Combatant",  updateDiffs);
+                this.convertInitiative(combatant)
+                    .then((result) => {
+                        let updateDiffs = new Array();
+                        let combatant = result[1];
+                        let adjInit = result[0];
+                        let diff = {_id:combatant._id, "initiative":adjInit, "initiative":adjInit};
+                        updateDiffs.push(diff);
+                        console.log("Combatant: ", combatant);
+                        console.log("Adjinit: ", adjInit);
+                        console.log("Update Diffs: ", updateDiffs);
+                        return updateDiffs;
+                    })
+                    .then((updateDiffs) => this.updateEmbeddedDocuments("Combatant", updateDiffs))
+                });
         } else {
             let cibd = 0;
             let cipd = 0;
@@ -70,7 +85,7 @@ export class EWCombat extends Combat {
      * Converts initiative from rolled initiative to Priority Ladder position
      * @param {Combatant} com - combatant object drawn from the current combat
      */
-    convertInitiative(com, init) {
+    async convertInitiative(com, init) {
 
         if(game.settings.get("ewhen", "priority") === false) { return; }
 
@@ -87,8 +102,9 @@ export class EWCombat extends Combat {
         let actorInitMods = actor.system.priority_roll.bd + actor.system.priority_roll.pd + actor.system.priority_roll.miscMod;
         let initExpr = (actorInitMods + diceModel.numberOfDice) + diceModel.baseDie + "kh" + diceModel.numberOfDice;
         // console.warn("Init Expression: ", initExpr);
-        let initiative = new Roll(initExpr).evaluate().then((outcome) => initResult = outcome);
-        let initRoll = initResult.total;
+        let initiative = await new Roll(initExpr).evaluate()
+        let initRoll = initiative.total;
+        console.log("InitRoll: ", initRoll);
         let name = actor.name;
         let isRival = actor.system.isRival;
         let isTough = actor.system.isTough;
@@ -125,8 +141,10 @@ export class EWCombat extends Combat {
                 adjInit = 1;
             }
         }
+
+      let returnVal = [adjInit, com]
     
-      return adjInit;
+      return returnVal;
 
     }
 

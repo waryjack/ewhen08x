@@ -70,7 +70,7 @@ export const registerSettings = function() {
             '@main_attributes.appeal.rank':'EW.attribute.main.appeal'
         },
         onChange: () => {
-            game.data.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
+            game.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
         }
     });
     
@@ -88,7 +88,7 @@ export const registerSettings = function() {
             '@combat_attributes.initiative.rank':'EW.attribute.combat.initiative'
         },
         onChange: () => {
-            game.data.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
+            game.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
         }
     });
 

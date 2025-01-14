@@ -31,6 +31,7 @@ export class EWCombat extends Combat {
                 // combatant.update({"initiative":adjInit, "data.initiative":adjInit});
             });
         } else {
+            
             super.startCombat();
         }
     }
@@ -57,9 +58,9 @@ export class EWCombat extends Combat {
                         let adjInit = result[0];
                         let diff = {_id:combatant._id, "initiative":adjInit, "initiative":adjInit};
                         updateDiffs.push(diff);
-                        console.log("Combatant: ", combatant);
+                       /* console.log("Combatant: ", combatant);
                         console.log("Adjinit: ", adjInit);
-                        console.log("Update Diffs: ", updateDiffs);
+                        console.log("Update Diffs: ", updateDiffs); */
                         return updateDiffs;
                     })
                     .then((updateDiffs) => this.updateEmbeddedDocuments("Combatant", updateDiffs))
@@ -76,7 +77,7 @@ export class EWCombat extends Combat {
             }
             let tInitDiceMods = cibd + cipd + cimd;
             let initFormula = diceModel.numberOfDice + diceModel.baseDie + "kh" + diceModel.numberOfDice;
-            // console.warn(initFormula);
+           // console.warn("RRlist and initformula: ", rrlist, initFormula);
             this.rollInitiative(rrlist, {formula:initFormula});
         }
     }
@@ -93,7 +94,7 @@ export class EWCombat extends Combat {
         // console.warn("DiceModel: ", diceModel);
         var adjInit = 0;
         var isPC;
-       console.log("Combatant in convertInit: ", com);
+        // console.log("Combatant in convertInit: ", com);
    
         let actorId = com.actorId;
         let actor = game.actors.get(actorId);
@@ -104,7 +105,7 @@ export class EWCombat extends Combat {
         // console.warn("Init Expression: ", initExpr);
         let initiative = await new Roll(initExpr).evaluate()
         let initRoll = initiative.total;
-        console.log("InitRoll: ", initRoll);
+        // console.log("InitRoll: ", initRoll);
         let name = actor.name;
         let isRival = actor.system.isRival;
         let isTough = actor.system.isTough;

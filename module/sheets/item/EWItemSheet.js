@@ -14,7 +14,7 @@ export default class EWItemSheet extends ItemSheet {
         data.config = CONFIG.ewhen; 
 
         data.attOpts = {
-            "none":"none",
+            "none":game.i18n.localize("EW.game_term.none"),
             "strength":game.settings.get("ewhen","strName"),
             "agility":game.settings.get("ewhen", "agiName"),
             "mind":game.settings.get("ewhen", "minName"),
@@ -22,29 +22,29 @@ export default class EWItemSheet extends ItemSheet {
         }
 
         data.wtypeOpts = {
-            "lightMelee":"Light Melee",
-            "mediumMelee":"Medium Melee",
-            "heavyMelee":"Heavy Melee",
-            "lightRanged":"Light Ranged",
-            "mediumRanged":"Medium Ranged",
-            "heavyRanged":"Heavy Ranged"
+            "lightMelee":game.i18n.localize("EW.weapontype.lightmelee"),
+            "mediumMelee":game.i18n.localize("EW.weapontype.mediummelee"),
+            "heavyMelee":game.i18n.localize("EW.weapontype.heavymelee"),
+            "lightRanged":game.i18n.localize("EW.weapontype.lightranged"),
+            "mediumRanged":game.i18n.localize("EW.weapontype.mediumranged"),
+            "heavyRanged":game.i18n.localize("EW.weapontype.heavyranged"),
         }
         data.whandOpts = {
-            "one":"One-hand",
-            "two":"Two-handed"
+            "one":game.i18n.localize("EW.weaponhands.onehanded"),
+            "two":game.i18n.localize("EW.weaponhands.twohanded")
         }
         data.atypeOpts = {
-            "light":"Light",
-            "medium":"Medium",
-            "heavy":"Heavy",
-            "complete":"Complete",
-            "helmet":"Helmet",
-            "small_shield":"Small Shield",
-            "large_shield":"Large Shield"
+            "light":game.i18n.localize("EW.armortype.light"),
+            "medium":game.i18n.localize("EW.armortype.medium"),
+            "heavy":game.i18n.localize("EW.armortype.heavy"),
+            "complete":game.i18n.localize("EW.armortype.complete"),
+            "helmet":game.i18n.localize("EW.armortype.helmet"),
+            "small_shield":game.i18n.localize("EW.armortype.small_shield"),
+            "large_shield":game.i18n.localize("EW.armortype.large_shield")
         }
 
         data.abonusOpts = {
-            "none":game.i18n.localize("None"),
+            "none":game.i18n.localize("EW.game_term.none"),
             "strength":game.settings.get("ewhen","strName"),
             "agility":game.settings.get("ewhen", "agiName"),
             "mind":game.settings.get("ewhen", "minName"),
@@ -56,7 +56,7 @@ export default class EWItemSheet extends ItemSheet {
         }
 
         data.vprotectOpts = {
-           "none":game.i18n.localize("None"),
+           "none":game.i18n.localize("EW.game_term.none"),
             "1d3":"d3",
             "1d6-3":"d6-3",
             "1d6-2":"d6-2",
@@ -66,12 +66,12 @@ export default class EWItemSheet extends ItemSheet {
 
         data.eraOpts = {
 
-            "ancient":"Ancient",
-            "steampunk":"Steampunk",
-            "modern":"Modern",
-            "cyberpunk":"Cyberpunk",
-            "future":"Future",
-            "other":"Other"
+            "ancient":game.i18n.localize("EW.era.ancient"),
+            "steampunk":game.i18n.localize("EW.era.steampunk"),
+            "modern":game.i18n.localize("EW.era.modern"),
+            "cyberpunk":game.i18n.localize("EW.era.cyberpunk"),
+            "future":game.i18n.localize("EW.era.future"),
+            "other":game.i18n.localize("EW.era.other")
 
 
         }
@@ -96,26 +96,26 @@ export default class EWItemSheet extends ItemSheet {
             "4d6kh3":"3d6H"
         }
         data.traitTypeOpts = {
-            "boon":"Boon",
-            "flaw":"Flaw",
-            "power":"Power"
+            "boon":game.i18n.localize("EW.trait.type.boon"),
+            "flaw":game.i18n.localize("EW.trait.type.flaw"),
+            "power":game.i18n.localize("EW.trait.type.power")
         }
         data.traitSourceOpts = {
-            "normal":'Normal',
-            "origin":'Origin',
-            "augment":"Augment",
-            "supernatural":"Supernatural",
-            "vehicle":"Vehicle",
-            "setting":"Setting",
-            "creature":"Creature",
-            "martial_arts":"Martial Arts",
-            "custom":"Custom"
+            "normal":game.i18n.localize("EW.trait.source.normal"),
+            "origin":game.i18n.localize("EW.trait.source.origin"),
+            "augment":game.i18n.localize("EW.trait.source.augment"),
+            "supernatural":game.i18n.localize("EW.trait.source.supernatural"),
+            "vehicle":game.i18n.localize("EW.trait.source.vehicle"),
+            "setting":game.i18n.localize("EW.trait.source.setting"),
+            "creature":game.i18n.localize("EW.trait.source.creature"),
+            "martial_arts":game.i18n.localize("EW.trait.source.martial_arts"),
+            "custom":game.i18n.localize("EW.trait.source.custom")
         }
 
         data.traitPriModOpts = {
-            "none":game.i18n.localize("None"),
-            "bonus":"Bonus Die",
-            "penalty":"Penalty Die"
+            "none":game.i18n.localize("EW.game_term.none"),
+            "bonus":game.i18n.localize("EW.game_term_bonusdie"),
+            "penalty":game.i18n.localize("EW.game_term.penaltydie")
         }
 
         data.enrichedDescription = TextEditor.enrichHTML(data.description, {async: false});

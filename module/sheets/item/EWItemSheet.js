@@ -114,7 +114,7 @@ export default class EWItemSheet extends ItemSheet {
 
         data.traitPriModOpts = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "bonus":game.i18n.localize("EW.game_term_bonusdie"),
+            "bonus":game.i18n.localize("EW.game_term.bonusdie"),
             "penalty":game.i18n.localize("EW.game_term.penaltydie")
         }
 

@@ -143,6 +143,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
+            "none":game.i18n.localize("EW.game_terms.none"),
             "melee":game.settings.get("ewhen","melName"),
             "ranged":game.settings.get("ewhen","ranName"),
             "defense":game.settings.get("ewhen", "defName"),
@@ -292,7 +293,7 @@ export class EWActor extends Actor {
     * @optStr {String} - the id of an associated item used, or "" if none
     */
 
-    rollAttribute(attr, attr2, isCombat, optStr){
+    rollAttribute(maPicked, caPicked, isCombat, optStr){
 
         const ma = foundry.utils.duplicate(this.system.main_attributes);
         const ca = foundry.utils.duplicate(this.system.combat_attributes);
@@ -306,6 +307,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
+            "none":game.i18n.localize("EW.game_term.none"),
             "melee":game.settings.get("ewhen","melName"),
             "ranged":game.settings.get("ewhen","ranName"),
             "defense":game.settings.get("ewhen", "defName"),
@@ -330,16 +332,21 @@ export class EWActor extends Actor {
             combat: ca,
             comSelect: comSelect,
             careers: cr,
-            attr: attr,
-            attr2: attr2,
+            maPicked: maPicked,
+            caPicked: caPicked,
+            attr: "",
+            attr2: "",
             isCombat: isCombat,
             isWeapon: isWeapon,
             itemImg: itemImg,
             itemName: itemName,
             item: {},
-            actor:this
+            actor:this,
+            config:CONFIG.ewhen
 
         }
+
+        console.log("DialogData (EWActor.rollAttribute): ", dialogData);
 
         EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.TASK, dialogData);
 
@@ -379,7 +386,8 @@ export class EWActor extends Actor {
             itemImg:"",
             itemName:career.name,
             item:career,
-            actor:this
+            actor:this,
+            config:CONFIG.ewhen
         }
 
         EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.TASK, dialogData);
@@ -439,7 +447,8 @@ export class EWActor extends Actor {
             miscMod: miscMod,
             finalExpr: finalExpr,
             item:weapon,
-            actor:this
+            actor:this,
+            config:CONFIG.ewhen
         }
 
         EWDialogHelper.generateRollDialog(CONFIG.ewhen.DIALOG_TYPE.DAMAGE, dialogData);

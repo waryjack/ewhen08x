@@ -112,6 +112,54 @@ export const registerSettings = function() {
     
     // Settings for various optional rules
 
+    game.settings.register("ewhen", "meleeLink", {
+        name: "Default Melee Attribute",
+        hint: "This attribute will be selected by default when clicking on the Melee ability",
+        scope:"world",
+        config:true,
+        type:String,
+        default:"agility",
+        choices: {
+            "none":"None",
+            "strength":"Strength",
+            "agility":"Agility",
+            "mind":"Mind",
+            "appeal":"Appeal"
+        }
+    });
+
+    game.settings.register("ewhen", "rangedLink", {
+        name: "Default Ranged Attribute",
+        hint: "This attribute will be selected by default when clicking on the Ranged ability",
+        scope:"world",
+        config:true,
+        type:String,
+        default:"agility",
+        choices: {
+            "none":"None",
+            "strength":"Strength",
+            "agility":"Agility",
+            "mind":"Mind",
+            "appeal":"Appeal"
+        }
+    });
+
+    game.settings.register("ewhen", "defenseLink", {
+        name: "Default Defense Attribute",
+        hint: "This attribute will be selected by default when clicking on the Defense ability",
+        scope:"world",
+        config:true,
+        type:String,
+        default:"agility",
+        choices: {
+            "none":"None",
+            "strength":"Strength",
+            "agility":"Agility",
+            "mind":"Mind",
+            "appeal":"Appeal"
+        }
+    });
+
     game.settings.register("ewhen", "useResolve", {
         name: "EW.SETTINGS.UseResolve",
         hint: "EW.SETTINGS.UseResolveDesc",

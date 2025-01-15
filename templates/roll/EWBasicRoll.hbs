@@ -11,14 +11,13 @@
      <div class="form-group">
          <label for="att">{{localize "EW.game_term.attribute.singular.main"}}</label>
          <select id="pattr" style="width:100%;" name="primary" data-main-att="primary">
-            {{selectOptions priSelect selected=attr}}
+            {{selectOptions priSelect selected=maPicked}}
          </select>
      </div>
      <div class="form-group">
          <label for="att">{{localize "EW.game_term.attribute.singular.combat"}}</label>
          <select id="cattr" style="width:100%;" name="primary" data-main-att="combat">
-             <option value="none" {{#unless isCombat}}selected{{/unless}}></option>
-              {{selectOptions comSelect selected=attr}}
+              {{selectOptions comSelect selected=caPicked}}
          </select>
      </div>
     
@@ -38,7 +37,10 @@
              </tr>
              <tr>
                  <td>
-                   {{> "systems/ewhen/templates/partials/DiffList.hbs"}}
+                   <select style="width:100%" name="difficulty" id="difficulty">
+                    {{selectOptions config.difficulty selected="moderate" localize=true}}
+                    
+                </select>
                  </td>
                  <td class="roll-mods">
                      <input id="othermods" type="text" value="0" data-dtype="Number"/>

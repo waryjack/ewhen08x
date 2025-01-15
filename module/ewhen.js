@@ -63,6 +63,18 @@ Hooks.once("init", () => {
             // console.warn("Initiative: ", game.data.system.initiative);
         }
 
+        // set linked attributes for combat
+
+        if ("combatLinks" in game.system) {
+            // leave it be
+        } else {
+            game.system.combatLinks = {
+                melee:"agility",
+                ranged:"agility",
+                defense:"agility"
+            }
+        }
+
     // Register partials templates
     preloadHandlebarsTemplates();
 

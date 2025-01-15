@@ -297,7 +297,9 @@ export default class EWActorSheet extends ActorSheet {
         var isCombat = false;
         let element = event.currentTarget;
         let attribute = element.dataset.attribute;
-        let attribute2 = "";
+       
+        let maPicked = "";
+        let caPicked = "";
 
         let ma = ["strength", "agility", "mind", "appeal"];
         let ca = ["melee", "ranged", "defense", "initiative"];
@@ -305,24 +307,33 @@ export default class EWActorSheet extends ActorSheet {
         if(ca.includes(attribute)) {
             rank = this.actor.system.combat_attributes[attribute].rank;
             isCombat = true;
+            caPicked = attribute;
+            switch(caPicked) {
+                case "melee": maPicked = game.settings.get("ewhen","meleeLink");break;
+                case "ranged": maPicked = game.settings.get("ewhen", "rangedLink");break;
+                case "defense": maPicked = game.settings.get("ewhen", "defenseLink");break;
+                default: maPicked = "agility";
+            }
         } else {
             rank = this.actor.system.main_attributes[attribute].rank;
+            caPicked = "none";
+            maPicked = attribute;
         }
 
-        // todo - set up attribute-ability links as a setting? or just remove defaults? 
+        /* todo - set up attribute-ability links as a setting? or just remove defaults? 
         if(isCombat) {
             switch (attribute) {
                 // select the likely attribute if it's a combat roll
                 // case "initiative": attribute2 = "mind"; break;
                 default: attribute2 = "agility";
             }
-        }
+        }*/
 
 
         // console.log("Attribute 1:", attribute, " Rank: ", rank);
         // console.log("Attribute 2: ", attribute2);
 
-        return this.actor.rollAttribute(attribute, attribute2, isCombat, "");
+        return this.actor.rollAttribute(maPicked, caPicked, isCombat, "");
 
     }
 

@@ -49,7 +49,7 @@ Click on the name of the item to open the item editor window. Note: since the on
 **Note**: The general modifier field accepts both positive and negative numbers. 
 
 ## Attribute and General Rolls
-Dice rolls can be triggered from the die icon on the character sheet, or by clicking on an attribute or combat attribute. 
+Dice rolls can be triggered from the die icon on the character sheet, or by clicking on an attribute name or combat ability name. 
 
 ## Weapon and Armor Damage
 Click on the weapon or armor image in inventory to roll weapon damage or armor protection, respectively. 
@@ -62,6 +62,7 @@ There are several optional settings available for the system - most of which I h
 * Use 1d6 for Initiative: overrides the above selection for initiative rolls only (useful for Barbarians of Lemuria and Honor+Intrigue)
 * Attribute Initiative Bonus: select the _attribute_ that adds to initiative
 * Combat Ability Initiative Bonus: select the _combat ability_ that adds to initiative
+* Custom attributes for combat abilities: set which attribute is automatically selected when triggering a roll by clicking on a combat ability (e.g., if you set the "Custom Melee Attribute" to "Mind" then "Mind" will be pre-selected in the roll dialog when you click the "Melee" ability to make a dice roll). **Note**: this is currently not enabled for Initiative, due to potential confusion about the already existing "Initiative Bonus" settings listed above. Future updates should straighten that out.
 * Enable Priority Roll Initiative: enables priority roll, instead of straight descending initiative order - see _Everywhen_, page 35. 
 * Reroll Initiative Every Round: choose whether to reroll each round, or keep the same initiative order for the whole combat
 * Resource tracks: depending on the setting/game you run, you can enable or disable certain resource tracks and pools, including **Resolve**, **Critical** tracks, and the different point pools (Hero Points, Arcana Points, etc.)
@@ -71,7 +72,7 @@ There are several optional settings available for the system - most of which I h
 
 ## Custom Attribute/Ability Names
 
-It is possible to customize the display names of the 4 main and combat abilities in Settings. This will affect the *displayed* name of the attributes used in the system - e.g., if you set the custom name for **Strength** to be **Power**, then it will display as "Power" in the character and item sheets.
+It is possible to customize the display names of the 4 main and combat abilities in Settings. This will affect the *displayed* name of the attributes used in the system - e.g., if you set the custom name for **Strength** to be **Power**, then it will display as "Power" in the character, roll, and item sheets.
 
 Custom ability names is functional for characters only, not for vehicles. 
 

@@ -7,7 +7,7 @@ export default class EWItemSheet extends ItemSheet {
         return `${path}${this.item.type}sheet.hbs`;
     }
 
-    getData () {
+    async getData () {
         const data = this.item.system;
         data.item = this.item;
         data.myName = data.name;
@@ -118,10 +118,11 @@ export default class EWItemSheet extends ItemSheet {
             "penalty":game.i18n.localize("EW.game_term.penaltydie")
         }
 
-        data.enrichedDescription = TextEditor.enrichHTML(data.description, {async: false});
+        data.enrichedDescription = await TextEditor.enrichHTML(data.description);
         
         console.log("Item Data: ", data);
         
         return data;
     }
+
 }

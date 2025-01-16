@@ -8,13 +8,9 @@
         <table>
         <h3>{{localize "EW.game_term.career"}} {{localize "EW.game_term.description"}}</h3>
        
-        {{editor 
-            enrichedDescription 
-            target="system.description" 
-            button=true 
-            owner=owner 
-            editable=true
-        }}
+        <prose-mirror name="system.description" data-document-u-u-i-d="{{item.uuid}}" value="{{system.description}}" collaborate="true" toggled="true">
+            {{{enrichedDescription}}}
+        </prose-mirror>
 
     </div>
 </form>

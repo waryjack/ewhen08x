@@ -153,7 +153,8 @@ export class EWActor extends Actor {
         console.log("Primary Attributes constant: ", pri);
         console.log("Primary select: ", priSelect);
         console.log("Careers: ", car);
-
+        let maPicked = "strength";
+        let caPicked = "melee";
 
         
 
@@ -163,10 +164,14 @@ export class EWActor extends Actor {
             combat: com,
             comSelect: comSelect,
             careers: car,
+            maPicked: maPicked,
+            caPicked: caPicked,
             attr: "",
+            attr2: "",
             isCombat: false,
             actor:this,
-            item:{}
+            item:{},
+            config:CONFIG.ewhen
         }
 
         console.log("Dialog Data: ", dialogData);

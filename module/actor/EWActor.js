@@ -143,7 +143,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
-            "none":game.i18n.localize("EW.game_terms.none"),
+            "none":game.i18n.localize("EW.game_term.none"),
             "melee":game.settings.get("ewhen","melName"),
             "ranged":game.settings.get("ewhen","ranName"),
             "defense":game.settings.get("ewhen", "defName"),
@@ -371,7 +371,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
-            "none":game.i18n.localize("EW.game_terms.none"),
+            "none":game.i18n.localize("EW.game_term.none"),
             "melee":game.settings.get("ewhen","melName"),
             "ranged":game.settings.get("ewhen","ranName"),
             "defense":game.settings.get("ewhen", "defName"),

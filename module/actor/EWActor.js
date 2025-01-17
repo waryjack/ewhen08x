@@ -371,6 +371,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
+            "none":game.i18n.localize("EW.game_terms.none"),
             "melee":game.settings.get("ewhen","melName"),
             "ranged":game.settings.get("ewhen","ranName"),
             "defense":game.settings.get("ewhen", "defName"),
@@ -384,6 +385,8 @@ export class EWActor extends Actor {
             combat:ca,
             comSelect:comSelect,
             careers:cr,
+            maPicked:"strength",
+            caPicked:"none",
             attr:"",
             attr2:"",
             isCombat:false,

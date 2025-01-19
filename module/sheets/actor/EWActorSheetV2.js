@@ -1,6 +1,11 @@
 import { EWDialogHelper } from "../../interaction/EWDialogHelper.js";
 
-export default class EWActorSheet extends ActorSheet {
+export default class EWActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+
+    constructor(options = {}) {
+        super(options);
+        this.#dragDrop = this.#createDragDropHandlers();
+    }
 
     get template() {
         const path = 'systems/ewhen/templates/actor/';
@@ -10,21 +15,48 @@ export default class EWActorSheet extends ActorSheet {
     /**
      * @override
      */
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-        classes: ['ewhen', 'sheet', 'actor', 'actor-sheet'],
-        width: 775,
-        height: 685,
-        left:120,
-        tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheetbody", initial: "main"}],
-        dragDrop: [{dragSelector: ".dragline", dropSelector: null}]
-        });
+
+    static DEFAULT_OPTIONS = {
+        id: "actorsheet",
+        actions:{
+            addItem: EWActorSheetV2.addItem,
+            editItem: EWActorSheetV2.editItem,
+            deleteItem: EWActorSheetV2.deleteItem,
+            equipItem: EWActorSheetV2.equipItem,
+            editCareerName: EWActorSheetV2.editCareerName,
+            editCareerRank: EWActorSheetV2.editCareerRank,
+            adjustResource: EWActorSheetV2.adjustResource,
+            adjustFrame: EWActorSheetV2.adjustFrame,
+            adjustShield: EWActorSheetV2.adjustShield,
+            becomeMinorNPC: EWActorSheetV2.becomeMinorNPC,
+            careerRoll: EWActorSheetV2.careerRoll,
+            basicRoll: EWActorSheetV2.basicRoll,
+            attributeRoll: EWActorSheetV2.attributeRoll,
+            weaponRoll: EWActorSheetV2.weaponRoll,
+            armorRoll: EWActorSheetV2.armorRoll,
+
+        },
+        position:{
+            height:685,
+            width: 775,
+            left:120
+        },
+        window:{
+            title:"V2 Actor Sheet"
+        },
+        dragDrop: [{ dragSelector: '[data-drag]', dropSelector: null }],
+    }
+
+    static PARTS = {
+        all: {
+            template: "./systems/ewhen/templates/actor/charactersheet.hbs",
+        }
     }
 
     /**
      * @override
      */
-    getData() {
+    _prepareContext() {
         const data = foundry.utils.deepClone(this.actor.system);
 
        // // console.warn("080 super getdata, data.items: ", data);
@@ -60,59 +92,23 @@ export default class EWActorSheet extends ActorSheet {
         return data;
     }
 
+    
+
     /**
      * @override
      */
     activateListeners(html) {
+        const html = $(this.element);
         super.activateListeners(html);
+        this.#dragDrop.forEach((d) => d.bind(this.element));
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
-
-        html.find('.item-create').click(this._addItem.bind(this));
-
-        html.find('.inline-edit').change(this._onCareerRankEdit.bind(this));
-
-        html.find('.inline-edit-ce').blur(this._onCareerNameEdit.bind(this));
-
-        html.find('.item-edit').click(this._onItemEdit.bind(this));
-
-        html.find('.career-roll').click(this._onCareerRoll.bind(this));
-
-        html.find('.item-delete').click(this._deleteItem.bind(this));
-
-        html.find('.att-roll').click(this._onAttributeRoll.bind(this));
-
-       // html.find('.com-roll').click(this._onCombatRoll.bind(this));
-
-        html.find('.basic-roll').click(this._onBasicRoll.bind(this));
-
-        html.find('.adj-resource').click(this._adjustResource.bind(this));
-
-        html.find('.weapon-roll').click(this._onWeaponRoll.bind(this));
-
-        html.find('.armor-roll').click(this._onArmorRoll.bind(this));
-
-        html.find('.equip-item').change(this._onEquipItem.bind(this));
-
-        html.find('.npc-boxes').change(this.onBecomeMinorNPC.bind(this));
-
-        html.find('.adj-frame').click(this._adjustFrame.bind(this));
-
-        html.find('.adj-shield').click(this._adjustShield.bind(this));
-
-        let handler = (ev) => this._onDragStart(ev);
-        html.find('.item-name').each((i, item) => {
-            if (item.dataset && item.dataset.itemId) {
-                item.setAttribute('draggable', true);
-                item.addEventListener('dragstart', handler, false);
-            }
-        });
+        
 
     }
 
     // Change lifeblood, damage if you create a minor NPC from a character
     // one-way change; caught in preUpdateToken for reversing it
-    onBecomeMinorNPC(event) {
+    static becomeMinorNPC(event) {
         event.preventDefault();
 
 
@@ -206,7 +202,7 @@ export default class EWActorSheet extends ActorSheet {
     }
 
     // Handle changes to the lifeblood/resolve and critical tracks
-    _adjustResource(event) {
+    static adjustResource(event) {
         event.preventDefault();
         let resData = {};
         let element = event.currentTarget;
@@ -235,7 +231,7 @@ export default class EWActorSheet extends ActorSheet {
 
     // May not be needed...testing required
 
-    _adjustFrame(event) {
+    static adjustFrame(event) {
         event.preventDefault();
 
 
@@ -250,7 +246,7 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
-    _adjustShield(event) {
+    static adjustShield(event) {
         event.preventDefault();
 
 
@@ -267,7 +263,7 @@ export default class EWActorSheet extends ActorSheet {
     }
 
     // Not in use at the moment; not sure if it's necessary
-    _onCareerRoll(event) {
+    static careerRoll(event) {
         event.preventDefault();
 
         let element = event.currentTarget;
@@ -283,7 +279,7 @@ export default class EWActorSheet extends ActorSheet {
     }
 
     // trigger the basic, non-pre-populated roll dialog
-    _onBasicRoll(event) {
+    static basicRoll(event) {
         event.preventDefault();
         let element = event.currentTarget;
 
@@ -291,7 +287,7 @@ export default class EWActorSheet extends ActorSheet {
     }
 
     // roll if the user clicks on a specific attribute or combat ability
-    _onAttributeRoll(event) {
+    static attributeRoll(event) {
         event.preventDefault();
         var rank = 0;
         var isCombat = false;
@@ -338,7 +334,7 @@ export default class EWActorSheet extends ActorSheet {
     }
 
     // Handle damage rolls
-    _onWeaponRoll(event) {
+    static weaponRoll(event) {
         event.preventDefault();
 
        /*
@@ -356,7 +352,7 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
-    _onArmorRoll(event) {
+    static armorRoll(event) {
         event.preventDefault();
 
         let element = event.currentTarget;
@@ -365,7 +361,7 @@ export default class EWActorSheet extends ActorSheet {
         return this.actor.rollArmor(item);
     }
 
-    _onItemEdit(event) {
+    static editItem(event) {
         event.preventDefault();
 
         let element = event.currentTarget;
@@ -378,7 +374,7 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
-    _onCareerNameEdit(event) {
+    static editCareerName(event) {
         event.preventDefault();
         let element = event.currentTarget;
 
@@ -392,7 +388,7 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
-    _onCareerRankEdit(event) {
+    static editCareerRank(event) {
         event.preventDefault();
         let element = event.currentTarget;
 
@@ -407,7 +403,7 @@ export default class EWActorSheet extends ActorSheet {
 
     }
 
-    _addItem(event) {
+    static addItem(event) {
         event.preventDefault();
         // console.warn("_addItem fired: ");
         var subtype = "";
@@ -433,7 +429,7 @@ export default class EWActorSheet extends ActorSheet {
 
       }
 
-      _deleteItem(event) {
+      static deleteItem(event) {
           event.preventDefault();
           let element = event.currentTarget;
           let itemId = element.closest(".item").dataset.itemId;
@@ -464,7 +460,7 @@ export default class EWActorSheet extends ActorSheet {
 
       }
 
-      _onEquipItem(event) {
+      static equipItem(event) {
           event.preventDefault();
 
           let element = event.currentTarget;
@@ -481,6 +477,90 @@ export default class EWActorSheet extends ActorSheet {
 
       }
 
+      /* =============== Drag/Drop Handlers and Methods ======================= */
 
+      #createDragDropHandlers() {
+        return this.options.dragDrop.map((d) => {
+          d.permissions = {
+            dragstart: this._canDragStart.bind(this),
+            drop: this._canDragDrop.bind(this),
+          };
+          d.callbacks = {
+            dragstart: this._onDragStart.bind(this),
+            dragover: this._onDragOver.bind(this),
+            drop: this._onDrop.bind(this),
+          };
+          return new DragDrop(d);
+        });
+    }
+
+    #dragDrop;
+
+    //getter
+    get dragDrop() {
+        return this.#dragDrop;
+    }
+
+    /**
+   * Define whether a user is able to begin a dragstart workflow for a given drag selector
+   * @param {string} selector       The candidate HTML selector for dragging
+   * @returns {boolean}             Can the current user drag this selector?
+   * @protected
+   */
+    _canDragStart(selector) {
+        // game.user fetches the current user
+        return this.isEditable;
+    }
+
+    /**
+   * Define whether a user is able to conclude a drag-and-drop workflow for a given drop selector
+   * @param {string} selector       The candidate HTML selector for the drop target
+   * @returns {boolean}             Can the current user drop on this selector?
+   * @protected
+   */
+    _canDragDrop(selector) {
+        // game.user fetches the current user
+        return this.isEditable;
+    }
+
+    /**
+   * Callback actions which occur at the beginning of a drag start workflow.
+   * @param {DragEvent} event       The originating DragEvent
+   * @protected
+   */
+    _onDragStart(event) {
+        const el = event.currentTarget;
+        if ('link' in event.target.dataset) return;
+
+        // Extract the data you need
+        let dragData = null;
+
+        if (!dragData) return;
+
+        // Set data transfer
+        event.dataTransfer.setData('text/plain', JSON.stringify(dragData));
+    }
+
+      /**
+   * Callback actions which occur when a dragged element is over a drop target.
+   * @param {DragEvent} event       The originating DragEvent
+   * @protected
+   */
+     _onDragOver(event) {}
+
+
+  /**
+   * Callback actions which occur when a dragged element is dropped on a target.
+   * @param {DragEvent} event       The originating DragEvent
+   * @protected
+   */
+    async _onDrop(event) {
+        const data = TextEditor.getDragEventData(event);
+
+        // Handle different data types
+        switch (data.type) {
+            // write your cases
+        }
+    }
 
 }

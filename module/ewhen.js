@@ -5,7 +5,7 @@ import { EW } from "./config.js";
 import { EWActor } from "./actor/EWActor.js";
 import { EWCombat } from "./combat/EWCombat.js";
 import EWItemSheet from "./sheets/item/EWItemSheet.js";
-import EWActorSheet from "./sheets/actor/EWActorSheet.js";
+import EWActorSheetV2 from "./sheets/actor/EWActorSheetV2.js";
 import { registerSettings } from "./settings.js";
 import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
 import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
@@ -21,7 +21,7 @@ Hooks.once("init", () => {
 
     game.EW = {
         EWActor,
-        EWActorSheet,
+        EWActorSheetV2,
         EWItemSheet,
         EWCombat,
         EWMessageHelper,
@@ -35,8 +35,11 @@ Hooks.once("init", () => {
     Items.unregisterSheet("core", ItemSheet);
 
     // Register System sheets
-    Actors.registerSheet("ewhen", EWActorSheet, { types:["character", "vehicle"], makeDefault:true });
+   Actors.registerSheet("ewhen", EWActorSheetV2, { types:["character", "vehicle"], makeDefault:true });
 
+      // `Actors.registerSheet` is semantically equivalent to passing Actor as the first argument
+      // This works for all world collections, e.g. Items
+      //Actors.registerSheet("package-id", EWActorSheetV2, {})
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
    // CONFIG.debug.hooks = true;

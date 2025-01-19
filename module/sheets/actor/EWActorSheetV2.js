@@ -1,16 +1,9 @@
 import { EWDialogHelper } from "../../interaction/EWDialogHelper.js";
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ActorSheetV2 } = foundry.applications.sheets;
 
-export default class EWActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
-    constructor(options = {}) {
-        super(options);
-        this.#dragDrop = this.#createDragDropHandlers();
-    }
-
-    get template() {
-        const path = 'systems/ewhen/templates/actor/';
-        return `${path}${this.actor.type}sheet.hbs`;
-    }
 
     /**
      * @override
@@ -41,6 +34,7 @@ export default class EWActorSheet extends HandlebarsApplicationMixin(ActorSheetV
             width: 775,
             left:120
         },
+        tag:"form",
         window:{
             title:"V2 Actor Sheet"
         },
@@ -48,8 +42,8 @@ export default class EWActorSheet extends HandlebarsApplicationMixin(ActorSheetV
     }
 
     static PARTS = {
-        all: {
-            template: "./systems/ewhen/templates/actor/charactersheet.hbs",
+        form: {
+            template: "systems/ewhen/templates/actor/charactersheet.hbs",
         }
     }
 
@@ -97,10 +91,10 @@ export default class EWActorSheet extends HandlebarsApplicationMixin(ActorSheetV
     /**
      * @override
      */
-    activateListeners(html) {
+    activateListeners() {
         const html = $(this.element);
         super.activateListeners(html);
-        this.#dragDrop.forEach((d) => d.bind(this.element));
+        this.dragDrop.forEach((d) => d.bind(this.element));
         // Everything below here is only needed if the sheet is editable
         
 
@@ -477,90 +471,90 @@ export default class EWActorSheet extends HandlebarsApplicationMixin(ActorSheetV
 
       }
 
-      /* =============== Drag/Drop Handlers and Methods ======================= */
+//       /* =============== Drag/Drop Handlers and Methods ======================= */
 
-      #createDragDropHandlers() {
-        return this.options.dragDrop.map((d) => {
-          d.permissions = {
-            dragstart: this._canDragStart.bind(this),
-            drop: this._canDragDrop.bind(this),
-          };
-          d.callbacks = {
-            dragstart: this._onDragStart.bind(this),
-            dragover: this._onDragOver.bind(this),
-            drop: this._onDrop.bind(this),
-          };
-          return new DragDrop(d);
-        });
-    }
+//       createDragDropHandlers() {
+//         return this.options.dragDrop.map((d) => {
+//           d.permissions = {
+//             dragstart: this._canDragStart.bind(this),
+//             drop: this._canDragDrop.bind(this),
+//           };
+//           d.callbacks = {
+//             dragstart: this._onDragStart.bind(this),
+//             dragover: this._onDragOver.bind(this),
+//             drop: this._onDrop.bind(this),
+//           };
+//           return new DragDrop(d);
+//         });
+//     }
 
-    #dragDrop;
+    
 
-    //getter
-    get dragDrop() {
-        return this.#dragDrop;
-    }
+//     //getter
+//     get dragDrop() {
+//         return this.dragDrop;
+//     }
 
-    /**
-   * Define whether a user is able to begin a dragstart workflow for a given drag selector
-   * @param {string} selector       The candidate HTML selector for dragging
-   * @returns {boolean}             Can the current user drag this selector?
-   * @protected
-   */
-    _canDragStart(selector) {
-        // game.user fetches the current user
-        return this.isEditable;
-    }
+//     /**
+//    * Define whether a user is able to begin a dragstart workflow for a given drag selector
+//    * @param {string} selector       The candidate HTML selector for dragging
+//    * @returns {boolean}             Can the current user drag this selector?
+//    * @protected
+//    */
+//     _canDragStart(selector) {
+//         // game.user fetches the current user
+//         return this.isEditable;
+//     }
 
-    /**
-   * Define whether a user is able to conclude a drag-and-drop workflow for a given drop selector
-   * @param {string} selector       The candidate HTML selector for the drop target
-   * @returns {boolean}             Can the current user drop on this selector?
-   * @protected
-   */
-    _canDragDrop(selector) {
-        // game.user fetches the current user
-        return this.isEditable;
-    }
+//     /**
+//    * Define whether a user is able to conclude a drag-and-drop workflow for a given drop selector
+//    * @param {string} selector       The candidate HTML selector for the drop target
+//    * @returns {boolean}             Can the current user drop on this selector?
+//    * @protected
+//    */
+//     _canDragDrop(selector) {
+//         // game.user fetches the current user
+//         return this.isEditable;
+//     }
 
-    /**
-   * Callback actions which occur at the beginning of a drag start workflow.
-   * @param {DragEvent} event       The originating DragEvent
-   * @protected
-   */
-    _onDragStart(event) {
-        const el = event.currentTarget;
-        if ('link' in event.target.dataset) return;
+//     /**
+//    * Callback actions which occur at the beginning of a drag start workflow.
+//    * @param {DragEvent} event       The originating DragEvent
+//    * @protected
+//    */
+//     _onDragStart(event) {
+//         const el = event.currentTarget;
+//         if ('link' in event.target.dataset) return;
 
-        // Extract the data you need
-        let dragData = null;
+//         // Extract the data you need
+//         let dragData = null;
 
-        if (!dragData) return;
+//         if (!dragData) return;
 
-        // Set data transfer
-        event.dataTransfer.setData('text/plain', JSON.stringify(dragData));
-    }
+//         // Set data transfer
+//         event.dataTransfer.setData('text/plain', JSON.stringify(dragData));
+//     }
 
-      /**
-   * Callback actions which occur when a dragged element is over a drop target.
-   * @param {DragEvent} event       The originating DragEvent
-   * @protected
-   */
-     _onDragOver(event) {}
+//       /**
+//    * Callback actions which occur when a dragged element is over a drop target.
+//    * @param {DragEvent} event       The originating DragEvent
+//    * @protected
+//    */
+//      _onDragOver(event) {}
 
 
-  /**
-   * Callback actions which occur when a dragged element is dropped on a target.
-   * @param {DragEvent} event       The originating DragEvent
-   * @protected
-   */
-    async _onDrop(event) {
-        const data = TextEditor.getDragEventData(event);
+//   /**
+//    * Callback actions which occur when a dragged element is dropped on a target.
+//    * @param {DragEvent} event       The originating DragEvent
+//    * @protected
+//    */
+//     async _onDrop(event) {
+//         const data = TextEditor.getDragEventData(event);
 
-        // Handle different data types
-        switch (data.type) {
-            // write your cases
-        }
-    }
+//         // Handle different data types
+//         switch (data.type) {
+//             // write your cases
+//         }
+//     }
 
 }

@@ -15,19 +15,7 @@
             </div>
 
             <table class="item-table">
-                    {{#unless (or isRabble isTough)}}
-					<tr>
-					  <td style="border-left:2px">
-                           {{localize "EW.attribute.resource.hero_points"}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
-
-                             {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/>{{/if}}
-                              {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>{{/if}}
-                            {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>{{/if}}
-                             {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>{{/if}}
-                             {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>{{/unless}}
-                        </td>
-					</tr>
-                    {{/unless}}
+                    
 					</table>
 
 
@@ -45,48 +33,47 @@
     </div>
 
 {{!-- Sheet Tab Navigation --}}
-    <nav class="ewhen sheet-tabs tabs" data-group="primary">
-        <a class="ewhen item" data-tab="main">Essentials</a>
-        <a class="ewhen item" data-tab="gear">Equipment and Powers</a>
-        <a class="ewhen item" data-tab="misc">Other Details</a>
-    </nav>
-
-    <section class="sheetbody">
-        <div class="tab main" data-group="primary" data-tab="main">
+<section class="sheetbody">
+        <div class="tab main">
             <div class="ewhen flexcol"> {{!--Outermost Flex Container--}}
                 <div class="ewhen flexrow">
                     {{> 'systems/ewhen/templates/partials/MainAttributes.hbs'}}
                     {{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
-                {{#unless isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
+                    {{#unless isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
+                    <div class="ewhen flex-item">
+                        <span class="traitsheet-header">{{localize "Point Pools"}}</span>
+                        <table>
+                            <tr>
+                                <td>
+                            {{localize "EW.attribute.resource.hero_points"}} 
+                            </td>
+                            <td><input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/><br/>
+                                </td>
+                                {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input style="background:black; margin-right:8px; display:block;" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/><br/>{{/if}}
+                                {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/><br/>{{/if}}
+                                {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/><br/>{{/if}}
+                                {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/><br/>{{/if}}
+                                {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/><br/>{{/unless}}
+                            </tr>
+                            </table>
+                        </div>
                 </div>
                 <div class="ewhen flexrow">
                     <div class="ewhen flex-item">
                         {{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
                         {{> 'systems/ewhen/templates/partials/FlawList.hbs'}}
+                        {{#unless (or isTough isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
 
                     </div>
                     <div class="ewhen flex-item">
                         {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}
                         {{> 'systems/ewhen/templates/partials/ArmorList.hbs'}}
+                        {{> 'systems/ewhen/templates/partials/EquipmentList.hbs'}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab gear" data-group="primary" data-tab="gear">
-            <div class="ewhen flexcol">
-                <div class="ewhen flexrow">
-                     <div class="ewhen flex-item">
-                    {{> 'systems/ewhen/templates/partials/EquipmentList.hbs'}}
-                    </div>
-                </div>
-                <div class="ewhen flexrow">
-                    <div class="ewhen flex-item">
-                    {{#unless (or isTough isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tab misc" data-group="primary" data-tab="misc">
+        <div class="tab misc">
             <div class="ewhen flexcol">
                 <div class="ewhen flexrow">
                      <div class="ewhen flex-item">

@@ -30,8 +30,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
         },
         position:{
-            height:685,
-            width: 775,
+           
+            width: 900,
             left:120
         },
         tag:"form",
@@ -44,7 +44,37 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     static PARTS = {
         form: {
             template: "systems/ewhen/templates/actor/charactersheet.hbs",
-        }
+        },
+        /* tabs: {
+            template: "templates/generic/tab-navigation.hbs"
+        },
+        mainAtts: {
+            template: "systems/ewhen/templates/partials/MainAttributes.hbs"
+        },
+        combAtts: {
+            template: "systems/ewhen/templates/partials/CombatAttributes.hbs"
+        },
+        careerList: {
+            template: "systems/ewhen/templates/partials/CareerList.hbs"
+        },
+        boonList: {
+            template: "systems/ewhen/templates/partials/BoonList.hbs"
+        },
+        flawList: {
+            template: "systems/ewhen/templates/partials/FlawList.hbs"
+        },
+        weaponList: {
+
+        },
+        armorList: {
+
+        },
+        equipmentList: {
+
+        },
+        powerList: {
+
+        } */
     }
 
     /**

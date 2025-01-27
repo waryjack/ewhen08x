@@ -1,7 +1,6 @@
 export const registerSettings = function() {
 
     // Register initiative model
-
     /* game.settings.register("ewhen", 'initType', {
         name: 'EW.SETTINGS.InitiativeMode',
         hint: 'EW.SETTINGS.InitiativeModeDesc',

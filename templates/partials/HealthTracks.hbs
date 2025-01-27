@@ -20,17 +20,19 @@
                             <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
                         </td>
-                        <td class="res-track"><a class="adj-resource res-track" data-resource-name="lifeblood"><i class="fas fa-forward"></i> {{localize "EW.attribute.resource.critical"}}</a></td>
+                        <td class="res-track">{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-resource-name="lifeblood"><i class="fas fa-forward"></i> {{localize "EW.attribute.resource.critical"}}</a>{{/if}}</td>
                         <td>
+                            {{#if (setting "useCritical")}}
                             {{#times resources.lifeblood.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
                             {{#times (minus 5 resources.lifeblood.critical)}}
                             <i class="far fa-circle res-box"></i>
                             {{/times}}
+                            {{/if}}
                         </td>
                     </tr>
-                    {{#if (setting "useCritical")}}
+                    {{#if (setting "useResolve")}}
                     {{#unless (or isTough isRabble)}}
                     <tr>
                         <td>{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-resource-name="resolve">{{localize "EW.attribute.resource.resolve"}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
@@ -51,13 +53,15 @@
                             {{/unless}}
                             {{/if}}
                         </td>
-                        <td class="res-track">{{#if (setting "useResolve")}}<a class="adj-resource res-track" data-resource-name="resolve"><i class="fas fa-forward"></i> {{localize "EW.attribute.resource.critical"}}{{/if}}</a></td>
-                        <td>{{#if (setting "useResolve")}}{{#times resources.resolve.critical}}
+                        <td class="res-track">{{#if (setting "useResolve")}}{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-resource-name="resolve"><i class="fas fa-forward"></i> {{localize "EW.attribute.resource.critical"}}</a>{{/if}}{{/if}}</td>
+                        <td>{{#if (setting "useCritical")}}{{#if (setting "useResolve")}}{{#times resources.resolve.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
                             {{#times (minus 5 resources.resolve.critical)}}
                             <i class="far fa-circle res-box"></i>
-                            {{/times}}{{/if}}
+                            {{/times}}
+                            {{/if}}
+                            {{/if}}
                         </td>
                         <td colspan='4'></td>
                     </tr>

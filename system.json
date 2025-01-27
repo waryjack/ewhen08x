@@ -37,6 +37,7 @@
       "distance":5,
       "units":"ft"
     },
+    "initiative":"@priority_roll.expression + @main_attributes.mind.rank + @combat_attributes.initiative.rank",
     "primaryTokenAttribute": "resources.lifeblood",
     "secondaryTokenAttribute":"resources.resolve",
     "url": "https://github.com/waryjack/ewhen08x",

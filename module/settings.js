@@ -1,3 +1,5 @@
+import { EWSettingsDialog } from "./menus/SettingsMenu.mjs";
+
 export const registerSettings = function() {
 
     // Register initiative model
@@ -54,6 +56,17 @@ export const registerSettings = function() {
         config: true,
         type: Boolean,
         default: false,
+        onChange: () => {
+            let initA = game.settings.get("ewhen", "initAttribute");
+            let initC = game.settings.get("ewhen", "initCombat");
+            let exprA = initA === '0' ? '0' : initA;
+            let exprC = initC === '0' ? '0' : initC;
+            if(game.settings.get('ewhen', 'singleDieInit')) { 
+                game.system.initiative = `1d6 + ${exprA} + ${exprC}`
+            } else {
+                game.system.initiative = `@priority_roll.expression + ${exprA} + ${exprC}`
+            }
+        }
     });
 
     game.settings.register("ewhen", "initAttribute", {
@@ -61,7 +74,7 @@ export const registerSettings = function() {
         hint:"EW.SETTINGS.InitAttributeDesc",
         config:true,
         type:String,
-        default:"0",
+        default:"@main_attributes.mind.rank",
         choices: {
             '0':'None',
             '@main_attributes.strength.rank':'EW.attribute.main.strength',
@@ -70,7 +83,11 @@ export const registerSettings = function() {
             '@main_attributes.appeal.rank':'EW.attribute.main.appeal'
         },
         onChange: () => {
-            game.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
+            let initA = game.settings.get("ewhen", "initAttribute");
+            let initC = game.settings.get("ewhen", "initCombat");
+            let exprA = initA === '0' ? '0' : initA;
+            let exprC = initC === '0' ? '0' : initC;
+            game.system.initiative = `@priority_roll.expression + ${exprA} + ${exprC}`;
         }
     });
     
@@ -79,7 +96,7 @@ export const registerSettings = function() {
         hint:"EW.SETTINGS.InitCombatDesc",
         config:true,
         type:String,
-        default:"0",
+        default:"@main_attributes.initiative.rank",
         choices: {
             '0':'None',
             '@combat_attributes.melee.rank':'EW.attribute.combat.melee',
@@ -88,7 +105,11 @@ export const registerSettings = function() {
             '@combat_attributes.initiative.rank':'EW.attribute.combat.initiative'
         },
         onChange: () => {
-            game.system.initiative = `@priority_roll.expression + ${game.settings.get('ewhen', 'initAttribute')} + ${game.settings.get('ewhen', 'initCombat')}`
+            let initA = game.settings.get("ewhen", "initAttribute");
+            let initC = game.settings.get("ewhen", "initCombat");
+            let exprA = initA === '0' ? '0' : initA;
+            let exprC = initC === '0' ? '0' : initC;
+            game.system.initiative = `@priority_roll.expression + ${exprA} + ${exprC}`;
         }
     });
 

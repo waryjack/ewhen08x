@@ -259,9 +259,9 @@
     "EW.SETTINGS.SingleDieInit":"Use 1d6 for Initiative Rolls",
     "EW.SETTINGS.SingleDieInitDesc":"Initiative rolls use 1d6, regardless of dice type setting (compatible with Honor+Intrigue, Barbarians of Lemuria, etc.)",
     "EW.SETTINGS.InitAttribute":"Attribute Initiative Bonus",
-    "EW.SETTINGS.InitAttributeDesc":"Select the Attribute that adds to initiative (if any)",
+    "EW.SETTINGS.InitAttributeDesc":"Select the Attribute that adds to initiative (Everywhen default is Mind)",
     "EW.SETTINGS.InitCombat":"Combat Ability Initiative Bonus",
-    "EW.SETTINGS.InitCombatDesc":"Select the Combat Ability that adds to initiative (if any)",
+    "EW.SETTINGS.InitCombatDesc":"Select the Combat Ability that adds to initiative (Everywhen default is Initiative)",
     "EW.SETTINGS.UseResolve": "Enable Resolve",
     "EW.SETTINGS.UseResolveDesc": "Enable the Resolve track alongside Lifeblood.",
     "EW.SETTINGS.UseCritical": "Enable Critical Tracks",
@@ -303,6 +303,11 @@
     "EW.SETTINGS.defenseLinkDesc":"This attribute will be selected in the Roll dialog when clicking on the Defense ability",
     "EW.SETTINGS.initLink":"Custom Defense Attribute",
     "EW.SETTINGS.initLinkDesc":"This attribute will be selected in the Roll dialog when clicking on the Defense ability",
+
+    "EW.SETTINGS.MENU.initlabel":"Initiative Options",
+    "EW.SETTINGS.MENU.tracklabel":"Trackers, Pools, and Resources`",
+    "EW.SETTINGS.MENU.custname":"Customize Game Terms",
+    "EW.SETTINGS.MENU.genlabel":"General Settings",
 
     "EW.difficulty.very_easy": "Very Easy (+2)",
     "EW.difficulty.easy": "Easy (+1)",

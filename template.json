@@ -150,7 +150,7 @@
 		}
 	},
     "Item": {
-        "types":["trait", "career", "weapon", "armor", "equipment", "power"],
+        "types":["trait", "career", "weapon", "armor", "equipment", "power", "pointpool"],
         "templates":{
             "common":
             {
@@ -227,6 +227,12 @@
 			"difficulty":"",
 			"resource_cost":"",
             "prereq":""
-        }
+        },
+		"pointpool": {
+			"description":"",
+			"min":0,
+			"max":0,
+			"current":0
+		}
     }
 }

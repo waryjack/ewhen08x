@@ -1,5 +1,3 @@
-import { EWSettingsDialog } from "./menus/SettingsMenu.mjs";
-
 export const registerSettings = function() {
 
     // Register initiative model
@@ -96,7 +94,7 @@ export const registerSettings = function() {
         hint:"EW.SETTINGS.InitCombatDesc",
         config:true,
         type:String,
-        default:"@main_attributes.initiative.rank",
+        default:"@combat_attributes.initiative.rank",
         choices: {
             '0':'None',
             '@combat_attributes.melee.rank':'EW.attribute.combat.melee',
@@ -341,4 +339,5 @@ export const registerSettings = function() {
         type: String,
         default: "Initiative"
     });
+    
 }

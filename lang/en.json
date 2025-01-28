@@ -93,6 +93,10 @@
     "EW.game_term.initmod": "Init Mod",
     "EW.game_term.size": "Size",
     "EW.game_term.scaledamage": "Scale Damage",
+    
+    "EW.general_term.yes":"Yes",
+    "EW.general_term.no":"No",
+    "EW.general_term.default":"Default",
 
     "EW.era.ancient": "Ancient",
     "EW.era.steampunk": "Steampunk",
@@ -137,6 +141,7 @@
     "EW.attribute.resource.credit_rating": "Credit Rating",
     "EW.attribute.resource.hero": "Hero",
     "EW.attribute.resource.psi": "Psi",
+    "EW.attribute.resource.psionics": "Psionics",
     "EW.attribute.resource.faith": "Faith",
     "EW.attribute.resource.arcana": "Arcana",
 
@@ -278,7 +283,7 @@
     "EW.SETTINGS.rabbleStrength": "Rabble Lifeblood Amount",
     "EW.SETTINGS.rabbleStrengthDesc": "How much lifeblood should Rabble have in your game?",
     "EW.SETTINGS.UseCredit": "Enable Credit Rating",
-    "EW.SETTINGS.UseCreditDesc": "Use credit rating instead of currency in your game. Enabling this will hide currency info on the character sheet.",
+    "EW.SETTINGS.UseCreditDesc": "Use credit rating instead of currency in your game.",
     "EW.SETTINGS.strName": "Strength",
     "EW.SETTINGS.strNameDesc": "Custom name for Strength Attribute",
     "EW.SETTINGS.agiName": "Agility",
@@ -304,10 +309,16 @@
     "EW.SETTINGS.initLink":"Custom Defense Attribute",
     "EW.SETTINGS.initLinkDesc":"This attribute will be selected in the Roll dialog when clicking on the Defense ability",
 
+    "EW.SETTINGS.MENU.menuname":"Everywhen Game Settings",
+    "EW.SETTINGS.MENU.menulabel":"Everywhen Settings",
+    "EW.SETTINGS.MENU.menuhint":"Customize your Everywhen game",
     "EW.SETTINGS.MENU.initlabel":"Initiative Options",
-    "EW.SETTINGS.MENU.tracklabel":"Trackers, Pools, and Resources`",
+    "EW.SETTINGS.MENU.tracklabel":"Trackers, Pools, and Resources",
     "EW.SETTINGS.MENU.custname":"Customize Game Terms",
     "EW.SETTINGS.MENU.genlabel":"General Settings",
+    "EW.SETTINGS.MENU.defaultAttNames":"Default Name",
+    "EW.SETTINGS.MENU.customName": "Custom Name",
+    "EW.SETTINGS.MENU.defaultGameTermNames":"Other Terms",
 
     "EW.difficulty.very_easy": "Very Easy (+2)",
     "EW.difficulty.easy": "Easy (+1)",

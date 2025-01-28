@@ -1,3 +1,6 @@
+import { EWSettingsDialog
+
+ } from "./menus/SettingsMenu.mjs";
 export const registerSettings = function() {
 
     // Register initiative model
@@ -27,7 +30,57 @@ export const registerSettings = function() {
         }
     }); */
 
-    game.settings.register("ewhen", 'diceType', {
+    game.settings.registerMenu("ewhen", "ewhenSettingsMenu", {
+        name: "EW.SETTINGS.MENU.menuname",
+        label: "EW.SETTINGS.MENU.menulabel",
+        hint: "EW.SETTINGS.MENU.menuhint",
+        icon: "fas fa-bars",
+        type: EWSettingsDialog,
+        restricted:true
+    });
+    
+    game.settings.register("ewhen","allSettings",{
+        scope:"world",
+        config:false,
+        type: Object,
+        default: {
+            diceType : "2d6",
+            singleDieInit : false,
+            initAttribute : "@main_attributes.strength.rank",
+            initCombat : "@combat_attributes.initiative.rank",
+            priority : true,
+            rerollPerRound : false,
+            meleeLink : "agility",
+            rangedLink : "agility",
+            defenseLink : "agility",
+            useResolve : false,
+            useCritical : true,
+            useArcana : false,
+            useFaith : false,
+            usePsionics : false,
+            useScale : true,
+            useCredit : false,
+            rabbleStrength : 1,
+            strName : game.i18n.localize("EW.attribute.main.strength"),
+            agiName : game.i18n.localize("EW.attribute.main.agility"),
+            minName : game.i18n.localize("EW.attribute.main.mind"),
+            appName : game.i18n.localize("EW.attribute.main.appeal"),
+            melName : game.i18n.localize("EW.attribute.combat.melee"),
+            ranName : game.i18n.localize("EW.attribute.combat.ranged"),
+            defName : game.i18n.localize("EW.attribute.combat.defense"),
+            iniName : game.i18n.localize("EW.attribute.combat.initiative"),
+            lbdName : game.i18n.localize("EW.attribute.resource.lifeblood"),
+            resName : game.i18n.localize("EW.attribute.resource.resolve"),
+            critName : game.i18n.localize("EW.attribute.resource.critical"),
+            faithName : game.i18n.localize("EW.attribute.resource.faith"),
+            arcanaName : game.i18n.localize("EW.attribute.resource.arcana"),
+            psionicsName : game.i18n.localize("EW.attribute.resource.psionics"),
+            heroName : game.i18n.localize("EW.attribute.resource.hero")
+        }
+    })
+
+
+    /* game.settings.register("ewhen", 'diceType', {
         name: 'EW.SETTINGS.DiceType',
         hint: 'EW.SETTINGS.DiceTypeDesc',
         scope: 'world',
@@ -337,6 +390,6 @@ export const registerSettings = function() {
         config: true,
         type: String,
         default: "Initiative"
-    });
+    });*/
     
 }

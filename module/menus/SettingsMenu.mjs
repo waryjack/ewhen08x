@@ -14,7 +14,7 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
           closeOnSubmit: false
         },
         action: {
-            updateSettings : EWSettingsDialog.updateSettings,
+            //updateSettings : EWSettingsDialog.updateSettings,
             restoreDefaults: EWSettingsDialog.restoreDefaults
         }
 
@@ -36,9 +36,12 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
         trackers: {
             template:"systems/ewhen/templates/menus/trackers.hbs"
         },
-        /*renames: {
-            templates:"systems/ewhen/templates/menus/renames.hbs"
-        },*/
+        custname: {
+            template:"systems/ewhen/templates/menus/custname.hbs"
+        },
+        footer: {
+            template: "templates/generic/form-footer.hbs"
+        }
     }
 
    
@@ -65,12 +68,25 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
          */
 
         if (!this.tabGroups.settings) this.tabGroups.settings = 'general';
-
+        console.log("context: ", context);
+        context.buttons = [
+            { type: "submit", icon: "fa-solid fa-save", label: "Save Changes" },
+            { type: "reset", action: "restoreDefaults", icon: "fa-solid fa-undo", label: "Restore" },
+        ]
         context.tabs = {
+            general: {
+                id: "general",
+                group: "settings",
+                icon: "fa-solid fa-gear",
+                label: "EW.SETTINGS.MENU.genlabel",
+                active: true,
+                cssClass: this.tabGroups.settings === 'general' ? 'active' : '',
+                data: context.current.general
+            },
             initsettings: {
                 id:"initsettings",
                 group: "settings",
-                icon:"",
+                icon:"fa-solid fa-stopwatch",
                 label:"EW.SETTINGS.MENU.initlabel",
                 active:false,
                 cssClass: this.tabGroups.settings === 'initsettings' ? 'active' : '',
@@ -79,46 +95,71 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
             trackers: {
                 id:"trackers",
                 group: "settings",
-                icon:"",
+                icon:"fa-solid fa-chart-simple",
                 label:"EW.SETTINGS.MENU.tracklabel",
                 active:false,
                 cssClass: this.tabGroups.settings === 'trackers' ? 'active' : '',
                 data : context.current.trackers
             },
-            renames: {
-                id:"renames",
+            custname: {
+                id:"custname",
                 group: "settings",
-                icon:"",
-                label:"EW.SETTINGS.MENU.initlabel",
+                icon:"fa-solid fa-pen-clip",
+                label:"EW.SETTINGS.MENU.custname",
                 active:false,
-                cssClass: this.tabGroups.settings === 'renames' ? 'active' : '',
+                cssClass: this.tabGroups.settings === 'custname' ? 'active' : '',
                 data: context.current.custom
-            },
-            general: {
-                id: "general",
-                group: "settings",
-                icon: "",
-                label: "EW.SETTINGS.MENU.genlabel",
-                active: true,
-                cssClass: this.tabGroups.settings === 'general' ? 'active' : '',
-                data: context.current.general
             }
         }
 
-        
+        context.initAttributes = {
+            "0":"EW.game_term.none",
+            "@main_attributes.strength.rank":"EW.attribute.main.strength",
+            "@main_attributes.agility.rank":"EW.attribute.main.agility",
+            "@main_attributes.mind.rank":"EW.attribute.main.mind",
+            "@main_attributes.appeal.rank":"EW.attribute.main.appeal"
+        }
 
+        context.initCombat = {
+            "0":"EW.game_term.none",
+            "@combat_attributes.melee.rank":"EW.attribute.combat.melee",
+            "@combat_attributes.ranged.rank":"EW.attribute.combat.ranged",
+            "@combat_attributes.defense.rank":"EW.attribute.combat.defense",
+            "@combat_attributes.initiative":"EW.attribute.combat.defense"
+        }
+        
+        context.linkAttributes = {
+            "none":"EW.game_term.none",
+            "strength":"EW.attribute.main.strength",
+            "agility":"EW.attribute.main.agility",
+            "mind":"EW.attribute.main.mind",
+            "appeal":"EW.attribute.main.appeal"
+        }
+
+        context.yesno = {
+            "true":"EW.general_term.yes",
+            "false":"EW.general_term.no"
+        }
+
+        context.dicetype = {
+            '2d6': 'EW.SETTINGS.2d6',
+            '2d10': 'EW.SETTINGS.2d10',
+            '2d12': 'EW.SETTINGS.2d12',
+            '3d6': 'EW.SETTINGS.3d6'
+        }
         console.log("Menu context: ", context);
         return context;
 
     }
 
     async _preparePartContext(id, context) {
+        console.log("Part ID / Context: ", id, "\n", context);
         let cs = this._getCurrentSettings();
         switch (id) {
             case "general":context.tab = context.tabs[id];break;
             case "initsettings":context.tab = context.tabs[id];break;
             case "trackers":context.tab = context.tabs[id];break;
-            case "renames":  context.tab = context.tabs[id];break;
+            case "custname":  context.tab = context.tabs[id];break;
             default: break;
 
         }
@@ -128,59 +169,7 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
 
     // retrieve current values of settings
     _getCurrentSettings(){
-        let current = {};
-        let currentGeneral = {
-            // general settings
-            diceType : game.settings.get("ewhen", "diceType"),
-            useScale : game.settings.get("ewhen", "useScale"),
-            useCredit : game.settings.get("ewhen", "useCredit"),
-            meleeLink : game.settings.get("ewhen", "meleeLink"),
-            rangedLink : game.settings.get("ewhen", "rangedLink"),
-            defenseLink : game.settings.get("ewhen", "defenseLink"),
-            rabbleStrength : game.settings.get("ewhen", "rabbleStrength")
-        }
-
-        let currentInit = {
-            // initiative
-            singleDieInit : game.settings.get("ewhen", "singleDieInit"),
-            initAttribute : game.settings.get("ewhen", "initAttribute"),
-            initCombat : game.settings.get("ewhen", "initCombat"),
-            priority : game.settings.get("ewhen", "priority"),
-            rerollPerRound : game.settings.get("ewhen", "rerollPerRound")
-        }
-
-        let currentTrackers = {
-            //trackers
-            useResolve : game.settings.get("ewhen", "useResolve"),
-            useCritical : game.settings.get("ewhen", "useCritical"),
-            useArcana : game.settings.get("ewhen", "useArcana"),
-            useFaith : game.settings.get("ewhen", "useFaith"),
-            usePsionics : game.settings.get("ewhen", "usePsionics")
-        }
-
-        let currentCustomNames = {    //custom names
-            strName : game.settings.get("ewhen", "strName"),
-            agiName : game.settings.get("ewhen", "agiName"),
-            minName : game.settings.get("ewhen", "minName"),
-            appName : game.settings.get("ewhen", "appName"),
-            melName : game.settings.get("ewhen", "melName"),
-            ranName : game.settings.get("ewhen", "ranName"),
-            defName : game.settings.get("ewhen", "defName"),
-            iniName : game.settings.get("ewhen", "iniName")
-            /* lbdName : game.settings.get("ewhen", "lbdName"),
-            resName : game.settings.get("ewhen", "resName"),
-            critName : game.settings.get("ewhen", "critName"),
-            faithName : game.settings.get("ewhen", "faithName"),
-            arcanaName : game.settings.get("ewhen", "arcanaName"),
-            psionicsName : game.settings.get("ewhen", "psionicsName"),
-            heroName : game.settings.get("ewhen", "heroName")*/
-        }
-        current.general = currentGeneral;
-        current.init = currentInit;
-        current.trackers = currentTrackers;
-        current.custom = currentCustomNames;
-
-        return current;
+        return game.settings.get("ewhen", "allSettings");
     }
 
     _processSettingChanges(data) {

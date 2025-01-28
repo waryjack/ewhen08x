@@ -3,7 +3,8 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) {
     static DEFAULT_OPTIONS = {
         id: "settings-menu",
-        position:{},
+        position:{
+        },
         window:{
             title:"Everywhen Settings"
         },
@@ -11,10 +12,10 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
         form: {
           handler: EWSettingsDialog.updateSettings,
           submitOnChange: false,
-          closeOnSubmit: false
+          closeOnSubmit: true
         },
-        action: {
-            //updateSettings : EWSettingsDialog.updateSettings,
+        actions: {
+            updateSettings : EWSettingsDialog.updateSettings,
             restoreDefaults: EWSettingsDialog.restoreDefaults
         }
 
@@ -44,14 +45,6 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
         }
     }
 
-   
-
-    static updateSettings(data) {
-        //assemble the stuff from the form
-
-        this._processSettingChanges(updates);
-    }
-
     async _prepareContext(context){
         context.config = CONFIG.ewhen;
         context.current = this._getCurrentSettings();
@@ -68,10 +61,10 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
          */
 
         if (!this.tabGroups.settings) this.tabGroups.settings = 'general';
-        console.log("context: ", context);
+        // console.log("context: ", context);
         context.buttons = [
-            { type: "submit", icon: "fa-solid fa-save", label: "Save Changes" },
-            { type: "reset", action: "restoreDefaults", icon: "fa-solid fa-undo", label: "Restore" },
+            { type: "submit", icon: "fa-solid fa-save", label: "Save Changes (window will close)" },
+            //{ type: "button", action: "restoreDefaults", icon: "fa-solid fa-undo", label: "Restore Defaults" },
         ]
         context.tabs = {
             general: {
@@ -125,7 +118,7 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
             "@combat_attributes.melee.rank":"EW.attribute.combat.melee",
             "@combat_attributes.ranged.rank":"EW.attribute.combat.ranged",
             "@combat_attributes.defense.rank":"EW.attribute.combat.defense",
-            "@combat_attributes.initiative":"EW.attribute.combat.defense"
+            "@combat_attributes.initiative.rank":"EW.attribute.combat.defense"
         }
         
         context.linkAttributes = {
@@ -153,7 +146,7 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
     }
 
     async _preparePartContext(id, context) {
-        console.log("Part ID / Context: ", id, "\n", context);
+       // console.log("Part ID / Context: ", id, "\n", context);
         let cs = this._getCurrentSettings();
         switch (id) {
             case "general":context.tab = context.tabs[id];break;
@@ -163,8 +156,42 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
             default: break;
 
         }
-        console.log("Part context: ", context);
+        // console.log("Part context: ", context);
         return context;
+    }
+
+    static updateSettings(event, form, formData) {
+        //assemble the stuff from the form
+        console.log("this ", this);
+
+        // yesnos: priority, useArcana, useCredit, useCritical, useFaith, usePsionics, useResolve, singleDieInit
+        let converts = ['priority', 'useArcana', 'useCredit', 'useCritical', 'usePsionics','useFaith','useResolve', 'singleDieInit','rerollPerRound','useScale'];
+        let newSettings = formData.object;
+
+        converts.forEach(i => {
+            newSettings[i] = newSettings[i] === "true";
+        })
+
+        console.log("New Settings object: ", newSettings)
+        game.settings.set("ewhen", "allSettings", newSettings);
+        
+    }
+
+    static restoreDefaults(event, target) {
+        console.log("clicked restore: ");
+        console.log("this ", this)
+        console.log("target: ", target)
+       // console.log("get defaults: ", this._getDefaultSettings());
+        
+
+       EWSettingsDialog.updateSettings(null, null, this._getDefaultSettings())
+       this._rerenderMe();
+       // game.settings.set("ewhen", "allSettings", this._getDefaultSettings());
+       
+    }
+
+    _rerenderMe(){
+        this.render(true);
     }
 
     // retrieve current values of settings
@@ -172,48 +199,47 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
         return game.settings.get("ewhen", "allSettings");
     }
 
-    _processSettingChanges(data) {
-        
-    }
-
-    static restoreDefaults() {
-        let defaults = {
-            diceType : "2d6",
-            singleDieInit : false,
-            initAttribute : "@main_attributes.mind.rank",
-            initCombat : "@main_attributes.initiative.rank",
-            priority : true,
-            rerollPerRound : false,
-            meleeLink : "agility",
-            rangedLink : "agility",
-            defenseLink : "agility",
-            useResolve : false,
-            useCritical : true,
-            useArcana : false,
-            useFaith : false,
-            usePsionics : false,
-            useScale : true,
-            useCredit : false,
-            rabbleStrength : 1,
-            strName : game.i18n.localize("EW.attribute.main.strength"),
-            agiName : game.i18n.localize("EW.attribute.main.agility"),
-            minName : game.i18n.localize("EW.attribute.main.mind"),
-            appName : game.i18n.localize("EW.attribute.main.appeal"),
-            melName : game.i18n.localize("EW.attribute.main.melee"),
-            ranName : game.i18n.localize("EW.attribute.main.ranged"),
-            defName : game.i18n.localize("EW.attribute.main.defense"),
-            iniName : game.i18n.localize("EW.attribute.main.initiative")
-            /* lbdName : game.i18n.localize("EW.attribute.resource.lifeblood"),
-            resName : game.i18n.localize("EW.attribute.resource.resolve"),
-            critName : game.i18n.localize("EW.attribute.resource.critical"),
-            faithName : game.i18n.localize("EW.attribute.resource.faith_points"),
-            arcanaName : game.i18n.localize("EW.attribute.resource.arcana_points"),
-            psionicsName : game.i18n.localize("EW.attribute.resource.psionic_points"),
-            heroName : game.i18n.localize("EW.attribute.resource.hero_points")*/
+    _getDefaultSettings(){
+        let defaultSettings = {
+            object: {
+                diceType : "2d6",
+                singleDieInit : "false",
+                initAttribute : "@main_attributes.strength.rank",
+                initCombat : "@combat_attributes.initiative.rank",
+                priority : "true",
+                rerollPerRound : "false",
+                meleeLink : "agility",
+                rangedLink : "agility",
+                defenseLink : "agility",
+                useResolve : "false",
+                useCritical : "false",
+                useArcana : "false",
+                useFaith : "false",
+                usePsionics : "false",
+                useScale : "true",
+                useCredit : "false",
+                rabbleStrength : 1,
+                strName : game.i18n.localize("EW.attribute.main.strength"),
+                agiName : game.i18n.localize("EW.attribute.main.agility"),
+                minName : game.i18n.localize("EW.attribute.main.mind"),
+                appName : game.i18n.localize("EW.attribute.main.appeal"),
+                melName : game.i18n.localize("EW.attribute.combat.melee"),
+                ranName : game.i18n.localize("EW.attribute.combat.ranged"),
+                defName : game.i18n.localize("EW.attribute.combat.defense"),
+                iniName : game.i18n.localize("EW.attribute.combat.initiative"),
+                lbdName : game.i18n.localize("EW.attribute.resource.lifeblood"),
+                resName : game.i18n.localize("EW.attribute.resource.resolve"),
+                critName : game.i18n.localize("EW.attribute.resource.critical"),
+                faithName : game.i18n.localize("EW.attribute.resource.faith"),
+                arcanaName : game.i18n.localize("EW.attribute.resource.arcana"),
+                psionicsName : game.i18n.localize("EW.attribute.resource.psionics"),
+                heroName : game.i18n.localize("EW.attribute.resource.hero")
+            }
         }
-
-        this._processSettingChanges(defaults);
+        return defaultSettings;
     }
+
+  
 
 
 

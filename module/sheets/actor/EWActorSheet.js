@@ -40,7 +40,7 @@ export default class EWActorSheet extends ActorSheet {
         data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
         //// console.warn("data.traits: ", data.traits);
 
-        // data.gameSettings = game.settings.get("ewhen", "allSettings");
+        data.gameSettings = game.settings.get("ewhen", "allSettings");
 
         if (this.actor.type == "character") {
             data.careers = ownedItems.filter(function(item) {return item.type == "career"});
@@ -312,10 +312,10 @@ export default class EWActorSheet extends ActorSheet {
             isCombat = true;
             caPicked = attribute;
             switch(caPicked) {
-                case "melee": maPicked = game.settings.get("ewhen","meleeLink") /*this.data.gameSettings.meleeLink*/;break;
-                case "ranged": maPicked = game.settings.get("ewhen", "rangedLink")/*this.data.gameSettings.rangedLink*/;break;
-                case "defense": maPicked = game.settings.get("ewhen", "defenseLink")/*this.data.gameSettings.defenseLink*/;break;
-                case "initiative": /* maPicked = this.data.gameSettings.defenseLink */
+                case "melee": maPicked = this.data.gameSettings.meleeLink;break;
+                case "ranged": maPicked = this.data.gameSettings.rangedLink;break;
+                case "defense": maPicked = this.data.gameSettings.defenseLink;break;
+                case "initiative": maPicked = this.data.gameSettings.defenseLink;break;
                 default: maPicked = "agility";
             }
         } else {

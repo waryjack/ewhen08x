@@ -12,7 +12,7 @@ export class EWCombat extends Combat {
 
     startCombat() {
        // let updateDiffs = new Array();
-        if(game.settings.get("ewhen", "priority")) {
+        if(game.settings.get("ewhen", "allSettings").priority) {
             this.combatants.forEach(combatant => {
                 this.convertInitiative(combatant)
                     .then((result) => {
@@ -40,7 +40,7 @@ export class EWCombat extends Combat {
      */
     nextRound(){
         super.nextRound();
-        if(!game.settings.get("ewhen", "rerollPerRound")) { return; }
+        if(!game.settings.get("ewhen", "allSettings").rerollPerRound) { return; }
         let rrlist = new Array();
         
         const diceModel = getDiceModel(game);
@@ -49,7 +49,7 @@ export class EWCombat extends Combat {
         // console.warn("DiceModel: ", diceModel);
 
 
-        if(game.settings.get("ewhen", "priority")) {
+        if(game.settings.get("ewhen", "allSettings").priority) {
             this.combatants.forEach(combatant => {
                 this.convertInitiative(combatant)
                     .then((result) => {
@@ -68,8 +68,8 @@ export class EWCombat extends Combat {
         } else {
             // example @combat_attributes.melee.rank, main_attributes.strength.rank; 0 is none selected
             // need to be split apart to parse the 
-            let initAttribute = game.settings.get('ewhen', 'initAttribute');
-            let initCombat = game.settings.get('ewhen', 'initCombat');
+            let initAttribute = game.settings.get('ewhen', 'allSettings').initAttribute;
+            let initCombat = game.settings.get('ewhen', 'allSettings').initCombat;
            
             let cimd = 0;
             for (let c of this.combatants) {
@@ -82,7 +82,7 @@ export class EWCombat extends Combat {
 
            let initFormula = `${diceModel.numberOfDice + diceModel.baseDie}kh${diceModel.numberOfDice} + ${initAttribute} + ${initCombat}`
 
-           if(game.settings.get("ewhen", "singleDieInit")) {
+           if(game.settings.get("ewhen", "allSettings").singleDieInit) {
                 initFormula = `1d6 + ${initAttribute} + ${initCombat}`
            }
             // console.warn("RRlist and initformula: ", rrlist, initFormula);
@@ -96,7 +96,7 @@ export class EWCombat extends Combat {
      */
     async convertInitiative(com, init) {
 
-        if(game.settings.get("ewhen", "priority") === false) { return; }
+        if(game.settings.get("ewhen", "allSettings").priority === false) { return; }
 
         const diceModel = getDiceModel(game)
         // console.warn("DiceModel: ", diceModel);
@@ -109,8 +109,8 @@ export class EWCombat extends Combat {
    
         // console.warn("Actor from Combatant Information: ", actor);
         // get initiative expression mods
-        let initAttribute = game.settings.get('ewhen', 'initAttribute');
-        let initCombat = game.settings.get('ewhen', 'initCombat');
+        let initAttribute = game.settings.get('ewhen', 'allSettings').initAttribute;
+        let initCombat = game.settings.get('ewhen', 'allSettings').initCombat;
 
         // couple dummy variables for building the initiative expression below
         let iaVal = 0;
@@ -143,7 +143,7 @@ export class EWCombat extends Combat {
 
         let actorInitMods = actor.system.priority_roll.bd + actor.system.priority_roll.pd + actor.system.priority_roll.miscMod;
         let initExpr = `${(actorInitMods + diceModel.numberOfDice) + diceModel.baseDie}kh${diceModel.numberOfDice} + ${iaVal} + ${icVal}`;
-        if(game.settings.get("ewhen", "singleDieInit")) {
+        if(game.settings.get("ewhen", "allSettings").singleDieInit) {
             initExpr = `1d6 + ${iaVal} + ${icVal}`;
         }
         //console.warn("Init Expression: ", initExpr);

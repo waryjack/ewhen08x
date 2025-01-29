@@ -109,7 +109,7 @@ Hooks.once("init", () => {
     Handlebars.registerHelper("setting", function(arg){
         // console.warn("Passed Setting Name: ", arg);
         if (arg == "" || arg == "non" || arg == undefined) { return ; }
-        return game.settings.get('ewhen', arg);
+        return game.settings.get('ewhen', 'allSettings')[arg];
     });
 
     
@@ -311,7 +311,7 @@ Hooks.on('renderChatMessage', (app, html) => {
 Hooks.on('preUpdateCombatant', function(combatant, changed, diff) {
 
  
-    if(game.settings.get("ewhen", "priority")) { return; }
+    if(game.settings.get("ewhen", "allSettings").priority) { return; }
 
     if (!("initiative" in changed)) { return; }
 

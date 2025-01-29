@@ -59,8 +59,8 @@ export class EWActor extends Actor {
         }
 
         if (data.isRabble) {
-            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', game.settings.get('ewhen', 'rabbleStrength'));
-            foundry.utils.setProperty(actorData, 'resources.resolve.max', game.settings.get('ewhen', 'rabbleStrength'));
+            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', game.settings.get('ewhen', 'allSettings').rabbleStrength);
+            foundry.utils.setProperty(actorData, 'resources.resolve.max', game.settings.get('ewhen', 'allSettings').rabbleStrength);
         }
 
         if (data.isTough) {
@@ -107,7 +107,7 @@ export class EWActor extends Actor {
         let baseDie = diceModel.baseDie;
 
         // If using H+I or BoL compatible initiative - uses just a single D6
-        if(game.settings.get("ewhen", "singleDieInit")) {
+        if(game.settings.get("ewhen", "allSettings").singleDieInit) {
             numberOfDice = 1;
             baseDie = "d6";
         }
@@ -136,18 +136,18 @@ export class EWActor extends Actor {
         const car = this.items.filter(function(item) {return item.type == "career"});
 
         let priSelect = {
-            "strength":game.settings.get("ewhen","strName"),
-            "agility":game.settings.get("ewhen", "agiName"),
-            "mind":game.settings.get("ewhen", "minName"),
-            "appeal":game.settings.get("ewhen", "appName")
+            "strength":game.settings.get("ewhen","allSettings").strName,
+            "agility":game.settings.get("ewhen", "allSettings").agiName,
+            "mind":game.settings.get("ewhen", "allSettings").minName,
+            "appeal":game.settings.get("ewhen", "allSettings").appName
         }
 
         let comSelect = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "melee":game.settings.get("ewhen","melName"),
-            "ranged":game.settings.get("ewhen","ranName"),
-            "defense":game.settings.get("ewhen", "defName"),
-            "initiative":game.settings.get("ewhen","iniName")
+            "melee":game.settings.get("ewhen","allSettings").melName,
+            "ranged":game.settings.get("ewhen","allSettings").ranName,
+            "defense":game.settings.get("ewhen", "allSettings").defName,
+            "initiative":game.settings.get("ewhen","allSettings").iniName
         }
 
         console.log("Primary Attributes constant: ", pri);
@@ -305,18 +305,18 @@ export class EWActor extends Actor {
         const cr = foundry.utils.duplicate(this.items.filter(function(item) {return item.type == "career"}));
 
         let priSelect = {
-            "strength":game.settings.get("ewhen","strName"),
-            "agility":game.settings.get("ewhen", "agiName"),
-            "mind":game.settings.get("ewhen", "minName"),
-            "appeal":game.settings.get("ewhen", "appName")
+            "strength":game.settings.get("ewhen","allSettings").strName,
+            "agility":game.settings.get("ewhen", "allSettings").agiName,
+            "mind":game.settings.get("ewhen", "allSettings").minName,
+            "appeal":game.settings.get("ewhen", "allSettings").appName
         }
 
         let comSelect = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "melee":game.settings.get("ewhen","melName"),
-            "ranged":game.settings.get("ewhen","ranName"),
-            "defense":game.settings.get("ewhen", "defName"),
-            "initiative":game.settings.get("ewhen","iniName")
+            "melee":game.settings.get("ewhen","allSettings").melName,
+            "ranged":game.settings.get("ewhen","allSettings").ranName,
+            "defense":game.settings.get("ewhen", "allSettings").defName,
+            "initiative":game.settings.get("ewhen","allSettings").iniName
         }
 
         var item = null;
@@ -364,18 +364,18 @@ export class EWActor extends Actor {
         const ca = foundry.utils.duplicate(this.system.combat_attributes);
 
         let priSelect = {
-            "strength":game.settings.get("ewhen","strName"),
-            "agility":game.settings.get("ewhen", "agiName"),
-            "mind":game.settings.get("ewhen", "minName"),
-            "appeal":game.settings.get("ewhen", "appName")
+            "strength":game.settings.get("ewhen","allSettings").strName,
+            "agility":game.settings.get("ewhen", "allSettings").agiName,
+            "mind":game.settings.get("ewhen", "allSettings").minName,
+            "appeal":game.settings.get("ewhen", "allSettings").appName
         }
 
         let comSelect = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "melee":game.settings.get("ewhen","melName"),
-            "ranged":game.settings.get("ewhen","ranName"),
-            "defense":game.settings.get("ewhen", "defName"),
-            "initiative":game.settings.get("ewhen","iniName")
+            "melee":game.settings.get("ewhen","allSettings").melName,
+            "ranged":game.settings.get("ewhen","allSettings").ranName,
+            "defense":game.settings.get("ewhen", "allSettings").defName,
+            "initiative":game.settings.get("ewhen","allSettings").iniName
         }
 
         let dialogData = {

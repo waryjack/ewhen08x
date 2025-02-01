@@ -1,7 +1,7 @@
 
 {{#if (eq EWActorType "character")}}
 <div class="ewhen flex-item">
-                   <h3 class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</h3>
+                   <div><h3 class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</h3></div>{{#if gameSettings.useScale}}<div style="float:right;margin-right:4px">Scale</div>{{/if}}
                 <table class="nostretch item-table">    
                     <tr>
                         <td><a class="att-roll" data-attribute="strength">{{gameSettings.strName}}</a></td>

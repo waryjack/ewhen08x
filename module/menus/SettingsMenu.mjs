@@ -172,8 +172,14 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
             newSettings[i] = newSettings[i] === "true";
         })
 
+        if(newSettings.singleDieInit === true) {
+            game.system.initiative = "1d6 + @main_attributes.mind.rank + @combat_attributes.initiative.rank";
+        }
+        
         console.log("New Settings object: ", newSettings)
         game.settings.set("ewhen", "allSettings", newSettings);
+
+
         
     }
 

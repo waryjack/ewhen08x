@@ -14,6 +14,13 @@
       </select></td>
     </tr>
     <tr>
+      <td>{{localize "EW.SETTINGS.UseScale"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.UseScaleDesc"}}</span></td>
+      <td><select name="useScale">
+        {{selectOptions yesno selected=current.useScale localize=true}}
+      </select></td>
+    </tr>
+    <tr>
       <td>{{localize "EW.SETTINGS.meleeLink"}}<br/>
       <span style="font-size:0.85em">{{localize "EW.SETTINGS.meleeLinkDesc"}}</span></td>
       <td><select name="meleeLink">

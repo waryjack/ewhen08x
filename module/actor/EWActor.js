@@ -485,9 +485,13 @@ export class EWActor extends Actor {
         }
 
         let armorRoll = new EWRoll(rData);
-        armorRoll.rollDice();
+        console.warn("Armor Roll: ", armorRoll);
+        armorRoll.rollDice().then(() =>
+            {
+                 armorRoll.rollObj.getTooltip().then((tt) => armorRoll.createArmorMessage(tt, false));
+            });
 
-        armorRoll.rollObj.getTooltip().then((tt) => armorRoll.createArmorMessage(tt));
+        
 
     }
 

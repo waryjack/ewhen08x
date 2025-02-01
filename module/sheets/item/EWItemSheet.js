@@ -58,11 +58,25 @@ export default class EWItemSheet extends ItemSheet {
 
         data.vprotectOpts = {
            "none":game.i18n.localize("EW.game_term.none"),
+            "1":"1",
+            "1d2":"d2",
             "1d3":"d3",
+            "1d3+1":"d3+1",
             "1d6-3":"d6-3",
             "1d6-2":"d6-2",
             "1d6-1":"d6-1",
-            "1d6":"d6"
+            "1d6":"d6",
+            "1d6+1":"d6+1",
+            "1d6+2":"d6+2",
+            "1d6+3":"d6+3",
+            "2d6kl1":"d6L",
+            "2d6kh1":"d6H",
+            "3d6kl2":"2d6L",
+            "2d6":"2d6",
+            "3d6kh2":"2d6H",
+            "4d6kl3":"3d6L",
+            "3d6":"3d6",
+            "4d6kh3":"3d6H"
         }
 
         data.eraOpts = {

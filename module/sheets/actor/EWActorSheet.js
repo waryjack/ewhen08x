@@ -41,7 +41,7 @@ export default class EWActorSheet extends ActorSheet {
         //// console.warn("data.traits: ", data.traits);
 
         data.gameSettings = game.settings.get("ewhen", "allSettings");
-
+        console.log("Game Settings: ", data.gameSettings)
         if (this.actor.type == "character") {
             data.careers = ownedItems.filter(function(item) {return item.type == "career"});
             data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
@@ -299,6 +299,7 @@ export default class EWActorSheet extends ActorSheet {
         var isCombat = false;
         let element = event.currentTarget;
         let attribute = element.dataset.attribute;
+        let settings = game.settings.get("ewhen","allSettings");
 
        
         let maPicked = "";
@@ -312,10 +313,10 @@ export default class EWActorSheet extends ActorSheet {
             isCombat = true;
             caPicked = attribute;
             switch(caPicked) {
-                case "melee": maPicked = this.data.gameSettings.meleeLink;break;
-                case "ranged": maPicked = this.data.gameSettings.rangedLink;break;
-                case "defense": maPicked = this.data.gameSettings.defenseLink;break;
-                case "initiative": maPicked = this.data.gameSettings.defenseLink;break;
+                case "melee": maPicked = settings.meleeLink;break;
+                case "ranged": maPicked = settings.rangedLink;break;
+                case "defense": maPicked = settings.defenseLink;break;
+                case "initiative": maPicked = settings.defenseLink;break;
                 default: maPicked = "agility";
             }
         } else {
@@ -366,6 +367,7 @@ export default class EWActorSheet extends ActorSheet {
         let element = event.currentTarget;
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
+        if(item.system.protection.variable === "none") return;
         return this.actor.rollArmor(item);
     }
 

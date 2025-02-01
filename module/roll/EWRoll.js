@@ -60,6 +60,7 @@ export class EWRoll {
         let pdNum = 0;
         let totalDiceMods = 0;
         let baseDiff = 0;
+        let settings = game.settings.get("ewhen", "allSettings");
 
 
         let attr = this.html.find("#pattr").val().toLowerCase();
@@ -67,6 +68,8 @@ export class EWRoll {
         let othermods = this.html.find("#othermods").val();
         let difflevel = this.html.find("#difficulty").val();
         let careerName = this.html.find("#career").val();
+
+        console.log("Att, Combat, career: ",attr, combat, careerName);
 
         /*
         *  Figure out actual roll based on penalty / bonus dice
@@ -90,7 +93,7 @@ export class EWRoll {
         * If a career is involved, get its rank
         */
 
-       if (careerName != "none") {
+       if (careerName != "none" && careerName != "") {
             let career = this.actor.items
                 .filter(item => item.type == "career")
                 .find(item => item.name == careerName);
@@ -130,6 +133,38 @@ export class EWRoll {
 
        let rollExpr = dice + "+" + attrVal + "+" + comVal + "+" + cVal + "+" + totalMods;
 
+       /**
+        * Determine what name to display in the roll message; default to the attribute
+        */
+       let displayName = attr;
+
+       switch(attr) {
+        case "strength": displayName = settings.strName; break;
+        case "agility": displayName = settings.agiName; break;
+        case "mind": displayName = settings.minName; break;
+        case "appeal": displayName = settings.appName; break;
+        default: displayName = attr;
+       }
+
+       // show the career roll name if it's a career roll
+       if (careerName != "" && careerName != "none") {
+                displayName = careerName
+            }
+       
+            // put combat second; it's more important to know than career and you shouldn't use careers
+            // normally in a combat roll anyhow
+       if (combat != "none") {
+        switch(combat) {
+            case "melee": displayName = settings.melName;break;
+            case "ranged": displayName = settings.ranName;break;
+            case "initiative": displayName = settings.iniName;break;
+            case "defense": displayName = settings.defName;break;
+            default: displayName = combat;
+        }    
+       }
+
+       
+
        /*
        * Stash the data in the object; this is probably extreme overkill
        * but this class also generates the roll message (maybe refactor that later?)
@@ -137,6 +172,7 @@ export class EWRoll {
 
        let rollInfo = {
            expr: rollExpr,
+           displayName: displayName,
            chosenAttribute: attr,
            chosenCombat: combat,
            chosenCareer: careerName,
@@ -161,16 +197,24 @@ export class EWRoll {
         let armorData = this.item.system;
 
         let expr = armorData.protection.variable;
+        if (expr === "none") return;
 
         let armorbonus = this.actor.system.armorbonus + this.actor.system.miscarmor;
 
         expr = expr + "+" + armorbonus;
-
+        console.warn("Armor Item Data: ", armorData);
         console.log("armorbonus, expr", armorbonus, expr);
 
         let rollInfo = {
             expr: expr,
-            tt:""
+            tt:"",
+            chosenCareer: "none",
+            chosenCombat: "none",
+            chosenAttribute: "none",
+            attrVal: 0,
+            comVal: 0,
+            cVal: 0,
+            armorbonus:armorbonus
         }
 
         this.rollInfo = rollInfo;
@@ -254,7 +298,7 @@ export class EWRoll {
     */
 
     async rollDice() {
-        console.info("In rollDice");
+        console.info("In rollDice: ", this.rollInfo);
         let expr = this.rollInfo.expr;
         const diceModel = getDiceModel(game)
         expr = expr == "none" ? `0${diceModel.baseDie}` : expr;

@@ -98,9 +98,10 @@ Hooks.once("init", () => {
             // leave it be
         } else {
             game.system.combatLinks = {
-                melee:"agility",
-                ranged:"agility",
-                defense:"agility"
+                melee:game.settings.get("ewhen","allSettings").meleeLink,
+                ranged:game.settings.get("ewhen","allSettings").rangedLink,
+                defense:game.settings.get("ewhen","allSettings").defenseLink,
+                initiative:game.settings.get("ewhen","allSettings").initiativeLink
             }
         }
 

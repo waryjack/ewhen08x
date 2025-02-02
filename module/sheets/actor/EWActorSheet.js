@@ -40,6 +40,8 @@ export default class EWActorSheet extends ActorSheet {
         data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
         //// console.warn("data.traits: ", data.traits);
 
+        data.gameSettings = game.settings.get("ewhen", "allSettings");
+        console.log("Game Settings: ", data.gameSettings)
         if (this.actor.type == "character") {
             data.careers = ownedItems.filter(function(item) {return item.type == "career"});
             data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
@@ -297,6 +299,8 @@ export default class EWActorSheet extends ActorSheet {
         var isCombat = false;
         let element = event.currentTarget;
         let attribute = element.dataset.attribute;
+        let settings = game.settings.get("ewhen","allSettings");
+
        
         let maPicked = "";
         let caPicked = "";
@@ -309,9 +313,10 @@ export default class EWActorSheet extends ActorSheet {
             isCombat = true;
             caPicked = attribute;
             switch(caPicked) {
-                case "melee": maPicked = game.settings.get("ewhen","meleeLink");break;
-                case "ranged": maPicked = game.settings.get("ewhen", "rangedLink");break;
-                case "defense": maPicked = game.settings.get("ewhen", "defenseLink");break;
+                case "melee": maPicked = settings.meleeLink;break;
+                case "ranged": maPicked = settings.rangedLink;break;
+                case "defense": maPicked = settings.defenseLink;break;
+                case "initiative": maPicked = settings.defenseLink;break;
                 default: maPicked = "agility";
             }
         } else {
@@ -362,6 +367,7 @@ export default class EWActorSheet extends ActorSheet {
         let element = event.currentTarget;
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
+        if(item.system.protection.variable === "none") return;
         return this.actor.rollArmor(item);
     }
 

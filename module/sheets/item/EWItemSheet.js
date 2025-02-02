@@ -12,13 +12,14 @@ export default class EWItemSheet extends ItemSheet {
         data.item = this.item;
         data.myName = data.name;
         data.config = CONFIG.ewhen; 
+        data.gameSettings = game.settings.get("ewhen", "allSettings");
 
         data.attOpts = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "strength":game.settings.get("ewhen","strName"),
-            "agility":game.settings.get("ewhen", "agiName"),
-            "mind":game.settings.get("ewhen", "minName"),
-            "appeal":game.settings.get("ewhen", "appName")
+            "strength":data.gameSettings.strName,
+            "agility":data.gameSettings.agiName,
+            "mind":data.gameSettings.minName,
+            "appeal":data.gameSettings.appName
         }
 
         data.wtypeOpts = {
@@ -45,23 +46,37 @@ export default class EWItemSheet extends ItemSheet {
 
         data.abonusOpts = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "strength":game.settings.get("ewhen","strName"),
-            "agility":game.settings.get("ewhen", "agiName"),
-            "mind":game.settings.get("ewhen", "minName"),
-            "appeal":game.settings.get("ewhen", "appName"),
-            "melee":game.settings.get("ewhen","melName"),
-            "ranged":game.settings.get("ewhen","ranName"),
-            "defense":game.settings.get("ewhen", "defName"),
-            "initiative":game.settings.get("ewhen","iniName")
+            "strength":data.gameSettings.strName,
+            "agility":data.gameSettings.agiName,
+            "mind":data.gameSettings.minName,
+            "appeal":data.gameSettings.appName,
+            "melee":data.gameSettings.melName,
+            "ranged":data.gameSettings.ranName,
+            "defense":data.gameSettings.defName,
+            "initiative":data.gameSettings.iniName
         }
 
         data.vprotectOpts = {
            "none":game.i18n.localize("EW.game_term.none"),
+            "1":"1",
+            "1d2":"d2",
             "1d3":"d3",
+            "1d3+1":"d3+1",
             "1d6-3":"d6-3",
             "1d6-2":"d6-2",
             "1d6-1":"d6-1",
-            "1d6":"d6"
+            "1d6":"d6",
+            "1d6+1":"d6+1",
+            "1d6+2":"d6+2",
+            "1d6+3":"d6+3",
+            "2d6kl1":"d6L",
+            "2d6kh1":"d6H",
+            "3d6kl2":"2d6L",
+            "2d6":"2d6",
+            "3d6kh2":"2d6H",
+            "4d6kl3":"3d6L",
+            "3d6":"3d6",
+            "4d6kh3":"3d6H"
         }
 
         data.eraOpts = {

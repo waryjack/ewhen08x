@@ -1,0 +1,61 @@
+<section
+  class='tab trackers {{tab.cssClass}}'
+  data-group='settings'
+  data-tab='trackers'
+>
+  <h2>Optional Point Pools and Resource Trackers</h2>
+  <div class="form-group">
+    <table>
+      <tr>
+        <td>{{localize "EW.SETTINGS.UseCriticalDesc"}}</td>
+        <td>
+          <select name="useCritical">
+            {{selectOptions yesno selected=current.useCritical localize=true}}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>{{localize "EW.SETTINGS.UseResolveDesc"}}</td>
+        <td>
+          <select name="useResolve">
+            {{selectOptions yesno selected=current.useResolve localize=true}}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>{{localize "EW.SETTINGS.UsePsionics"}}</td>
+        <td>
+          <select name="usePsionics">
+            {{selectOptions yesno selected=current.usePsionics localize=true}}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>{{localize "EW.SETTINGS.UseArcana"}}</td>
+        <td>
+          <select name="useArcana">
+            {{selectOptions yesno selected=current.useArcana localize=true}}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>{{localize "EW.SETTINGS.UseFaith"}}</td>
+        <td>
+          <select name="useFaith">
+            {{selectOptions yesno selected=current.useFaith localize=true}}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>{{localize "EW.SETTINGS.UseCreditDesc"}}</td>
+        <td>
+          <select name="useCredit">
+            {{selectOptions yesno selected=current.useCredit localize=true}}
+          </select>
+        </td>
+      </tr>
+      
+    </table>
+  </div>
+
+</section>

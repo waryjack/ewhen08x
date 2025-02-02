@@ -1,25 +1,25 @@
 
 {{#if (eq EWActorType "character")}}
 <div class="ewhen flex-item">
-                   <h3 class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</h3>
+                   <div><h3 class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</h3></div>{{#if gameSettings.useScale}}<div style="float:right;margin-right:4px">Scale</div>{{/if}}
                 <table class="nostretch item-table">    
                     <tr>
-                        <td><a class="att-roll" data-attribute="strength">{{setting "strName"}}</a></td>
+                        <td><a class="att-roll" data-attribute="strength">{{gameSettings.strName}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.strength.rank" value="{{main_attributes.strength.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{main_attributes.strength.scale}})</td>{{/if}}
                     </tr>
                     <tr>
-                        <td><a class="att-roll" data-attribute="agility">{{setting "agiName"}}</a></td>
+                        <td><a class="att-roll" data-attribute="agility">{{gameSettings.agiName}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.agility.rank" value="{{main_attributes.agility.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{main_attributes.agility.scale}})</td>{{/if}}
                     </tr>
                     <tr>
-                        <td><a class="att-roll" data-attribute="mind">{{setting "minName"}}</a></td>
+                        <td><a class="att-roll" data-attribute="mind">{{gameSettings.minName}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.mind.rank" value="{{main_attributes.mind.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{main_attributes.agility.scale}})</td>{{/if}}
                     </tr>
                     <tr>
-                        <td><a class="att-roll" data-attribute="appeal">{{setting "appName"}}</a></td>
+                        <td><a class="att-roll" data-attribute="appeal">{{gameSettings.appName}}</a></td>
                         <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.appeal.rank" value="{{main_attributes.appeal.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{main_attributes.appeal.scale}})</td>{{/if}}
                     </tr>

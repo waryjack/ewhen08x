@@ -174,6 +174,7 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
 
         if(newSettings.singleDieInit === true) {
             game.system.initiative = "1d6 + @main_attributes.mind.rank + @combat_attributes.initiative.rank";
+            game.data.system.initiative = "1d6 + @main_attributes.mind.rank + @combat_attributes.initiative.rank";
         }
         
         console.log("New Settings object: ", newSettings)

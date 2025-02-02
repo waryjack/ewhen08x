@@ -39,7 +39,7 @@ Hooks.once("init", () => {
 
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
-   // CONFIG.debug.hooks = true;
+   CONFIG.debug.hooks = true;
 
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
@@ -357,6 +357,15 @@ Hooks.on('preUpdateCombatant', function(combatant, changed, diff) {
 
 });
 
+/**
+ * Combat hook - maybe for future work
+
+
+Hooks.on('getCombatTrackerEntryContext', (tracker, options) => {
+
+    //options.splice(2,1); 
+});
+ */
 
 /**
  * Actor / Token Hooks

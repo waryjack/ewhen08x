@@ -35,6 +35,59 @@ export class EWCombat extends Combat {
             super.startCombat();
         }
     }
+
+    /**
+     * @override
+     * When priority roll is active, Rivals, Rabble, and Toughs don't roll initiative
+     */
+
+    rollAll() {
+
+        if (game.settings.get("ewhen","allSettings").priority) {
+            return;
+        }
+
+        super.rollAll();
+    }
+
+    /**
+     * @override
+     */
+
+    rollNPC() {
+        if (game.settings.get("ewhen","allSettings").priority) {
+            return;
+        }
+
+        super.rollNPC();
+    }
+
+    /**
+     * @override
+     */
+    rollInitiative(ids,options){
+        if(ids.length == 1){
+            // this is rerolling a single person in the list. we want to snuff it if it's a nonPC
+            let actor = this.combatants.get(ids[0]).token.actor;
+            let isPC = (!actor.system.isRival && !actor.system.isRabble && !actor.system.isTough) ? true : false;
+            if(isPC){
+                let initAttribute = game.settings.get('ewhen', 'allSettings').initAttribute;
+                let initCombat = game.settings.get('ewhen', 'allSettings').initCombat;
+                let initFormula = `${diceModel.numberOfDice + diceModel.baseDie}kh${diceModel.numberOfDice} + ${initAttribute} + ${initCombat}`
+                
+                if(game.settings.get("ewhen", "allSettings").singleDieInit) {
+                        initFormula = `1d6 + ${initAttribute} + ${initCombat}`
+                }
+
+                super.rollInitiative(ids,{formula:initFormula});
+            } else {
+                // nope!
+            }
+        } else {
+            super.rollInitiative(ids, options)
+        }
+    }
+
      /**
      * @override
      */
@@ -88,6 +141,7 @@ export class EWCombat extends Combat {
             // console.warn("RRlist and initformula: ", rrlist, initFormula);
             this.rollInitiative(rrlist, {formula:initFormula});
         }
+
     }
 
     /**

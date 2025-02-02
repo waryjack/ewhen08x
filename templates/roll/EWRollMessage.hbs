@@ -1,9 +1,8 @@
-{{log "Roll received by template: " roll}}
-{{log "Roll.total: " roll.total}}
-{{log "this.result from calling class: " rollTotal}}
+{{log "Roll info: " d}}
 <form class="ewhen roll-dialog">
  <header class="roll-header taskroll-info">
-        <h1 class="roll-name">{{#proper (setting (getCustomName d.chosenAttribute))}}{{/proper}}{{!--localize (proper d.chosenAttribute)--}} Roll
+        <h1 class="roll-name">
+             {{#proper d.displayName}}{{/proper}} Roll
              {{#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if}}
             <div class="taskroll-final {{outclass}}" style="">
                 {{rollTotal}}

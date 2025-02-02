@@ -10,7 +10,7 @@
                       
                         <tr>
                             <td class="item-name item" style="max-width:50%;" data-item-id="{{armor.id}}">
-                                <a class="armor-roll weapon-image" title="Roll Defense"><img src="{{armor.img}}" height="24" width="24"/></a>
+                                <a class="armor-roll {{#if (ne armor.system.protection.variable "none")}}weapon-image{{/if}}" title="Roll Defense"><img src="{{armor.img}}" height="24" width="24"/></a>
                                  <a class="item-edit" title="Edit"><strong>{{armor.name}}</strong></a>
                                 <br><em>{{localize armor.system.armor_type}}, 
                                         {{#if (ne armor.system.protection.variable "none")}}{{armor.system.protection.variable}}/{{/if}}

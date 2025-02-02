@@ -1,15 +1,13 @@
 # Everywhen (Unofficial) Foundry VTT system
 
+This is an unofficial Foundry VTT system for the *Everywhen* RPG from Filigree Forge, based on *Barbarians of Lemuria* written by Simon Washbourne.
+
+The system takes a low-automation approach, with the focus on a character sheet to manage the basics, the unique initiative and damage tracking, and dice rolling. Targeting and automatic damage stuff is not currently implemented (may be a future wishlist item).
+
 ## Special Thanks
 
 * Thanks to *johannes* for contributions, major features, and bugfixes! 
 * Thanks to *Gyaile* for the French translation files!
-
-## This is the version for Foundry VTT 0.8.6 and higher.
-
-This is an unofficial Foundry VTT 0.8.6+ system for the *Everywhen* RPG from Filigree Forge, based on *Barbarians of Lemuria* written by Simon Washbourne.
-
-The system takes a low-automation approach, with the focus on a character sheet to manage the basics, the unique initiative and damage tracking, and dice rolling. Targeting and automatic damage stuff is not currently implemented (may be a future wishlist item).
 
 # Using the System
 

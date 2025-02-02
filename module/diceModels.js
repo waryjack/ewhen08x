@@ -1,5 +1,5 @@
 export function getDiceModel (game) {
-  const diceType = game.settings.get("ewhen", "diceType")
+  const diceType = game.settings.get("ewhen", "allSettings").diceType
   return DICE_MODELS[diceType] || DEFAULT_DICE_MODEL
 }
 

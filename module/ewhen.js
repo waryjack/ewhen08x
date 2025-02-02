@@ -42,15 +42,56 @@ Hooks.once("init", () => {
       //Actors.registerSheet("package-id", EWActorSheetV2, {})
     Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
-   // CONFIG.debug.hooks = true;
+   CONFIG.debug.hooks = true;
 
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
-
-   
-
+    
+    
     // Register system settings
     registerSettings();
+    // migrate old System settings
+    /* if (!game.settings.settings.has("ewhen.diceType")) {
+        console.log("Migrating Everywhen Settings...")
+        let migrate = {
+            diceType : game.settings.get("ewhen","diceType"),
+            singleDieInit : game.settings.get("ewhen","singleDieInit"),
+            initAttribute : game.settings.get("ewhen","initAttribute"),
+            initCombat : game.settings.get("ewhen", "initCombat"),
+            priority : game.settings.get("ewhen", "priority"),
+            rerollPerRound : game.settings.get("ewhen", "rerollPerRound"),
+            meleeLink : game.settings.get("ewhen", "meleeLink"),
+            rangedLink : game.settings.get("ewhen", "rangedLink"),
+            defenseLink : game.settings.get("ewhen", "defenseLink"),
+            useResolve : game.settings.get("ewhen", "useResolve"),
+            useCritical : game.settings.get("ewhen", "useCritical"),
+            useArcana : game.settings.get("ewhen", "useArcana"),
+            useFaith : game.settings.get("ewhen", "useFaith"),
+            usePsionics : game.settings.get("ewhen", "usePsionics"),
+            useScale : game.settings.get("ewhen", "useScale"),
+            useCredit : game.settings.get("ewhen", "useCredit"),
+            rabbleStrength : game.settings.get("ewhen", "rabbleStrength"),
+            strName : game.settings.get("ewhen", "strName"),
+            agiName : game.settings.get("ewhen", "agiName"),
+            minName : game.settings.get("ewhen", "minName"),
+            appName : game.settings.get("ewhen", "appName"),
+            melName : game.settings.get("ewhen", "melName"),
+            ranName : game.settings.get("ewhen", "ranName"),
+            defName : game.settings.get("ewhen", "defName"),
+            iniName : game.settings.get("ewhen", "iniName"),
+            lbdName : game.settings.get("ewhen", "lbdName"),
+            resName : game.settings.get("ewhen", "resName"),
+            critName : game.settings.get("ewhen", "critName"),
+            faithName : game.settings.get("ewhen", "faithName"),
+            arcanaName : game.settings.get("ewhen", "arcanaName"),
+            psionicsName : game.settings.get("ewhen", "psionicsName"),
+            heroName : game.settings.get("ewhen", "heroName")
+        }
+        game.settings.set("ewhen", "allSettings", migrate);
+    } */
+
+    
+   
 
     // initiative value investigation
 
@@ -64,7 +105,8 @@ Hooks.once("init", () => {
             game.system.combatLinks = {
                 melee:"agility",
                 ranged:"agility",
-                defense:"agility"
+                defense:"agility",
+                initiative:"mind"
             }
         }
 
@@ -112,7 +154,7 @@ Hooks.once("init", () => {
     Handlebars.registerHelper("setting", function(arg){
         // console.warn("Passed Setting Name: ", arg);
         if (arg == "" || arg == "non" || arg == undefined) { return ; }
-        return game.settings.get('ewhen', arg);
+        return game.settings.get('ewhen', 'allSettings')[arg];
     });
 
     
@@ -314,12 +356,21 @@ Hooks.on('renderChatMessage', (app, html) => {
 Hooks.on('preUpdateCombatant', function(combatant, changed, diff) {
 
  
-    if(game.settings.get("ewhen", "priority")) { return; }
+    if(game.settings.get("ewhen", "allSettings").priority) { return; }
 
     if (!("initiative" in changed)) { return; }
 
 });
 
+/**
+ * Combat hook - maybe for future work
+
+
+Hooks.on('getCombatTrackerEntryContext', (tracker, options) => {
+
+    //options.splice(2,1); 
+});
+ */
 
 /**
  * Actor / Token Hooks

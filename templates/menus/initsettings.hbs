@@ -1,0 +1,45 @@
+<section
+  class='tab initsettings {{tab.cssClass}}'
+  data-group='settings'
+  data-tab='initsettings'
+>
+  <h2>Initiative Settings</h2>
+  <div class="form-group">
+  <table>
+    <tr>
+      <td>{{localize "EW.SETTINGS.PriorityToggle"}}</td>
+      <td><select name="priority">
+        {{selectOptions yesno selected=current.priority localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.SingleDieInit"}}</td>
+      <td><select name="singleDieInit">
+      {{selectOptions yesno selected=current.singleDieInit localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.RerollPer"}}</td>
+      <td><select name="rerollPerRound">
+       {{selectOptions yesno selected=current.rerollPerRound localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.InitAttributeDesc"}}</td>
+      <td><select style="width:100%;" name="initAttribute" id="initAttribute">
+            {{selectOptions initAttributes selected=current.initAttribute localize=true}}
+          </select>
+      </select>
+      </td>
+    </tr>
+     <tr>
+      <td>{{localize "Select the Combat Ability that adds to initiative (Everywhen default is Initiative)"}}</td>
+      <td><select name="initCombat" id="initCombat">
+          {{selectOptions initCombat selected=current.initCombat localize=true}}
+        <select>
+      </td>
+    </tr>
+  </table>
+  </div>
+
+</section>

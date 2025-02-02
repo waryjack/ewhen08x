@@ -1,0 +1,61 @@
+<section
+  class='tab general {{tab.cssClass}}'
+  data-group='settings'
+  data-tab='general'
+>
+  <h2>General Settings</h2>
+  <div class="form-group">
+  <table>
+    <tr>
+      <td>{{localize "EW.SETTINGS.DiceType"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.DiceTypeDesc"}}</span></td>
+      <td><select name="diceType">
+        {{selectOptions dicetype selected=current.diceType localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.UseScale"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.UseScaleDesc"}}</span></td>
+      <td><select name="useScale">
+        {{selectOptions yesno selected=current.useScale localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.meleeLink"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.meleeLinkDesc"}}</span></td>
+      <td><select name="meleeLink">
+      {{selectOptions linkAttributes selected=current.meleeLink localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.rangedLink"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.rangedLinkDesc"}}</span></td>
+      <td><select name="rangedLink">
+      {{selectOptions linkAttributes selected=current.rangedLink localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.defenseLink"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.defenseLinkDesc"}}</span></td>
+      <td><select name="defenseLink">
+      {{selectOptions linkAttributes selected=current.defenseLink localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.initLink"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.initLinkDesc"}}</span></td>
+      <td><select name="initLink">
+      {{selectOptions linkAttributes selected=current.initLink localize=true}}
+      </select></td>
+    </tr>
+    <tr>
+      <td>{{localize "EW.SETTINGS.rabbleStrength"}}<br/>
+      <span style="font-size:0.85em">{{localize "EW.SETTINGS.rabbleStrengthDesc"}}</span></td>
+      <td>
+        <input class="ewhen statfield" type="text" name="rabbleStrength" value="{{current.rabbleStrength}}" data-dtype="Number"/>
+      </td>
+    </tr>
+    </table>
+  </div>
+
+</section>

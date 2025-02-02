@@ -15,7 +15,7 @@ export default class EWItemSheet extends ItemSheet {
         data.gameSettings = game.settings.get("ewhen", "allSettings");
 
         data.attOpts = {
-            "none":game.i18n.localize("EW.game_term.none"),
+            "none":"-",
             "strength":data.gameSettings.strName,
             "agility":data.gameSettings.agiName,
             "mind":data.gameSettings.minName,
@@ -45,7 +45,7 @@ export default class EWItemSheet extends ItemSheet {
         }
 
         data.abonusOpts = {
-            "none":game.i18n.localize("EW.game_term.none"),
+            "none":"-",
             "strength":data.gameSettings.strName,
             "agility":data.gameSettings.agiName,
             "mind":data.gameSettings.minName,
@@ -57,7 +57,7 @@ export default class EWItemSheet extends ItemSheet {
         }
 
         data.vprotectOpts = {
-           "none":game.i18n.localize("EW.game_term.none"),
+           "none":"-",
             "1":"1",
             "1d2":"d2",
             "1d3":"d3",
@@ -128,7 +128,7 @@ export default class EWItemSheet extends ItemSheet {
         }
 
         data.traitPriModOpts = {
-            "none":game.i18n.localize("EW.game_term.none"),
+            "none":"-",
             "bonus":game.i18n.localize("EW.game_term.bonusdie"),
             "penalty":game.i18n.localize("EW.game_term.penaltydie")
         }

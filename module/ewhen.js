@@ -43,10 +43,12 @@ Hooks.once("init", () => {
 
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
-
+    
+    
+    // Register system settings
     registerSettings();
     // migrate old System settings
-    if (!game.settings.settings.has("ewhen.allSettings")) {
+    /* if (!game.settings.settings.has("ewhen.diceType")) {
         console.log("Migrating Everywhen Settings...")
         let migrate = {
             diceType : game.settings.get("ewhen","diceType"),
@@ -83,9 +85,9 @@ Hooks.once("init", () => {
             heroName : game.settings.get("ewhen", "heroName")
         }
         game.settings.set("ewhen", "allSettings", migrate);
-    }
+    } */
 
-    // Register system settings
+    
    
 
     // initiative value investigation
@@ -98,10 +100,10 @@ Hooks.once("init", () => {
             // leave it be
         } else {
             game.system.combatLinks = {
-                melee:game.settings.get("ewhen","allSettings").meleeLink,
-                ranged:game.settings.get("ewhen","allSettings").rangedLink,
-                defense:game.settings.get("ewhen","allSettings").defenseLink,
-                initiative:game.settings.get("ewhen","allSettings").initiativeLink
+                melee:"agility",
+                ranged:"agility",
+                defense:"agility",
+                initiative:"mind"
             }
         }
 

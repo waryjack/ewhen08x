@@ -18,11 +18,11 @@
                     {{#unless (or isRabble isTough)}}
 					<tr>
 					  <td style="border-left:2px">
-                           {{gameSettings.heroName}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
+                           {{proper gameSettings.heroName}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
 
-                             {{#if (setting "useArcana")}}{{gameSettings.arcanaName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/>{{/if}}
-                              {{#if (setting "useFaith")}}{{gameSettings.faithName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>{{/if}}
-                            {{#if (setting "usePsionics")}}{{gameSettings.psionicsName}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>{{/if}}
+                             {{#if (setting "useArcana")}}{{proper gameSettings.arcanaName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/>{{/if}}
+                              {{#if (setting "useFaith")}}{{proper gameSettings.faithName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>{{/if}}
+                            {{#if (setting "usePsionics")}}{{proper gameSettings.psionicsName}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>{{/if}}
                              {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>{{/if}}
                              {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>{{/unless}}
                         </td>

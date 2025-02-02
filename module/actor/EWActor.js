@@ -143,7 +143,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
-            "none":game.i18n.localize("EW.game_term.none"),
+            "none":"-",
             "melee":game.settings.get("ewhen","allSettings").melName,
             "ranged":game.settings.get("ewhen","allSettings").ranName,
             "defense":game.settings.get("ewhen", "allSettings").defName,
@@ -312,7 +312,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
-            "none":game.i18n.localize("EW.game_term.none"),
+            "none":"-",
             "melee":game.settings.get("ewhen","allSettings").melName,
             "ranged":game.settings.get("ewhen","allSettings").ranName,
             "defense":game.settings.get("ewhen", "allSettings").defName,
@@ -371,7 +371,7 @@ export class EWActor extends Actor {
         }
 
         let comSelect = {
-            "none":game.i18n.localize("EW.game_term.none"),
+            "none":"-",
             "melee":game.settings.get("ewhen","allSettings").melName,
             "ranged":game.settings.get("ewhen","allSettings").ranName,
             "defense":game.settings.get("ewhen", "allSettings").defName,

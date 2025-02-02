@@ -35,7 +35,7 @@
                     {{#if (setting "useResolve")}}
                     {{#unless (or isTough isRabble)}}
                     <tr>
-                        <td>{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-resource-name="resolve">{{gameSettings.resName}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
+                        <td>{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-resource-name="resolve">{{proper gameSettings.resName}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
                         <td>{{#if (setting "useResolve")}}
                             {{#unless isRabble}}
                             {{#times resources.resolve.lasting}}
@@ -53,7 +53,7 @@
                             {{/unless}}
                             {{/if}}
                         </td>
-                        <td class="res-track">{{#if (setting "useResolve")}}{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-resource-name="resolve"><i class="fas fa-forward"></i> {{gameSettings.critName}}</a>{{/if}}{{/if}}</td>
+                        <td class="res-track">{{#if (setting "useResolve")}}{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-resource-name="resolve"><i class="fas fa-forward"></i> {{proper gameSettings.critName}}</a>{{/if}}{{/if}}</td>
                         <td>{{#if (setting "useCritical")}}{{#if (setting "useResolve")}}{{#times resources.resolve.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}

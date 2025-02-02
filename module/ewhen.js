@@ -5,7 +5,7 @@ import { EW } from "./config.js";
 import { EWActor } from "./actor/EWActor.js";
 import { EWCombat } from "./combat/EWCombat.js";
 import EWItemSheet from "./sheets/item/EWItemSheet.js";
-import EWActorSheetV2 from "./sheets/actor/EWActorSheetV2.js";
+import EWActorSheet from "./sheets/actor/EWActorSheet.js";
 import { registerSettings } from "./settings.js";
 import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
 import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
@@ -21,7 +21,7 @@ Hooks.once("init", () => {
 
     game.EW = {
         EWActor,
-        EWActorSheetV2,
+        // EWActorSheetV2,
         EWItemSheet,
         EWCombat,
         EWMessageHelper,
@@ -35,7 +35,7 @@ Hooks.once("init", () => {
     Items.unregisterSheet("core", ItemSheet);
 
     // Register System sheets
-   Actors.registerSheet("ewhen", EWActorSheetV2, { types:["character", "vehicle"], makeDefault:true });
+   Actors.registerSheet("ewhen", EWActorSheet, { types:["character", "vehicle"], makeDefault:true });
 
       // `Actors.registerSheet` is semantically equivalent to passing Actor as the first argument
       // This works for all world collections, e.g. Items

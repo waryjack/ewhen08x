@@ -7,7 +7,7 @@ import { EWActor } from "../actor/EWActor.js";
 
 export class EWDialogHelper {
 
-    static generateRollDialog(template, data) {
+    static async generateRollDialog(template, data) {
 
         let isDamage = template == CONFIG.ewhen.DIALOG_TYPE.DAMAGE ? true : false;
 
@@ -15,39 +15,42 @@ export class EWDialogHelper {
       //  console.warn("IsDamage: ", isDamage);
         
         renderTemplate(template, data).then((dlg) => {
-            new Dialog({
-                title:game.i18n.localize("EW.rolltype.basicroll"), // figure this out at some point...not localized right
+            new foundry.applications.api.DialogV2({
+                window: { title: "EW.rolltype.basicroll" },
                 content: dlg,
-                buttons: {
-                    roll: {
-                     icon: '<i class="fas fa-check"></i>',
-                     label: "Continue",
-                     callback: (html) => {
-                      //  console.log("passed html: ", html); 
-                        let rdata = {
-                            html: html,
-                            actor: data.actor,
-                            isDamage: isDamage,
-                            item: data.item
-                        };
-                        let thisRoll = {};
-                        let ewroll = new EWRoll(rdata);
-                        console.warn("New ewroll: ", ewroll);
-                        ewroll.rollDice().then(() =>
-                            {
-                                 ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt, isDamage));
-                            });
-                        
-                        }
-                    },
-                    close: {
-                     icon: '<i class="fas fa-times"></i>',
-                     label: "Cancel",
-                     callback: () => { return; }
+
+                buttons: [{
+                            action: "roll",
+                            label: "Roll",
+                            default: true,
+                            callback: (event, button, dialog) => button.form.elements
+                        }, 
+                        {
+                            action: "close",
+                            label: "Close"
+                        }],
+                
+                submit: result => {
+                    if (result === "close") return;
+
+                    let rdata = {
+                        html:result,
+                        actor:data.actor,
+                        isDamage:isDamage,
+                        item: data.item
                     }
-                   },
-                default: "close"
-            }).render(true);
+
+                    let ewroll = new EWRoll(rdata);
+                    ewroll.rollDice().then(()=>
+                    {
+                        ewroll.rollObj.getTooltip().then((tt) => ewroll.createChatMessage(tt, isDamage));
+                    });
+
+                }
+            }).render({force:true});
+
+
+
 
         });
 
@@ -56,22 +59,21 @@ export class EWDialogHelper {
     static async generateUpdateDialog(template, data) {
 
         renderTemplate(template, data).then((dlg)=>{ 
-            new Dialog({
-             title: game.i18n.localize(data.resname),
+            new foundry.applications.api.DialogV2({
+             window: { title:game.i18n.localize(data.resname) },
              content: dlg,
-             buttons: {
-                 ok: {
-                     icon: '<i class="fas fa-check"></i>',
-                     label: "Update",
-                     callback: (html) => {data.actor.updateResource(data.res, html);}
-                 },
-                 cancel: {
-                     icon: '<i class="fas fa-times"></i>',
-                     label: "Cancel",
-                     callback: () => { return; }
-                 }
-             },
-             default: "ok"
+             buttons: [
+                {
+                    action: "update",
+                    label:"Update",
+                    default: true,
+                    callback: (html) => {data.actor.updateResource(data.res, html)}
+                },
+                {
+                    action: "close",
+                    label: "Cancel",
+                    callback: () => { return; }
+                }]
              }).render(true);
          });
     }
@@ -81,14 +83,15 @@ export class EWDialogHelper {
        // console.warn("vehicle update dialogData: ", data); 
 
         renderTemplate(template, data).then((dlg)=>{ 
-            new Dialog({
+            new foundry.applications.api.DialogV2({
              title: game.i18n.localize(data.resname),
              content: dlg,
-             buttons: {
-                 ok: {
-                     icon: '<i class="fas fa-check"></i>',
-                     label: "Update",
-                     callback: (html) => {
+             buttons: [
+                 {
+                    action:"update",
+                    label: "Update",
+                    icon: '<i class="fas fa-check"></i>',
+                    callback: (html) => {
                          // console.warn('clicked submit');
                          if(data.res == "frame") {
                              data.actor.updateFrame(html);
@@ -97,13 +100,12 @@ export class EWDialogHelper {
                         }
                     }
                  },
-                 cancel: {
+                 {
+                     action:"cancel",
                      icon: '<i class="fas fa-times"></i>',
                      label: "Cancel",
                      callback: () => { return; }
-                 }
-             },
-             default: "ok"
+                 }]
              }).render(true);
          });
     }

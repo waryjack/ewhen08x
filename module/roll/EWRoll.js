@@ -413,9 +413,10 @@ export class EWRoll {
     } */
 
     createArmorMessage(tt) {
+        console.log("armor roll: ", this.rollObj);
         let chatData = {
             roll: this.rollObj,
-            rollTotal: this.result,
+            rollTotal: this.rollObj.total,
             tooltip: new Handlebars.SafeString(tt),
             outclass: "roll-sux",
             name: this.item.name,

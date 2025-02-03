@@ -20,6 +20,7 @@
     "EW.attribute.vehicle.shield": "Shields",
 
     "EW.game_term.attributes.attribute": "Attribute",
+    "EW.game_term.attributes.a": "Attributes",
     "EW.game_term.attributes.main": "Main Attributes",
     "EW.game_term.vehicle.specs": "Specs",
     "EW.game_term.attributes.combat": "Combat Attributes",

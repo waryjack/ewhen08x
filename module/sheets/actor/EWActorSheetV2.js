@@ -31,7 +31,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         },
         position:{
            
-            width: 900,
+            width: "auto",
             left:120
         },
         tag:"form",
@@ -87,7 +87,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         
         data.config = CONFIG.ewhen; 
         let ownedItems = this.actor.items;
-        data.actor = this.actor; 
+        data.actor = this.actor;
+        data.gameSettings = game.settings.get("ewhen", "allSettings");
 
         // // console.warn("Owned Items: ", ownedItems);
         
@@ -427,23 +428,24 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static addItem(event) {
+    static addItem(event, options) {
+        console.warn("Add Item Options: ", options.dataset.type);
         event.preventDefault();
         // console.warn("_addItem fired: ");
         var subtype = "";
         var locString = "EW.sheet.new";
 
-        let element = event.currentTarget;
-        if(element.dataset.type == "trait"){
-            subtype = element.dataset.subType;
+       
+        if(options.dataset.type == "trait"){
+            subtype = options.dataset.subType;
             locString += subtype;
         } else {
-            locString += element.dataset.type;
+            locString += options.dataset.type;
         }
 
         let itemData  = {
             name: game.i18n.localize(locString),
-            type: element.dataset.type,
+            type: options.dataset.type,
             data: {
                     type: subtype
             }

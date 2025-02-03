@@ -1,0 +1,79 @@
+<div class="flex-item" style="border:1px solid rgb(61, 26, 26); margin-left:3px; margin-right:3px">
+    <div>
+        <h3>{{localize "Resources"}}</h3>
+    </div>
+    <div class="flexcol" style="align-items:flex-start">
+        <div class="flex-item">
+            <table>
+                <tr>
+                    <td>
+                        {{localize "EW.attribute.resource.hero_points"}}
+                    </td>
+                    <td>
+                        <input style="width:5ch;" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
+                    </td>
+                </tr>
+
+                {{#if (setting "useArcana")}}
+                <tr>
+                    <td>
+                        {{proper gameSettings.arcanaName}}
+                    </td>
+                    <td>
+                        <input style="width:5ch;" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/><br/>
+                    </td>
+                </tr>
+                {{/if}}
+
+                {{#if (setting "useFaith")}}
+                <tr>
+                    <td>
+                        {{proper gameSettings.faithName}}
+                    </td>
+                    <td>
+                        <input style="width:5ch;" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>
+                    </td>
+                </tr>
+                {{/if}}
+
+                {{#if (setting "usePsionics")}}
+                <tr>
+                    <td>
+                        {{proper gameSettings.psionicsName}}
+                    </td>
+                    <td>
+                        <input style="width:5ch;" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>
+                    </td>
+                </tr>
+                {{/if}}
+
+                {{#if (setting "useCredit")}}
+                <tr>
+                    <td>
+                        {{localize "EW.attribute.resource.credit_rating"}}
+                    </td>
+                    <td>
+                        <input style="width:5ch;" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>
+                    </td>
+                </tr>
+                {{/if}}
+
+                {{#unless (setting "useCredit")}}
+                <tr>
+                    <td>
+                        {{localize "EW.game_term.currency"}}
+                    </td>
+                    <td>
+                        <input style="width:5ch;" class="money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>
+                    </td>
+                </tr>
+                {{/unless}}
+
+
+
+            </table>
+             
+        </div>
+    </div>
+</div>
+                       

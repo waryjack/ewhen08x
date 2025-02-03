@@ -62,12 +62,12 @@ export class EWRoll {
         let baseDiff = 0;
         let settings = game.settings.get("ewhen", "allSettings");
 
-        // Dialog V2 changes
-        let attr = this.html.pattr.value.toLowerCase();
-        let combat = this.html.cattr.value.toLowerCase();
-        let othermods = this.html.othermods.value;
-        let difflevel = this.html.difficulty.value;
-        let careerName = this.html.career.value; /* 
+
+        let attr = this.html.find("#pattr").val().toLowerCase();
+        let combat = this.html.find("#cattr").val().toLowerCase();
+        let othermods = this.html.find("#othermods").val();
+        let difflevel = this.html.find("#difficulty").val();
+        let careerName = this.html.find("#career").val();
 
         console.log("Att, Combat, career: ",attr, combat, careerName);
 
@@ -77,8 +77,8 @@ export class EWRoll {
         *  Then that tells us whether diceSuffix is kh2 or kl2
         */
 
-        bdNum = Number(this.html.bdice.value);
-        pdNum = Number(this.html.pdice.value);
+        bdNum = Number(this.html.find("#bdice").val());
+        pdNum = Number(this.html.find("#pdice").val());
         const diceModel = getDiceModel(game)
         totalDiceMods = bdNum - pdNum;
         const diceSuffix = totalDiceMods > 0 ? `kh${diceModel.numberOfDice}` : `kl${diceModel.numberOfDice}`;
@@ -241,9 +241,9 @@ export class EWRoll {
 
         let wpnImg = this.item.img;
 
-        bonus = this.html.bonus.value;
-        penalty = this.html.penalty.value;
-        scaledDmg = this.html.scaleDmg.value;
+        bonus = this.html.find("#bonus").val();
+        penalty = this.html.find("#penalty").val();
+        scaledDmg = this.html.find("#scaled-damage").val();
         let wpnDmg = scaledDmg == "0" ? this.item.system.damage.dice : scaledDmg;
         let dmgMod = this.item.system.damage.mod || 0
         let wpnAttrib = this.item.system.damage.add_attribute;

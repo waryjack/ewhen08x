@@ -1,24 +1,29 @@
-<div class="ewhen flex-item">
-                        <span class="traitsheet-header"><div>{{localize "EW.game_term.careers"}}</div></span>
-                        <a class="item-create" title="Add Career" data-type="career">
+<div class="flex-item" style="border:1px solid rgb(61, 26, 26); margin-left:3px; margin-right:3px">
+                        <div><h3 style="text-align:center">{{localize "EW.game_term.careers"}}
+                            <span style="font-size:0.85em;"><a data-action="addItem" title="Add Career" data-type="career">
                             <i class="fas fa-plus-square"></i>
-                        </a>
+                        </a></span>
+                        </h3>
+                        </div>
+                        
                     </h3>
                     
-                    <table class="item-table">
+                    <table>
                         {{#each careers as |career id|}}
                         <tr>
-                            <td class="item-name item" data-item-id="{{career.id}}">
+                            <td class="item" data-item-id="{{career.id}}">
                                 <!--img src="{{trait.img}}" data-edit="img" height="24" width="24"/-->
-                                <a class="career-roll" title="Edit">{{career.name}}</a>
+                                <a data-action="careerRoll" title="Edit">{{career.name}}</a>
                             </td>
-                            <td class="ewhen statfield item-name item" style="width:2ch;" data-item-id="{{career.id}}"><input class="career-rank inline-edit" data-field="system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='3' size='3' /></td>
-                            <td class="item-icons">
+                            <td class="item" data-action="editCareerRank" data-item-id="{{career.id}}">
+                                <input data-field="system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='2' size='2' />
+                            </td>
+                            <td >
                                 <a class="item-edit item" data-item-id="{{career.id}}"><i class="fas fa-pencil"></i></a>
                             </td>
-                            <td class="item-icons">
+                            <td >
                                 
-                                <a class="item-delete item" data-item-id="{{career.id}}">
+                                <a class="item" data-action="deleteItem" data-item-id="{{career.id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

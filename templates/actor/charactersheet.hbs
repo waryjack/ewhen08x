@@ -1,111 +1,91 @@
 
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="ewhen sheethead">
-        <div class="ewhen header-flexitem">
-        <img class="profile-img" style="min-width:64px !important; min-height:64px !important" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
-        </div>
-        <div class="ewhen header-flexitem name-block">
-            <div class="charname">
-                <input class="ewhen charname" style="width:50%; vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-                <div class="form-group" style="float:right; color:white;">
-                <input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="system.isRival" type="checkbox" {{checked isRival}} /><label for="isRival">Rival</label>
-                <input class="npc-boxes" data-minor-type="tough" id="minorNpc" name="system.isTough" type="checkbox" {{checked isTough}} /><label for="isTough">Tough</label>
-                <input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="system.isRabble" type="checkbox" {{checked isRabble}} /><label for="isRabble">Rabble</label>
+    <header>
+        <div class="flexrow" style="justify-content:flex-start">
+            <div class="flex-item" style="flex-grow:0">
+                <img src="{{actor.img}}" style="min-width:64px; margin-right:12px;" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
+                
+            </div>
+            <div class="flex-item">
+                <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+            </div>
+            <div class="flex-item flex1">
+                <div class="form-group">
+                <input data-minor-type="rival" id="minorNpc" name="system.isRival" type="checkbox" {{checked isRival}} /><label for="isRival">Rival</label>
+                <input data-minor-type="tough" id="minorNpc" name="system.isTough" type="checkbox" {{checked isTough}} /><label for="isTough">Tough</label>
+                <input data-minor-type="rabble" id="minorNpc" name="system.isRabble" type="checkbox" {{checked isRabble}} /><label for="isRabble">Rabble</label>
                 </div>
             </div>
-
-            <table class="item-table">
-                    {{#unless (or isRabble isTough)}}
-					<tr>
-					  <td style="border-left:2px">
-                           {{proper gameSettings.heroName}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
-
-                             {{#if (setting "useArcana")}}{{proper gameSettings.arcanaName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/>{{/if}}
-                              {{#if (setting "useFaith")}}{{proper gameSettings.faithName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>{{/if}}
-                            {{#if (setting "usePsionics")}}{{proper gameSettings.psionicsName}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>{{/if}}
-                             {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>{{/if}}
-                             {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>{{/unless}}
-                        </td>
-					</tr>
-                    {{/unless}}
-					</table>
-
-
-        </div>
-       <div class="ewhen flexcol">
-        <div style="align-items:flex-start;"><a class="basic-roll roll-icon" style="margin:0px !important;"><i class="fa fa-dice-six"></i></a></div>
-
-        </div>
-
-    </header>
-    <div class="ewhen flexcol">
-         <div class="ewhen flexrow" style="color:white; ">
-                {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
+            <div class="flex-item">
+                <a data-action="basicRoll" style="font-size:4em;"><i class="fa fa-dice-six"></i></a>
             </div>
-    </div>
+        </div>
+       
+           
+        
+    </header>
+    
 
 {{!-- Sheet Tab Navigation --}}
 <section class="sheetbody">
-        <div class="tab main">
-            <div class="ewhen flexcol"> {{!--Outermost Flex Container--}}
-                <div class="ewhen flexrow">
-                    {{> 'systems/ewhen/templates/partials/MainAttributes.hbs'}}
-                    {{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
-                    {{#unless isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
-                    <div class="ewhen flex-item">
-                        <span class="traitsheet-header">{{localize "Point Pools"}}</span>
-                        <table>
-                            <tr>
-                                <td>
-                            {{localize "EW.attribute.resource.hero_points"}} 
-                            </td>
-                            <td><input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/><br/>
-                                </td>
-                                {{#if (setting "useArcana")}}{{localize "EW.attribute.resource.arcana_points"}} <input style="background:black; margin-right:8px; display:block;" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/><br/>{{/if}}
-                                {{#if (setting "useFaith")}}{{localize "EW.attribute.resource.faith_points"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/><br/>{{/if}}
-                                {{#if (setting "usePsionics")}}{{localize "EW.attribute.resource.psi_points"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/><br/>{{/if}}
-                                {{#if (setting "useCredit")}}{{localize "EW.attribute.resource.credit_rating"}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/><br/>{{/if}}
-                                {{#unless (setting "useCredit")}}{{localize "EW.game_term.currency"}} <input style="background:black;" class="ewhen money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/><br/>{{/unless}}
-                            </tr>
-                            </table>
+    
+      
+                <div class="flexrow" style="align-items:flex-start; justify-content:space-between">
+                    
+                            {{> 'systems/ewhen/templates/partials/MainAttributes.hbs'}}
+                    
+                            {{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
+                   
+                    {{#unless (or isTough isRabble)}} 
+                  
+                        {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} 
+                   
+                        {{> 'systems/ewhen/templates/partials/PointPools.hbs'}}
+                  
+                    {{/unless}}
+                  
+                </div>
+                <div class="flexcol">
+                    <div class="flexrow" style="color:white; ">
+                            {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
                         </div>
                 </div>
-                <div class="ewhen flexrow">
-                    <div class="ewhen flex-item">
+                <div class="flexrow">
+                    <div class="flex-item">
                         {{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
                         {{> 'systems/ewhen/templates/partials/FlawList.hbs'}}
                         {{#unless (or isTough isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
 
                     </div>
-                    <div class="ewhen flex-item">
+                    <div class="flex-item">
                         {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}
                         {{> 'systems/ewhen/templates/partials/ArmorList.hbs'}}
                         {{> 'systems/ewhen/templates/partials/EquipmentList.hbs'}}
                     </div>
                     
                 </div>
-            </div>
-        </div>
-        <div class="tab misc">
-            <div class="ewhen flexcol">
-                <div class="ewhen flexrow">
-                     <div class="ewhen flex-item">
-                         <h3 class="traitsheet-header"><div>{{localize "EW.game_term.miscmods"}}</div>
+    
+     
+        <!--div class="tab misc">
+            <div class="flexcol">
+                <div class="flexrow">
+                     <div class="flex-item">
+                         <h3><div>{{localize "EW.game_term.miscmods"}}</div>
                     </h3>
 
-                    <table class="nostretch">
+                    <table>
                         <tr>
                      <td>
                             {{localize "EW.game_term.size"}}: <select name="system.size" id="size" style="color:white">
                                 {{selectOptions config.sizes selected=size localize=true}}
                          
                             </select>
-                            {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.lifeblood.misc_lfb" value="{{resources.lifeblood.misc_lfb}}" data-dtype="Number"/>
-                            {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.resolve.misc_res" value="{{resources.resolve.misc_res}}" data-dtype="Number"/>
-                            {{localize "EW.game_term.armor"}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.miscarmor" value="{{miscarmor}}" data-dtype="Number"/>
-                            {{localize "EW.game_term.initbd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.priority_roll.bd" value="{{priority_roll.bd}}" data-dtype="Number"/>
-                            {{localize "EW.game_term.initpd"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.priority_roll.pd" value="{{priority_roll.pd}}" data-dtype="Number"/>
-                             {{localize "EW.game_term.initmod"}}: <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.priority_roll.miscMod" value="{{priority_roll.miscMod}}" data-dtype="Number"/>
+                            {{localize "EW.attribute.resource.lifeblood"}} <input style="background:black; margin-right:8px" class="statfield" type="text" name="system.resources.lifeblood.misc_lfb" value="{{resources.lifeblood.misc_lfb}}" data-dtype="Number"/>
+                            {{localize "EW.attribute.resource.resolve"}} <input style="background:black; margin-right:8px" class="statfield" type="text" name="system.resources.resolve.misc_res" value="{{resources.resolve.misc_res}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.armor"}} <input style="background:black; margin-right:8px" class="statfield" type="text" name="system.miscarmor" value="{{miscarmor}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.initbd"}}: <input style="background:black; margin-right:8px" class="statfield" type="text" name="system.priority_roll.bd" value="{{priority_roll.bd}}" data-dtype="Number"/>
+                            {{localize "EW.game_term.initpd"}}: <input style="background:black; margin-right:8px" class="statfield" type="text" name="system.priority_roll.pd" value="{{priority_roll.pd}}" data-dtype="Number"/>
+                             {{localize "EW.game_term.initmod"}}: <input style="background:black; margin-right:8px" class="statfield" type="text" name="system.priority_roll.miscMod" value="{{priority_roll.miscMod}}" data-dtype="Number"/>
 
 
                         </td>
@@ -113,14 +93,14 @@
                     </table>
                     </div>
                 </div>
-                <div class="ewhen flexrow">
-                    <div class="ewhen flex-item edit-cont">
+                <div class="flexrow">
+                    <div class="flex-item edit-cont">
                         {{editor backstory target="system.backstory" button=true owner=owner editable="editable"}}
                     </div>
                 </div>
 
             </div>
-        </div>
+        </div-->
 
     </section>
 </form>

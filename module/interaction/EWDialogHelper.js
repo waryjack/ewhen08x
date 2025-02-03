@@ -23,7 +23,14 @@ export class EWDialogHelper {
                             action: "roll",
                             label: "Roll",
                             default: true,
-                            callback: (event, button, dialog) => button.form.elements
+                            callback: (event, button, dialog) => {
+                                return button.form.elements;
+                                console.log("Callback: ", button.form.elements)
+                                console.log("Attribute: ", button.form.elements.pattr.value);
+                                console.log("Combat: ", button.form.elements.cattr.value);
+                                console.log("Career: ", button.form.elements.career.value)
+                            
+                            }
                         }, 
                         {
                             action: "close",
@@ -31,6 +38,7 @@ export class EWDialogHelper {
                         }],
                 
                 submit: result => {
+                    console.log("Dialog V2 Result: ", result);
                     if (result === "close") return;
 
                     let rdata = {

@@ -1,33 +1,32 @@
-<div class="flex-item" style="border:1px solid rgb(61, 26, 26); margin-left:3px; margin-right:3px">
-                        <div><h3 style="text-align:center">{{localize "EW.game_term.careers"}}
-                            <span style="font-size:0.85em;"><a data-action="addItem" title="Add Career" data-type="career">
-                            <i class="fas fa-plus-square"></i>
-                        </a></span>
-                        </h3>
-                        </div>
-                        
-                    </h3>
-                    
-                    <table>
-                        {{#each careers as |career id|}}
-                        <tr>
-                            <td class="item" data-item-id="{{career.id}}">
-                                <!--img src="{{trait.img}}" data-edit="img" height="24" width="24"/-->
-                                <a data-action="careerRoll" title="Edit">{{career.name}}</a>
-                            </td>
-                            <td class="item" data-action="editCareerRank" data-item-id="{{career.id}}">
-                                <input data-field="system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='2' size='2' />
-                            </td>
-                            <td >
-                                <a class="item-edit item" data-item-id="{{career.id}}"><i class="fas fa-pencil"></i></a>
-                            </td>
-                            <td >
-                                
-                                <a class="item" data-action="deleteItem" data-item-id="{{career.id}}">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </table>        
-                </div>
+
+<div><h3 style="text-align:center">{{localize "EW.game_term.careers"}}
+<span style="font-size:0.85em;"><a data-action="addItem" title="Add Career" data-type="career">
+<i class="fas fa-plus-square"></i>
+</a></span>
+</h3>
+</div>
+
+</h3>
+
+<table class="ew-stat-table">
+{{#each careers as |career id|}}
+<tr>
+<td class="item" data-item-id="{{career.id}}">
+    <!--img src="{{trait.img}}" data-edit="img" height="24" width="24"/-->
+    <a data-action="careerRoll" title="Edit">{{career.name}}</a>
+</td>
+<td class="item" data-action="editCareerRank" data-item-id="{{career.id}}">
+    <input data-field="system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='2' size='2' />
+</td>
+<td >
+    <a class="item-edit item" data-item-id="{{career.id}}"><i class="fas fa-pencil"></i></a>
+</td>
+<td >
+    
+    <a class="item" data-action="deleteItem" data-item-id="{{career.id}}">
+        <i class="fas fa-trash"></i>
+    </a>
+</td>
+</tr>
+{{/each}}
+</table>        

@@ -1,11 +1,11 @@
-        <h3 class="traitsheet-header"><div>{{localize "EW.game_term.boons"}}</div>
+        <div><h3 class="traitsheet-header">{{localize "EW.game_term.boons"}}
                         <a class="item-create" title="Add Boon" data-type="trait" data-sub-type="boon">
                             <i class="fas fa-plus-square"></i>
                         </a>
-                    </h3>
+                    </h3></div>
                     <table class="item-table">
                         {{#each traits as |trait id|}}
-                        {{#ife trait.system.type "boon"}}
+                        
                         <tr>
                             <td class="item-name item" data-item-id="{{trait.id}}">
                                 <img src="{{trait.img}}" data-edit="img" height="24" width="24"/>
@@ -18,6 +18,6 @@
                                 </a>
                             </td>
                         </tr>
-                        {{/ife}}
+                        
                         {{/each}}
                     </table>

@@ -30,13 +30,15 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
         },
         position:{
-           
-            width: "auto",
+            width:900,
+            height:600,
             left:120
         },
         tag:"form",
         window:{
-            title:"V2 Actor Sheet"
+            title:"V2 Actor Sheet",
+            contentClasses:['scrollable'],
+            resizable:true
         },
         dragDrop: [{ dragSelector: '[data-drag]', dropSelector: null }],
     }
@@ -44,6 +46,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     static PARTS = {
         form: {
             template: "systems/ewhen/templates/actor/charactersheet.hbs",
+            scrollable: ['scrollable']
         },
         /* tabs: {
             template: "templates/generic/tab-navigation.hbs"

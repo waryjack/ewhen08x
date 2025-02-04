@@ -19,7 +19,7 @@
     ],
     "scripts": [],
     "styles": [
-        
+        "styles/ew-grid.css"
     ],
     "languages": [
         {

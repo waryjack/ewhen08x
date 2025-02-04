@@ -1,0 +1,85 @@
+.ew-cs-container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 64px 0.8fr .3fr 0.5fr 0.5fr 0.5fr 64px;
+  gap: 3px 3px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "image name toggles rollbutton"
+    "attributes abilities careers points"
+    "trackers trackers trackers trackers"
+    "boonflaw boonflaw weapons weapons"
+    "powers powers armor armor"
+    "equipment equipment equipment equipment"
+    "quickref quickref quickref quickref";
+}
+
+.ew-cs-image { grid-area: image;
+
+}
+
+.ew-cs-name { grid-area: name; }
+
+.ew-cs-toggles { grid-area: toggles; }
+
+.ew-cs-rollbutton { 
+  grid-area: rollbutton;
+  justify-self:center;
+  align-self:center;
+ }
+
+.ew-cs-attributes { grid-area: attributes;
+  justify-self:center;
+  align-self:start }
+
+.ew-cs-abilities { grid-area: abilities; }
+
+.ew-cs-careers { grid-area: careers; }
+
+.ew-cs-points { grid-area: points; }
+
+.ew-cs-languages { grid-area: languages; }
+
+.ew-cs-trackers { grid-area: trackers; }
+
+.ew-cs-boonflaw { grid-area: boonflaw; }
+
+.ew-cs-weapons { grid-area: weapons; }
+
+.ew-cs-powers { grid-area: powers; }
+
+.ew-cs-armor { grid-area: armor; }
+
+.ew-cs-equipment { grid-area: equipment; }
+
+.ew-cs-quickref { grid-area: quickref; }
+
+.ew-roll-icon {
+  margin:auto;
+  font-size:2em;
+  padding-left:12px;
+  padding-right:12px;
+  background: none;
+  border-left:3px solid white;
+}
+
+#ew-attribute-table, #ew-combat-table {
+  background:none !important;
+  color:black;
+  border:none !important;
+  height:auto;
+  padding-left:2px;
+  padding-right:2px;
+  padding-top:2px;
+  padding-bottom:2px;
+  margin:none;
+}
+
+#ew-combat-table td {
+  border:1px solid black;
+  text-align:left;
+  padding:0.1rem;
+}
+
+table tr:nth-child(even) {
+  background:none !important;
+}

@@ -75,7 +75,9 @@ export const registerSettings = function() {
             faithName : "faith", // game.i18n.localize("EW.attribute.resource.faith"),
             arcanaName : "arcana", // game.i18n.localize("EW.attribute.resource.arcana"),
             psionicsName : "psionics", // game.i18n.localize("EW.attribute.resource.psionics"),
-            heroName : "hero", // game.i18n.localize("EW.attribute.resource.hero")
+            heroName : "hero", // game.i18n.localize("EW.attribute.resource.hero"),
+            creditName: "credit",
+            currencyName: "currency"
         }
     })
     

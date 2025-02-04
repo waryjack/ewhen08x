@@ -118,7 +118,7 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
             "@combat_attributes.melee.rank":"EW.attribute.combat.melee",
             "@combat_attributes.ranged.rank":"EW.attribute.combat.ranged",
             "@combat_attributes.defense.rank":"EW.attribute.combat.defense",
-            "@combat_attributes.initiative.rank":"EW.attribute.combat.defense"
+            "@combat_attributes.initiative.rank":"EW.attribute.combat.initiative"
         }
         
         context.linkAttributes = {
@@ -240,7 +240,9 @@ export class EWSettingsDialog extends HandlebarsApplicationMixin(ApplicationV2) 
                 faithName : game.i18n.localize("EW.attribute.resource.faith"),
                 arcanaName : game.i18n.localize("EW.attribute.resource.arcana"),
                 psionicsName : game.i18n.localize("EW.attribute.resource.psionics"),
-                heroName : game.i18n.localize("EW.attribute.resource.hero")
+                heroName : game.i18n.localize("EW.attribute.resource.hero"),
+                creditName: game.i18n.localize("EW.game_term.creditVal"),
+                currencyName: game.i18n.localize("EW.game_term.currency")
             }
         }
         return defaultSettings;

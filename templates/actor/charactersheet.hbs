@@ -16,8 +16,34 @@
                 <input data-minor-type="rabble" id="minorNpc" name="system.isRabble" type="checkbox" {{checked isRabble}} /><label for="isRabble">Rabble</label>
                 </div>
             </div>
-            <div class="flex-item">
-                <a data-action="basicRoll" style="font-size:4em;"><i class="fa fa-dice-six"></i></a>
+
+            <table class="item-table">
+                    {{#unless (or isRabble isTough)}}
+					<tr>
+					  <td style="border-left:2px">
+                           {{proper gameSettings.heroName}} <input style="background:black;margin-right:8px;" class="ewhen statfield" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
+
+                             {{#if (setting "useArcana")}}{{proper gameSettings.arcanaName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/>{{/if}}
+                              {{#if (setting "useFaith")}}{{proper gameSettings.faithName}} <input style="background:black; margin-right:8px" class="ewhen statfield" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>{{/if}}
+                            {{#if (setting "usePsionics")}}{{proper gameSettings.psionicsName}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>{{/if}}
+                             {{#if (setting "useCredit")}}{{proper gameSettings.creditName}} <input style="background:black;" class="ewhen statfield" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>{{/if}}
+                             {{#unless (setting "useCredit")}}{{proper gameSettings.currencyName}} <input style="background:black;" class="ewhen money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>{{/unless}}
+                        </td>
+					</tr>
+                    {{/unless}}
+					</table>
+
+
+        </div>
+       <div class="ewhen flexcol">
+        <div style="align-items:flex-start;"><a class="basic-roll roll-icon" style="margin:0px !important;"><i class="fa fa-dice-six"></i></a></div>
+
+        </div>
+
+    </header>
+    <div class="ewhen flexcol">
+         <div class="ewhen flexrow" style="color:white; ">
+                {{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
             </div>
         </div>
        

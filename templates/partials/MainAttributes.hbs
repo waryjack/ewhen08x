@@ -1,9 +1,9 @@
 
 {{#if (eq EWActorType "character")}}
 
-
-    <div><h3 style="text-align:center">{{localize "EW.game_term.attributes.a"}}</h3></div>
-        <table id="ew-attribute-table"    >
+<div class="ew-statblock">
+    <!--div><h3 style="text-align:center">{{localize "EW.game_term.attributes.a"}}</h3></div-->
+        <table id="ew-attribute-table">
             <tr>
                 <td>
                     <a data-attribute="strength" data-action="attributeRoll">{{proper gameSettings.strName}}</a>
@@ -33,6 +33,7 @@
                 {{#if (setting "useScale")}}<td >({{main_attributes.appeal.scale}})</td>{{/if}}
             </tr>
         </table>
+</div>
 
 {{/if}}
 {{#if (eq EWActorType "vehicle")}}

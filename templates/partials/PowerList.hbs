@@ -1,12 +1,15 @@
- <div><h3 class="traitsheet-header">{{localize "EW.game_term.powers"}}/
+<div class="ew-statblock">
+<div style="text-align:center; width:100%; font-size:1.25em; background-color:none;">
+    <strong>{{localize "EW.game_term.powers"}}/
      {{localize "EW.game_term.spells"}}/
      {{localize "EW.game_term.abilities"}}
- 
-                        <a class="item-create" title="Add Power" data-type="power">
-                            <i class="fas fa-plus-square"></i>
-                        </a></div>
+ </strong>
+    <a class="item-create" title="Add Power" data-type="power">
+        <i class="fas fa-plus-square"></i>
+    </a>
+</div>
                     </h3>
-                    <table style="border:none; height:auto; width:100%; margin:auto; padding:3px;">
+                    <table id="ew-power-table">
                         {{#each powers as |power id|}}
                         <tr>
                             <td class="item-name item" data-item-id="{{power.id}}">
@@ -22,3 +25,4 @@
                         </tr>
                         {{/each}}
                     </table>
+</div>

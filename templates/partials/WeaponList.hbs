@@ -1,10 +1,10 @@
-
-                     <div><h3 class="traitsheet-header">{{localize "EW.game_term.weapons"}}
+<div class="ew-statblock">
+                    <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.weapons"}}</strong>
                         <a class="item-create" title="Add Weapon" data-type="weapon">
                             <i class="fas fa-plus-square"></i>
                         </a>
-                    </h3></div>
-                    <table class="item-table">
+                    </div>
+                    <table id="ew-weapon-table">
                         {{#each weapons as |weapon id|}}
         
                         <tr>
@@ -33,3 +33,4 @@
                         </tr>
                         {{/each}}
                     </table>
+</div>

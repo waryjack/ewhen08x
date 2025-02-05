@@ -1,10 +1,10 @@
-
-                     <div><h3 class="traitsheet-header">{{localize "EW.game_term.armor"}}
+<div class="ew-statblock">
+                    <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.armor"}}</strong>
                         <a class="item-create" title="Add Armor" data-type="armor">
                             <i class="fas fa-plus-square"></i>
                         </a>
-                    </h3></div>
-                    <table class="item-table">
+                    </div>
+                    <table id="ew-armor-table">
                         
                         {{#each armors as |armor id|}}
                       
@@ -35,4 +35,5 @@
                         </tr>
                         {{/each}}
                     </table>
+</div>
             

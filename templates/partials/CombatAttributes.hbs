@@ -1,12 +1,11 @@
 
-<div><h3 style="text-align:center">{{localize "EW.game_term.abilities"}}</h3></div>
-{{#if gameSettings.useScale}}<div style="float:right;margin-right:4px">Scale</div>{{/if}}  
+<div class="ew-statblock">
 <table class="ew-stat-table" id="ew-combat-table">    
 
 <tr>
-    <td ><a class="att-roll" data-attribute="melee">{{proper gameSettings.melName}}</a></td>
-    <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.melee.rank" value="{{combat_attributes.melee.rank}}"/</td>
-    {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.melee.scale}})</td>{{/if}}
+    <td><a data-attribute="melee">{{proper gameSettings.melName}}</a></td>
+    <td><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.melee.rank" value="{{combat_attributes.melee.rank}}"/</td>
+    {{#if (setting "useScale")}}<td class="ew-scale-box">{{combat_attributes.melee.scale}}</td>{{/if}}
 </tr>
 <tr>
     <td ><a class="att-roll" data-attribute="ranged">{{proper gameSettings.ranName}}</a></td>
@@ -15,7 +14,7 @@
 </tr>
 <tr>
     <td ><a class="att-roll" data-attribute="defense">{{proper gameSettings.defName}}</a></td>
-    <td class="ewhen statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.defense.rank" value="{{combat_attributes.defense.rank}}"/</td>
+    <td class="ewhen statfield cell"><input class="attr-name" style="background-color:white;" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.combat_attributes.defense.rank" value="{{combat_attributes.defense.rank}}"/</td>
     {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.defense.scale}})</td>{{/if}}
 </tr>
 <tr>
@@ -25,3 +24,4 @@
 </tr>
 
 </table>
+</div>

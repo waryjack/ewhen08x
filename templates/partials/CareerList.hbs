@@ -1,14 +1,6 @@
+<div class="ew-statblock">
 
-<div><h3 style="text-align:center">{{localize "EW.game_term.careers"}}
-<span style="font-size:0.85em;"><a data-action="addItem" title="Add Career" data-type="career">
-<i class="fas fa-plus-square"></i>
-</a></span>
-</h3>
-</div>
-
-</h3>
-
-<table class="ew-stat-table">
+<table class="ew-stat-table" id="ew-career-table">
 {{#each careers as |career id|}}
 <tr>
 <td class="item" data-item-id="{{career.id}}">
@@ -29,4 +21,8 @@
 </td>
 </tr>
 {{/each}}
-</table>        
+</table>
+<div style="float:right; color:gray">Add Career <a data-action="addItem" title="Add Career" data-type="career">
+<i class="fas fa-plus-square"></i>
+</a></div>
+</div>

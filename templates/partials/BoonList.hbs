@@ -1,9 +1,12 @@
-        <div><h3 class="traitsheet-header">{{localize "EW.game_term.boons"}}
+        <div class="ew-statblock">
+                        
+                   
+                    <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>Boons / Flaws</strong>
                         <a class="item-create" title="Add Boon" data-type="trait" data-sub-type="boon">
                             <i class="fas fa-plus-square"></i>
                         </a>
-                    </h3></div>
-                    <table class="item-table">
+                    </div>
+                    <table id="ew-boon-table">
                         {{#each traits as |trait id|}}
                         
                         <tr>
@@ -21,3 +24,4 @@
                         
                         {{/each}}
                     </table>
+        </div>

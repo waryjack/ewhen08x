@@ -1,3 +1,4 @@
+<hr class="ew-hr"/>
 <div class="ew-statblock">
  
                 <table id="ew-healthtrack-table">
@@ -5,7 +6,7 @@
                 {{log "Healthrack actor: " actor}}
                 {{log "Healthtrack system: " system}}
                     <tr>
-                        <td><a class="adj-resource res-track" data-resource-name="lifeblood">{{gameSettings.lbdName}} ({{resources.lifeblood.max}})</a></td>
+                        <td><a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood">{{gameSettings.lbdName}} ({{resources.lifeblood.max}})</a></td>
                         <td>
                             {{#times resources.lifeblood.lasting}}
                             <i class="fas fa-circle res-box"></i>
@@ -20,7 +21,7 @@
                             <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
                             {{/times}}
                         </td>
-                        <td class="res-track">{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-resource-name="lifeblood"><i class="fas fa-forward"></i> {{gameSettings.critName}}</a>{{/if}}</td>
+                        <td class="res-track">{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood"><i class="fas fa-forward"></i> {{gameSettings.critName}}</a>{{/if}}</td>
                         <td>
                             {{#if (setting "useCritical")}}
                             {{#times resources.lifeblood.critical}}
@@ -35,7 +36,7 @@
                     {{#if (setting "useResolve")}}
                     {{#unless (or isTough isRabble)}}
                     <tr>
-                        <td>{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-resource-name="resolve">{{proper gameSettings.resName}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
+                        <td>{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve">{{proper gameSettings.resName}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
                         <td>{{#if (setting "useResolve")}}
                             {{#unless isRabble}}
                             {{#times resources.resolve.lasting}}
@@ -53,7 +54,7 @@
                             {{/unless}}
                             {{/if}}
                         </td>
-                        <td class="res-track">{{#if (setting "useResolve")}}{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-resource-name="resolve"><i class="fas fa-forward"></i> {{proper gameSettings.critName}}</a>{{/if}}{{/if}}</td>
+                        <td class="res-track">{{#if (setting "useResolve")}}{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve"><i class="fas fa-forward"></i> {{proper gameSettings.critName}}</a>{{/if}}{{/if}}</td>
                         <td>{{#if (setting "useCritical")}}{{#if (setting "useResolve")}}{{#times resources.resolve.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
@@ -72,3 +73,4 @@
                  
                 
                 </div>
+<hr class="ew-hr"/>

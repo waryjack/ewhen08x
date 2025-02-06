@@ -29,9 +29,13 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             armorRoll: EWActorSheetV2.armorRoll,
 
         },
+        form: {
+                submitOnChange: true,
+                closeOnSubmit: false,
+        },
         position:{
-            width:900,
-            height:600,
+            width:800,
+            height:700,
             left:120
         },
         tag:"form",
@@ -85,9 +89,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
      */
     _prepareContext() {
         const data = foundry.utils.deepClone(this.actor.system);
+     
 
-       // // console.warn("080 super getdata, data.items: ", data);
-        
+      
         data.config = CONFIG.ewhen; 
         let ownedItems = this.actor.items;
         data.actor = this.actor;
@@ -116,7 +120,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         } else {
             data.EWActorType = "vehicle";
         }
-
+        console.log("New V2 Context: ", data);
         return data;
     }
 
@@ -136,11 +140,10 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     // Change lifeblood, damage if you create a minor NPC from a character
     // one-way change; caught in preUpdateToken for reversing it
-    static becomeMinorNPC(event) {
+    static becomeMinorNPC(event,element) {
         event.preventDefault();
 
 
-       let element = event.currentTarget;
        let minorType = element.dataset.minorType;
        let actorData = foundry.utils.duplicate(this.actor.system);
        let rabbleAttack = {
@@ -230,11 +233,10 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     }
 
     // Handle changes to the lifeblood/resolve and critical tracks
-    static adjustResource(event) {
+    static adjustResource(event,element) {
         event.preventDefault();
         let resData = {};
-        let element = event.currentTarget;
-
+      
         let res = element.dataset.resourceName;
         
 
@@ -259,7 +261,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     // May not be needed...testing required
 
-    static adjustFrame(event) {
+    static adjustFrame(event,element) {
         event.preventDefault();
 
 
@@ -274,7 +276,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static adjustShield(event) {
+    static adjustShield(event,element) {
         event.preventDefault();
 
 
@@ -291,10 +293,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     }
 
     // Not in use at the moment; not sure if it's necessary
-    static careerRoll(event) {
+    static careerRoll(event,element) {
         event.preventDefault();
-
-        let element = event.currentTarget;
 
         let itemId = element.closest(".item").dataset.itemId;
 
@@ -307,19 +307,19 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     }
 
     // trigger the basic, non-pre-populated roll dialog
-    static basicRoll(event) {
+    static basicRoll(event,element) {
         event.preventDefault();
-        let element = event.currentTarget;
+       
 
         return this.actor.basicRoll();
     }
 
     // roll if the user clicks on a specific attribute or combat ability
-    static attributeRoll(event) {
+    static attributeRoll(event, element) {
         event.preventDefault();
         var rank = 0;
         var isCombat = false;
-        let element = event.currentTarget;
+        // let element = event.currentTarget;
         let attribute = element.dataset.attribute;
        
         let maPicked = "";
@@ -362,7 +362,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     }
 
     // Handle damage rolls
-    static weaponRoll(event) {
+    static weaponRoll(event,element) {
         event.preventDefault();
 
        /*
@@ -370,7 +370,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         var att1;
        */
 
-        let element = event.currentTarget;
+       
 
         let itemId = element.closest(".item").dataset.itemId;
 
@@ -380,19 +380,21 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static armorRoll(event) {
+    static armorRoll(event,element) {
         event.preventDefault();
 
-        let element = event.currentTarget;
+        
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
         return this.actor.rollArmor(item);
     }
 
-    static editItem(event) {
+    static editItem(event, element) {
+        console.log("Event: ", event);
+        console.log("Element: ", element);
         event.preventDefault();
 
-        let element = event.currentTarget;
+        
 
         let itemId = element.closest(".item").dataset.itemId;
 
@@ -402,9 +404,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static editCareerName(event) {
+    static editCareerName(event,element) {
         event.preventDefault();
-        let element = event.currentTarget;
+        
 
         let itemId = element.closest(".item").dataset.itemId;
 
@@ -416,10 +418,10 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static editCareerRank(event) {
+    static editCareerRank(event, element) {
+       
         event.preventDefault();
-        let element = event.currentTarget;
-
+        
         let itemId = element.closest(".item").dataset.itemId;
 
         let item = this.actor.items.get(itemId);
@@ -458,9 +460,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
       }
 
-      static deleteItem(event) {
+      static deleteItem(event, element) {
           event.preventDefault();
-          let element = event.currentTarget;
+         
           let itemId = element.closest(".item").dataset.itemId;
 
           let d = new Dialog({
@@ -489,10 +491,10 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
       }
 
-      static equipItem(event) {
+      static equipItem(event,element) {
           event.preventDefault();
 
-          let element = event.currentTarget;
+        
 
           let itemId = element.closest(".item").dataset.itemId;
 

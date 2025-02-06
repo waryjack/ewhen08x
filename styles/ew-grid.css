@@ -1,17 +1,32 @@
-.ew-cs-container {  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 64px 0.8fr .3fr 0.5fr 0.5fr 0.5fr 64px;
-  gap: 6px 12px;
+:root {
+  --ash-gray: #b2beb5;
+  --secback: #b2beb573;
+  --secborder:  #b2beb573;
+}
+
+#actorsheet {
+  background:none;
+  background-color:white;
+}
+
+.ew-cs-container {  
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 64px min-content min-content min-content 1fr 1fr 1fr 64px;
+  gap: 6px 6px;
   grid-auto-flow: row;
   grid-template-areas:
-    "image name toggles rollbutton"
-    "attributes abilities careers points"
-    "trackers trackers trackers trackers"
-    "boonflaw boonflaw weapons weapons"
-    "powers powers armor armor"
-    "equipment equipment equipment equipment"
-    "quickref quickref quickref quickref";
+    "image name name name toggle toggle toggle roll"
+    "trackers trackers trackers trackers trackers trackers trackers trackers"
+    "attributes attributes abilities abilities careers careers pointpools pointpools"
+    "attributes attributes abilities abilities careers careers pointpools pointpools"
+    "boonflaw boonflaw boonflaw boonflaw weapons weapons weapons weapons"
+    "powers powers powers powers armor armor armor armor"
+    "equipment equipment equipment equipment equipment equipment equipment equipment"
+    "footer footer footer footer footer footer footer footer";
+  
 }
+
 
 .ew-cs-image { grid-area: image;
 
@@ -19,10 +34,16 @@
 
 .ew-cs-name { grid-area: name; }
 
-.ew-cs-toggles { grid-area: toggles; }
+.ew-cs-gridline { 
+  grid-area:gridline;
+  justify-self:stretch;
+  
+}
+
+.ew-cs-toggles { grid-area: toggle; }
 
 .ew-cs-rollbutton { 
-  grid-area: rollbutton;
+  grid-area: roll;
   justify-self:end;
   align-self:center;
  }
@@ -47,13 +68,13 @@
   place-self:stretch;
  
 }
-.ew-cs-points { grid-area: points; }
+.ew-cs-points { grid-area: pointpools; }
 
 .ew-cs-languages { grid-area: languages; }
 
 .ew-cs-trackers { 
   grid-area: trackers;
-  justify-self:stretch; 
+  justify-self:stretch;
 }
 
 .ew-cs-boonflaw { grid-area: boonflaw; }
@@ -67,7 +88,8 @@
 .ew-cs-equipment { grid-area: equipment; }
 
 .ew-cs-quickref { 
-  grid-area: quickref;
+  grid-area: footer;
+  align-self:end;
   
 }
 
@@ -78,10 +100,18 @@
 }
 
 .ew-statblock {
-  background:rgba(121, 119, 101, 0.521);
-  border-radius:6px;
+  background-color:none;
+  
 }
 
+.ew-cs-img {
+  filter:invert(1);
+}
+
+.ew-itemborder, .ew-statborder {
+ /* border:2px ridge var(--secborder);*/
+
+}
 #ew-attribute-table, 
 #ew-combat-table, 
 #ew-career-table,
@@ -108,20 +138,53 @@
 
 #ew-combat-table td,
 #ew-career-table td,
-#ew-attribute-table td,
-#ew-pointpool-table td {
+#ew-attribute-table td
+ {
   
   text-align:left;
   padding:0.2rem;
   
 }
 
+#ew-pointpool-table td {
+  text-align:right;
+  padding:0.2rem;
+}
+
+
 .ew-stat-table td .attr-name {
   background-color:white;
   text-align:center;
-  width:4;
+  width:5ch;
+  
 }
 
 table tr:nth-child(even) {
   background:none !important;
+}
+
+.ew-gridline{
+  display:grid;
+  grid-gap:0px;
+  border-bottom:2px dashed var(--secborder)
+}
+
+hr.ew-hr {
+  border-top:2px solid var(--secborder);
+  margin-top:2px;
+  margin-bottom:2px;
+}
+
+.item-create {
+  font-size:0.85em;
+}
+
+i.fa-solid.fa-plus, i.fa-solid.fa-ban, i.fa-solid.fa-pen-to-square {
+  color:rgb(173, 173, 173)
+}
+
+.weapon-image:hover img {
+  content: url('../assets/dice-target.svg');
+  filter:invert(1);
+
 }

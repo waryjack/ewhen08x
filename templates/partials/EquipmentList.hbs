@@ -1,9 +1,9 @@
+<hr class="ew-hr"/>
+                     <div class="ew-itemborder">
 
-                     <div class="ew-statblock">
-
-                     <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.gearandpos"}}</strong>
-                        <a class="item-create" title="Add Gear" data-type="equipment">
-                            <i class="fas fa-plus-square"></i></a>
+                     <div class="ew-statblock" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.gearandpos"}}</strong>
+                        <a class="item-create" title="Add Gear" data-action="addItem" data-type="equipment">
+                            <i class="fa-solid fa-plus"></i></a>
                       </div>
                     <table id="ew-equip-table">
                         <tr>
@@ -17,9 +17,9 @@
                         {{#each equipment as |equipment id|}} 
            
                         <tr>
-                            <td><img src="{{equipment.img}}" height="24" width="24"/></td>
+                            <td><img class="ew-cs-img" src="{{equipment.img}}" height="24" width="24"/></td>
                             <td class="item-name item" data-item-id="{{equipment.id}}">
-                               <a class="item-edit"><strong>{{equipment.name}}</strong></a>
+                               <a class="item-edit" data-action="editItem"><strong>{{equipment.name}}</strong></a>
                             </td>
                             <td>
                                 {{equipment.system.description}}
@@ -34,11 +34,12 @@
                                 {{equipment.system.weight}}
                             </td>
                              <td>
-                                <a class="item-delete item" data-item-id="{{equipment.id}}">
-                                    <i class="fas fa-trash"></i>
+                                <a class="item-delete item" data-action="deleteItem" data-item-id="{{equipment.id}}">
+                                    <i class="fa-solid fa-ban"></i>
                                 </a>
                             </td>
                         </tr>
                         {{/each}}
                     </table>
                     </div>
+

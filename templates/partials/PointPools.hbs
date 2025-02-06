@@ -1,12 +1,13 @@
 
-<div class="ew-statblock">
-<table id="ew-pointpool-table">
+<div class="ew-statblock ew-statborder">
+     <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.resources"}}</strong></div>
+<table class="ew-stat-table" id="ew-pointpool-table">
 <tr>
     <td>
         {{localize "EW.attribute.resource.hero_points"}}
     </td>
-    <td>
-        <input style="width:5ch;" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
+    <td >
+        <input class="attr-name"  type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
     </td>
 </tr>
 
@@ -15,8 +16,8 @@
     <td>
         {{proper gameSettings.arcanaName}}
     </td>
-    <td>
-        <input style="width:5ch;" type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/><br/>
+    <td >
+        <input class="attr-name"  type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/><br/>
     </td>
 </tr>
 {{/if}}
@@ -26,8 +27,8 @@
     <td>
         {{proper gameSettings.faithName}}
     </td>
-    <td>
-        <input style="width:5ch;" type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>
+    <td >
+        <input class="attr-name"  type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>
     </td>
 </tr>
 {{/if}}
@@ -37,8 +38,8 @@
     <td>
         {{proper gameSettings.psionicsName}}
     </td>
-    <td>
-        <input style="width:5ch;" type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>
+    <td >
+        <input class="attr-name"  type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>
     </td>
 </tr>
 {{/if}}
@@ -48,8 +49,8 @@
     <td>
         {{localize "EW.attribute.resource.credit_rating"}}
     </td>
-    <td>
-        <input style="width:5ch;" type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>
+    <td >
+        <input class="attr-name"  type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>
     </td>
 </tr>
 {{/if}}
@@ -59,8 +60,8 @@
     <td>
         {{localize "EW.game_term.currency"}}
     </td>
-    <td>
-        <input style="width:5ch;" class="money" type="text" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>
+    <td style="text-align:right;">
+        <input type="text" style="background-color:white;text-align:right; width:50%" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>
     </td>
 </tr>
 {{/unless}}

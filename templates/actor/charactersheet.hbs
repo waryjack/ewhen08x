@@ -1,8 +1,8 @@
 
-<form class="{{cssClass}}" autocomplete="off">
-<div class="ew-cs-container">
+
+<div class="ew-cs-container {{cssClass}}">
   <div class="ew-cs-image">
-	<img class="profile-img" 
+	<img class="profile-img ew-cs-img" 
 		 src="{{actor.img}}" 
 		 data-edit="img" 
 		 title="{{actor.name}}" 
@@ -14,15 +14,16 @@
 	name="name" 
 	type="text" 
 	value="{{actor.name}}" 
-	placeholder="Name"/>
+	placeholder="Name"/><br/>
+
   </div>
   <div class="ew-cs-toggles">
 	<input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="system.isRival" type="checkbox" {{checked isRival}} /><label for="isRival">Rival</label>
 	<input class="npc-boxes" data-minor-type="tough" id="minorNpc" name="system.isTough" type="checkbox" {{checked isTough}} /><label for="isTough">Tough</label>
 	<input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="system.isRabble" type="checkbox" {{checked isRabble}} /><label for="isRabble">Rabble</label>
   </div>
-  <div class="ew-cs-rollbutton">
-        <a class="ew-roll-icon"><i class="fa fa-dice-six"></i></a>
+  <div class="ew-cs-rollbutton ">
+        <a class="ew-roll-icon" data-action="basicRoll"><i class="fa fa-dice-six"></i></a>
   </div>
   <div class="ew-cs-attributes">
    {{> 'systems/ewhen/templates/partials/MainAttributes.hbs'}}
@@ -59,10 +60,9 @@
 	{{> 'systems/ewhen/templates/partials/EquipmentList.hbs'}}
 	</div>
   <div class="ew-cs-quickref">
-    <div class="ew-statblock" style="font-weight:bold; font-size:1.15em; text-align:center;">
+    <div class="ew-statblock" style="font-weight:bold; font-size:1.15em; height:100%; text-align:center; background-color:#b2beb573">
       <p>Very Easy&nbsp;+2 Easy&nbsp;+1 Moderate&nbsp;+0 Hard&nbsp;-1 Tough&nbsp;-2 Demanding&nbsp;-4 Formidable&nbsp;-6 Heroic&nbsp;-8<br/>
       0 - 1 - d3 - d6L - d6 - d6H - 2d6L - 2d6 - 2d6H - 3d6L - 3d6 - 3d6H</p>
     </div> 
   </div>
 </div>
-</form>

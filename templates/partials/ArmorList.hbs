@@ -1,7 +1,8 @@
-<div class="ew-statblock">
-                    <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.armor"}}</strong>
-                        <a class="item-create" title="Add Armor" data-type="armor">
-                            <i class="fas fa-plus-square"></i>
+<hr class="ew-hr"/>
+<div class="ew-itemborder">
+                    <div class="ew-statblock" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.armor"}}</strong>
+                        <a class="item-create" title="Add Armor" data-action="addItem" data-type="armor">
+                            <i class="fa-solid fa-plus"></i>
                         </a>
                     </div>
                     <table id="ew-armor-table">
@@ -9,10 +10,13 @@
                         {{#each armors as |armor id|}}
                       
                         <tr>
-                            <td class="item-name item" style="max-width:50%;" data-item-id="{{armor.id}}">
-                                <a class="armor-roll {{#if (ne armor.system.protection.variable "none")}}weapon-image{{/if}}" title="Roll Defense"><img src="{{armor.img}}" height="24" width="24"/></a>
-                                 <a class="item-edit" title="Edit"><strong>{{armor.name}}</strong></a>
-                                <br><em>{{localize armor.system.armor_type}}, 
+                       
+                            <td style="text-align:left; vertical-align:bottom" class="item-name item" style="max-width:50%;" data-item-id="{{armor.id}}">
+                                <a data-action="armorRoll" class="armor-roll {{#if (ne armor.system.protection.variable "none")}}weapon-image{{/if}}" title="Roll Defense"><img class="ew-cs-img" src="{{armor.img}}" height="24" width="24"/></a>
+                                 <a class="item-edit" data-action="editItem" title="Edit"><strong>{{armor.name}}</strong></a>
+                            </td>
+                            <td style="vertical-align:bottom"> 
+                                <em>{{localize armor.system.armor_type}}, 
                                         {{#if (ne armor.system.protection.variable "none")}}{{armor.system.protection.variable}}/{{/if}}
                                         {{#if armor.system.accessory}}+{{/if}}{{armor.system.protection.fixed}}, 
                                         {{#if (ne armor.system.bonus.to "none")}}+{{armor.system.bonus.amount}} {{setting (getCustomName armor.system.bonus.to)}},{{/if}}
@@ -21,14 +25,15 @@
                                         {{#if armor.system.accessory}}, accessory{{/if}}
                             </em>
                             </td>
-                           <td class="align-center item-name item" data-item-id="{{armor.id}}">
-                            Eqp <input data-field="system.equipped" value="{{armor.system.equipped}}" class="equip-item" name="armor.system.equipped" type="checkbox" {{checked armor.system.equipped}} />
+                       
+                           <td style="text-align:left; vertical-align:bottom" data-item-id="{{armor.id}}">
+                             {{localize "EW.game_term.equip"}} <input data-field="system.equipped" value="{{armor.system.equipped}}" class="equip-item" name="armor.system.equipped" type="checkbox" {{checked armor.system.equipped}} />
                            </td>
                                     
 
-                            <td>
-                                <a class="item-delete item" data-item-id="{{armor.id}}">
-                                    <i class="fas fa-trash"></i>
+                            <td style="vertical-align:bottom">
+                                <a class="item-delete item" data-action="deleteItem" data-item-id="{{armor.id}}">
+                                    <i class="fa-solid fa-ban"></i>
                                 </a>
                             </td>
                             </td>

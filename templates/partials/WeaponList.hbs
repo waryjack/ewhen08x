@@ -1,7 +1,9 @@
-<div class="ew-statblock">
-                    <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.weapons"}}</strong>
-                        <a class="item-create" title="Add Weapon" data-type="weapon">
-                            <i class="fas fa-plus-square"></i>
+
+<hr class="ew-hr"/>
+<div class="ew-itemborder">
+                    <div class="ew-statblock" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.weapons"}}</strong>
+                        <a class="item-create" title="Add Weapon" data-action="addItem" data-type="weapon">
+                            <i class="fa-solid fa-plus"></i>
                         </a>
                     </div>
                     <table id="ew-weapon-table">
@@ -9,8 +11,8 @@
         
                         <tr>
                             <td class="item-name item" data-item-id="{{weapon.id}}">
-                                <a class="weapon-roll weapon-image" title="Roll Damage"><img src="{{weapon.img}}" height="24" width="24"/></a>
-                                 <a class="item-edit" title="Edit"><strong>{{weapon.name}}</strong></a>
+                                <a data-action="weaponRoll" class="weapon-roll weapon-image" title="Roll Damage"><img class="ew-cs-img" src="{{weapon.img}}" height="24" width="24"/></a>
+                                 <a class="item-edit" data-action="editItem" title="Edit"><strong>{{weapon.name}}</strong></a>
                                 <br><em>{{localize weapon.system.wpn_type}}, 
                                         {{localize weapon.system.damage.dice}}
                                         {{#if (ne weapon.system.damage.add_attribute "none")}}
@@ -25,8 +27,8 @@
                                         , AP{{weapon.system.damage.ap}} {{#if (gt weapon.system.range 0)}}, Range {{weapon.system.range}}{{/if}}  
                                         {{#if (setting "useScale")}}{{#if (ne weapon.system.damage.scale 1)}}, scale {{weapon.system.damage.scale}}{{/if}}{{/if}}</em></td>
                             <td style="right:100%;">
-                                <a class="item-delete item" data-item-id="{{weapon.id}}">
-                                    <i class="fas fa-trash"></i>
+                                <a class="item-delete item" data-action="deleteItem" data-item-id="{{weapon.id}}">
+                                    <i class="fa-solid fa-ban"></i>
                                 </a>
                             </td>
                             </td>

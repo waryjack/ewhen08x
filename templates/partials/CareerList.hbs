@@ -1,5 +1,9 @@
-<div class="ew-statblock">
-
+<div class="ew-statblock ew-statborder">
+<div class="ew-statblock" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.careers"}}</strong>
+                        <a class="item-create" title="Add Career" data-action="addItem" data-type="career">
+                            <i class="fa-solid fa-plus"></i>
+                        </a>
+                    </div>
 <table class="ew-stat-table" id="ew-career-table">
 {{#each careers as |career id|}}
 <tr>
@@ -8,21 +12,14 @@
     <a data-action="careerRoll" title="Edit">{{career.name}}</a>
 </td>
 <td class="item" data-action="editCareerRank" data-item-id="{{career.id}}">
-    <input data-field="system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='2' size='2' />
+    <input class="attr-name" data-field="career.system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='2' size='2' />
 </td>
 <td >
-    <a class="item-edit item" data-item-id="{{career.id}}"><i class="fas fa-pencil"></i></a>
-</td>
-<td >
-    
-    <a class="item" data-action="deleteItem" data-item-id="{{career.id}}">
-        <i class="fas fa-trash"></i>
+    <a class="item-edit item" data-action="editItem" data-item-id="{{career.id}}"><i class="fa-solid fa-pen-to-square"></i></a>&nbsp;<a class="item" data-action="deleteItem" data-item-id="{{career.id}}">
+        <i class="fa-solid fa-ban"></i>
     </a>
 </td>
 </tr>
 {{/each}}
 </table>
-<div style="float:right; color:gray">Add Career <a data-action="addItem" title="Add Career" data-type="career">
-<i class="fas fa-plus-square"></i>
-</a></div>
 </div>

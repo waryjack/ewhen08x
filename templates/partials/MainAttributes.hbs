@@ -1,15 +1,15 @@
 
 {{#if (eq EWActorType "character")}}
-
-<div class="ew-statblock">
-    <!--div><h3 style="text-align:center">{{localize "EW.game_term.attributes.a"}}</h3></div-->
-        <table id="ew-attribute-table">
+{{log "hbs data " data}}
+<div class="ew-statblock ew-statborder">
+       <div style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.attributes.main"}}</strong></div>
+        <table class="ew-stat-table" id="ew-attribute-table">
             <tr>
                 <td>
                     <a data-attribute="strength" data-action="attributeRoll">{{proper gameSettings.strName}}</a>
                 </td>
-                <td>
-                    <input type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.strength.rank" value="{{main_attributes.strength.rank}}">
+                <td >
+                    <input class="attr-name" type="text" data-dtype="Number" name="main_attributes.strength.rank" value="{{main_attributes.strength.rank}}">
                 </td>
                 {{#if (setting "useScale")}}
                     <td>
@@ -18,18 +18,18 @@
                 {{/if}}
             </tr>
             <tr>
-                <td><a data-attribute="agility" data-action="rollAttribute">{{proper gameSettings.agiName}}</a></td>
-                <td ><input  type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.agility.rank" value="{{main_attributes.agility.rank}}"></td>
+                <td><a data-attribute="agility" data-action="attributeRoll">{{proper gameSettings.agiName}}</a></td>
+                <td ><input class="attr-name" type="text" data-dtype="Number"  name="system.main_attributes.agility.rank" value="{{main_attributes.agility.rank}}"></td>
                 {{#if (setting "useScale")}}<td >({{main_attributes.agility.scale}})</td>{{/if}}
             </tr>
             <tr>
-                <td><a data-attribute="mind">{{proper gameSettings.minName}}</a></td>
-                <td ><input type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.mind.rank" value="{{main_attributes.mind.rank}}"></td>
+                <td><a data-attribute="mind" data-action="attributeRoll">{{proper gameSettings.minName}}</a></td>
+                <td  ><input class="attr-name" type="text" data-dtype="Number"  name="system.main_attributes.mind.rank" value="{{main_attributes.mind.rank}}"></td>
                 {{#if (setting "useScale")}}<td >({{main_attributes.agility.scale}})</td>{{/if}}
             </tr>
             <tr>
-                <td><a data-attribute="appeal">{{proper gameSettings.appName}}</a></td>
-                <td ><input  type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.main_attributes.appeal.rank" value="{{main_attributes.appeal.rank}}"></td>
+                <td><a data-attribute="appeal" data-action="attributeRoll">{{proper gameSettings.appName}}</a></td>
+                <td  ><input class="attr-name"  type="text" data-dtype="Number" name="system.main_attributes.appeal.rank" value="{{main_attributes.appeal.rank}}"></td>
                 {{#if (setting "useScale")}}<td >({{main_attributes.appeal.scale}})</td>{{/if}}
             </tr>
         </table>

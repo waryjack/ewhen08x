@@ -11,6 +11,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     static DEFAULT_OPTIONS = {
         id: "actorsheet",
+        title:"Character Sheet",
         actions:{
             addItem: EWActorSheetV2.addItem,
             editItem: EWActorSheetV2.editItem,
@@ -40,7 +41,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         },
         tag:"form",
         window:{
-            title:"V2 Actor Sheet",
+            title:"EW.game_term.charactersheet",
             contentClasses:['scrollable'],
             resizable:true
         },
@@ -124,7 +125,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         return data;
     }
 
-    
+    get title() {
+        return `Everywhen ${game.i18n.localize(this.options.window.title)}`;
+    }
 
     /**
      * @override
@@ -321,6 +324,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         var isCombat = false;
         // let element = event.currentTarget;
         let attribute = element.dataset.attribute;
+        let gameSettings = game.settings.get("ewhen","allSettings");
        
         let maPicked = "";
         let caPicked = "";
@@ -333,9 +337,10 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             isCombat = true;
             caPicked = attribute;
             switch(caPicked) {
-                case "melee": maPicked = game.settings.get("ewhen","meleeLink");break;
-                case "ranged": maPicked = game.settings.get("ewhen", "rangedLink");break;
-                case "defense": maPicked = game.settings.get("ewhen", "defenseLink");break;
+                case "melee": maPicked = gameSettings.meleeLink;break;
+                case "ranged": maPicked = gameSettings.rangedLink;break;
+                case "defense": maPicked = gameSettings.defenseLink;break;
+                case "initiative": maPicked = gameSettings.initiativeLink;break;
                 default: maPicked = "agility";
             }
         } else {

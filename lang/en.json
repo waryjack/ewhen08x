@@ -19,6 +19,7 @@
     "EW.attribute.vehicle.size": "Size",
     "EW.attribute.vehicle.shield": "Shields",
 
+    "EW.game_term.charactersheet":"Character Sheet",
     "EW.game_term.attributes.attribute": "Attribute",
     "EW.game_term.attributes.a": "Attributes",
     "EW.game_term.attributes.main": "Main Attributes",
@@ -309,8 +310,8 @@
     "EW.SETTINGS.rangedLinkDesc":"This attribute will be selected in the Roll dialog when clicking on the Ranged ability",
     "EW.SETTINGS.defenseLink":"Custom Defense Attribute",
     "EW.SETTINGS.defenseLinkDesc":"This attribute will be selected in the Roll dialog when clicking on the Defense ability",
-    "EW.SETTINGS.initLink":"Custom Defense Attribute",
-    "EW.SETTINGS.initLinkDesc":"This attribute will be selected in the Roll dialog when clicking on the Defense ability",
+    "EW.SETTINGS.initLink":"Custom Initiative Attribute",
+    "EW.SETTINGS.initLinkDesc":"This attribute will be selected in the Roll dialog when clicking on the Initiative ability",
 
     "EW.SETTINGS.MENU.menuname":"Everywhen Game Settings",
     "EW.SETTINGS.MENU.menulabel":"Everywhen Settings",

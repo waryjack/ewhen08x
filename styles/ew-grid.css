@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Cuprum:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
 :root {
   --ash-gray: #b2beb5;
   --secback: #b2beb573;
@@ -6,18 +9,41 @@
 
 #actorsheet {
   background:none;
-  background-color:white;
+  background-color:none;
+  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAKElEQVQYV2NUU1P7//PnTwYQYGdnZ2CUl5f/D+OAJMACIBmYKkZ0LQBtSRGf2hu8MAAAAABJRU5ErkJggg==);
+  color:white;
+  font-family: "Roboto Condensed", serif;
+  font-optical-sizing: auto;
+  font-weight:200;
+  font-style: normal;
 }
+
+/*.ew-cs-container {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 64px min-content min-content min-content min-content min-content min-content min-content 64px; 
+  gap: 6px 0px; 
+  grid-template-areas: 
+    "image name name name toggles toggles toggles roll"
+    "attributes attributes trackers trackers trackers trackers trackers trackers"
+    "attributes attributes pointpools pointpools pointpools pointpools pointpools pointpools"
+    "abilities abilities weapons weapons weapons armor armor armor"
+    "abilities abilities weapons weapons weapons armor armor armor"
+    "careers careers boonflaw boonflaw boonflaw powers powers powers"
+    "careers careers boonflaw boonflaw boonflaw powers powers powers"
+    "careers careers equipment equipment equipment equipment equipment equipment"
+    "footer footer footer footer footer footer footer footer"; 
+}*/
 
 .ew-cs-container {  
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr min-content min-content;
   grid-template-rows: 64px min-content min-content min-content 1fr 1fr 1fr 64px;
-  gap: 6px 6px;
+  gap: 6px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    "image name name name toggle toggle toggle roll"
-    "trackers trackers trackers trackers trackers trackers trackers trackers"
+    "image name name name toggles toggles toggles roll"
+    "trackers trackers trackers trackers trackers trackers trackers heropoints"
     "attributes attributes abilities abilities careers careers pointpools pointpools"
     "attributes attributes abilities abilities careers careers pointpools pointpools"
     "boonflaw boonflaw boonflaw boonflaw weapons weapons weapons weapons"
@@ -40,7 +66,7 @@
   
 }
 
-.ew-cs-toggles { grid-area: toggle; }
+.ew-cs-toggles { grid-area: toggles; }
 
 .ew-cs-rollbutton { 
   grid-area: roll;
@@ -68,13 +94,22 @@
   place-self:stretch;
  
 }
-.ew-cs-points { grid-area: pointpools; }
+.ew-cs-points { 
+  grid-area: pointpools;
+  justify-self:stretch;
+  align-self:start
+  
+}
 
 .ew-cs-languages { grid-area: languages; }
 
 .ew-cs-trackers { 
   grid-area: trackers;
   justify-self:stretch;
+}
+
+.ew-cs-heropoints {
+  grid-area:heropoints;
 }
 
 .ew-cs-boonflaw { grid-area: boonflaw; }
@@ -93,6 +128,14 @@
   
 }
 
+.ew-section-header {
+  font-family:"Cuprum", sans-serif;
+  text-transform:uppercase;
+  font-weight: 700;
+  color:white;
+}
+
+
 .ew-roll-icon {
   margin:auto;
   font-size:4em;
@@ -105,24 +148,26 @@
 }
 
 .ew-cs-img {
-  filter:invert(1);
+  filter:invert(0);
+  border:none;
 }
 
-.ew-itemborder, .ew-statborder {
- /* border:2px ridge var(--secborder);*/
-
+.ew-heading-border {
+  border-top:2px solid gray;
+  border-bottom:2px solid gray;
 }
+
 #ew-attribute-table, 
 #ew-combat-table, 
 #ew-career-table,
 #ew-boon-table,
-#ew-pointpool-table,
 #ew-weapon-table,
+#ew-pointpool-table,
 #ew-power-table,
 #ew-armor-table,
 #ew-equip-table {
   background:none !important;
-  color:black;
+  color:white;
   border:none !important;
   height:auto;
   width:100%;
@@ -138,17 +183,11 @@
 
 #ew-combat-table td,
 #ew-career-table td,
-#ew-attribute-table td
+#ew-attribute-table td,
+#ew-pointpool-table td
  {
   
   text-align:left;
-  padding:0.2rem;
-  
-}
-
-#ew-pointpool-table td {
-  text-align:right;
-  padding:0.2rem;
 }
 
 
@@ -185,6 +224,6 @@ i.fa-solid.fa-plus, i.fa-solid.fa-ban, i.fa-solid.fa-pen-to-square {
 
 .weapon-image:hover img {
   content: url('../assets/dice-target.svg');
-  filter:invert(1);
+  filter:invert(0);
 
 }

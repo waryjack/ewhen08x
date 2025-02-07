@@ -1,4 +1,4 @@
-<hr class="ew-hr"/>
+
 <div class="ew-statblock">
  
                 <table id="ew-healthtrack-table">
@@ -6,8 +6,8 @@
                 {{log "Healthrack actor: " actor}}
                 {{log "Healthtrack system: " system}}
                     <tr>
-                        <td><a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood">{{gameSettings.lbdName}} ({{resources.lifeblood.max}})</a></td>
-                        <td>
+                        <td style="padding-top:none;padding-bottom:none"><a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood">{{gameSettings.lbdName}} ({{resources.lifeblood.max}})</a></td>
+                        <td style="padding-top:none;padding-bottom:none">
                             {{#times resources.lifeblood.lasting}}
                             <i class="fas fa-circle res-box"></i>
                             {{/times}}
@@ -22,7 +22,7 @@
                             {{/times}}
                         </td>
                         <td class="res-track">{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood"><i class="fas fa-forward"></i> {{gameSettings.critName}}</a>{{/if}}</td>
-                        <td>
+                        <td style="padding-top:none;padding-bottom:none">
                             {{#if (setting "useCritical")}}
                             {{#times resources.lifeblood.critical}}
                             <i class="fas fa-times-circle res-box"></i>
@@ -36,8 +36,8 @@
                     {{#if (setting "useResolve")}}
                     {{#unless (or isTough isRabble)}}
                     <tr>
-                        <td>{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve">{{proper gameSettings.resName}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
-                        <td>{{#if (setting "useResolve")}}
+                        <td style="padding-top:none;padding-bottom:none">{{#if (setting "useResolve")}}{{#unless isRabble}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve">{{proper gameSettings.resName}} ({{resources.resolve.max}})</a>{{/unless}}{{/if}}</td>
+                        <td style="padding-top:none;padding-bottom:none">{{#if (setting "useResolve")}}
                             {{#unless isRabble}}
                             {{#times resources.resolve.lasting}}
                             <i class="fas fa-circle res-box"></i>
@@ -54,8 +54,8 @@
                             {{/unless}}
                             {{/if}}
                         </td>
-                        <td class="res-track">{{#if (setting "useResolve")}}{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve"><i class="fas fa-forward"></i> {{proper gameSettings.critName}}</a>{{/if}}{{/if}}</td>
-                        <td>{{#if (setting "useCritical")}}{{#if (setting "useResolve")}}{{#times resources.resolve.critical}}
+                        <td style="padding-top:none;padding-bottom:none" class="res-track">{{#if (setting "useResolve")}}{{#if (setting "useCritical")}}<a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve"><i class="fas fa-forward"></i> {{proper gameSettings.critName}}</a>{{/if}}{{/if}}</td>
+                        <td style="padding-top:none;padding-bottom:none">{{#if (setting "useCritical")}}{{#if (setting "useResolve")}}{{#times resources.resolve.critical}}
                             <i class="fas fa-times-circle res-box"></i>
                             {{/times}}
                             {{#times (minus 5 resources.resolve.critical)}}
@@ -64,7 +64,7 @@
                             {{/if}}
                             {{/if}}
                         </td>
-                        <td colspan='4'></td>
+                        <!--td colspan='4'></td-->
                     </tr>
                     {{/unless}}
                     {{/if}}
@@ -73,4 +73,3 @@
                  
                 
                 </div>
-<hr class="ew-hr"/>

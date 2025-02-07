@@ -14,8 +14,8 @@
 	name="name" 
 	type="text" 
 	value="{{actor.name}}" 
-	placeholder="Name"/><br/>
-
+	placeholder="Name"
+  style="background-color:white; color:black;"/><br/>
   </div>
   <div class="ew-cs-toggles">
 	<input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="system.isRival" type="checkbox" {{checked isRival}} /><label for="isRival">Rival</label>
@@ -38,10 +38,23 @@
   {{#unless (or isRabble isTough)}}
 	{{> 'systems/ewhen/templates/partials/PointPools.hbs'}}
 	{{/unless}}
-	</table>
   </div>
   <div class="ew-cs-trackers">
 	{{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
+
+  </div>
+  <div class="ew-cs-heropoints">
+    <table class="ew-stat-table">
+      <tr>
+      <td>
+          {{localize "EW.attribute.resource.hero_points"}}
+      </td>
+      <td >
+          <input class="attr-name" type="text" name="system.resources.hero_points" value="{{resources.hero_points}}" data-dtype="Number"/>
+      </td>
+      </tr>
+    </table>
+</tr>
   </div>
   <div class="ew-cs-boonflaw">
 	{{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
@@ -60,7 +73,8 @@
 	{{> 'systems/ewhen/templates/partials/EquipmentList.hbs'}}
 	</div>
   <div class="ew-cs-quickref">
-    <div class="ew-statblock" style="font-weight:bold; font-size:1.15em; height:100%; text-align:center; background-color:#b2beb573">
+    <hr class="ew-hr"/>
+    <div class="ew-statblock" style="font-weight:bold; font-size:1.15em; height:100%; text-align:center;">
       <p>Very Easy&nbsp;+2 Easy&nbsp;+1 Moderate&nbsp;+0 Hard&nbsp;-1 Tough&nbsp;-2 Demanding&nbsp;-4 Formidable&nbsp;-6 Heroic&nbsp;-8<br/>
       0 - 1 - d3 - d6L - d6 - d6H - 2d6L - 2d6 - 2d6H - 3d6L - 3d6 - 3d6H</p>
     </div> 

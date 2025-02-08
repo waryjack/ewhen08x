@@ -1,16 +1,16 @@
-<form class="ewhen roll-dialog">
+<form class="ew-roll-dialog standard-form" id="#basicroll">
  <header class="roll-header">
-        <h1 class="ewhen roll-name">{{#if (ne attr "")}}{{#proper (setting (getCustomName attr))}}{{/proper}} {{localize "EW.rolltype.roll"}}{{else}}{{localize "EW.rolltype.taskroll"}}{{/if}}</h1>
+        <h1 class="ew-roll-name">{{#if (ne attr "")}}{{#proper (setting (getCustomName attr))}}{{/proper}} {{localize "EW.rolltype.roll"}}{{else}}{{localize "EW.rolltype.taskroll"}}{{/if}}</h1>
     </header>
 
 {{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
 {{!-- combat - combat attributes object - combat.(attribute), blah blah .rank --}}
 {{!-- careers - careers object - career, (career).rank --}}
 {{log caPicked}}
- <div class="ewhen roll-dialog">
+ <div class="ew-roll-dialog">
      <div class="form-group">
          <label for="att">{{localize "EW.game_term.attribute.singular.main"}}</label>
-         <select id="pattr" style="width:100%;" name="primary" data-main-att="primary">
+         <select id="pattr" style="width:100%;color:white;" name="primary" data-main-att="primary">
             {{selectOptions priSelect selected=maPicked}}
          </select>
      </div>

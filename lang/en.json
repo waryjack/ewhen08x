@@ -20,6 +20,7 @@
     "EW.attribute.vehicle.shield": "Shields",
 
     "EW.game_term.charactersheet":"Character Sheet",
+    "EW.game_term.itemsheet":"Item Sheet",
     "EW.game_term.attributes.attribute": "Attribute",
     "EW.game_term.attributes.a": "Attributes",
     "EW.game_term.attributes.main": "Main Attributes",
@@ -133,6 +134,18 @@
     "EW.sheet.newequipment": "New Equipment",
     "EW.sheet.newweapon": "New Weapon",
     "EW.sheet.newarmor": "New Armor",
+    "EW.sheet.title.equipment": "Equipment",
+    "EW.sheet.title.weapon": "Weapon",
+    "EW.sheet.title.trait": "Boon / Flaw",
+    "EW.sheet.title.power": "Power",
+    "EW.sheet.title.armor": "Armor",
+    "EW.sheet.title.career": "Career",
+    "EW.sheet.title.pointpool": "Pool",
+    "EW.sheet.title.hero": "Hero",
+    "EW.sheet.title.rival": "Rival",
+    "EW.sheet.title.tough": "Tough",
+    "EW.sheet.title.rabble": "Rabble",
+    "EW.sheet.title.vehicle": "Vehicle",
 
 
     "EW.attribute.resource.lifeblood": "Lifeblood",

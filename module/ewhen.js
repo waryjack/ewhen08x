@@ -7,6 +7,7 @@ import { EWCombat } from "./combat/EWCombat.js";
 import EWItemSheet from "./sheets/item/EWItemSheet.js";
 import EWActorSheet from "./sheets/actor/EWActorSheet.js";
 import EWActorSheetV2 from "./sheets/actor/EWActorSheetV2.js"
+import EWItemSheetV2 from "./sheets/item/EWItemSheetV2.js";
 import { registerSettings } from "./settings.js";
 import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
 import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
@@ -24,6 +25,7 @@ Hooks.once("init", () => {
         EWActor,
         EWActorSheetV2,
         EWItemSheet,
+        EWItemSheetV2,
         EWCombat,
         EWMessageHelper,
         EWDialogHelper,
@@ -41,7 +43,7 @@ Hooks.once("init", () => {
       // `Actors.registerSheet` is semantically equivalent to passing Actor as the first argument
       // This works for all world collections, e.g. Items
       //Actors.registerSheet("package-id", EWActorSheetV2, {})
-    Items.registerSheet("ewhen", EWItemSheet, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
+    Items.registerSheet("ewhen", EWItemSheetV2, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
 
     // CONFIG.debug.hooks = true;
 
@@ -344,8 +346,9 @@ Hooks.on('renderChatMessage', (app, html) => {
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
      });
 
-     html.on('click', '.taskroll-info', event => {
+     html.on('click', '.chat-rolltooltip', event => {
         event.preventDefault();
+        console.log("clicked the chat message");
         // NOTE: This depends on the exact card template HTML structure.
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
      });

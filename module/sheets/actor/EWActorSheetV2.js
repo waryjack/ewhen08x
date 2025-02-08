@@ -28,6 +28,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             attributeRoll: EWActorSheetV2.attributeRoll,
             weaponRoll: EWActorSheetV2.weaponRoll,
             armorRoll: EWActorSheetV2.armorRoll,
+            editImage: this._onEditImage,
 
         },
         form: {
@@ -48,6 +49,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         dragDrop: [{ dragSelector: '[data-drag]', dropSelector: null }],
     }
 
+    
     static PARTS = {
         form: {
             template: "systems/ewhen/templates/actor/charactersheet.hbs",
@@ -126,7 +128,18 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     }
 
     get title() {
-        return `Everywhen ${game.i18n.localize(this.options.window.title)}`;
+        let minorType = "hero";
+        if(this.actor.type === "vehicle") {
+            minorType = "vehicle"
+        } else if (this.actor.isRival) {
+            minorType = "rival"
+        } else if (this.actor.isRabble) {
+            minorType = "rabble"
+        } else if (this.actor.isTough) {
+            minorType = "tough"
+        }
+
+        return `Everywhen ${game.i18n.localize(this.options.window.title)}: ${game.i18n.localize("EW.sheet.title."+minorType)}`;
     }
 
     /**
@@ -511,6 +524,31 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
           return item.update({ [field]: val});
 
+      }
+
+      static async _onEditImage(_event, target) {
+        if (target.nodeName !== "IMG") {
+          throw new Error("The editImage action is available only for IMG elements.");
+        }
+        const attr = target.dataset.edit;
+        const current = foundry.utils.getProperty(this.document._source, attr);
+        const defaultArtwork = this.document.constructor.getDefaultArtwork?.(this.document._source) ?? {};
+        const defaultImage = foundry.utils.getProperty(defaultArtwork, attr);
+        const fp = new FilePicker({
+          current,
+          type: "image",
+          redirectToRoot: defaultImage ? [defaultImage] : [],
+          callback: path => {
+            target.src = path;
+            if (this.options.form.submitOnChange) {
+              const submit = new Event("submit");
+              this.element.dispatchEvent(submit);
+            }
+          },
+          top: this.position.top + 40,
+          left: this.position.left + 10
+        });
+        await fp.browse();
       }
 
 //       /* =============== Drag/Drop Handlers and Methods ======================= */

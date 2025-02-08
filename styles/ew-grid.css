@@ -7,14 +7,10 @@
   --secborder:  #b2beb573;
 }
 
-#actorsheet {
-  background:none;
-  background-color:none;
-  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAKElEQVQYV2NUU1P7//PnTwYQYGdnZ2CUl5f/D+OAJMACIBmYKkZ0LQBtSRGf2hu8MAAAAABJRU5ErkJggg==);
-  color:white;
+#actorsheet, #itemsheet, #itemsheet select, #itemsheet option, #itemsheet input, #basicroll, #basicroll select, #basicroll option, #basicroll input, .ew-dialog, .ew-roll-dialog {
   font-family: "Roboto Condensed", serif;
   font-optical-sizing: auto;
-  font-weight:200;
+  font-weight:400;
   font-style: normal;
 }
 
@@ -132,7 +128,12 @@
   font-family:"Cuprum", sans-serif;
   text-transform:uppercase;
   font-weight: 700;
-  color:white;
+}
+
+h1.ew-roll-name {
+  font-family:"Cuprum", sans-serif;
+  text-transform:uppercase;
+  font-weight: 500;
 }
 
 
@@ -148,7 +149,6 @@
 }
 
 .ew-cs-img {
-  filter:invert(0);
   border:none;
 }
 
@@ -167,7 +167,6 @@
 #ew-armor-table,
 #ew-equip-table {
   background:none !important;
-  color:white;
   border:none !important;
   height:auto;
   width:100%;
@@ -192,7 +191,6 @@
 
 
 .ew-stat-table td .attr-name {
-  background-color:white;
   text-align:center;
   width:5ch;
   
@@ -219,11 +217,112 @@ hr.ew-hr {
 }
 
 i.fa-solid.fa-plus, i.fa-solid.fa-ban, i.fa-solid.fa-pen-to-square {
-  color:rgb(173, 173, 173)
+  color:rgb(97, 97, 97)
 }
 
 .weapon-image:hover img {
   content: url('../assets/dice-target.svg');
-  filter:invert(0);
 
+}
+
+.taskroll-tt {
+  display:none;
+}
+
+/** Chat Message Grid Structure **/
+.chat-container {
+  display: grid; 
+  grid-template-columns: 1fr 64px 64px; 
+  grid-template-rows: min-content min-content min-content; 
+  gap: 6px 0px; 
+  grid-template-areas: 
+    "rollname rollicon rolltotal"
+    "rolloutcome rolloutcome rolloutcome"
+    "rolldetails rolldetails rolldetails"
+    "rolltooltip rolltooltip rolltooltip";
+}
+
+.chat-rollname {
+  grid-area:rollname;
+  justify-self:start;
+  font-family:"Cuprum", sans-serif;
+  text-transform:uppercase;
+  font-weight: 500;
+  font-size:x-large
+
+}
+.chat-rollicon {
+  grid-area:rollicon;
+  justify-self:center;
+}
+
+.chat-rolltotal {
+  grid-area:rolltotal;
+  justify-self:end;
+  font-family:"Cuprum", sans-serif;
+  text-transform:uppercase;
+  font-weight: 500;
+  font-size:x-large;
+  border:1px solid black;
+  padding-left:3px;
+  padding-right:3px;
+}
+
+.chat-rolloutcome {
+  grid-area:rolloutcome;
+  
+}
+
+.chat-rolldetails {
+  grid-area:rolldetails;
+}
+
+.chat-rolltooltip {
+  grid-area:rolltooltip;
+ 
+}
+
+ /** Chat Message **/ 
+ .taskroll-final {
+  text-align:center;
+  width:3ch;
+  margin-left:auto;
+  margin-bottom:2px;
+  margin-right:2px;
+  background:rgb(46, 41, 41);
+  border:1px solid rgb(0, 0, 0);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.taskroll-tt {
+  display:none;
+}
+
+.roll-auto-sux, .roll-sux {
+  background:green;
+  color:white;
+}
+
+.roll-mighty-sux {
+  background:gold;
+  color:black;
+}
+
+.roll-fail, .roll-auto-fail {
+  background:rgb(110, 0, 0);
+  color:white;
+}
+
+.taskroll-outcome {
+  letter-spacing:0.1em;
+  border:1px solid black;
+  text-align:center;
+  text-transform:uppercase;
+  font-size:1.15em;
+}
+
+.taskroll-dmods {
+  font-size:0.85em;
 }

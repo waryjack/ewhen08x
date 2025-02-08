@@ -18,7 +18,7 @@ export class EWDialogHelper {
             new foundry.applications.api.DialogV2({
                 window: { title: "EW.rolltype.basicroll" },
                 content: dlg,
-
+                classes: ["ew-dialog"],
                 buttons: [{
                             action: "roll",
                             label: "Roll",

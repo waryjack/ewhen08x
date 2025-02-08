@@ -1,24 +1,107 @@
-export default class EWItemSheet extends ItemSheet {
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ItemSheetV2 } = foundry.applications.sheets;
+
+export default class EWItemSheetV2 extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     // Note: Careers have basically just a name and an optional description; but the sheet is needed for item creation;
     
-    get template() {
-        const path = 'systems/ewhen/templates/item/';
-        return `${path}${this.item.type}sheet.hbs`;
+    static DEFAULT_OPTIONS = {
+        id: "itemsheet",
+        title:"Item Sheet",
+        actions:{
+            editImage:this._onEditImage
+        },
+        form: {
+                submitOnChange: true,
+                closeOnSubmit: false,
+        },
+        position:{
+            width:800,
+            height:700,
+            left:120
+        },
+        tag:"form",
+        window:{
+            title:"EW.game_term.itemsheet",
+            contentClasses:['scrollable','ew-item-sheet', 'ew-dialog'],
+            resizable:true
+        },
     }
 
-    async getData () {
+    get title() {
+        let itemtype = this.document.type;
+        return `Everywhen ${game.i18n.localize(this.options.window.title)}: ${game.i18n.localize("EW.sheet.title."+itemtype)}`
+    }
+    
+    static PARTS = {
+        header: {
+            template: "systems/ewhen/templates/item/itemsheetheader.hbs"
+        },
+        weapon: {
+            template: "systems/ewhen/templates/item/weaponsheet.hbs"
+        },
+        trait: {
+             template: "systems/ewhen/templates/item/traitsheet.hbs"
+        },
+        armor: {
+             template: "systems/ewhen/templates/item/armorsheet.hbs"
+        },
+        power: {
+             template: "systems/ewhen/templates/item/powersheet.hbs"
+        },
+        career: {
+             template: "systems/ewhen/templates/item/careersheet.hbs"
+        },
+        equipment: {
+             template: "systems/ewhen/templates/item/equipmentsheet.hbs"
+        }
+    }
+
+    /** @override */
+    _configureRenderOptions(options){
+        super._configureRenderOptions(options);
+
+        options.parts = ['header'];
+        if (this.document.limited) return;
+
+        console.log("This Document Type: ", this.document.type);
+        switch(this.document.type) {
+            case "weapon":
+                options.parts.push("weapon");
+                break;
+            case "trait":
+                options.parts.push("trait");
+                break;
+            case "power":
+                options.parts.push("power");
+                break;
+            case "career":
+                options.parts.push("career");
+                break;
+            case "armor":
+                options.parts.push("armor");
+                break;
+            case "equipment":
+                options.parts.push("equipment");
+                break;
+            default:
+        }
+
+    }
+    
+    async _prepareContext(context) {
         const data = this.item.system;
         data.item = this.item;
         data.myName = data.name;
         data.config = CONFIG.ewhen; 
+        data.settings = game.settings.get("ewhen", "allSettings");
 
         data.attOpts = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "strength":game.settings.get("ewhen","strName"),
-            "agility":game.settings.get("ewhen", "agiName"),
-            "mind":game.settings.get("ewhen", "minName"),
-            "appeal":game.settings.get("ewhen", "appName")
+            "strength":data.settings.strName,
+            "agility":data.settings.agiName,
+            "mind":data.settings.minName,
+            "appeal":data.settings.appName
         }
 
         data.wtypeOpts = {
@@ -45,14 +128,14 @@ export default class EWItemSheet extends ItemSheet {
 
         data.abonusOpts = {
             "none":game.i18n.localize("EW.game_term.none"),
-            "strength":game.settings.get("ewhen","strName"),
-            "agility":game.settings.get("ewhen", "agiName"),
-            "mind":game.settings.get("ewhen", "minName"),
-            "appeal":game.settings.get("ewhen", "appName"),
-            "melee":game.settings.get("ewhen","melName"),
-            "ranged":game.settings.get("ewhen","ranName"),
-            "defense":game.settings.get("ewhen", "defName"),
-            "initiative":game.settings.get("ewhen","iniName")
+            "strength":data.settings.strName,
+            "agility":data.settings.agiName,
+            "mind":data.settings.minName,
+            "appeal":data.settings.appName,
+            "melee":data.settings.melName,
+            "ranged":data.settings.ranName,
+            "defense":data.settings.defName,
+            "initiative":data.settings.iniName
         }
 
         data.vprotectOpts = {
@@ -124,5 +207,30 @@ export default class EWItemSheet extends ItemSheet {
         
         return data;
     }
+
+    static async _onEditImage(_event, target) {
+        if (target.nodeName !== "IMG") {
+          throw new Error("The editImage action is available only for IMG elements.");
+        }
+        const attr = target.dataset.edit;
+        const current = foundry.utils.getProperty(this.document._source, attr);
+        const defaultArtwork = this.document.constructor.getDefaultArtwork?.(this.document._source) ?? {};
+        const defaultImage = foundry.utils.getProperty(defaultArtwork, attr);
+        const fp = new FilePicker({
+          current,
+          type: "image",
+          redirectToRoot: defaultImage ? [defaultImage] : [],
+          callback: path => {
+            target.src = path;
+            if (this.options.form.submitOnChange) {
+              const submit = new Event("submit");
+              this.element.dispatchEvent(submit);
+            }
+          },
+          top: this.position.top + 40,
+          left: this.position.left + 10
+        });
+        await fp.browse();
+      }
 
 }

@@ -1,10 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
-        <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-    </header>
 {{log "Data in item sheet: " data}}
-    <div>
+    <div id="#itemsheet">
         <table>
             <tr>
                 <th>{{localize "EW.game_term.weapontype"}}</th>
@@ -13,7 +9,7 @@
             </tr>
             <tr>
                     <td>
-                    <select style="width:100%;" name="system.wpn_type" id="wpn_type">
+                    <select class="ew-dialog-select" style="width:100%;" name="system.wpn_type" id="wpn_type">
                         {{selectOptions wtypeOpts selected=wpn_type}}
                     </select>
                     </td>

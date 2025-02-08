@@ -1,30 +1,31 @@
 {{log "Roll info: " d}}
-<form class="ewhen roll-dialog">
- <header class="roll-header taskroll-info">
-        <h1 class="roll-name">
-             {{#proper d.displayName}}{{/proper}} Roll
-             {{#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if}}
-            <div class="taskroll-final {{outclass}}" style="">
-                {{rollTotal}}
-            </div>
-        </h1>
-</header>
-<div class="taskroll-msg">
-    <p> <strong>{{#proper (setting (getCustomName d.chosenAttribute))}}{{/proper}} ({{d.attrVal}})</strong>
-        {{#if (ne d.chosenCombat "none")}} <strong>+ {{#proper (setting (getCustomName d.chosenCombat))}}{{/proper}} ({{d.comVal}})</strong>{{/if}}
-        {{#if (ne d.chosenCareer "none")}} <strong>+ {{d.chosenCareer}} ({{d.cVal}})</strong>{{/if}}
-        {{#if (ne d.mods 0)}} {{#if (gt d.mods 0)}}<strong>+</strong>{{/if}} <strong>{{d.mods}}</strong>{{/if}}
-    </p>
-    <p class="taskroll-dmods">
-        <strong>{{localize "EW.game_term.difficulty"}}: {{localize d.diffStr}}</strong>  <!--span><strong>{{localize "EW.game_term.dice"}}:</strong><i class="fas fa-dice-d6"></i><i class="fas fa-dice-d6"></i>{{#times d.bdNum}}<i class="fas fa-dice-d6" style="color:rgb(10, 80, 10);"></i>{{/times}}{{#times d.pdNum}}<i class="fas fa-dice-d6" style="color:rgb(160, 2, 2);"></i>{{/times}}</span-->
-    </p>
-</div>
-<div class="taskroll-tt">
-    <hr>
-    <div>{{tooltip}}</div>
-</div>
-<div class="taskroll-outcome {{outclass}}">
-    {{outcome}}
-</div>
+<form>
+<div class="chat-container">
+    <div class="chat-rollname">
+                {{#proper d.displayName}}{{/proper}} {{localize "EW.rolltype.roll"}}
+    </div>
+    <div class="chat-rollicon">
+        {{#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" data-action="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if}}
+    </div>
+    <div class="chat-rolltotal {{outclass}}">
+                    {{rollTotal}}
+    </div>
+    <div class="chat-rolloutcome {{outclass}}">
+        {{outcome}}
+    </div>
+    <div class="chat-rolldetails">
+        <p> <strong>{{#proper (setting (getCustomName d.chosenAttribute))}}{{/proper}} ({{d.attrVal}})</strong>
+            {{#if (ne d.chosenCombat "none")}} <strong>+ {{#proper (setting (getCustomName d.chosenCombat))}}{{/proper}} ({{d.comVal}})</strong>{{/if}}
+            {{#if (ne d.chosenCareer "none")}} <strong>+ {{d.chosenCareer}} ({{d.cVal}})</strong>{{/if}}
+            {{#if (ne d.mods 0)}} {{#if (gt d.mods 0)}}<strong>+</strong>{{/if}} <strong>{{d.mods}}</strong>{{/if}}
+        </p>
+        <p class="taskroll-dmods">
+            <strong>{{localize "EW.game_term.difficulty"}}: {{localize d.diffStr}}</strong>  
+        </p>
+    </div>
+    <div class="chat-rolltooltip">
+        {{tooltip}}
+    </div>
 
+</div>
 </form>

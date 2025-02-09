@@ -17,6 +17,21 @@
     "esmodules": [
         "module/ewhen.js"
     ],
+    "documentTypes":{
+      "Actor": {
+        "character": {
+          "htmlFields":["backstory"],
+          "filePathFields":["actor_image"]
+        }
+      },
+      "Item":{
+        "filePathFields":["item_image"],
+        "htmlFields":["description"],
+        "power":{
+          "htmlFields":["effect"]
+        }
+      }
+    },
     "scripts": [],
     "styles": [
         "styles/ew-grid.css"

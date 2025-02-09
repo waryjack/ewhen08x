@@ -11,7 +11,10 @@ import EWItemSheetV2 from "./sheets/item/EWItemSheetV2.js";
 import { registerSettings } from "./settings.js";
 import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
 import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
-
+import EWBaseActorData from "./datamodels/actor/EWBaseActorData.mjs";
+import EWMajorActorData from "./datamodels/actor/EWMajorActorData.mjs";
+import EWVehicleData from "./datamodels/actor/EWVehicleData.mjs";
+import {EWBaseItemData, EWArmorData, EWCareerData, EWPointPoolData, EWPowerData, EWTraitData, EWWeaponData} from "./datamodels.mjs";
 
 
 Hooks.once("init", () => {
@@ -29,6 +32,15 @@ Hooks.once("init", () => {
         EWCombat,
         EWMessageHelper,
         EWDialogHelper,
+        EWMajorActorData,
+        EWBaseActorData,
+        EWBaseItemData,
+        EWArmorData,
+        EWCareerData,
+        EWPointPoolData,
+        EWPowerData,
+        EWTraitData,
+        EWWeaponData,
         registerSettings
     };
 
@@ -44,6 +56,24 @@ Hooks.once("init", () => {
       // This works for all world collections, e.g. Items
       //Actors.registerSheet("package-id", EWActorSheetV2, {})
     Items.registerSheet("ewhen", EWItemSheetV2, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
+
+    // Register Item Datamodels
+   
+    Object.assign(CONFIG.Actor.dataModels, {
+        character: EWMajorActorData,
+        vehicle: EWVehicleData
+    })
+
+    Object.assign(CONFIG.Item.dataModels, {
+        equipment: EWBaseItemData,
+        career: EWCareerData,
+        power: EWPowerData,
+        pointpool: EWPointPoolData,
+        trait: EWTraitData,
+        weapon: EWWeaponData
+
+    })
+    
 
     // CONFIG.debug.hooks = true;
 

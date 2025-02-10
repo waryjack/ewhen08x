@@ -84,6 +84,7 @@ export class EWActor extends Actor {
     * @param res {String} - the name of the resource being updated (lifeblood or resolve)
     */
     updateResource(res, html) {
+        console.log("HTML received by updateResource: ", html);
         const resData = foundry.utils.deepClone(this.system.resources[res]);
         // console.warn("Actor Pre: ", this);
         // console.warn("ResData Pre: ", resData);
@@ -93,10 +94,10 @@ export class EWActor extends Actor {
 
         if (type == "character") {
 
-            let fatDmg = Number(html.find("#fatigue-dmg").val());
-            let regDmg = Number(html.find("#regular-dmg").val());
-            let lastDmg = Number(html.find("#lasting-dmg").val());
-            let critDmg = Number(html.find("#crit-dmg").val());
+            let fatDmg = html.fatdmg.value; // Number(html.find("#fatigue-dmg").val());
+            let regDmg = html.regdmg.value; // Number(html.find("#regular-dmg").val());
+            let lastDmg = html.lastdmg.value; // Number(html.find("#lasting-dmg").val());
+            let critDmg = html.critdmg.value; // Number(html.find("#crit-dmg").val());
 
             resData.regular = regDmg;
             resData.fatigue = fatDmg;

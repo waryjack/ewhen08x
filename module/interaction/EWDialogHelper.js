@@ -75,14 +75,20 @@ export class EWDialogHelper {
                     action: "update",
                     label:"Update",
                     default: true,
-                    callback: (html) => {data.actor.updateResource(data.res, html)}
+                    callback: (event, button, dialog) => {
+                        return button.form.elements;
+                    }
                 },
                 {
                     action: "close",
                     label: "Cancel",
                     callback: () => { return; }
-                }]
-             }).render(true);
+                }],
+             submit: result => {
+                    if (result === "close") return;
+                    data.actor.updateResource(data.res, result);
+                 }
+             }).render({force:true});
          });
     }
 
@@ -99,13 +105,9 @@ export class EWDialogHelper {
                     action:"update",
                     label: "Update",
                     icon: '<i class="fas fa-check"></i>',
-                    callback: (html) => {
+                    callback: (event, button, dialog) => {
                          // console.warn('clicked submit');
-                         if(data.res == "frame") {
-                             data.actor.updateFrame(html);
-                        } else {
-                            data.actor.updateShield(html);
-                        }
+                         return button.form.elements;
                     }
                  },
                  {
@@ -113,7 +115,16 @@ export class EWDialogHelper {
                      icon: '<i class="fas fa-times"></i>',
                      label: "Cancel",
                      callback: () => { return; }
-                 }]
+                 }],
+             submit: result => {
+                if (result === "cancel") return;
+
+                if(data.res == "frame") {
+                    data.actor.updateFrame(result);
+               } else {
+                   data.actor.updateShield(result);
+               }
+             }
              }).render(true);
          });
     }

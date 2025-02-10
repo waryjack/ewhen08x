@@ -63,8 +63,8 @@ export default class EWVehicleData extends foundry.abstract.TypeDataModel {
 
 
 
-        let lastDmg = Number(html.find("#lasting-dmg").val());
-        let critDmg = Number(html.find("#crit-dmg").val());
+        let lastDmg = html.lastdmg.value; // Number(html.find("#lasting-dmg").val());
+        let critDmg = html.critdmg.value; // Number(html.find("#crit-dmg").val());
 
         resData.lasting = lastDmg;
         resData.critical = Math.min(critDmg, 5);
@@ -87,9 +87,9 @@ export default class EWVehicleData extends foundry.abstract.TypeDataModel {
       const resData = this.resources.shield;
       var totalDmg = 0;
 
-          let fatDmg = Number(html.find("#fatigue-dmg").val());
-          let regDmg = Number(html.find("#regular-dmg").val());
-          let lastDmg = Number(html.find("#lasting-dmg").val());
+          let fatDmg = html.fatdmg.value; // Number(html.find("#fatigue-dmg").val());
+          let regDmg = html.regdmg.value; // Number(html.find("#regular-dmg").val());
+          let lastDmg = html.lastdmg.value; // Number(html.find("#lasting-dmg").val());
 
 
           resData.regular = regDmg;

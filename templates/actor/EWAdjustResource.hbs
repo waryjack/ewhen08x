@@ -8,22 +8,22 @@
 {{!-- careers - careers object - career, (career).rank --}}
  {{#unless (eq type "vehicle")}}<div class="ewhen roll-dialog">
      <div class="form-group">
-         <label for="fatigue-dmg">{{localize "EW.damage.type.fatigue"}}</label>
-         <input type="text" id="fatigue-dmg" value="{{resinfo.fatigue}}" data-dtype="Number"/>
+         <label for="fatdmg">{{localize "EW.damage.type.fatigue"}}</label>
+         <input type="text" id="fatdmg" value="{{resinfo.fatigue}}" data-dtype="Number"/>
      </div>
      <div class="form-group">
-         <label for="regular-dmg">{{localize "EW.damage.type.normal"}}</label>
-         <input type="text" id="regular-dmg" value="{{resinfo.regular}}" data-dtype="Number"/>
+         <label for="regdmg">{{localize "EW.damage.type.normal"}}</label>
+         <input type="text" id="regdmg" value="{{resinfo.regular}}" data-dtype="Number"/>
      </div>
  {{/unless}}
      <div class="form-group">
-         <label for="lasting-dmg">{{localize "EW.damage.type.lasting"}}</label>
-         <input type="text" id="lasting-dmg" value="{{resinfo.lasting}}" data-dtype="Number"/>
+         <label for="lastdmg">{{localize "EW.damage.type.lasting"}}</label>
+         <input type="text" id="lasrdmg" value="{{resinfo.lasting}}" data-dtype="Number"/>
      </div>
  {{#unless (eq resname "EW.activity.adjustshield")}} {{#if (setting "useCritical")}}
      <div class="form-group">
-         <label for="crit-dmg">{{localize "EW.damage.type.critical"}}</label>
-         <input type="text" id="crit-dmg" value="{{resinfo.critical}}" data-dtype="Number"/>
+         <label for="critdmg">{{localize "EW.damage.type.critical"}}</label>
+         <input type="text" id="critdmg" value="{{resinfo.critical}}" data-dtype="Number"/>
      </div>
      {{/if}}
  {{/unless}}

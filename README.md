@@ -75,10 +75,3 @@ It is possible to customize the display names of the 4 main and combat abilities
 Custom ability names is functional for characters only, not for vehicles. 
 
 *Note*: there may be issues with non-English localized systems; if so, please report them!
-
-# Todo
-
-* Incorporating encumbrance / weight counting
-* Weights and costs for weapons and armor (there, but not wired in yet)
-* Localization fixes
-* Refactoring and cleanup - ugly hacky code.

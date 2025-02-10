@@ -44,18 +44,20 @@ Hooks.once("init", () => {
         registerSettings
     };
 
-
-    // Unregister core sheets
-    Actors.unregisterSheet("core", ActorSheet);
-    Items.unregisterSheet("core", ItemSheet);
-
     // Register System sheets
-   Actors.registerSheet("ewhen", EWActorSheetV2, { types:["character", "vehicle"], makeDefault:true });
+   Actors.unregisterSheet("core", ActorSheet);
+   Actors.registerSheet("ewhen", EWActorSheetV2, { 
+        types:["character", "vehicle"], makeDefault:true 
+    });
 
       // `Actors.registerSheet` is semantically equivalent to passing Actor as the first argument
       // This works for all world collections, e.g. Items
       //Actors.registerSheet("package-id", EWActorSheetV2, {})
-    Items.registerSheet("ewhen", EWItemSheetV2, {types: ["career", "trait", "power", "armor", "weapon", "equipment"], makeDefault:true });
+    Items.unregisterSheet("core", ItemSheet);
+    Items.registerSheet("ewhen", EWItemSheetV2, {
+        types: ["career", "trait", "power", "armor", "weapon", "equipment", "pointpool"],
+        makeDefault:true 
+    });
 
     // Register Item Datamodels
    
@@ -70,7 +72,8 @@ Hooks.once("init", () => {
         power: EWPowerData,
         pointpool: EWPointPoolData,
         trait: EWTraitData,
-        weapon: EWWeaponData
+        weapon: EWWeaponData,
+        armor: EWArmorData
 
     })
     

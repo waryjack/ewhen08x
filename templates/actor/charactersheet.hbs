@@ -1,6 +1,6 @@
 
 
-<div class="ew-cs-container {{cssClass}}">
+<div class="ew-cs-container {{cssClass}}" id="actorsheet">
   <div class="ew-cs-image">
 	<img class="profile-img ew-cs-img" 
 		 src="{{actor.img}}" 
@@ -15,8 +15,7 @@
 	name="name" 
 	type="text" 
 	value="{{actor.name}}" 
-	placeholder="Name"
-  style="background-color:white; color:black;"/><br/>
+	placeholder="Name"/><br/>
   </div>
   <div class="ew-cs-toggles">
 	<input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="system.isRival" type="checkbox" {{checked isRival}} /><label for="isRival">Rival</label>
@@ -37,7 +36,9 @@
   </div>
   <div class="ew-cs-points">
   {{#unless (or isRabble isTough)}}
-	{{> 'systems/ewhen/templates/partials/PointPools.hbs'}}
+  {{#if hasPools}}
+	{{> 'systems/ewhen/templates/partials/Resources.hbs'}}
+  {{/if}}
 	{{/unless}}
   </div>
   <div class="ew-cs-trackers">

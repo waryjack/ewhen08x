@@ -1,37 +1,34 @@
-<form class="{{cssClass}}" autocomplete="off">
-
-    <div>
-        <table>
-            <tr>
-                <th>{{localize "EW.game_term.trait_type"}}</th>
-                <th>{{localize "EW.game_term.trait_source"}}</th>
-                <th>{{localize "EW.game_term.primod"}}</th>
-                <th>{{localize "EW.game_term.temporary"}}</th>
-
-            </tr>
-            <tr>
-                <td style="text-align: center;"> 
-                    <select style="width:100%;" name="system.type" id="type">
-                       {{selectOptions traitTypeOpts selected=type}}
-                    </select>
-                </td>
-                <td style="text-align: center;">
-                    <select style="width:100%;" name="system.source" id="source">
-                       {{selectOptions traitSourceOpts selected=source}}
-                    </select>
-                </td>
-                <td style="text-align:center;">
-                    <select style="width:100%;" name="system.priority_dieMod" id="priority_dieMod">
-                       {{selectOptions traitPriModOpts selected=priority_dieMod}}
-                    </select>
-                </td>
-                <td style="text-align: center;">
-                    <input name="system.isTemporary" type="checkbox" {{checked isTemporary}} />
-                </td>
-            </tr>
-        </table>
-        <hr>
-        <h3>{{localize "EW.game_term.description"}}</h3>
-                <textarea class="ewhen trait-desc" id="description" name="system.description">{{description}}</textarea>           
+<div class="trait-container" id="itemsheet">
+    <div class="lttype">
+        {{localize "EW.game_term.trait_type"}}
     </div>
-</form>
+    <div class="ltsource">
+        {{localize "EW.game_term.trait_source"}}
+    </div>
+    <div class="ltpriority">
+        {{localize "EW.game_term.primod"}}
+    </div>
+    <div class="lttemp">
+        {{localize "EW.game_term.temporary"}}
+    </div>
+    <div class="ttype">
+         <select style="width:100%;" name="system.type" id="type">
+                       {{selectOptions traitTypeOpts selected=system.type}}
+                    </select>
+    </div>
+    <div class="tsource">
+        <select style="width:100%;" name="system.source" id="source">
+                       {{selectOptions traitSourceOpts selected=system.source}}
+                    </select>
+    </div>
+    <div class="tpriority">
+        <select style="width:100%;" name="system.priority_dieMod" id="priority_dieMod">
+                       {{selectOptions traitPriModOpts selected=system.priority_dieMod}}
+                    </select>
+    </div>
+    <div class="ttemp">
+         <input name="system.isTemporary" type="checkbox" {{checked system.isTemporary}} />
+    </div>
+    <div class="ltdesc">{{localize "EW.game_term.description"}}</div>
+    <div class="tdesc"><textarea class="ewhen trait-desc" id="description" name="system.description">{{system.description}}</textarea> </div>
+</div>

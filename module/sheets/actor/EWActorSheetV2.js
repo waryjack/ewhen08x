@@ -10,7 +10,6 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
      */
 
     static DEFAULT_OPTIONS = {
-        id: "actorsheet",
         title:"Character Sheet",
         actions:{
             addItem: EWActorSheetV2.addItem,
@@ -112,6 +111,12 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
             data.powers = ownedItems.filter(function(item) {return item.type == "power"});
             data.equipment = ownedItems.filter(function(item) {return item.type == "equipment"});
+            data.pools = ownedItems.filter(function(item) {return item.type == "pointpool"});
+                if (!Array.isArray(data.pools) || data.pools.length == 0) {
+                    data.hasPools = false;
+                } else {
+                    data.hasPools = true;
+                }
             data.main_attributes = this.actor.system.main_attributes;
             data.combat_attributes = this.actor.system.combat_attributes;
             data.fdmg = this.actor.system.resources.lifeblood.fatigue;

@@ -1,88 +1,79 @@
-<form class="{{cssClass}}" autocomplete="off">
-{{log "Data in item sheet: " data}}
-    <div id="#itemsheet">
-        <table>
-            <tr>
-                <th>{{localize "EW.game_term.weapontype"}}</th>
-                <th>{{localize "EW.game_term.weaponhands"}}</th>
-                <th>{{localize "EW.game_term.era"}}</th>
-            </tr>
-            <tr>
-                    <td>
-                    <select class="ew-dialog-select" style="width:100%;" name="system.wpn_type" id="wpn_type">
-                        {{selectOptions wtypeOpts selected=wpn_type}}
+<div class="weapon-container" id="itemsheet">
+  <div class="lbltype">{{localize "EW.game_term.weapontype"}}</div>
+  <div class="lblhands">{{localize "EW.game_term.weaponhands"}}</div>
+  <div class="lblera">{{localize "EW.game_term.era"}}</div>
+  <div class="wpnseltype">
+    <select class="ew-dialog-select" style="width:100%;" name="system.wpn_type" id="wpn_type">
+                        {{selectOptions wtypeOpts selected=system.wpn_type}}
                     </select>
-                    </td>
-                    <td>
-                    <select style="width:100%;" name="system.hands" id="hands">
-                       {{selectOptions whandOpts selected=hands}}
+  </div>
+  <div class="wpnselhands">
+    <select style="width:100%;" name="system.hands" id="hands">
+                       {{selectOptions whandOpts selected=system.hands}}
                     </select>
-                    </td>
-                    <td>
-                    <select style="width:100%;" name="system.era" id="era">
-                      {{selectOptions eraOpts selected=era}}
+  </div>
+  <div class="wpnselera">
+    <select style="width:100%;" name="system.era" id="era">
+                      {{selectOptions eraOpts selected=system.era}}
                     </select>
-                </td>
-            </tr>
-            </table>
-            <table>
-                <th>{{localize "EW.game_term.damagedice"}}</th>
-                <th>{{localize "EW.game_term.attributes.attribute"}}</th>
-                <th>{{localize "EW.game_term.halfattribute"}}</th>
-                <th>{{localize "EW.game_term.modifier"}}</th>
-                <th>{{localize "EW.game_term.ap"}}</th>
-            </tr>
-            <tr>
-                <td style="text-align: center;">
-                    <select style="width:100%" name="system.damage.dice">
-                       {{selectOptions dmgDiceOpts selected=damage.dice}}
+  </div>
+  <div class="lblwap">
+    {{localize "EW.game_term.ap"}}
+  </div>
+  <div class="lblwdmgmod">
+    {{localize "EW.game_term.modifier"}}
+  </div>
+  <div class="lblwhalf">
+    {{localize "EW.game_term.halfattribute"}}
+  </div>
+  <div class="lblwdmgattr">
+    {{localize "EW.game_term.attributes.attribute"}}
+  </div>
+  <div class="lblwdmgdice">
+    {{localize "EW.game_term.damagedice"}}
+  </div>
+  <div class="wpnap">
+    <input class="ewhen statfield" type="text" name="system.damage.ap" value="{{system.damage.ap}}" data-dtype="Number" />
+  </div>
+  <div class="wpndmgmod">
+    <input class="ewhen statfield" type="text" name="system.damage.mod" value="{{system.damage.mod}}" data-dtype="Number"/>
+  </div>
+  <div class="wpnhalfcheck">
+    <input name="system.damage.half_attribute" type="checkbox" {{checked system.damage.half_attribute}} />
+  </div>
+  <div class="wpndmgattr">
+     <select style="width:100%" name="system.damage.add_attribute" id="damage.add_attribute">
+                       {{selectOptions attOpts selected=system.damage.add_attribute}}
+                    </select>
+  </div>
+  <div class="wpndmgdice">
+    <select style="width:100%" name="system.damage.dice">
+                       {{selectOptions dmgDiceOpts selected=system.damage.dice}}
                     </select>
 
-                </td>
-                <td>
-                    <select style="width:100%" name="system.damage.add_attribute" id="damage.add_attribute">
-                       {{selectOptions attOpts selected=damage.add_attribute}}
-                    </select>
-                </td>
-                <td>
-                    <input name="system.damage.half_attribute" type="checkbox" {{checked damage.half_attribute}} />
-                </td>
-                <td>
-                   <input class="ewhen statfield" type="text" name="system.damage.mod" value="{{damage.mod}}" data-dtype="Number"/>
-                </td>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.damage.ap" value="{{damage.ap}}" data-dtype="Number" />
-                </td>
-            </tr>
-            </table>
-            <table>
-              <tr>
-                <th>{{localize "EW.game_term.range"}}</th>
-                <th>{{localize "EW.game_term.recoil"}}</th>
-                <th>{{localize "EW.game_term.scale"}}</th>
-              </tr>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.range" value="{{range}}" data-dtype="Number"/>
-                </td>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.recoil" value="{{recoil}}" data-dtype="Number"/>
-                </td>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.damage.scale" value="{{damage.scale}}" data-dtype="Number"/>
-                </td>
-            </tr>
-        </table>
-
-        <table>
-
-            <tr>
-                <th style="text-align: left;">{{localize "EW.game_term.notes"}}</th>
-            </tr>
-            <tr>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.notes" value="{{notes}}" data-dtype="String"/>
-                </td>
-            </tr>
-        </table>
-    </div>
-</form>
+  </div>
+  <div class="lblwrange">
+    {{localize "EW.game_term.range"}}
+  </div>
+  <div class="lblwrecoil">
+    {{localize "EW.game_term.recoil"}}
+  </div>
+  <div class="lblwscale">
+    {{localize "EW.game_term.scale"}}
+  </div>
+  <div class="wrange">
+    <input class="ewhen statfield" type="text" name="system.range" value="{{system.range}}" data-dtype="Number"/>
+  </div>
+  <div class="wrecoil">
+    <input class="ewhen statfield" type="text" name="system.recoil" value="{{system.recoil}}" data-dtype="Number"/>
+  </div>
+  <div class="wscale">
+    <input class="ewhen statfield" type="text" name="system.damage.scale" value="{{system.damage.scale}}" data-dtype="Number"/>
+  </div>
+  <div class="lwnotes">
+    {{localize "EW.game_term.notes"}}
+  </div>
+  <div class="wnotes">
+    <input class="ewhen statfield" type="text" name="system.notes" value="{{system.notes}}" data-dtype="String"/>
+  </div>
+</div>

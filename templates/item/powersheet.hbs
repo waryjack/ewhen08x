@@ -1,54 +1,50 @@
-<form class="{{cssClass}}" autocomplete="off">
-
-    <div>
-        <table>
-            <tr>
-                <th>{{localize "EW.game_term.powertype"}}</th>
-                <th>{{localize "EW.game_term.magnitude"}}</th>
-                <th>{{localize "EW.game_term.prereq"}}</th>
-            </tr>
-            <tr>
-                <td style="text-align: center;"> 
-                    <select style="width:100%;" name="system.power_type" id="power_type">
-                        
-                        {{selectOptions config.powerTypes selected=power_type localize=true}}
-                        
-                    </select>
-                </td>
-                <td style="text-align: center;">
-                    <select style="width:100%;" name="system.magnitude" id="magnitude">
-                    
-                        {{selectOptions config.magnitudes selected=magnitude localize=true}}
-                        
-                    </select>
-                </td>
-                <td style="text-align:center;">
-                    <input type="text" class="ewhen statfield" name="system.prereq" value="{{prereq}}" />
-                </td>
-            </tr>
-            <tr>
-                <th>{{localize "EW.game_term.successroll"}}</th>
-                <th>{{localize "EW.game_term.difficulty"}}</th>
-                <th>{{localize "EW.game_term.resourcecost"}}</th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="system.success_roll" value="{{success_roll}}" />
-                </td>
-                <td>
-                    <select style="width:100%" name="system.difficulty" id="difficulty">
-                       
-                        {{selectOptions config.difficulty selected=difficulty localize=true}}
-                       
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="system.resource_cost" value="{{resource_cost}}" data-dtype="Number" />
-                </td>
-            </tr>
-        </table>
-        <hr>
-        <h3>{{localize "EW.game_term.effect"}}</h3>
-                <textarea class="ewhen trait-desc" id="effect" name="system.effect">{{effect}}</textarea>           
-    </div>
-</form>
+<div class="power-container"  id="itemsheet">
+  <div class="lptype">
+    {{localize "EW.game_term.powertype"}}
+  </div>
+  <div class="lpmag">
+    {{localize "EW.game_term.magnitude"}}
+  </div>
+  <div class="lpreq">
+    {{localize "EW.game_term.prereq"}}
+  </div>
+  <div class="ptype">
+    <select style="width:100%;" name="system.power_type" id="power_type">
+        {{selectOptions config.powerTypes selected=system.power_type localize=true}}   
+    </select>
+  </div>
+  <div class="pmag">
+    <select style="width:100%;" name="system.magnitude" id="magnitude">            
+        {{selectOptions config.magnitudes selected=system.magnitude localize=true}}
+    </select>
+  </div>
+  <div class="preq">
+    <input type="text" class="ewhen statfield" name="system.prereq" value="{{system.prereq}}" />
+  </div>
+  <div class="lpsuccess">
+    {{localize "EW.game_term.successroll"}}
+  </div>
+  <div class="lpdiff">
+    {{localize "EW.game_term.difficulty"}}
+  </div>
+  <div class="lpcost">
+    {{localize "EW.game_term.resourcecost"}}
+  </div>
+  <div class="psuccess">
+    <input type="text" name="system.success_roll" value="{{system.success_roll}}" />
+  </div>
+  <div class="pdiff">
+    <select style="width:100%" name="system.difficulty" id="difficulty">
+        {{selectOptions config.difficulty selected=system.difficulty localize=true}}
+    </select>
+  </div>
+  <div class="pcost">
+     <input type="text" name="system.resource_cost" value="{{system.resource_cost}}" data-dtype="Number" />
+  </div>
+  <div class="lpeffect">
+    {{localize "EW.game_term.effect"}}
+  </div>
+  <div class="peffect">
+    <textarea class="ewhen trait-desc" id="effect" name="system.effect">{{system.effect}}</textarea>
+  </div>
+</div>

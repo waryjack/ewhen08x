@@ -1,6 +1,12 @@
-<div>
-    <header class="sheet-header">
+<div class="itemsheet-header">
+    <div class="itemsheet-img">
         <img src="{{item.img}}" data-edit="img" data-action="editImage" title="{{item.name}}" height="64" width="64"/>
-        <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-    </header>
+    </div>
+    <div class="itemsheet-name">
+        <input name="name" 
+               style="font-family:'Cuprum', sans-serif; text-transform:uppercase; font-weight: 700;font-size:x-large" 
+               type="text" 
+               value="{{item.name}}" 
+               placeholder="Name"/>
+    </div>
 </div>

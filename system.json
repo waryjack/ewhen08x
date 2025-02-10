@@ -34,7 +34,8 @@
     },
     "scripts": [],
     "styles": [
-        "styles/ew-grid.css"
+        "styles/ew-grid.css",
+        "styles/item.css"
     ],
     "languages": [
         {

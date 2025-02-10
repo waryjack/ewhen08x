@@ -1,13 +1,26 @@
-<form class="{{cssClass}}" autocomplete="off">
-
-
-    <div>
-        <table>
-        <h3>{{localize "EW.game_term.career"}} {{localize "EW.game_term.description"}}</h3>
-       
-        <prose-mirror name="system.description" data-document-u-u-i-d="{{item.uuid}}" value="{{system.description}}" collaborate="true" toggled="true">
-            {{{enrichedDescription}}}
-        </prose-mirror>
-
-    </div>
-</form>
+<div class="pointpool-container" id="itemsheet">
+  <div class="lppmax">
+    Maximum
+  </div>
+  <div class="lppmin">
+    Minimum
+  </div>
+  <div class="lppcurrent">
+    Current
+  </div>
+  <div class="ppmax">
+    <input class="ewhen statfield" type="text" name="system.max" value="{{system.max}}" data-dtype="Number" />
+  </div>
+  <div class="ppmin">
+    <input class="ewhen statfield" type="text" name="system.min" value="{{system.min}}" data-dtype="Number" />
+  </div>
+  <div class="ppcurrent">
+    <input class="ewhen statfield" type="text" name="system.current" value="{{system.current}}" data-dtype="Number" />
+  </div>
+  <div class="lppdesc">
+     {{localize "EW.game_term.description"}}
+  </div>
+  <div class="ppdesc">
+    <textarea class="ewhen trait-desc" id="description" name="system.description">{{system.description}}</textarea>
+  </div>
+</div>

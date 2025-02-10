@@ -1,87 +1,80 @@
-<form class="{{cssClass}}" autocomplete="off">
-    <div>
-        <table>
-            <tr>
-                <th>{{localize "EW.game_term.armortype"}}</th>
-                <th>{{localize "EW.game_term.era"}}</th>
-            </tr>
-            <tr>
-                <td>
-                    <select style="width:100%;" name="system.armor_type" id="armor_type">
-                        {{selectOptions atypeOpts selected=armor_type localize=true}}
+    <div class="armor-container" id="itemsheet">
+        <div class="armtypelabel">
+            {{localize "EW.game_term.armortype"}}
+        </div>
+        <div class="armeralabel">
+            {{localize "EW.game_term.era"}}
+        </div>
+        <div class="armtype">
+            <select name="system.armor_type">
+                {{selectOptions atypeOpts selected=system.armor_type localize=true}}
+            </select>
+        </div>
+        <div class="armera">
+            <select name="system.era" id="era">
+                {{selectOptions eraOpts selected=system.era}}
+            </select>
+        </div>
+        <div class="fplabel">
+            {{localize "EW.armor.protection.fixedval"}}
+        </div>
+        <div class="varlabel">
+            {{localize "EW.armor.protection.variable"}}
+        </div>
+        <div class="equiplabel">
+            {{localize "EW.item.equipped"}}
+        </div>
+        <div class="accesslabel">
+            {{localize "EW.armor.protection.accessory"}}
+        </div>
+        {{#if (setting "useScale")}}
+        <div class="scalelabel">{{localize "EW.game_term.scale"}}</div>
+        {{/if}}
+        <div class="fpval">
+            <input type="text" name="system.protection.fixed" value="{{protection.fixed}}" data-dtype="Number"/>
+        </div>
+        <div class="varpval">
+            <select name="system.protection.variable" />
+                    {{selectOptions vprotectOpts selected=system.protection.variable}}
                     </select>
-                    </td>
-                    <td>
-                        <select style="width:100%;" name="system.era" id="era">
-                            {{selectOptions eraOpts selected=era}}
-                        </select>
-                    </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-            <th>{{localize "EW.armor.protection.fixedval"}}</th>
-            <th>{{localize "EW.armor.protection.variable"}}</th>
-            {{#if (setting "useScale")}}<th>{{localize "EW.game_term.scale"}}</th>{{/if}}
-            <th>{{localize "EW.armor.protection.accessory"}}</th>
-            <th>{{localize "EW.item.equipped"}}</th>
-            </tr>
-            <tr>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.protection.fixed" value="{{protection.fixed}}" data-dtype="Number"/>
-                </td>
-                <td>
-                    <select style="width:100%;" name="system.protection.variable" />
-                    {{selectOptions vprotectOpts selected=protection.variable}}
+        </div>
+        <div class="accesscheck">
+             <input name="system.accessory" type="checkbox" {{checked system.accessory}} />
+        </div>
+        <div class="eqpcheck">
+            <input name="system.equipped" type="checkbox" {{checked system.equipped}} />
+        </div>
+        {{#if (setting "useScale")}}
+                <div class="scaleval">
+                    <input type="text" name="system.protection.scale" value="{{system.protection.scale}}" data-dtype="Number"/>
+                </div>
+        {{/if}}
+        <div class="armorbonuslabel">
+            {{localize "EW.armor.armorbonuses"}}
+        </div>
+        <div class="armorpenlabel">
+            {{localize "EW.armor.armorpenalty"}}
+        </div>
+        <div class="diffmodlabel">
+              {{localize "EW.armor.otherdiffmods"}}
+        </div>
+        <div class="armbonto">
+             <select name="system.bonus.to">
+                    {{selectOptions abonusOpts selected=system.bonus.to}}
                     </select>
-                </td>
-                {{#if (setting "useScale")}}
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.protection.scale" value="{{protection.scale}}" data-dtype="Number"/>
-                </td>
-                {{/if}}
-                <td class="align-center">
-                    <input name="system.accessory" type="checkbox" {{checked accessory}} />
-                </td>
-                <td class="align-center">
-                    <input name="system.equipped" type="checkbox" {{checked equipped}} />
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-            <th colspan="2">
-                {{localize "EW.armor.armorbonuses"}}
-            </th>
-            <th colspan="2">
-                {{localize "EW.armor.armorpenalty"}}
-            </th>
-            <th>
-                {{localize "EW.armor.otherdiffmods"}}
-            </th>
-            </tr>
-            <tr>
-                <td>
-                    <select name="system.bonus.to">
-                    {{selectOptions abonusOpts selected=bonus.to}}
+        </div>
+        <div class="armbonval">
+            <input class="ewhen statfield" type="text" name="bonus.amount" value="{{system.bonus.amount}}" data-dtype="Number" />
+        </div>
+        <div class="armpento">
+              <select name="system.penalty.to">
+                   {{selectOptions abonusOpts selected=system.penalty.to}}
                     </select>
-                </td>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.bonus.amount" value="{{bonus.amount}}" data-dtype="Number" />
-                </td>
-                <td>
-                    <select name="system.penalty.to">
-                   {{selectOptions abonusOpts selected=penalty.to}}
-                    </select>
-                </td>
-                <td>
-                    <input class="ewhen statfield" type="text" name="system.penalty.amount" value="{{penalty.amount}}" data-dtype="Number"/>
-                </td>
-                <td>
-                    <input type="text" name="system.diffmod.to" value="{{diffmod.to}}" />
-                </td>
-                
-            </tr>
-        </table>
+        </div>
+        <div class="armpenval">
+            <input type="text" name="system.penalty.amount" value="{{system.penalty.amount}}" data-dtype="Number"/>
+        </div>
+        <div class="diffmodval">
+            <input type="text" name="system.diffmod.to" value="{{system.diffmod.to}}" />
+        </div>
     </div>
-</form>

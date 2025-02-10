@@ -25,110 +25,11 @@ export class EWActor extends Actor {
 
   prepareBaseData(){
         super.prepareBaseData();
+  }
 
-        const actorData = this.system; // actorData is "actor.data.data"
-
-        //console.warn("Actor Object: ", this);
-        if (this.type === 'character') {
-            this._prepareCharacterData(actorData);
-        } else if (this.type === 'vehicle') {
-            this._prepareVehicleData(actorData);
-        }
-    }
-
-    /**
-    * @param actorData {EWActor} - this EWActor object's system-specific data
-    */
-    _prepareCharacterData(actorData) {
-        super.prepareDerivedData();
-
-        const data = actorData;
-        // console.warn("PrepareCharacterData data object: ", data);
-
-        var str = data.main_attributes.strength.rank;
-        var mnd = data.main_attributes.mind.rank;
-        var mlf = data.resources.lifeblood.misc_lfb;
-        var mre = data.resources.resolve.misc_res;
-
-        // Initialize derived traits - lifeblood and resolve
-        // but not for rabble or toughs!
-        // console.warn("Rabble? ", data.isRabble, " Tough? ", data.isTough);
-        if (!data.isRabble && !data.isTough){
-            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', Number(str) + 10 + mlf);
-            foundry.utils.setProperty(actorData, 'resources.resolve.max', Number(mnd) + 10 + mre);
-        }
-
-        if (data.isRabble) {
-            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', game.settings.get('ewhen', 'allSettings').rabbleStrength);
-            foundry.utils.setProperty(actorData, 'resources.resolve.max', game.settings.get('ewhen', 'allSettings').rabbleStrength);
-        }
-
-        if (data.isTough) {
-            foundry.utils.setProperty(actorData, 'resources.lifeblood.max', Number(str)+5);
-            foundry.utils.setProperty(actorData, 'resources.resolve.max', Number(mnd)+5);
-        }
-
-        let totalLbd = data.resources.lifeblood.regular + data.resources.lifeblood.lasting + data.resources.lifeblood.fatigue;
-        let totalRsd = data.resources.resolve.regular + data.resources.resolve.lasting + data.resources.resolve.fatigue;
-
-        foundry.utils.setProperty(actorData, 'resources.lifeblood.value', Math.max(0, data.resources.lifeblood.max - totalLbd));
-
-        foundry.utils.setProperty(actorData, 'resources.resolve.value', Math.max(0, data.resources.resolve.max - totalRsd));
-
-        // Calculate priority roll expression based on base info and misc BD/PD bonuses
-
-        foundry.utils.setProperty(actorData, 'system.priority_roll', this.setPriorityRoll());
-    }
-
-    _prepareVehicleData(actorData) {
-        // Stub
-        super.prepareDerivedData();
-        const data = actorData;
-        // console.warn("vehicle data", data);
-
-        var frame = data.frame.rank;
-        var lasting = data.frame.lasting;
-        var shieldDmg = data.resources.shield.lasting + data.resources.shield.regular + data.resources.shield.fatigue;
-
-        foundry.utils.setProperty(actorData, "frame.max", Math.max(5, frame));
-        foundry.utils.setProperty(actorData, "frame.value", Math.max(0, data.frame.max - lasting));
-        foundry.utils.setProperty(actorData, "resources.shield.max", Math.max(5, frame));
-        foundry.utils.setProperty(actorData, "resources.shield.value", Math.max(0, data.resources.shield.max - shieldDmg));
-    }
-
-    /**
-     * Calculate the roll formula for priority rolls based on various character bonuses
-     */
-    setPriorityRoll() {
-        const diceModel = getDiceModel(game)
-        const priority = foundry.utils.duplicate(this.system.priority_roll);
-        let netExtraDice = priority.bd - priority.pd;
-        let numberOfDice = diceModel.numberOfDice;
-        let baseDie = diceModel.baseDie;
-
-        // If using H+I or BoL compatible initiative - uses just a single D6
-        if(game.settings.get("ewhen", "allSettings").singleDieInit) {
-            numberOfDice = 1;
-            baseDie = "d6";
-        }
-
-        const newSuffix = netExtraDice < 0 ? `kl${numberOfDice}` : `kh${numberOfDice}`;
-        // console.warn("net extra dice: ", netExtraDice);
-
-        let finalFormula = (Number(numberOfDice) + Math.abs(netExtraDice)) + baseDie + newSuffix + "+" + priority.miscMod;
-
-        priority.expression = finalFormula;
-
-        // console.warn("Priority Final Expression: ", finalFormula);
-
-        return priority;
-
-    }
-    /**
-    * Generate a basic Everywhen dice roll
-    * Could be refactored out to its own class eventually
-    * it's here for easy access to attributes
-    */
+  prepareDerivedData(){
+    super.prepareDerivedData();
+  }
 
    basicRoll() {
         const pri = foundry.utils.duplicate(this.system.main_attributes);
@@ -232,7 +133,7 @@ export class EWActor extends Actor {
 
     }
 
-    updateFrame(html) {
+    /* updateFrame(html) {
         // console.warn("Called UpdateFrame");
         // const actorData = foundry.utils.duplicate(this.data);
         const resData = foundry.utils.deepClone(this.system.frame);
@@ -288,7 +189,7 @@ export class EWActor extends Actor {
 
                 }
 
-    }
+    } */
 
     /**
     * @param attr {String} - the main attribute in the roll (e.g., "strength")

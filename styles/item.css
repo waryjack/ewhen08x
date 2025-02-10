@@ -1,0 +1,263 @@
+/** ITEM SHEETS ** / 
+
+/** Header **/
+.itemsheet-header {
+    display:grid;
+    grid-template-columns:64px 1fr;
+    grid-template-rows:min-content;
+    grid-template-areas:
+        "itemimg itemname";
+    gap: 6px 6px;
+}
+.itemsheet-img {
+    grid-area:itemimg;
+}
+.itemsheet-name {
+    grid-area:itemname;
+}
+
+/** Armor Sheet **/
+.armor-container {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: min-content 1fr min-content 1fr min-content 1fr; 
+    gap: 6px 6px; 
+    grid-template-areas: 
+      "armtypelabel armtypelabel armtypelabel armeralabel armeralabel armeralabel"
+      "armtype armtype armtype armera armera armera"
+      "fplabel fplabel varlabel varlabel accesslabel equiplabel"
+      "fpval fpval varpval varpval accesscheck eqpcheck"
+      "armorbonuslabel armorbonuslabel armorpenlabel armorpenlabel diffmodlabel diffmodlabel"
+      "armbonto armbonval armpento armpenval diffmodval diffmodval"; 
+    margin-right:12px;
+  }
+  .armtypelabel { grid-area: armtypelabel; }
+  .armeralabel { grid-area: armeralabel; }
+  .armtype { grid-area: armtype; }
+  .armera { grid-area: armera; }
+  .fpval { grid-area: fpval; }
+  .varpval { grid-area: varpval; }
+  .eqpcheck { grid-area: eqpcheck; justify-items:center;}
+  .accesscheck { grid-area: accesscheck;justify-items:center; }
+  .fplabel { grid-area: fplabel; justify-items:center }
+  .varlabel { grid-area: varlabel; justify-items:center}
+  .equiplabel { grid-area: equiplabel; justify-items:center;}
+  .accesslabel { grid-area: accesslabel; justify-items:center;}
+  .armorbonuslabel { grid-area: armorbonuslabel; }
+  .armorpenlabel { grid-area: armorpenlabel; }
+  .diffmodlabel { grid-area: diffmodlabel; }
+  .diffmodval { grid-area: diffmodval; }
+  .armpento { grid-area: armpento; }
+  .armpenval { grid-area: armpenval; }
+  .armbonval { grid-area: armbonval; }
+  .armbonto { grid-area: armbonto; width:max-content;}
+
+  /** Weapon Sheet **/
+  .weapon-container {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: min-content 1fr min-content 1fr min-content 1fr min-content 1fr; 
+    gap: 6px 6px; 
+    grid-template-areas: 
+      "lbltype lbltype lblhands lblhands lblera lblera"
+      "wpnseltype wpnseltype wpnselhands wpnselhands wpnselera wpnselera"
+      "lblwdmgdice lblwdmgattr lblwdmgattr lblwhalf lblwdmgmod lblwap"
+      "wpndmgdice wpndmgattr wpndmgattr wpnhalfcheck wpndmgmod wpnap"
+      "lblwrange lblwrange lblwrecoil lblwrecoil lblwscale lblwscale"
+      "wrange wrange wrecoil wrecoil wscale wscale"
+      "lwnotes lwnotes lwnotes lwnotes lwnotes lwnotes"
+      "wnotes wnotes wnotes wnotes wnotes wnotes"; 
+    margin-right:12px;
+  }
+  .lbltype { grid-area: lbltype; }
+  .lblhands { grid-area: lblhands; }
+  .lblera { grid-area: lblera; }
+  .wpnseltype { grid-area: wpnseltype; }
+  .wpnselhands { grid-area: wpnselhands; }
+  .wpnselera { grid-area: wpnselera; }
+  .lblwap { grid-area: lblwap; }
+  .lblwdmgmod { grid-area: lblwdmgmod; }
+  .lblwhalf { grid-area: lblwhalf; justify-self:center; }
+  .lblwdmgattr { grid-area: lblwdmgattr; }
+  .lblwdmgdice { grid-area: lblwdmgdice; }
+  .wpnap { grid-area: wpnap; }
+  .wpndmgmod { grid-area: wpndmgmod; }
+  .wpnhalfcheck { grid-area: wpnhalfcheck; justify-self:center }
+  .wpndmgattr { grid-area: wpndmgattr; }
+  .wpndmgdice { grid-area: wpndmgdice; }
+  .lblwrange { grid-area: lblwrange; }
+  .lblwrecoil { grid-area: lblwrecoil; }
+  .lblwscale { grid-area: lblwscale; }
+  .wrange { grid-area: wrange; }
+  .wrecoil { grid-area: wrecoil; }
+  .wscale { grid-area: wscale; }
+  .lwnotes { grid-area: lwnotes; }
+  .wnotes { grid-area: wnotes; }
+
+
+/** Traits (boons and flaws **/
+.trait-container {
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    grid-template-rows: min-content min-content min-content min-content;
+    gap:6px 6px;
+    margin-right:12px;
+    grid-template-areas:
+        "lttype ltsource ltpriority lttemp"
+        "ttype tsource tpriority ttemp"
+        "ltdesc ltdesc ltdesc ltdesc"
+        "tdesc tdesc tdesc tdesc"
+}
+
+.lttype {
+    grid-area: lttype;
+}
+
+.ltsource {
+    grid-area: ltsource;
+}
+
+.ltpriority {
+    grid-area:ltpriority
+}
+
+.lttemp {
+    grid-area:lttemp;
+    justify-self:center;
+}
+
+.ttype {
+    grid-area:ttype;
+}
+
+.tsource {
+    grid-area:tsource
+}
+
+.tpriority {
+    grid-area:tpriority
+}
+
+.ttemp {
+    grid-area:ttemp;
+    justify-self:center
+}
+
+.ltdesc {
+    grid-area:ltdesc;
+}
+
+.tdesc {
+    grid-area:tdesc;
+}
+
+/** Equipment **/
+
+.equipment-container {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: min-content min-content min-content min-content;
+    gap: 6px 6px;
+    margin-right:12px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "lequant leweight lecost lecredit"
+      "equant eweight ecost ecredit"
+      "ledesc ledesc ledesc ledesc"
+      "edesc edesc edesc edesc";
+  }
+  
+  .lequant { grid-area: lequant; }
+  
+  .leweight { grid-area: leweight; }
+  
+  .lecost { grid-area: lecost; }
+  
+  .lecredit { grid-area: lecredit; }
+  
+  .equant { grid-area: equant; }
+  
+  .eweight { grid-area: eweight; }
+  
+  .ecost { grid-area: ecost; }
+  
+  .ecredit { grid-area: ecredit; }
+  
+  .ledesc { grid-area: ledesc; }
+  
+  .edesc { grid-area: edesc; }
+  
+  /** Power **/
+  .power-container {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: min-content min-content min-content min-content min-content min-content;
+    gap: 6px 6px;
+    margin-right:12px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "lptype lpmag lpreq"
+      "ptype pmag preq"
+      "lpsuccess lpdiff lpcost"
+      "psuccess pdiff pcost"
+      "lpeffect lpeffect lpeffect"
+      "peffect peffect peffect";
+  }
+  
+  .lptype { grid-area: lptype; }
+  
+  .lpmag { grid-area: lpmag; }
+  
+  .lpreq { grid-area: lpreq; }
+  
+  .ptype { grid-area: ptype; }
+  
+  .pmag { grid-area: pmag; }
+  
+  .preq { grid-area: preq; }
+  
+  .lpsuccess { grid-area: lpsuccess; }
+  
+  .lpdiff { grid-area: lpdiff; }
+  
+  .lpcost { grid-area: lpcost; }
+  
+  .psuccess { grid-area: psuccess; }
+  
+  .pdiff { grid-area: pdiff; }
+  
+  .pcost { grid-area: pcost; }
+  
+  .lpeffect { grid-area: lpeffect; }
+  
+  .peffect { grid-area: peffect; }
+  
+  /** Point Pool **/
+  .pointpool-container {  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: min-content min-content min-content min-content;
+    gap: 6px 6px;
+    margin-right:12px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "lppmax lppmin lppcurrent"
+      "ppmax ppmin ppcurrent"
+      "lppdesc lppdesc lppdesc"
+      "ppdesc ppdesc ppdesc";
+  }
+  
+  .lppmax { grid-area: lppmax; }
+  
+  .lppmin { grid-area: lppmin; }
+  
+  .lppcurrent { grid-area: lppcurrent; }
+  
+  .ppmax { grid-area: ppmax; }
+  
+  .ppmin { grid-area: ppmin; }
+  
+  .ppcurrent { grid-area: ppcurrent; }
+  
+  .lppdesc { grid-area: lppdesc; }
+  
+  .ppdesc { grid-area: ppdesc; }
+  

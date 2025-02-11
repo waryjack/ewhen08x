@@ -21,5 +21,21 @@ export class EWBaseRoll extends foundry.api.Roll {
       tooltip: isPrivate ? "" : await this.getTooltip(),
       total: isPrivate ? "?" : Math.round(this.total * 100) / 100
     };
+
+    let rollInfo = {
+      formula: this._formula,
+      displayName: this.data.displayName,
+      chosenAttribute: attr,
+      chosenCombat: combat,
+      chosenCareer: careerName,
+      attrVal: attrVal,
+      comVal: comVal,
+      cVal: cVal,
+      diffStr: diffStr,
+      mods: totalMods,
+      bdNum: bdNum,
+      pdNum: pdNum,
+      tt: await this.getTooltip()
+    }
   }
 }

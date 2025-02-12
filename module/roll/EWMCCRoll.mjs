@@ -15,6 +15,8 @@ export class EWMCCRoll extends EWBaseRoll {
      */
     constructor(formula = "2d6", data = {}, options = {}) {
         super(formula, data, options);
+
+        // merges custom options into the "default options" of a roll
         foundry.utils.mergeObject(this.options, this.constructor.DEFAULT_OPTIONS, {
           insertKeys: true,
           insertValues: true,
@@ -22,7 +24,7 @@ export class EWMCCRoll extends EWBaseRoll {
         });
 
         this.options.dm = getDiceModel(game);
-        formula = this._constructFormula(selections, data);
+        
         this.options.displayName = this._getRollDisplayName(selections, data);
         this.options.displayDiff = this._getDiffDisplayName(selections, data);
 
@@ -105,6 +107,25 @@ export class EWMCCRoll extends EWBaseRoll {
     }
 
     static async prompt(options = {}) {
+
+        // Gather rolldata, etc.
+
+        // Load the designated template to prompt with 
+        // Draw-Steel uses a custom AppV2; I think DialogV2.wait is how I'll do it
+
+        // get Actor information and add it to options
+        this.getActorSystem(options)
+        
+
+        // gather data from the prompt (configuration of the roll - attribute, career, modifiers, etc)
+
+
+        // build the formula and other options
+        let expression = this._constructFormula(rollinfo, data);
+
+        // get everything, and instantiate new this(expression, data, options);
+        let mccRoll = new this(expression, data, options);
+        await mccRoll.evaluate()
 
 
     }

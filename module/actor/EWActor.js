@@ -36,6 +36,34 @@ export class EWActor extends Actor {
     await EWMCCRoll.prompt(this.getRollData(), {chosenStat:stat}, this._id);
 
   }
+
+  async _addCareer() {
+    const prompt = await foundry.applications.api.DialogV2.prompt({
+        // content, template, etc
+    });
+
+    this.system.careers.push({"careername":prompt.newname.value, "rank":prompt.newrank.value});
+  }
+
+  async _addPool() {
+    const prompt = await foundry.applications.api.DialogV2.prompt({
+
+    });
+    this.system.pools.push({
+        "poolname":prompt.poolname.value,
+        "max":prompt.max.value,
+        "min":prompt.min.value,
+        "current":prompt.current.value
+    });
+  }
+
+  async _deleteCareer(career) {
+
+  }
+
+  async _deletePool(pool) {
+    
+  }
    
   basicRoll() {
         const pri = foundry.utils.duplicate(this.system.main_attributes);

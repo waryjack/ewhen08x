@@ -1,14 +1,26 @@
 const {
-  HTMLField, SchemaField, NumberField, StringField, ArrayField
+  HTMLField, BooleanField, SchemaField, NumberField, StringField, ArrayField
 } = foundry.data.fields;
-import EWBaseActorData from "./EWBaseActorData.mjs";
+import EWBaseActorData from "./base.mjs";
 import { getDiceModel } from "../../diceModels.js";
 
-export default class EWMajorActorData extends EWBaseActorData {
+export default class EWHeroData extends EWBaseActorData {
   static defineSchema() {
     const actorData = super.defineSchema();
     return {
       ...actorData,
+      isRival: new BooleanField({required:true, nullable:false, initial:false}),
+      encumbrance: new NumberField({required:true, integer:true, min:0, initial:0}),
+      careers: new ArrayField(new SchemaField({
+        careername: new StringField({required:true, initial:game.i18n.localize("EW.game_term.newcareer")}),
+        rank: new NumberField({required:true, integer:true, min:0, initial:0})
+      })),
+      pools: new ArrayField(new SchemaField({
+        poolname: new StringField({required:true, initial:game.i18n.localize("EW.game_term.newpool")}),
+        max: new NumberField({required:true, integer:true, initial:0, min:1}),
+        min: new NumberField({required:true, integer:true, initial:0, min:0}),
+        current: new NumberField({required:true, integer:true, initial:0, min:0})
+      })),
       resources: new SchemaField({
         hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
         arcana_points: new NumberField({required:true, integer:true, min:0, initial:0}),
@@ -18,6 +30,14 @@ export default class EWMajorActorData extends EWBaseActorData {
         currency: new NumberField({required:true, min:0, initial:0}),
         lifeblood: new SchemaField(lifeAndResolve()),
         resolve: new SchemaField(lifeAndResolve())
+      }),
+      priority_roll: new SchemaField({
+        numDice: new NumberField({required:true, integer:true, min:2, initial:2}),
+        suffix: new StringField({required:true, initial:"kh2"}),
+        miscMod: new NumberField({required:true, initial:0}),
+        expression: new StringField({required:true, initial:"2d6kh2"}),
+        bd: new NumberField({required:true, initial:0, min:0}),
+        pd: new NumberField({required:true, initial:0, min:0})
       }),
       traits: new SchemaField({
         careers: new ArrayField(new StringField()),

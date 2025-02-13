@@ -24,28 +24,16 @@ function _lifeAndResolve() {
   }
 }
 
-export default class EWMajorActorData extends foundry.abstract.TypeDataModel {
+export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       actor_image: new FilePathField({required:false, categories: ["IMAGE"]}),
-      isRival: new BooleanField({required:true, nullable:false,initial:false,label:"Rival"}),
-      isRabble: new BooleanField({required:true, initial:false, label:"Rabble"}),
-      isTough: new BooleanField({required:true, initial:false, label:"Tough"}),
       isCreature: new BooleanField({required:true, initial:false, label:"Creature"}),
-      isEntity: new BooleanField({required:true, initial:false, label:"Entity"}),
       backstory: new HTMLField({initial: ""}),
       size: new StringField({required:true, initial:"medium"}),
       armorbonus: new NumberField({required:true, integer:true, min:0, initial:0}),
       miscarmor: new NumberField({required:true, integer:true, min:0, initial:0}),
-      encumbrance: new NumberField({required:true, integer:true, min:0, initial:0}),
-      priority_roll: new SchemaField({
-        numDice: new NumberField({required:true, integer:true, min:2, initial:2}),
-        suffix: new StringField({required:true, initial:"kh2"}),
-        miscMod: new NumberField({required:true, initial:0}),
-        expression: new StringField({required:true, initial:"2d6kh2"}),
-        bd: new NumberField({required:true, initial:0, min:0}),
-        pd: new NumberField({required:true, initial:0, min:0})
-      }),
+      initiative: new StringField({required:true, initial:"2d6"}),
       main_attributes: new SchemaField({
         strength: new SchemaField(_statfield()),
         agility: new SchemaField(_statfield()),

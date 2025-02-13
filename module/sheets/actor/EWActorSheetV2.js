@@ -12,22 +12,22 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     static DEFAULT_OPTIONS = {
         title:"Character Sheet",
         actions:{
-            addItem: EWActorSheetV2.addItem,
-            editItem: EWActorSheetV2.editItem,
-            deleteItem: EWActorSheetV2.deleteItem,
-            equipItem: EWActorSheetV2.equipItem,
-            editCareerName: EWActorSheetV2.editCareerName,
-            editCareerRank: EWActorSheetV2.editCareerRank,
-            adjustResource: EWActorSheetV2.adjustResource,
-            adjustFrame: EWActorSheetV2.adjustFrame,
-            adjustShield: EWActorSheetV2.adjustShield,
-            becomeMinorNPC: EWActorSheetV2.becomeMinorNPC,
-            careerRoll: EWActorSheetV2.careerRoll,
-            statRoll: EWActorSheetV2.statRoll,
-            attributeRoll: EWActorSheetV2.attributeRoll,
-            weaponRoll: EWActorSheetV2.weaponRoll,
-            armorRoll: EWActorSheetV2.armorRoll,
+            addCareer: this._addCareer,
+            deleteCareer: this._deleteCareer,
+            addPool: this._addPool,
+            deletePool: this._deletePool,
+            addItem: this._addItem,
+            editItem: this._editItem,
+            deleteItem: this._deleteItem,
+            equipItem: this._equipItem,
+            adjustResource: this._adjustResource,
+            adjustFrame: this._adjustFrame,
+            adjustShield: this._adjustShield,
+            statRoll: this._statRoll,
+            weaponRoll: this._weaponRoll,
+            armorRoll: this._armorRoll,
             editImage: this._onEditImage,
+            
 
         },
         form: {
@@ -53,37 +53,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         form: {
             template: "systems/ewhen/templates/actor/charactersheet.hbs",
             scrollable: ['scrollable']
-        },
-        /* tabs: {
-            template: "templates/generic/tab-navigation.hbs"
-        },
-        mainAtts: {
-            template: "systems/ewhen/templates/partials/MainAttributes.hbs"
-        },
-        combAtts: {
-            template: "systems/ewhen/templates/partials/CombatAttributes.hbs"
-        },
-        careerList: {
-            template: "systems/ewhen/templates/partials/CareerList.hbs"
-        },
-        boonList: {
-            template: "systems/ewhen/templates/partials/BoonList.hbs"
-        },
-        flawList: {
-            template: "systems/ewhen/templates/partials/FlawList.hbs"
-        },
-        weaponList: {
-
-        },
-        armorList: {
-
-        },
-        equipmentList: {
-
-        },
-        powerList: {
-
-        } */
+        }
     }
 
     /**
@@ -92,8 +62,6 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     _prepareContext() {
         const data = foundry.utils.deepClone(this.actor.system);
      
-
-      
         data.config = CONFIG.ewhen; 
         let ownedItems = this.actor.items;
         data.actor = this.actor;
@@ -107,16 +75,12 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         //// console.warn("data.traits: ", data.traits);
 
         if (this.actor.type == "character") {
-            data.careers = ownedItems.filter(function(item) {return item.type == "career"});
+            // sheet variants for each type - rivals are regular characters; toughs, rabble, vehicle the others?
+            data.careers = this.actor.system.careers;
             data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
             data.powers = ownedItems.filter(function(item) {return item.type == "power"});
             data.equipment = ownedItems.filter(function(item) {return item.type == "equipment"});
-            data.pools = ownedItems.filter(function(item) {return item.type == "pointpool"});
-                if (!Array.isArray(data.pools) || data.pools.length == 0) {
-                    data.hasPools = false;
-                } else {
-                    data.hasPools = true;
-                }
+            data.pools = this.actor.system.pools       
             data.main_attributes = this.actor.system.main_attributes;
             data.combat_attributes = this.actor.system.combat_attributes;
             data.fdmg = this.actor.system.resources.lifeblood.fatigue;
@@ -128,7 +92,6 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         } else {
             data.EWActorType = "vehicle";
         }
-        console.log("New V2 Context: ", data);
         return data;
     }
 
@@ -159,100 +122,24 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    // Change lifeblood, damage if you create a minor NPC from a character
-    // one-way change; caught in preUpdateToken for reversing it
-    static becomeMinorNPC(event,element) {
-        event.preventDefault();
-
-
-       let minorType = element.dataset.minorType;
-       let actorData = foundry.utils.duplicate(this.actor.system);
-       let rabbleAttack = {
-
-        name: "Rabble Attack",
-        type: "weapon",
-        data: {
-            wpn_type:"hordeAttack",
-                damage: {
-                    dice:"1d3",
-                    scale:1,
-                    add_attribute:"none",
-                    half_attribute:false,
-                    mod:0,
-                    ap:0
-                },
-                hands:"one handed",
-                range:0,
-                recoil:0,
-                era:""
-            }
-        }
-       let hordeAttack = {
-        name: "Horde Attack",
-        type: "weapon",
-        data: {
-            wpn_type:"hordeAttack",
-                damage: {
-                    dice:"2d6kl1",
-                    scale:1,
-                    add_attribute:"none",
-                    half_attribute:false,
-                    mod:0,
-                    ap:0
-                },
-                hands:"one handed",
-                range:0,
-                recoil:0,
-                era:""
-            }
-        }
-
-
-        let downgrade = element.checked;
-
-       // ui.notifications.warn(game.i18n.localize("EW.warnings.onewaytrip"));
-
-        if(downgrade){
-            switch(minorType) {
-                case "tough": {
-                    console.log("resources", actorData.resources);
-                    actorData.resources.lifeblood.max = 5 + actorData.main_attributes.strength.rank;
-                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
-                    actorData.resources.resolve.max = 5 + actorData.main_attributes.mind.rank;
-                    actorData.resources.resolve.value = actorData.resources.resolve.max;
-                    return this.actor.update({ "system": actorData});
-                }
-                case "rabble": {
-                    let actorData = foundry.utils.duplicate(this.actor.system);
-                   // console.log("resources");
-                    actorData.resources.lifeblood.max = Math.floor(Math.random() * 4);
-                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
-                    actorData.resources.resolve.max = 1;
-                    actorData.resources.resolve.value = 1;
-                    // Item.create(rabbleAttack, { parent: this.actor});
-                    // Item.create(hordeAttack, { parent: this.actor});
-
-                    return this.actor.update({ "system": actorData});
-                }
-                default: {
-                    actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
-                    actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
-                    actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
-                    actorData.resources.resolve.value = actorData.resources.resolve.max;
-                    return this.actor.update({ "system": actorData});
-                };
-            }
-        } else {
-            let actorData = foundry.utils.duplicate(this.actor.system);
-            // console.log("resources");
-             actorData.resources.lifeblood.max = 10 + actorData.main_attributes.strength.rank;
-             actorData.resources.lifeblood.value = actorData.resources.lifeblood.max;
-             actorData.resources.resolve.max = 10 + actorData.main_attributes.mind.rank;
-             actorData.resources.resolve.value = actorData.resources.resolve.max;
-             return this.actor.update({ "system": actorData});
-        }
+    static _addCareer() {
+        return this.actor._addCareer();
     }
 
+    static _addPool() {
+        return this.actor._addPool();
+    }
+
+    static _deleteCareer() {
+        return this.actor._deleteCareer();
+    }
+
+    static _deletePool() {
+        return this.actor._deletePool();
+    }
+    // Change lifeblood, damage if you create a minor NPC from a character
+    // one-way change; caught in preUpdateToken for reversing it
+   
     // Handle changes to the lifeblood/resolve and critical tracks
     static adjustResource(event,element) {
         event.preventDefault();
@@ -313,20 +200,6 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    // Not in use at the moment; not sure if it's necessary
-    static careerRoll(event,element) {
-        event.preventDefault();
-
-        let itemId = element.closest(".item").dataset.itemId;
-
-        let item = this.actor.items.get(itemId);
-
-        let itemRank = item.system.rank;
-
-        return this.actor.rollCareer(item);
-
-    }
-
     // trigger the basic, non-pre-populated roll dialog; passthrough function from the sheet to the actor to the roll
     // gathering information along the way
     static async statRoll(event,element) {
@@ -337,78 +210,17 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         await this.actor.rollStat(chosenStat);
     }
 
-    // roll if the user clicks on a specific attribute or combat ability
-    static attributeRoll(event, element) {
-        event.preventDefault();
-        var rank = 0;
-        var isCombat = false;
-        // let element = event.currentTarget;
-        let attribute = element.dataset.attribute;
-        let gameSettings = game.settings.get("ewhen","allSettings");
-       
-        let maPicked = "";
-        let caPicked = "";
-
-        let ma = ["strength", "agility", "mind", "appeal"];
-        let ca = ["melee", "ranged", "defense", "initiative"];
-
-        if(ca.includes(attribute)) {
-            rank = this.actor.system.combat_attributes[attribute].rank;
-            isCombat = true;
-            caPicked = attribute;
-            switch(caPicked) {
-                case "melee": maPicked = gameSettings.meleeLink;break;
-                case "ranged": maPicked = gameSettings.rangedLink;break;
-                case "defense": maPicked = gameSettings.defenseLink;break;
-                case "initiative": maPicked = gameSettings.initiativeLink;break;
-                default: maPicked = "agility";
-            }
-        } else {
-            rank = this.actor.system.main_attributes[attribute].rank;
-            caPicked = "none";
-            maPicked = attribute;
-        }
-
-        /* todo - set up attribute-ability links as a setting? or just remove defaults? 
-        if(isCombat) {
-            switch (attribute) {
-                // select the likely attribute if it's a combat roll
-                // case "initiative": attribute2 = "mind"; break;
-                default: attribute2 = "agility";
-            }
-        }*/
-
-
-        // console.log("Attribute 1:", attribute, " Rank: ", rank);
-        // console.log("Attribute 2: ", attribute2);
-
-        return this.actor.rollAttribute(maPicked, caPicked, isCombat, "");
-
-    }
-
     // Handle damage rolls
     static weaponRoll(event,element) {
         event.preventDefault();
-
-       /*
-        let att2 = "agility";
-        var att1;
-       */
-
-       
-
         let itemId = element.closest(".item").dataset.itemId;
-
         let item = this.actor.items.get(itemId);
-
         return this.actor.rollWeaponDamage(item);
 
     }
 
     static armorRoll(event,element) {
         event.preventDefault();
-
-        
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
         return this.actor.rollArmor(item);
@@ -418,43 +230,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         console.log("Event: ", event);
         console.log("Element: ", element);
         event.preventDefault();
-
-        
-
         let itemId = element.closest(".item").dataset.itemId;
-
         let item = this.actor.items.get(itemId);
-
         item.sheet.render(true);
-
-    }
-
-    static editCareerName(event,element) {
-        event.preventDefault();
-        
-
-        let itemId = element.closest(".item").dataset.itemId;
-
-        let item = this.actor.items.get(itemId);
-
-        let field = element.dataset.field;
-
-        return item.update({ [field]: element.innerText});
-
-    }
-
-    static editCareerRank(event, element) {
-       
-        event.preventDefault();
-        
-        let itemId = element.closest(".item").dataset.itemId;
-
-        let item = this.actor.items.get(itemId);
-
-        let field = element.dataset.field;
-
-        console.log("Career rank: ", field, element.value);
-        return item.update({ [field]: element.value});
 
     }
 
@@ -517,9 +295,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
       }
 
       static equipItem(event,element) {
+        // should probably go to the datamodel since its type-specific
           event.preventDefault();
-
-        
 
           let itemId = element.closest(".item").dataset.itemId;
 

@@ -19,16 +19,42 @@
     ],
     "documentTypes":{
       "Actor": {
-        "character": {
+        "hero": {
           "htmlFields":["backstory"],
+          "filePathFields":["actor_image"]
+        },
+        "rival":{
+          "htmlFields":["backstory"],
+          "filePathFields":["actor_image"]
+        },
+        "tough":{
+          "filePathFields":["actor_image"]
+        },
+        "rabble":{
+          "filePathFields":["actor_image"]
+        },
+        "vehicle":{
+          "filePathFields":["actor_image"]
+        },
+        "horde":{
           "filePathFields":["actor_image"]
         }
       },
       "Item":{
-        "filePathFields":["item_image"],
-        "htmlFields":["description"],
+        "armor":{
+          "htmlFields":["effect"]
+        },
         "power":{
           "htmlFields":["effect"]
+        },
+        "weapon":{
+          "htmlFields":["effect"]
+        },
+        "equipment":{
+          "htmlFields":["description"]
+        },
+        "trait":{
+          "htmlFields":["description"]
         }
       }
     },

@@ -4,7 +4,7 @@ const {
   import EWBaseActorData from "./base.mjs";
   import { getDiceModel } from "../../diceModels.js";
 
-export class EWToughData extends EWBaseActorData {
+export default class EWToughData extends EWBaseActorData {
   static defineSchema(){
     const actorData = super.defineSchema();
     return {

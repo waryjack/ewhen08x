@@ -2,21 +2,15 @@
 
 import { preloadHandlebarsTemplates } from "./templates.js";
 import { EW } from "./config.js";
-import { EWActor } from "./actor/EWActor.js";
 import { EWCombat } from "./combat/EWCombat.js";
-import EWItemSheet from "./sheets/item/EWItemSheet.js";
-import EWActorSheet from "./sheets/actor/EWActorSheet.js";
-import EWActorSheetV2 from "./sheets/actor/EWActorSheetV2.js"
-import EWItemSheetV2 from "./sheets/item/EWItemSheetV2.js";
 import { registerSettings } from "./settings.js";
 import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
 import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
-import EWBaseActorData from "./datamodels/actor/base.mjs";
-import EWHeroData from "./datamodels/actor/hero.mjs";
-import EWVehicleData from "./datamodels/actor/EWVehicleData.mjs";
-import EWMCCRoll from "./roll/EWMCCRoll.mjs";
-import {EWBaseItemData, EWArmorData, EWCareerData, EWPointPoolData, EWPowerData, EWTraitData, EWWeaponData} from "./datamodels.mjs";
-
+import * as rolls from "./roll/_module.mjs";
+import * as adata from "./datamodels/actor/_module.mjs";
+import * as idata from "./datamodels/item/_module.mjs";
+import * as sheets from "./sheets/_module.mjs";
+import * as docs from "./actor/_module.mjs";
 
 Hooks.once("init", () => {
     console.log("ewhen | Initializing Everywhen System");
@@ -26,65 +20,61 @@ Hooks.once("init", () => {
     // Add namespace in global
 
     game.EW = {
-        EWActor,
-        EWActorSheetV2,
-        EWItemSheet,
-        EWItemSheetV2,
         EWCombat,
         EWMessageHelper,
         EWDialogHelper,
-        EWHeroData,
-        EWBaseActorData,
-        EWBaseItemData,
-        EWArmorData,
-        EWCareerData,
-        EWMCCRoll,
-        EWPointPoolData,
-        EWPowerData,
-        EWTraitData,
-        EWWeaponData,
+        adata,
+        idata,
+        sheets,
+        rolls,
+        docs,
         registerSettings
     };
 
     // Register System sheets
    Actors.unregisterSheet("core", ActorSheet);
-   Actors.registerSheet("ewhen", EWActorSheetV2, { 
-        types:["character", "vehicle"], makeDefault:true 
+   Actors.registerSheet("ewhen", sheets.EWActorSheetV2, { 
+        types:["hero","rival","rabble","tough","vehicle"], makeDefault:true 
     });
 
       // `Actors.registerSheet` is semantically equivalent to passing Actor as the first argument
       // This works for all world collections, e.g. Items
       //Actors.registerSheet("package-id", EWActorSheetV2, {})
     Items.unregisterSheet("core", ItemSheet);
-    Items.registerSheet("ewhen", EWItemSheetV2, {
-        types: ["career", "trait", "power", "armor", "weapon", "equipment", "pointpool"],
+    Items.registerSheet("ewhen", sheets.EWItemSheetV2, {
+        types: ["trait", "power", "armor", "weapon", "equipment"],
         makeDefault:true 
     });
 
     // Register Item Datamodels
    
     Object.assign(CONFIG.Actor.dataModels, {
-        character: EWMajorActorData,
-        vehicle: EWVehicleData
+        hero: adata.EWHeroData,
+        rival: adata.EWRivalData,
+        tough: adata.EWToughData,
+        rabble: adata.EWRabbleData,
+        vehicle: adata.EWVehicleData
     })
 
     Object.assign(CONFIG.Item.dataModels, {
-        equipment: EWBaseItemData,
-        career: EWCareerData,
-        power: EWPowerData,
-        pointpool: EWPointPoolData,
-        trait: EWTraitData,
-        weapon: EWWeaponData,
-        armor: EWArmorData
+        equipment: idata.EWBaseItemData,
+        power: idata.EWPowerData,
+        trait: idata.EWTraitData,
+        weapon: idata.EWWeaponData,
+        armor: idata.EWArmorData
 
     })
     
 
     // CONFIG.debug.hooks = true;
+    // assign document classes (multiple classes need assignment)
+    for (const docCls of Object.values(docs)) {
+        if (!foundry.utils.isSubclass(docCls, foundry.abstract.Document)) continue;
+        CONFIG[docCls.documentName].documentClass = docCls;
+      }
 
-    CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
-    CONFIG.Dice.rolls.unshift(EWMCCRoll);
+    CONFIG.Dice.rolls = [rolls.EWMCCRoll, rolls.EWArmorRoll, rolls.EWWeaponRoll];
     
     // Register system settings
     registerSettings();

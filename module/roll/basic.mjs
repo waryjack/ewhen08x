@@ -100,8 +100,7 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         console.log("Rollconfig.cattr: ", rollConfig.cattr.value);
         console.log("Rollconfig.career: ", rollConfig.career.value);
         console.log("RollData from actor: ", data);
-        let actor = game.actors.get(actorId);
-        let career = null;
+
         let carVal = 0;
         let keep = "";
         let numDice = 2;
@@ -116,12 +115,9 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         let attVal = data.main_attributes[rollConfig.pattr.value].rank ?? 0;
         let comVal = rollConfig.cattr.value != "none" ? data.combat_attributes[rollConfig.cattr.value].rank : 0;
         
-        
         if (rollConfig.career.value != "none" && rollConfig.career.value != "") {
-            career = actor.items
-                .filter(item => item.type == "career")
-                .find(item => item.name == rollConfig.career.value);
-            carVal = career.system.rank
+            careerobject = data.careers.filter(c => { c.name === rollConfig.career.value})
+            carVal = careerobject.system.rank
         }
 
         // Determine difficulty modifier value

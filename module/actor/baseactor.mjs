@@ -2,7 +2,7 @@ import EWMCCRoll from "../roll/EWMCCRoll.mjs";
 import { EWDialogHelper } from "../interaction/EWDialogHelper.js";
 import { getDiceModel } from "../diceModels.js";
 
-export class EWActor extends Actor {
+export default class EWBaseActor extends Actor {
 
   mainAttributes = {
       STRENGTH: "strength",

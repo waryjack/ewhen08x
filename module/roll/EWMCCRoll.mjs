@@ -1,17 +1,18 @@
 import { getDiceModel } from "../diceModels.js";
 
+
 /**
  * Main attribute, Combat, and Career Rolls
  * this class creates a default 2d6 roll first; 
  * when prompted, however, it creates a new instance
  * with the relevant selections from the prompt
  */
-export class EWMCCRoll extends foundry.dice.Roll {
+export default class EWMCCRoll extends foundry.dice.Roll {
     /**
      * @param data roll data object
      * @param options roll options
      */
-    constructor(formula = "2d6", data, options) {
+    constructor(formula, data, options) {
         super(formula, data, options);
 
         // merges custom options into the "default options" of a roll
@@ -71,20 +72,24 @@ export class EWMCCRoll extends foundry.dice.Roll {
         options.attVal = fParts.attVal;
         options.comVal = fParts.comVal;
         options.carVal = fParts.carVal;
-        options.att = rollConfig.pattr;
-        options.com = rollConfig.cattr;
-        options.car = rollConfig.career;
+        options.hilo = fParts.hilo;
+        options.diceonly = fParts.diceonly;
+        options.att = rollConfig.pattr.value;
+        options.com = rollConfig.cattr.value;
+        options.car = rollConfig.career.value;
+        options.actor = game.actors.get(actorId);
 
         options.totalMods = fParts.mods;
-        options.diffDisplay = this._getDiffDisplay(rollConfig.difficulty); // localizes the selected difficulty
-        options.rollDisplay = this._getRollDisplay(rollConfig.pattr,rollConfig.cattr,rollConfig.career); // returns what the roll is named in chat - Attribute, Combat, or Career (e.g. "Strength" or "Melee" of "Thief")
+        options.diffDisplay = this._getDiffDisplay(rollConfig.difficulty.value); // localizes the selected difficulty
+        options.rollDisplay = this._getRollDisplay(rollConfig.pattr.value,rollConfig.cattr.value,rollConfig.career.value); // returns what the roll is named in chat - Attribute, Combat, or Career (e.g. "Strength" or "Melee" of "Thief")
         
 
         this.ewroll = new this(fParts.formula, rollData, options);
         await this.ewroll.evaluate() // will this work if I update the formula in by setting this.formula? Maybe
 
         let outcome = this._getOutcome() // returns success, failure, etc.
-        chatData = await this._prepareChatMessageContext(outcome) // builds context object
+        let chatData = await this._prepareChatMessageContext(outcome) // builds context object
+        console.log("Chatdata from _prepareChatMEssageContext: ", chatData);
         await this._rollToChat(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData);
 
     }
@@ -111,6 +116,7 @@ export class EWMCCRoll extends foundry.dice.Roll {
         let attVal = data.main_attributes[rollConfig.pattr.value].rank ?? 0;
         let comVal = rollConfig.cattr.value != "none" ? data.combat_attributes[rollConfig.cattr.value].rank : 0;
         
+        
         if (rollConfig.career.value != "none" && rollConfig.career.value != "") {
             career = actor.items
                 .filter(item => item.type == "career")
@@ -131,16 +137,24 @@ export class EWMCCRoll extends foundry.dice.Roll {
             case "heroic": baseDiff = -8; break;
         }
 
-        totalMods = baseDiff + rollConfig.othermods.value;
+        totalMods = baseDiff + Number(rollConfig.othermods.value);
 
         let formula = `${numDice}${dm.baseDie}${keep} + ${attVal} + ${comVal} + ${carVal} + ${totalMods}`
-
+        let hilo = "";
+        switch(keep) {
+            case "kh2": hilo = "H"; break;
+            case "kl2": hilo = "L"; break;
+            default: hilo = "";
+        }
+            
         return {
             formula:formula ?? "2d6",
             attVal: attVal ?? 0,
             comVal: comVal ?? 0,
             carVal: carVal ?? 0,
-            mods:totalMods ?? 0
+            mods:totalMods ?? 0,
+            diceonly:`${numDice}${dm.baseDie}`,
+            hilo:hilo
         }
     }
 
@@ -185,8 +199,8 @@ export class EWMCCRoll extends foundry.dice.Roll {
         console.log("Roll: ", this.ewroll);
         let keptDice = this.ewroll.terms[0].values;
         console.warn("KeptDice: ", keptDice);
-        let total = this.total;
-        let mightyThreshold = this.options.dm.tn + (Number(this.options.totalMods) < 0 ? Math.abs(Number(this.options.totalMods)) : 0);
+        let total = this.ewroll.total;
+        let mightyThreshold = this.ewroll.options.dm.tn + (Number(this.ewroll.options.totalMods) < 0 ? Math.abs(Number(this.ewroll.options.totalMods)) : 0);
 
 
         // console.warn("Roll Object: ", this.rollObj);
@@ -197,19 +211,19 @@ export class EWMCCRoll extends foundry.dice.Roll {
             const diceTotal = keptDice.reduce((acc, value) => (acc + value), 0)
             console.log("diceTotal: ", diceTotal);
             // TODO: failure/success type based on dice model chosen
-            if (diceTotal >= this.options.dm.success && mightyThreshold <= this.options.dm.success){
+            if (diceTotal >= this.ewroll.options.dm.success && mightyThreshold <= this.ewroll.options.dm.success){
                 outcome = "Mighty Success!";
                 outcomeClass = "roll-mighty-sux";
-            } else if (diceTotal >= this.options.dm.success) {
+            } else if (diceTotal >= this.ewroll.options.dm.success) {
                 outcome = "Automatic Success!";
                 outcomeClass = "roll-auto-sux";
-            } else if (diceTotal <= this.options.dm.failure) {
+            } else if (diceTotal <= this.ewroll.options.dm.failure) {
                 outcome = "Automatic Failure!";
                 outcomeClass = "roll-auto-fail";
-            } else if (total >= this.options.dm.tn) {
+            } else if (total >= this.ewroll.options.dm.tn) {
                 outcome = "Success!";
                 outcomeClass = "roll-sux";
-            } else if (total < this.options.dm.tn ) {
+            } else if (total < this.ewroll.options.dm.tn ) {
                 outcome = "Failure!";
                 outcomeClass = "roll-fail";
             }
@@ -221,23 +235,60 @@ export class EWMCCRoll extends foundry.dice.Roll {
     }
 
     static async _prepareChatMessageContext(data){
+        console.log("_prepareChatMessageContext options visible: ", this.ewroll, "\n", this.ewroll.options);
+        const opts =  this.ewroll.options;
+        const settings = game.settings.get("ewhen", "allSettings");
+        let attStr = "";
+        let comStr = "";
+        let carStr = "";
+        switch(opts.att) {
+            case "strength":attStr = `+ ${this._proper(settings.strName)} (${opts.attVal}) `;break;
+            case "agility":attName = `+ ${this._proper(settings.agiName)} (${opts.attVal}) `;break;
+            case "mind": attName = `+ ${this._proper(settings.minName)} + (${opts.attVal}) `;break;
+            case "appeal": attName = `+ ${this._proper(settings.appName)} + (${opts.attVal}) `;break
+        }
+        switch(opts.com){
+            case "melee":comName = `+ ${this._proper(settings.melName)} (${opts.comVal}) `;break;
+            case "ranged":comName = `+ ${this._proper(settings.ranName)} (${opts.comVal}) `;break;
+            case "defense":comName = `+ ${this._proper(settings.defName)} (${opts.comVal}) `;break;
+            case "initiative":comName = `+ ${this._proper(settings.iniName)} (${opts.comVal}) `;break;
+        }
+        if(opts.car != "none" && opts.career != "") {
+            carName = `+ ${this._proper(career)} (${opts.carVal}) `;
+        }
+        let rollTitle = `${opts.rollDisplay} ${game.i18n.localize("EW.rolltype.roll")}`;
+        let rollBreakdown = `<p><strong>${opts.diceonly}${opts.hilo} ${attStr}${comStr}${carStr}
+                            + ${opts.totalMods}</strong></p><p style="font-size:0.85em;">Difficulty: ${game.i18n.localize(opts.diffDisplay)}</p>`;
+
         return {
-            actor:this.options.actor,
-            roll: this,
-            displayname: this.options.rollDisplay,
-            diffStr: this.options.diffDisplay,
-            formula: this.options.formula,
-            rollTotal: this.total,
+            roll: this.ewroll,
+            breakdown: new Handlebars.SafeString(rollBreakdown),
+            rollTitle: rollTitle,
+            tooltip: new Handlebars.SafeString(await this.ewroll.getTooltip()),
             outcome: data.outcome,
             outclass:data.outcomeClass,
-            tooltip: await this.options.ewroll.getTooltip(),
-            attribute: this.att,
-            combat: this.com,
-            career: this.car,
-            attVal: this.attVal,
-            comVal: this.comVal,
-            carVal: this.carVal,
-            mods: this.totalmods
+            rollTotal: this.ewroll.total
+        }
+                        
+        return {
+            actor:this.ewroll.options.actor,
+            roll: this.ewroll,
+            displayName: this.ewroll.options.rollDisplay,
+            diffStr: this.ewroll.options.diffDisplay,
+            formula: this.ewroll.formula,
+            rollTotal: this.ewroll.total,
+            outcome: data.outcome,
+            outclass:data.outcomeClass,
+            tooltip: new Handlebars.SafeString(await this.ewroll.getTooltip()),
+            attribute: this.ewroll.options.att,
+            combat: this.ewroll.options.com,
+            career: this.ewroll.options.car,
+            attVal: this.ewroll.options.attVal,
+            comVal: this.ewroll.options.comVal,
+            carVal: this.ewroll.options.carVal,
+            mods: this.ewroll.options.totalMods,
+            diceonly: this.ewroll.options.diceonly,
+            hilo: this.ewroll.options.hilo
         }
     }
 
@@ -249,6 +300,7 @@ export class EWMCCRoll extends foundry.dice.Roll {
         let maPicked = "";
         let caPicked = "";
         let cr = actor.items.filter(item => {return item.type == "career"});
+        let gameSettings = game.settings.get("ewhen","allSettings");
 
         let ma = ["strength", "agility", "mind", "appeal"];
         let ca = ["melee", "ranged", "defense", "initiative"];
@@ -270,18 +322,18 @@ export class EWMCCRoll extends foundry.dice.Roll {
         }
 
         let priSelect = {
-            "strength":game.settings.get("ewhen","allSettings").strName,
-            "agility":game.settings.get("ewhen", "allSettings").agiName,
-            "mind":game.settings.get("ewhen", "allSettings").minName,
-            "appeal":game.settings.get("ewhen", "allSettings").appName
+            "strength":gameSettings.strName,
+            "agility":gameSettings.agiName,
+            "mind":gameSettings.minName,
+            "appeal":gameSettings.appName
         }
 
         let comSelect = {
             "none":"-",
             "melee":game.settings.get("ewhen","allSettings").melName,
-            "ranged":game.settings.get("ewhen","allSettings").ranName,
-            "defense":game.settings.get("ewhen", "allSettings").defName,
-            "initiative":game.settings.get("ewhen","allSettings").iniName
+            "ranged":gameSettings.ranName,
+            "defense":gameSettings.defName,
+            "initiative":gameSettings.iniName
         }
 
 
@@ -310,16 +362,22 @@ export class EWMCCRoll extends foundry.dice.Roll {
     }
 
     static async _rollToChat(template, chatData) {
+        console.log("rollToChat ewroll: ", this.ewroll);
         renderTemplate(template, chatData).then((msg)=>{
             ChatMessage.create({
                 user: game.user._id,
-                roll: this,
-                rolls: [this],
+                rolls: [chatData.roll],
                 speaker: ChatMessage.getSpeaker(),
                 content: msg
             });
             
         });
     }
+
+    static _proper(content) {
+        console.log(content);
+        return content[0].toUpperCase() + content.substring(1);
+    }
     
 }
+

@@ -14,6 +14,7 @@ import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
 import EWBaseActorData from "./datamodels/actor/EWBaseActorData.mjs";
 import EWMajorActorData from "./datamodels/actor/EWMajorActorData.mjs";
 import EWVehicleData from "./datamodels/actor/EWVehicleData.mjs";
+import EWMCCRoll from "./roll/EWMCCRoll.mjs";
 import {EWBaseItemData, EWArmorData, EWCareerData, EWPointPoolData, EWPowerData, EWTraitData, EWWeaponData} from "./datamodels.mjs";
 
 
@@ -37,6 +38,7 @@ Hooks.once("init", () => {
         EWBaseItemData,
         EWArmorData,
         EWCareerData,
+        EWMCCRoll,
         EWPointPoolData,
         EWPowerData,
         EWTraitData,
@@ -82,7 +84,7 @@ Hooks.once("init", () => {
 
     CONFIG.Actor.documentClass = EWActor;
     CONFIG.Combat.documentClass = EWCombat;
-    
+    CONFIG.Dice.rolls.unshift(EWMCCRoll);
     
     // Register system settings
     registerSettings();

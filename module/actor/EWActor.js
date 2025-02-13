@@ -1,4 +1,4 @@
-import { EWMCCRoll } from "../roll/EWMCCRoll.mjs";
+import EWMCCRoll from "../roll/EWMCCRoll.mjs";
 import { EWDialogHelper } from "../interaction/EWDialogHelper.js";
 import { getDiceModel } from "../diceModels.js";
 

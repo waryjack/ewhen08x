@@ -6,7 +6,7 @@
         <table class="ew-stat-table" id="ew-attribute-table">
             <tr>
                 <td>
-                    <a data-attribute="strength" data-action="attributeRoll">{{proper gameSettings.strName}}</a>
+                    <a data-attribute="strength" data-action="statRoll">{{proper gameSettings.strName}}</a>
                 </td>
                 <td >
                     <input class="attr-name" type="text" data-dtype="Number" name="main_attributes.strength.rank" value="{{main_attributes.strength.rank}}">
@@ -18,17 +18,17 @@
                 {{/if}}
             </tr>
             <tr>
-                <td><a data-attribute="agility" data-action="attributeRoll">{{proper gameSettings.agiName}}</a></td>
+                <td><a data-attribute="agility" data-action="statRoll">{{proper gameSettings.agiName}}</a></td>
                 <td ><input class="attr-name" type="text" data-dtype="Number"  name="system.main_attributes.agility.rank" value="{{main_attributes.agility.rank}}"></td>
                 {{#if (setting "useScale")}}<td >({{main_attributes.agility.scale}})</td>{{/if}}
             </tr>
             <tr>
-                <td><a data-attribute="mind" data-action="attributeRoll">{{proper gameSettings.minName}}</a></td>
+                <td><a data-attribute="mind" data-action="statRoll">{{proper gameSettings.minName}}</a></td>
                 <td  ><input class="attr-name" type="text" data-dtype="Number"  name="system.main_attributes.mind.rank" value="{{main_attributes.mind.rank}}"></td>
                 {{#if (setting "useScale")}}<td >({{main_attributes.agility.scale}})</td>{{/if}}
             </tr>
             <tr>
-                <td><a data-attribute="appeal" data-action="attributeRoll">{{proper gameSettings.appName}}</a></td>
+                <td><a data-attribute="appeal" data-action="statRoll">{{proper gameSettings.appName}}</a></td>
                 <td  ><input class="attr-name"  type="text" data-dtype="Number" name="system.main_attributes.appeal.rank" value="{{main_attributes.appeal.rank}}"></td>
                 {{#if (setting "useScale")}}<td >({{main_attributes.appeal.scale}})</td>{{/if}}
             </tr>

@@ -6,7 +6,6 @@
 {{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
 {{!-- combat - combat attributes object - combat.(attribute), blah blah .rank --}}
 {{!-- careers - careers object - career, (career).rank --}}
-{{log caPicked}}
  <div class="ew-roll-dialog">
      <div class="form-group">
          <label for="att">{{localize "EW.game_term.attribute.singular.main"}}</label>
@@ -24,7 +23,7 @@
         <div class="form-group">
          <label for="career">{{localize "EW.game_term.career"}}</label>
          <select id="career" style="width:100%;" name="career">
-             <option value="none"></option>
+             <option value="none">-</option>
              {{selectOptions careers selected=itemName valueAttr="name" labelAttr="name" }}
          </select>
      </div>

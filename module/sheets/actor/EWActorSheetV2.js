@@ -23,7 +23,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             adjustShield: EWActorSheetV2.adjustShield,
             becomeMinorNPC: EWActorSheetV2.becomeMinorNPC,
             careerRoll: EWActorSheetV2.careerRoll,
-            basicRoll: EWActorSheetV2.basicRoll,
+            statRoll: EWActorSheetV2.statRoll,
             attributeRoll: EWActorSheetV2.attributeRoll,
             weaponRoll: EWActorSheetV2.weaponRoll,
             armorRoll: EWActorSheetV2.armorRoll,
@@ -327,12 +327,14 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    // trigger the basic, non-pre-populated roll dialog
-    static basicRoll(event,element) {
+    // trigger the basic, non-pre-populated roll dialog; passthrough function from the sheet to the actor to the roll
+    // gathering information along the way
+    static async statRoll(event,element) {
+        console.log("In actorsheet method statRoll");
         event.preventDefault();
-       
+        let chosenStat = element.dataset.attribute;
 
-        return this.actor.basicRoll();
+        await this.actor.rollStat(chosenStat);
     }
 
     // roll if the user clicks on a specific attribute or combat ability

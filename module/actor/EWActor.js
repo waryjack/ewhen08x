@@ -1,4 +1,4 @@
-import { EWRoll } from "../roll/EWRoll.js";
+import { EWMCCRoll } from "../roll/EWMCCRoll.mjs";
 import { EWDialogHelper } from "../interaction/EWDialogHelper.js";
 import { getDiceModel } from "../diceModels.js";
 
@@ -31,7 +31,13 @@ export class EWActor extends Actor {
     super.prepareDerivedData();
   }
 
-   basicRoll() {
+  async rollStat(stat){
+    console.log("In Actor.rollStat rolling ", stat);
+    await EWMCCRoll.prompt(this.getRollData(), {chosenStat:stat}, this._id);
+
+  }
+   
+  basicRoll() {
         const pri = foundry.utils.duplicate(this.system.main_attributes);
         const com = foundry.utils.duplicate(this.system.combat_attributes);
         const car = this.items.filter(function(item) {return item.type == "career"});

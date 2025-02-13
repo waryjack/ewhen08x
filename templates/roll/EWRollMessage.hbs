@@ -1,8 +1,7 @@
-{{log "Roll info: " d}}
 <form>
 <div class="chat-container">
     <div class="chat-rollname">
-                {{#proper d.displayName}}{{/proper}} {{localize "EW.rolltype.roll"}}
+                {{#proper displayName}}{{/proper}} {{localize "EW.rolltype.roll"}}
     </div>
     <div class="chat-rollicon">
         {{#if (eq outcome "Mighty Success!")}}<a data-actor-id="{{actor}}" id="legendize" data-action="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>{{/if}}
@@ -14,13 +13,13 @@
         {{outcome}}
     </div>
     <div class="chat-rolldetails">
-        <p> <strong>{{#proper (setting (getCustomName d.chosenAttribute))}}{{/proper}} ({{d.attrVal}})</strong>
-            {{#if (ne d.chosenCombat "none")}} <strong>+ {{#proper (setting (getCustomName d.chosenCombat))}}{{/proper}} ({{d.comVal}})</strong>{{/if}}
-            {{#if (ne d.chosenCareer "none")}} <strong>+ {{d.chosenCareer}} ({{d.cVal}})</strong>{{/if}}
-            {{#if (ne d.mods 0)}} {{#if (gt d.mods 0)}}<strong>+</strong>{{/if}} <strong>{{d.mods}}</strong>{{/if}}
+        <p> <strong>{{#proper (setting (getCustomName attribute))}}{{/proper}} ({{attVal}})</strong>
+            {{#if (ne combat "none")}} <strong>+ {{#proper (setting (getCustomName combat))}}{{/proper}} ({{comVal}})</strong>{{/if}}
+            {{#if (ne career "none")}} <strong>+ {{career}} ({{carVal}})</strong>{{/if}}
+            {{#if (ne d.mods 0)}} {{#if (gt mods 0)}}<strong>+</strong>{{/if}} <strong>{{mods}}</strong>{{/if}}
         </p>
         <p class="taskroll-dmods">
-            <strong>{{localize "EW.game_term.difficulty"}}: {{localize d.diffStr}}</strong>  
+            <strong>{{localize "EW.game_term.difficulty"}}: {{localize diffStr}}</strong>  
         </p>
     </div>
     <div class="chat-rolltooltip">

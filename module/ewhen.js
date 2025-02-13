@@ -11,8 +11,8 @@ import EWItemSheetV2 from "./sheets/item/EWItemSheetV2.js";
 import { registerSettings } from "./settings.js";
 import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
 import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
-import EWBaseActorData from "./datamodels/actor/EWBaseActorData.mjs";
-import EWMajorActorData from "./datamodels/actor/EWMajorActorData.mjs";
+import EWBaseActorData from "./datamodels/actor/base.mjs";
+import EWHeroData from "./datamodels/actor/hero.mjs";
 import EWVehicleData from "./datamodels/actor/EWVehicleData.mjs";
 import EWMCCRoll from "./roll/EWMCCRoll.mjs";
 import {EWBaseItemData, EWArmorData, EWCareerData, EWPointPoolData, EWPowerData, EWTraitData, EWWeaponData} from "./datamodels.mjs";
@@ -33,7 +33,7 @@ Hooks.once("init", () => {
         EWCombat,
         EWMessageHelper,
         EWDialogHelper,
-        EWMajorActorData,
+        EWHeroData,
         EWBaseActorData,
         EWBaseItemData,
         EWArmorData,

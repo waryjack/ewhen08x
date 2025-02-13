@@ -1,28 +1,8 @@
 const {
   HTMLField, SchemaField, NumberField, StringField, BooleanField, FilePathField
 } = foundry.data.fields;
-
-
-function _statfield(){
-  return {
-    rank: new NumberField({required:true, integer:true, min:0, initial:1}),
-    scale: new NumberField({required:true, integer:true, min:1, initial:1}),
-    mod: new NumberField({required:true, integer:true, initial:0})
-  }
-}
-
-function _lifeAndResolve() {
-  return {
-    max: new NumberField({required:true, integer:true, initial:0, min:0}),
-    value: new NumberField({required:true, integer:true, initial:0, min:0}),
-    regular: new NumberField({required:true, integer:true, initial:0, min:0}),
-    lasting: new NumberField({required:true, integer:true, initial:0, min:0}),
-    fatigue: new NumberField({required:true, integer:true, initial:0, min:0}),
-    critical: new NumberField({required:true, integer:true, initial:0, min:0}),
-    misc_lfb: new NumberField({required:true, integer:true, initial:0, min:0}),
-    misc_res: new NumberField({required:true, integer:true, initial:0, min:0})
-  }
-}
+import { getDiceModel } from "../../diceModels.js";
+import { getStatSchema, getHealthSchema } from "../../helpers.mjs";
 
 export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -33,26 +13,40 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
       size: new StringField({required:true, initial:"medium"}),
       armorbonus: new NumberField({required:true, integer:true, min:0, initial:0}),
       miscarmor: new NumberField({required:true, integer:true, min:0, initial:0}),
-      initiative: new StringField({required:true, initial:"2d6"}),
+      initiative: new StringField({required:true}),
       main_attributes: new SchemaField({
-        strength: new SchemaField(_statfield()),
-        agility: new SchemaField(_statfield()),
-        mind: new SchemaField(_statfield()),
-        appeal: new SchemaField(_statfield())
+        strength: new SchemaField(getStatSchema()),
+        agility: new SchemaField(getStatSchema()),
+        mind: new SchemaField(getStatSchema()),
+        appeal: new SchemaField(getStatSchema())
       }),
       combat_attributes: new SchemaField({
-        melee: new SchemaField(_statfield()),
-        ranged: new SchemaField(_statfield()),
-        defense: new SchemaField(_statfield()),
-        initiative: new SchemaField(_statfield())
+        melee: new SchemaField(getStatSchema()),
+        ranged: new SchemaField(getStatSchema()),
+        defense: new SchemaField(getStatSchema()),
+        initiative: new SchemaField(getStatSchema())
       }),
       resources: new SchemaField({
-        lifeblood: new SchemaField(_lifeAndResolve()),
-        resolve: new SchemaField(_lifeAndResolve())
-      })
+        lifeblood: new SchemaField(getHealthSchema()),
+        resolve: new SchemaField(getHealthSchema())
+      }),
+      careers: new ArrayField(new SchemaField({
+        name: new StringField({required:true, initial:game.i18n.localize("EW.sheet.newcareer")}),
+        rank: new NumberField({required:true, integer:true, min:0, initial:0})
+      }), {required:true, initial:[{name:game.i18n.localize("EW.sheet.newcareer"), rank:0}]}),
     };
   }
 
+  prepareDerivedData() {
+    super.prepareDerivedData()
+
+    // Set initiative based on system settings
+    this._setInitiative(game.settings.get("ewhen","allSettings"));
+  }
+
+  _setInitiative() {
+    this.initiative = `${settings.diceType} + ${settings.initAttribute} + ${settings.initCombat}`;
+  }
   
 
 }

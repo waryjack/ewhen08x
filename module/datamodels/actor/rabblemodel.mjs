@@ -6,9 +6,9 @@ const {
 
 export default class EWRabbleData extends EWBaseActorData {
   static defineSchema(){
-    const actorData = super.defineSchema();
+    const baseSchema = super.defineSchema();
     return {
-      ...actorData,
+      ...baseSchema,
       priority: new NumberField({required:true, integer:true, initial:2}),
       subtype: new StringField({initial:''}) // acolyte, priest, etc.
     }

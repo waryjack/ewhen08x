@@ -6,10 +6,10 @@ export function proper(content) {
     return content[0].toUpperCase() + content.substring(1);
 }
 
-export function getStatSchema(){
+export function getStatSchema(value){
     return {
-      rank: new NumberField({required:true, integer:true, min:0, initial:1}),
-      scale: new NumberField({required:true, integer:true, min:1, initial:1}),
+      rank: new NumberField({required:true, integer:true, min:0, initial:0}),
+      scale: new NumberField({required:true, integer:true, min:1, initial:value}),
       mod: new NumberField({required:true, integer:true, initial:0})
     }
   }

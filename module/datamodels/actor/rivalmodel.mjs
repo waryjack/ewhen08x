@@ -9,19 +9,14 @@ export default class EWRivalData extends EWBaseActorData {
     const actorData = super.defineSchema();
     return {
       ...actorData,
-      careers: new ArrayField(new SchemaField({
-        careername: new StringField({required:true, initial:game.i18n.localize("EW.game_term.newcareer")}),
-        rank: new NumberField({required:true, integer:true, min:0, initial:0})
-      })),
+      hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
       pools: new ArrayField(new SchemaField({
         poolname: new StringField({required:true, initial:game.i18n.localize("EW.game_term.newpool")}),
         max: new NumberField({required:true, integer:true, initial:0, min:1}),
         min: new NumberField({required:true, integer:true, initial:0, min:0}),
-        current: new NumberField({required:true, integer:true, initial:0, min:0})
+        current: new NumberField({required:true, integer:true, initial:0, min:0}),
+        id: new StringField({required:true, nullable:false, initial:""})
       }), {required:true, initial:[]}),
-      resources: new SchemaField({
-        hero_points: new NumberField({required:true, integer:true, min:0, initial:5})
-      }),
       priority: new NumberField({required:true, integer:true, min:5, initial:5})
     };
   }

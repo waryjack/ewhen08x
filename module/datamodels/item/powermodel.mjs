@@ -6,9 +6,9 @@ import EWBaseItemData from "./EWBaseItemData.mjs"
 
 export default class EWPowerData extends EWBaseItemData {
   static defineSchema() {
-    const itemData = super.defineSchema();
+    const itemSchema = super.defineSchema();
     return {
-      ...itemData,
+      ...itemSchema,
       effect:new HTMLField({initial:""}),
       power_type: new StringField({initial:""}),
       arcana_magnitude: new StringField({initial:""}),

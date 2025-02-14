@@ -48,7 +48,7 @@
           "htmlFields":["effect"]
         },
         "weapon":{
-          "htmlFields":["effect"]
+          "htmlFields":["notes"]
         },
         "equipment":{
           "htmlFields":["description"]

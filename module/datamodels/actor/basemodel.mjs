@@ -11,6 +11,8 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
       isCreature: new BooleanField({required:true, initial:false, label:"Creature"}),
       backstory: new HTMLField({initial: ""}),
       size: new StringField({required:true, initial:"medium"}),
+      currency: new NumberField({required:true, min:0, initial:0}),
+      credit_rating: new NumberField({required:true, min:0, initial:0}),
       armorbonus: new NumberField({required:true, integer:true, min:0, initial:0}),
       miscarmor: new NumberField({required:true, integer:true, min:0, initial:0}),
       initiative: new StringField({required:true}),
@@ -32,7 +34,8 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
       }),
       careers: new ArrayField(new SchemaField({
         name: new StringField({required:true, initial:game.i18n.localize("EW.sheet.newcareer")}),
-        rank: new NumberField({required:true, integer:true, min:0, initial:0})
+        rank: new NumberField({required:true, integer:true, min:0, initial:0}),
+        id: new StringField({required:true, nullable:false, initial:""}),
       }), {required:true, initial:[{name:game.i18n.localize("EW.sheet.newcareer"), rank:0}]}),
     };
   }

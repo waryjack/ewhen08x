@@ -345,5 +345,7 @@
     "EW.difficulty.tough": "Tough (-2)",
     "EW.difficulty.demanding": "Demanding (-4)",
     "EW.difficulty.formidable": "Formidable (-6)",
-    "EW.difficulty.heroic": "Heroic (-8)"
+    "EW.difficulty.heroic": "Heroic (-8)", 
+
+    "EW.warnings.duplicateCareerName": "This character already has a career named "
 }

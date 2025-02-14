@@ -122,11 +122,12 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static _addCareer() {
+    static _addCareer(event, element) {
         return this.actor._addCareer();
     }
 
-    static _addPool() {
+    static _addPool(event, element) {
+        event.preventDefault();
         return this.actor._addPool();
     }
 
@@ -143,61 +144,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     // Handle changes to the lifeblood/resolve and critical tracks
     static adjustResource(event,element) {
         event.preventDefault();
-        let resData = {};
-      
         let res = element.dataset.resourceName;
-        
-
-        if (res == "frame") {
-            resData = foundry.utils.duplicate(this.actor.system.frame);
-        } else {
-            resData = foundry.utils.duplicate(this.actor.system.resources[res]);
-        }
-
-
-        let dialogData = {
-            actor: this.actor,
-            resname: "EW.activity.adjust"+res,
-            resinfo: resData,
-            res: res
-        }
-
-
-
-        return EWDialogHelper.generateUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.RESOURCE_UPDATE, dialogData);
-    }
-
-    // May not be needed...testing required
-
-    static adjustFrame(event,element) {
-        event.preventDefault();
-
-
-        let dialogData = {
-            actor: this.actor,
-            resinfo: foundry.utils.duplicate(this.actor.system.frame),
-            resname: "EW.activity.adjustframe",
-            res:"frame"
-        }
-
-        return EWDialogHelper.generateVehicleUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.VEHICLE_RESOURCE_UPDATE, dialogData);
-
-    }
-
-    static adjustShield(event,element) {
-        event.preventDefault();
-
-
-
-        let dialogData = {
-            actor: this.actor,
-            resinfo: foundry.utils.duplicate(this.actor.system.resources.shield),
-            resname: "EW.activity.adjustshield",
-            res: "shield"
-        }
-
-        return EWDialogHelper.generateVehicleUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.VEHICLE_RESOURCE_UPDATE, dialogData);
-
+        return this.actor._adjustResource(res);
     }
 
     // trigger the basic, non-pre-populated roll dialog; passthrough function from the sheet to the actor to the roll
@@ -206,8 +154,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         console.log("In actorsheet method statRoll");
         event.preventDefault();
         let chosenStat = element.dataset.attribute;
+        let statId = element.dataset.id;
 
-        await this.actor.rollStat(chosenStat);
+        await this.actor.rollStat(chosenStat, statId);
     }
 
     // Handle damage rolls

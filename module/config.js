@@ -138,6 +138,16 @@ export const EW = {
         formidable: 'EW.difficulty.formidable',
         heroic: 'EW.difficulty.heroic'
     },
+    DIFF_VALUE: {
+        very_easy:2,
+        easy: 1,
+        moderate:0,
+        hard:-1,
+        tough:-2,
+        demanding:-4,
+        formidable:-6,
+        heroic:-8
+    },
     MESSAGE_TYPE: {
         TASK: "systems/ewhen/templates/roll/EWRollMessage.hbs",
         DAMAGE: "systems/ewhen/templates/roll/EWDamageMessage.hbs",
@@ -149,7 +159,8 @@ export const EW = {
         DAMAGE: "systems/ewhen/templates/roll/EWDamageRoll.hbs",
         ARMOR: "systems/ewhen/templates/roll/EWArmorRoll.hbs",
         RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustResource.hbs",
-        VEHICLE_RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustVehicleResource.hbs"
+        VEHICLE_RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustVehicleResource.hbs",
+        ADD_CAREER: ""
     }
 
 }

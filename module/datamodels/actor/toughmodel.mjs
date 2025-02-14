@@ -1,14 +1,13 @@
 const {
     HTMLField, SchemaField, NumberField, StringField, ArrayField
   } = foundry.data.fields;
-  import EWBaseActorData from "./base.mjs";
-  import { getDiceModel } from "../../diceModels.js";
+  import EWBaseActorData from "./basemodelmjs";
 
 export default class EWToughData extends EWBaseActorData {
   static defineSchema(){
-    const actorData = super.defineSchema();
+    const baseSchema = super.defineSchema();
     return {
-      ...actorData,
+      ...baseSchema,
       priority: new NumberField({required:true, integer:true, initial:4}),
       subtype: new StringField({initial:''}) // acolyte, priest, etc.
     }

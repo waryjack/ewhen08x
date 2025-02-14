@@ -1,6 +1,7 @@
 const {
   SchemaField, NumberField, StringField, ArrayField
 } = foundry.data.fields;
+import { getStatSchema, getHealthSchema } from "../../helpers.mjs";
 
 export default class EWVehicleData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -10,11 +11,11 @@ export default class EWVehicleData extends foundry.abstract.TypeDataModel {
       crew: new SchemaField({
         rank: new NumberField({required:true, integer:true, min:0, initial:0})
       }),
-      size: new SchemaField(statfield(2)),
-      scan: new SchemaField(statfield(1)),
-      speed: new SchemaField(statfield(1)),
-      def: new SchemaField(statfield(1)),
-      armor: new SchemaField(statfield(0)),
+      size: new SchemaField(getStatSchema(2)),
+      scan: new SchemaField(getStatSchema(1)),
+      speed: new SchemaField(getStatSchema(1)),
+      def: new SchemaField(getStatSchema(1)),
+      armor: new SchemaField(getStatSchema(0)),
       frame: new SchemaField({
         rank: new NumberField({required:true, integer:true, min:0, initial:0}),
         scale: new NumberField({required:true, integer:true, min:1, initial:2}),
@@ -25,7 +26,7 @@ export default class EWVehicleData extends foundry.abstract.TypeDataModel {
         critical: new NumberField({required:true, integer:true, initial:0})
       }),
       resources: new SchemaField({
-        shield: new SchemaField(lifeAndResolve())
+        shield: new SchemaField(getHealthSchema())
       }),
       traits: new SchemaField({
         careers: new ArrayField(new StringField()),
@@ -110,24 +111,5 @@ export default class EWVehicleData extends foundry.abstract.TypeDataModel {
                   this.resources.shield = resData;
 
               }
-  }
-}
-
-function statfield(scale){
-  return {
-    rank: new NumberField({required:true, min:0, initial:1}),
-    scale: new NumberField({required:true, min:1, initial:scale}),
-    mod: new NumberField({required:true, initial:0})
-  }
-}
-
-function lifeAndResolve() {
-  return {
-    max: new NumberField({required:true, initial:0, min:0}),
-    value: new NumberField({required:true, initial:0, min:0}),
-    regular: new NumberField({required:true, initial:0, min:0}),
-    lasting: new NumberField({required:true, initial:0, min:0}),
-    fatigue: new NumberField({required:true, initial:0, min:0}),
-    critical: new NumberField({required:true, initial:0, min:0})
   }
 }

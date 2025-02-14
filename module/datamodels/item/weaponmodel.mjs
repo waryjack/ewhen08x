@@ -6,9 +6,9 @@ import EWBaseItemData from "./EWBaseItemData.mjs"
 
 export default class EWWeaponData extends EWBaseItemData {
   static defineSchema() {
-    const itemData = super.defineSchema();
+    const itemSchema = super.defineSchema();
     return {
-      ...itemData,
+      ...itemSchema,
       wpn_type: new StringField({required:true, initial:"lightMelee"}),
       damage: new SchemaField({
         dice: new StringField({required:true, initial:"d6L"}),

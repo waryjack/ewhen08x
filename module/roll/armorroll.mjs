@@ -1,3 +1,3 @@
-export default class EWArmorRoll extends foundry.api.Roll {
+export default class EWArmorRoll extends EWBaseRoll {
 
 }

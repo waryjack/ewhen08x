@@ -6,22 +6,19 @@ import { getDiceModel } from "../../diceModels.js";
 
 export default class EWHeroData extends EWBaseActorData {
   static defineSchema() {
-    const actorData = super.defineSchema();
+    const baseSchema = super.defineSchema();
     return {
-      ...actorData,
+      ...baseSchema,
       isRival: new BooleanField({required:true, nullable:false, initial:false}),
       encumbrance: new NumberField({required:true, integer:true, min:0, initial:0}),
+      hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
       pools: new ArrayField(new SchemaField({
         name: new StringField({required:true, initial:game.i18n.localize("EW.sheet.newpool")}),
         max: new NumberField({required:true, integer:true, initial:0, min:1}),
         min: new NumberField({required:true, integer:true, initial:0, min:0}),
-        current: new NumberField({required:true, integer:true, initial:0, min:0})
+        current: new NumberField({required:true, integer:true, initial:0, min:0}),
+        id: new StringField({required:true, nullable:false, initial:""})
       }), {required:true, initial:[]}),
-      resources: new SchemaField({
-        hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
-        credit_rating: new NumberField({required:true, integer:true, min:0, initial:0}),
-        currency: new NumberField({required:true, min:0, initial:0}),
-      }),
       priority: new SchemaField({
         numDice: new NumberField({required:true, integer:true, min:1, initial:2}),
         suffix: new StringField({required:true, initial:"kh2"}),

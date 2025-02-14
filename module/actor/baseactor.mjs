@@ -32,30 +32,75 @@ export default class EWBaseActor extends Actor {
     super.prepareDerivedData();
   }
 
-  async rollStat(stat){
-    console.log("In Actor.rollStat rolling ", stat);
-    let statroll = await new EWMCCRoll(DICE_TYPE, this.getRollData(), {stat:stat, actorId:this._id, dm:getDiceModel(game)});
+  async rollStat(stat, statId){
+    let statroll = await new EWMCCRoll(DICE_TYPE, this.getRollData(), {stat:stat, statId:statId, actorId:this._id, dm:getDiceModel(game)});
     await statroll.prompt();
-
   }
 
   async _addCareer() {
-    const prompt = await foundry.applications.api.DialogV2.prompt({
-        // content, template, etc
+    const content = renderTemplate(CONFIG.EW.DIALOG_TYPE.ADD_CAREER);
+    const prompt = await foundry.applications.api.DialogV2.wait({
+        window: { title: "EW.dialog.addcareer"},
+        content: content,
+        classes: ["ew-dialog"],
+        buttons: [{
+            action:"save",
+            label:"Add",
+            default:true,
+            callback: (event, button, dialog) => { return button.form.elements }
+        },
+            {
+                action: "cancel",
+                label: "Cancel"
+        }],
+        submit: result => {
+            console.log("Roll dialog result: ", result);
+            if (result === "cancel") return;
+            return result;
+        }
     });
 
-    this.system.careers.push({"careername":prompt.newname.value, "rank":prompt.newrank.value});
+    if(this.system.careers.includes(prompt.newName.value)) {
+        ui.notifications.warn(game.i18n.localize("EW.warnings.duplicateCareerName") + " " + prompt.newName.value);
+        return;
+    }
+
+    this.system.careers.push({"careername":prompt.newname.value, "rank":prompt.newrank.value, "id":randomID(16)});
   }
 
   async _addPool() {
-    const prompt = await foundry.applications.api.DialogV2.prompt({
-
+    const content = renderTemplate(CONFIG.EW.DIALOG_TYPE.ADD_POOL);
+    const prompt = await foundry.applications.api.DialogV2.wait({
+        window: { title: "EW.dialog.addpool"},
+        content: content,
+        classes: ["ew-dialog"],
+        buttons: [{
+            action:"save",
+            label:"Add",
+            default:true,
+            callback: (event, button, dialog) => { return button.form.elements }
+        },
+            {
+                action: "cancel",
+                label: "Cancel"
+        }],
+        submit: result => {
+            console.log("Roll dialog result: ", result);
+            if (result === "cancel") return;
+            return result;
+        }
     });
+
+    if(this.system.pools.includes(prompt.newName.value)) {
+        ui.notifications.warn(game.i18n.localize("EW.warnings.duplicatePoolName")+ " " + prompt.newName.value);
+        return;
+    }
     this.system.pools.push({
         "poolname":prompt.poolname.value,
         "max":prompt.max.value,
         "min":prompt.min.value,
-        "current":prompt.current.value
+        "current":prompt.current.value,
+        "id":randomID(16)
     });
   }
 

@@ -5,9 +5,9 @@ import EWBaseItemData from "./EWBaseItemData.mjs"
 
 export default class EWArmorData extends EWBaseItemData {
   static defineSchema() {
-    const itemData = super.defineSchema();
+    const itemSchema = super.defineSchema();
     return {
-      ...itemData,
+      ...itemSchema,
       armor_type: new StringField({initial:"none", required:true}),
       equipped: new BooleanField({required:true, initial:false}),
       accessory: new BooleanField({required:true, initial:false}),

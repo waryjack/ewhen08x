@@ -28,7 +28,7 @@ export default class EWMCCRoll extends foundry.dice.Roll {
      * Workhorse - prompts, collects, and builds a roll object to turn into chat data
      */
 
-    static async prompt(rollData, options, actorId) {
+    async prompt() {
 
         console.log("Prompt data");
         console.log("rollData: ", rollData);
@@ -36,8 +36,8 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         console.log("actorId: ", actorId);
 
         // Gather rolldata, etc.
-        let promptData = this._buildPromptData(options.chosenStat, actorId);
-        let content = await renderTemplate(CONFIG.ewhen.DIALOG_TYPE.TASK, promptData);
+        let promptData = this._buildPromptData(this.options.stat, this.options.actorId);
+        const content = await renderTemplate(CONFIG.ewhen.DIALOG_TYPE.TASK, promptData);
         
         const rollConfig = await foundry.applications.api.DialogV2.wait({
                 window: { title: "EW.rolltype.basicroll"},
@@ -60,15 +60,12 @@ export default class EWMCCRoll extends foundry.dice.Roll {
                 }
             });
 
-   
-
         if (!rollConfig) {
             throw new Error("Nothing in rollConfig");
         }
 
         // Construct formula and set up options object
-        options.dm = getDiceModel(game);
-        let fParts = this._prepareFormula(rollConfig, rollData, actorId, options.dm);
+        const formulaComponents = this._prepareFormula(rollConfig, rollData, actorId, options.dm);
         options.attVal = fParts.attVal;
         options.comVal = fParts.comVal;
         options.carVal = fParts.carVal;
@@ -84,8 +81,8 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         options.rollDisplay = this._getRollDisplay(rollConfig.pattr.value,rollConfig.cattr.value,rollConfig.career.value); // returns what the roll is named in chat - Attribute, Combat, or Career (e.g. "Strength" or "Melee" of "Thief")
         
 
-        this.ewroll = new this(fParts.formula, rollData, options);
-        await this.ewroll.evaluate() // will this work if I update the formula in by setting this.formula? Maybe
+        let statroll = new this(fParts.formula, rollData, options);
+        await statroll.evaluate() // will this work if I update the formula in by setting this.formula? Maybe
 
         let outcome = this._getOutcome() // returns success, failure, etc.
         let chatData = await this._prepareChatMessageContext(outcome) // builds context object
@@ -94,7 +91,7 @@ export default class EWMCCRoll extends foundry.dice.Roll {
 
     }
 
-    static _prepareFormula(rollConfig, data, actorId, dm) {
+    _prepareFormula(rollConfig, data, actorId, dm) {
         console.log("RollConfig in prepareFormula: ", rollConfig);
         console.log("Rollconfig.pattr: ", rollConfig.pattr.value);
         console.log("Rollconfig.cattr: ", rollConfig.cattr.value);
@@ -154,7 +151,7 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         }
     }
 
-    static _getRollDisplay(att, com, car) {
+    _getRollDisplay(att, com, car) {
       let displayName = "";
       let settings = game.settings.get("ewhen","allSettings");
       switch(att) {
@@ -184,11 +181,11 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         return displayName;
     }
 
-    static _getDiffDisplay(diff) {
+    _getDiffDisplay(diff) {
         return `EW.difficulty.${diff}`;
     }
 
-    static _getOutcome() {
+    _getOutcome() {
 
         let outcome = "";
         let outcomeClass = "";
@@ -230,7 +227,7 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         }
     }
 
-    static async _prepareChatMessageContext(data){
+    async _prepareChatMessageContext(data){
         console.log("_prepareChatMessageContext options visible: ", this.ewroll, "\n", this.ewroll.options);
         const opts =  this.ewroll.options;
         const settings = game.settings.get("ewhen", "allSettings");
@@ -265,41 +262,21 @@ export default class EWMCCRoll extends foundry.dice.Roll {
             outclass:data.outcomeClass,
             rollTotal: this.ewroll.total
         }
-                        
-        return {
-            actor:this.ewroll.options.actor,
-            roll: this.ewroll,
-            displayName: this.ewroll.options.rollDisplay,
-            diffStr: this.ewroll.options.diffDisplay,
-            formula: this.ewroll.formula,
-            rollTotal: this.ewroll.total,
-            outcome: data.outcome,
-            outclass:data.outcomeClass,
-            tooltip: new Handlebars.SafeString(await this.ewroll.getTooltip()),
-            attribute: this.ewroll.options.att,
-            combat: this.ewroll.options.com,
-            career: this.ewroll.options.car,
-            attVal: this.ewroll.options.attVal,
-            comVal: this.ewroll.options.comVal,
-            carVal: this.ewroll.options.carVal,
-            mods: this.ewroll.options.totalMods,
-            diceonly: this.ewroll.options.diceonly,
-            hilo: this.ewroll.options.hilo
-        }
     }
 
-    static _buildPromptData(attribute, actorId){
+    _buildPromptData(attribute, actorId){
         console.log("In buildPrompt method with attribute ", attribute, " and actorId ", actorId);
         let isCombat = false;
         let actor = game.actors.get(String(actorId));
         console.log("Prompt Build Actor: ", actor);
         let maPicked = "";
         let caPicked = "";
-        let cr = actor.items.filter(item => {return item.type == "career"});
+        let crPicked = "";
         let gameSettings = game.settings.get("ewhen","allSettings");
 
         let ma = ["strength", "agility", "mind", "appeal"];
         let ca = ["melee", "ranged", "defense", "initiative"];
+        let cr = actor.system.careers;
         
         if(ca.includes(attribute)) {
             isCombat = true;
@@ -312,7 +289,6 @@ export default class EWMCCRoll extends foundry.dice.Roll {
                 default: maPicked = "agility";
             }
         } else {
-           
             caPicked = "none";
             maPicked = attribute;
         }
@@ -357,7 +333,7 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         
     }
 
-    static async _rollToChat(template, chatData) {
+    async _rollToChat(template, chatData) {
         console.log("rollToChat ewroll: ", this.ewroll);
         renderTemplate(template, chatData).then((msg)=>{
             ChatMessage.create({
@@ -370,7 +346,7 @@ export default class EWMCCRoll extends foundry.dice.Roll {
         });
     }
 
-    static _proper(content) {
+    _proper(content) {
         console.log(content);
         return content[0].toUpperCase() + content.substring(1);
     }

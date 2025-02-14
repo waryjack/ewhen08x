@@ -1,3 +1,4 @@
-export {default as EWMCCRoll} from "./basic.mjs";
-export {default as EWArmorRoll} from "./armor.mjs";
-export {default as EWWeaponRoll} from "./weapon.mjs";
+export {default as EWMCCRoll} from "./statroll.mjs";
+export {default as EWArmorRoll} from "./armorroll.mjs";
+export {default as EWWeaponRoll} from "./weaponroll.mjs";
+export {default as EWBaseRoll} from "./baseroll.mjs";

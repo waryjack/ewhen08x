@@ -18,6 +18,7 @@ export default class EWBaseActor extends Actor {
       INITIATIVE: "initiative"
   }
 
+  static DICE_TYPE = game.settings.get("ewhen", "allSettings");
 
   /**
    * @override
@@ -33,7 +34,8 @@ export default class EWBaseActor extends Actor {
 
   async rollStat(stat){
     console.log("In Actor.rollStat rolling ", stat);
-    await EWMCCRoll.prompt(this.getRollData(), {chosenStat:stat}, this._id);
+    let statroll = await new EWMCCRoll(DICE_TYPE, this.getRollData(), {stat:stat, actorId:this._id, dm:getDiceModel(game)});
+    await statroll.prompt();
 
   }
 

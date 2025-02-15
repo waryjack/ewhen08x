@@ -1,6 +1,6 @@
 export default class EWBaseRoll extends foundry.dice.Roll {
 
-    async _rollToChat(chatData) {
+    static async _rollToChat(chatData) {
         renderTemplate(CONFIG.ewhen.MESSAGE_TYPE.TASK, chatData).then((msg)=>{
           ChatMessage.create({
               user: game.user._id,

@@ -40,15 +40,14 @@ export default class EWBaseActor extends Actor {
   }
 
   async rollStat(stat, statId){
-    let statroll = new EWMCCRoll(game.settings.get("ewhen","allSettings").diceType, 
-                                       this.getRollData(), 
-                                        {    
-                                            stat:stat, 
-                                            statId:statId, 
-                                            actorId:this._id, 
-                                            dm:getDiceModel(game)
-                                        });
-    await statroll.prompt();
+    return EWMCCRoll.prompt({
+        dm:getDiceModel(game),
+        actorId:this._id,
+        stat:stat,
+        statId:statId,
+        data:this.getRollData()
+    })
+    
   }
 
   async _addCareer() {

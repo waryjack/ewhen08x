@@ -1,6 +1,7 @@
+{{log "crPicked" crPicked}}
 <form class="ew-roll-dialog standard-form" id="#basicroll">
  <header class="roll-header">
-        <h1 class="ew-roll-name">{{#if (ne attr "")}}{{#proper (setting (getCustomName attr))}}{{/proper}} {{localize "EW.rolltype.roll"}}{{else}}{{localize "EW.rolltype.taskroll"}}{{/if}}</h1>
+        <h1 class="ew-roll-name">{{localize "EW.rolltype.taskroll"}}</h1>
     </header>
 
 {{!-- primary - primary attributes object primary.(attribute), blah blah .rank --}}
@@ -22,9 +23,8 @@
     
         <div class="form-group">
          <label for="career">{{localize "EW.game_term.career"}}</label>
-         <select id="career" style="width:100%;" name="career">
-             <option value="none">-</option>
-             {{selectOptions careers selected=itemName valueAttr="name" labelAttr="name" }}
+         <select id="career" style="width:100%;" data-main-att="career" name="career">
+             {{selectOptions carSelect selected=crPicked}}
          </select>
      </div>
      

@@ -1,6 +1,7 @@
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
+import EWBaseActor from "../../documents/actor/baseactor.mjs"
 
 export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
@@ -86,7 +87,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             data.ldmg = this.actor.system.resources.lifeblood.lasting;
             data.crit = this.actor.system.resources.lifeblood.critical;
             data.cdmg = this.actor.system.resources.lifeblood.value;
-            data.isMajor = (this.actor.type === "hero" || this.actor.type === "rival") ? true : false;
+            data.isMajor = (EWBaseActor.ATYPES.major.includes(this.actor.type)) ? true : false;
        
         return data;
     }

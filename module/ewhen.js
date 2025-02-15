@@ -155,11 +155,13 @@ Hooks.once("init", () => {
     });
 
     Handlebars.registerHelper("getCustomName", function(a) {
-        if (a == "none" || a == "None" || a == "") { return; }
-        let result = "Name";
-        let truncA = a.substring(0,3);
-        result = truncA+result;
-       // console.warn("Custom Name", result);
+        let customizable = ["strength","agility","mind","appeal","melee","ranged","defense","initiative"]
+        let result = a;
+        if (a == "none" || a == "None" || a == "" || a == "-") { return; }
+        if (customizable.includes(a)) {
+            result = `${a.substring(0,3)}Name`;
+        } 
+        
         return result;
     });
 

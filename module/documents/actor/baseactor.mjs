@@ -3,13 +3,12 @@ import { getDiceModel } from "../../diceModels.js";
 
 export default class EWBaseActor extends Actor {
   
+    
 
   static #ATYPES = Object.freeze({
     major:["hero","rival"],
     minor:["rabble","rival"]
   })
-
-  static #SIZES = Object.freeze(CONFIG.ewhen.creatureSizes);
 
   static mainAttributes = {
       STRENGTH: "strength",
@@ -25,8 +24,8 @@ export default class EWBaseActor extends Actor {
       INITIATIVE: "initiative"
   }
 
-  static #ADD_CAREER_TEMPLATE = CONFIG.ewhen.DIALOG_TYPE.ADD_CAREER;
-  static #ADD_POOL_TEMPLATE = "systems/ewhen/templates/prompts/AddPool.hbs"
+  static #ADD_CAREER_TEMPLATE = "systems/ewhen/templates/prompts/AddCareer.hbs";
+  static #ADD_POOL_TEMPLATE = "systems/ewhen/templates/prompts/AddPool.hbs";
 
   /**
    * @override
@@ -183,6 +182,10 @@ export default class EWBaseActor extends Actor {
 
     getHeroPoints() {
         return this.system.resources.hero_points;
+    }
+
+    static get ATYPES() {
+        return EWBaseActor.#ATYPES;
     }
 
     static get ADD_CAREER_TEMPLATE() {

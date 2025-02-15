@@ -30,15 +30,13 @@ export default class EWMCCRoll extends EWBaseRoll {
 
     async prompt() {
 
-        console.log("Prompt data");
-        console.log("rollData: ", rollData);
-        console.log("options: ", options);
-        console.log("actorId: ", actorId);
-
+        // value checks for debugging
+        console.warn("Roll Data: ", this.data);
+        console.warn("Roll Options: ", this.options);
         // Gather rolldata, etc.
         let promptData = this._buildPromptData(this.options.stat, this.options.actorId);
         const content = await renderTemplate(CONFIG.ewhen.DIALOG_TYPE.TASK, promptData);
-        
+       
         
         const rollConfig = await foundry.applications.api.DialogV2.wait({
                 window: { title: "EW.rolltype.basicroll"},
@@ -66,28 +64,24 @@ export default class EWMCCRoll extends EWBaseRoll {
         }
 
         // Construct formula and set up options object
-        this._prepareFormula(rollConfig, rollData, actorId, this.options.dm);
+        this._prepareFormula(rollConfig, this.data, this.options.actorId, this.options.dm);
         this.options.att = rollConfig.pattr.value;
         this.options.com = rollConfig.cattr.value;
         this.options.car = rollConfig.career.value;
-        this.options.actor = game.actors.get(actorId);
+        this.options.actor = game.actors.get(this.actorId);
 
         this._getDiffDisplay(rollConfig.difficulty.value); // localizes the selected difficulty
         this._getRollDisplay(this.options.att, this.options.com, this.options.car); // returns what the roll is named in chat - Attribute, Combat, or Career (e.g. "Strength" or "Melee" of "Thief")
         
+        await this.evaluate();
         let outcome = this._getOutcome() // returns success, failure, etc.
         let chatData = await this._prepareChatMessageContext(outcome) // builds context object
-        console.log("Chatdata from _prepareChatMEssageContext: ", chatData);
+    
         await this._rollToChat(chatData);
 
     }
 
     _prepareFormula(rollConfig, data, actorId, dm) {
-        console.log("RollConfig in prepareFormula: ", rollConfig);
-        console.log("Rollconfig.pattr: ", rollConfig.pattr.value);
-        console.log("Rollconfig.cattr: ", rollConfig.cattr.value);
-        console.log("Rollconfig.career: ", rollConfig.career.value);
-        console.log("RollData from actor: ", data);
 
         let carVal = 0;
         let keep = "";
@@ -108,7 +102,7 @@ export default class EWMCCRoll extends EWBaseRoll {
 
         // Determine difficulty modifier value
        
-        baseDiff = CONFIG.ewhen.difficulty[rollConfig.difficulty.value].value;
+        baseDiff = rollConfig.difficulty.value;
 
         this.options.totalMods = baseDiff + Number(rollConfig.othermods.value);
 
@@ -127,7 +121,7 @@ export default class EWMCCRoll extends EWBaseRoll {
 
       let settings = game.settings.get("ewhen","allSettings");
 
-      let displayName = (car != "none" && car != "") ? car : (com != "none" && com != "") ? settings[com.substring(0,2)+"Name"] : settings[att.substring(0,2)+"Name"];
+      let displayName = (car != "none" && car != "") ? car : (com != "none" && com != "") ? settings[com.substring(0,3)+"Name"] : settings[att.substring(0,3)+"Name"];
 
        this.options.rollDisplay = displayName
     }
@@ -139,9 +133,9 @@ export default class EWMCCRoll extends EWBaseRoll {
     _getOutcome() {
         let outcome = "";
         let outcomeClass = "";
-        console.log("Roll: ", this);
+      
         let keptDice = this.terms[0].values;
-        console.warn("KeptDice: ", keptDice);
+    
         let total = this.total;
         let mightyThreshold = this.options.dm.tn + (Number(this.options.totalMods) < 0 ? Math.abs(Number(this.options.totalMods)) : 0);
 
@@ -150,7 +144,7 @@ export default class EWMCCRoll extends EWBaseRoll {
         * critical success and frankly they're a bit of a pain
         */
             const diceTotal = keptDice.reduce((acc, value) => (acc + value), 0)
-            console.log("diceTotal: ", diceTotal);
+       
             // TODO: failure/success type based on dice model chosen
             if (diceTotal >= this.options.dm.success && mightyThreshold <= this.options.dm.success){
                 outcome = "Mighty Success!";
@@ -180,8 +174,8 @@ export default class EWMCCRoll extends EWBaseRoll {
         const opts =  this.options;
         const settings = game.settings.get("ewhen", "allSettings");
 
-        let attStr = (opts.att != "none" && opts.att != "") ? ` + ${this._proper(settings[opts.att.substring(0,2)+"Name"])} (${opts.attVal})}` : "";
-        let comStr = (opts.com != "none" && opts.com != "") ? ` + ${this._proper(settings[opts.com.substring(0,2)+"Name"])} (${opts.attVal})}` : "";
+        let attStr = (opts.att != "none" && opts.att != "") ? ` + ${this._proper(settings[opts.att.substring(0,3)+"Name"])} (${opts.attVal})}` : "";
+        let comStr = (opts.com != "none" && opts.com != "") ? ` + ${this._proper(settings[opts.com.substring(0,3)+"Name"])} (${opts.attVal})}` : "";
         let carStr = (opts.car != "none" && opts.com != "") ? ` + ${opts.car} (${opts.carVal})}` : "";
 
         let rollTitle = `${opts.rollDisplay} ${game.i18n.localize("EW.rolltype.roll")}`;
@@ -201,7 +195,7 @@ export default class EWMCCRoll extends EWBaseRoll {
     }
 
     _buildPromptData(attribute, actorId){
-        console.log("In buildPrompt method with attribute ", attribute, " and actorId ", actorId);
+       
         let isCombat = false;
         let actor = game.actors.get(String(actorId));
         console.log("Prompt Build Actor: ", actor);
@@ -209,10 +203,13 @@ export default class EWMCCRoll extends EWBaseRoll {
         let caPicked = "";
         let crPicked = "";
         let gameSettings = game.settings.get("ewhen","allSettings");
+        let carSelect = {"none":"-"};
 
         let ma = ["strength", "agility", "mind", "appeal"];
         let ca = ["melee", "ranged", "defense", "initiative"];
-        let cr = actor.system.careers;
+        let cr = Object.keys(actor.system.careers);
+
+        console.log("Career keys: ", cr);
         
         if(ca.includes(attribute)) {
             isCombat = true;
@@ -224,10 +221,22 @@ export default class EWMCCRoll extends EWBaseRoll {
                 case "initiative": maPicked = gameSettings.initiativeLink;break;
                 default: maPicked = "agility";
             }
+        } else if (cr.includes(attribute)){
+            crPicked = attribute;
+            caPicked = "none";
+            maPicked = "strength"; // default to strength
         } else {
             caPicked = "none";
-            maPicked = attribute;
+            crPicked = "none";
+            maPicked = attribute; // default to just the selected main attribute
         }
+
+        Object.entries(actor.system.careers).forEach(([key, value]) => {
+            console.log("key",key, "value", value);
+            carSelect[key] = key;
+        });
+
+        console.log(carSelect);
 
         let priSelect = {
             "strength":gameSettings.strName,
@@ -246,17 +255,13 @@ export default class EWMCCRoll extends EWBaseRoll {
 
 
         let dialogData = {
-            primary: ma,
             priSelect: priSelect,
-            combat: ca,
             comSelect: comSelect,
-            careers: cr,
+            carSelect: carSelect,
             maPicked: maPicked,
             caPicked: caPicked,
-            attr: "",
-            attr2: "",
+            crPicked: crPicked,
             isCombat: isCombat,
-            item: {},
             actor:actor,
             config:CONFIG.ewhen
 

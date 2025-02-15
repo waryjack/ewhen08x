@@ -27,14 +27,12 @@
 	{{> 'systems/ewhen/templates/partials/CombatAttributes.hbs'}}
   </div>
   <div class="ew-cs-careers">
-	{{#unless isRabble}} {{> 'systems/ewhen/templates/partials/CareerList.hbs'}} {{/unless}}
+	{{> 'systems/ewhen/templates/partials/CareerList.hbs'}}
   </div>
   <div class="ew-cs-points">
-  {{#unless (or isRabble isTough)}}
   {{#if isMajor}}
 	{{> 'systems/ewhen/templates/partials/Resources.hbs'}}
   {{/if}}
-	{{/unless}}
   </div>
   <div class="ew-cs-trackers">
 	{{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
@@ -61,7 +59,7 @@
 	{{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}
   </div>
   <div class="ew-cs-powers">
-	{{#unless (or isTough isRabble)}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
+	{{#unless isMajor}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
   </div>
   <div class="ew-cs-armor">
 	{{> 'systems/ewhen/templates/partials/ArmorList.hbs'}}

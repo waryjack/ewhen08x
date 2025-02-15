@@ -141,9 +141,7 @@ export default class EWBaseActor extends Actor {
     
   }
 
-  async 
-
-    applyRemoveTraitModifier (item, action) {
+  async applyRemoveTraitModifier (item, action) {
 
         if(item.type == "trait") {
             const diceModel = getDiceModel(game)

@@ -96,7 +96,7 @@ export default class EWMCCRoll extends EWBaseRoll {
         this.options.attVal = data.main_attributes[rollConfig.pattr.value].rank ?? 0;
         this.options.comVal = (rollConfig.cattr.value != "none" && rollConfig.cattr.value != "") ? data.combat_attributes[rollConfig.cattr.value].rank : 0;
         
-        if (rollConfig.career.value != "none" && rollConfig.career.value != "") {
+        if (rollConfig.career.value != "none" && rollConfig.career.value != "" && rollConfig.career.value != "-") {
             carVal = data.careers[rollConfig.career.value].rank;
         }
 
@@ -106,7 +106,7 @@ export default class EWMCCRoll extends EWBaseRoll {
 
         this.options.totalMods = baseDiff + Number(rollConfig.othermods.value);
 
-        this.options.formula = `${numDice}${dm.baseDie}${keep}+${this.options.attVal}+${this.options.comVal}+${this.options.carVal}+${this.options.totalMods}`
+        this.options.formula = `${numDice}${dm.baseDie}${keep}+${this.options.attVal}+${this.options.comVal}+${carVal}+${this.options.totalMods}`
         
         switch(keep) {
             case "kh2": this.options.hilo = "H"; break;

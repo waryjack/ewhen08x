@@ -85,18 +85,18 @@ export default class EWBaseActor extends Actor {
       });
 
     if (proceed) {
-        let newCareers = {};
+        let toDelete = "";
         Object.entries(this.system.careers).forEach(([key, value]) => {
             console.log("key",key, "value", value);
             if (key === career && value.id === c_id) {
                 // skip it
             } else {
-                newCareers[key] = value;
+                toDelete = `'system.careers.-=${key}'`;
             }
         });
-       
+        
         console.log("myCareers delete check:", newCareers);
-        await this.update({"system.careers":newCareers});
+        await this.update({[toDelete]:null});
     } else {
         console.log("Cancelled");
     }

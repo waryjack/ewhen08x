@@ -86,7 +86,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             data.ldmg = this.actor.system.resources.lifeblood.lasting;
             data.crit = this.actor.system.resources.lifeblood.critical;
             data.cdmg = this.actor.system.resources.lifeblood.value;
-            data.EWActorType = this.actor.type;
+            data.isMajor = (this.actor.type === "hero" || this.actor.type === "rival") ? true : false;
        
         return data;
     }
@@ -144,7 +144,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         console.log("In actorsheet method statRoll");
         event.preventDefault();
         let chosenStat = element.dataset.attribute;
-        let statId = element.dataset.id;
+        let statId = element.dataset?.statId ?? "";
 
         await this.actor.rollStat(chosenStat, statId);
     }

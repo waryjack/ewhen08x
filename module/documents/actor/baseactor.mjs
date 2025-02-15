@@ -2,20 +2,31 @@ import EWMCCRoll from "../../roll/statroll.mjs";
 import { getDiceModel } from "../../diceModels.js";
 
 export default class EWBaseActor extends Actor {
+  
 
-  mainAttributes = {
+  static #ATYPES = Object.freeze({
+    major:["hero","rival"],
+    minor:["rabble","rival"]
+  })
+
+  static #SIZES = Object.freeze(CONFIG.ewhen.creatureSizes);
+
+  static mainAttributes = {
       STRENGTH: "strength",
-      AGILITY: "agility",
-      MIND: "mind",
-      APPEAL: "appeal",
-  }
+        AGILITY: "agility",
+        MIND: "mind",
+        APPEAL: "appeal",
+    }
 
-  combatAttributes = {
+  static combatAttributes = {
       MELEE: "melee",
       RANGED: "ranged",
       DEFENSE: "defense",
       INITIATIVE: "initiative"
   }
+
+  static #ADD_CAREER_TEMPLATE = CONFIG.ewhen.DIALOG_TYPE.ADD_CAREER;
+  static #ADD_POOL_TEMPLATE = "systems/ewhen/templates/prompts/AddPool.hbs"
 
   /**
    * @override
@@ -30,12 +41,19 @@ export default class EWBaseActor extends Actor {
   }
 
   async rollStat(stat, statId){
-    let statroll = await new EWMCCRoll(game.settings.get("ewhen","allSettings").diceType, this.getRollData(), {stat:stat, statId:statId, actorId:this._id, dm:getDiceModel(game)});
+    let statroll = new EWMCCRoll(game.settings.get("ewhen","allSettings").diceType, 
+                                       this.getRollData(), 
+                                        {    
+                                            stat:stat, 
+                                            statId:statId, 
+                                            actorId:this._id, 
+                                            dm:getDiceModel(game)
+                                        });
     await statroll.prompt();
   }
 
   async _addCareer() {
-    const content = await renderTemplate("systems/ewhen/templates/prompts/AddCareer.hbs");
+    const content = await renderTemplate(EWBaseActor.ADD_CAREER_TEMPLATE);
     const prompt = await foundry.applications.api.DialogV2.wait({
         window: { title: "EW.prompts.addcareer"},
         content: content,
@@ -63,24 +81,21 @@ export default class EWBaseActor extends Actor {
         return;
     }
 
-    let newcareer = {
-        rank:prompt.newrank.value,
-        id:foundry.utils.randomID(16)
+    let toAddKey = `system.careers.${prompt.newname.value}`
+    let toAddObj = {
+        [toAddKey]: {
+            rank:prompt.newrank.value, 
+            id:foundry.utils.randomID(16)
+        }
     }
-    let myCareers = this.system.careers
-    myCareers[prompt.newname.value] = newcareer;
-
-    console.log('career object: ', myCareers)
-    await this.update({"system.careers":myCareers});
-        
-   
+    await this.update(toAddObj);
   }
 
   async _deleteCareer(career, c_id) {
  
     const proceed = await foundry.applications.api.DialogV2.confirm({
         window: { title: "EW.prompts.deletecareer" },
-        content: game.i18n.localize("EW.prompts.delwarning") + name + game.i18n.localize("EW.prompts.delcareer"),
+        content: game.i18n.localize("EW.prompts.delwarning") + career + game.i18n.localize("EW.prompts.delcareer"),
         modal: true
       });
 
@@ -95,9 +110,9 @@ export default class EWBaseActor extends Actor {
         });
         console.log("todelete: ", toDelete);
 
-        let test = `system.careers.-=${toDelete}`;
+        let deleteKey = `system.careers.-=${toDelete}`;
         let delObj = {
-            [test]:null
+            [deleteKey]:null
         }
    
         await this.update(delObj);
@@ -107,46 +122,7 @@ export default class EWBaseActor extends Actor {
 
   }
 
-  async _addPool() {
-    const content = renderTemplate(CONFIG.EW.DIALOG_TYPE.ADD_POOL);
-    const prompt = await foundry.applications.api.DialogV2.wait({
-        window: { title: "EW.prompts.addpool"},
-        content: content,
-        classes: ["ew-dialog"],
-        buttons: [{
-            action:"save",
-            label:"EW.buttons.add",
-            default:true,
-            callback: (event, button, dialog) => { return button.form.elements }
-        },
-            {
-                action: "cancel",
-                label: "EW.buttons.cancel"
-        }],
-        submit: result => {
-            console.log("Roll dialog result: ", result);
-            if (result === "cancel") return;
-            return result;
-        }
-    });
-
-    if(this.system.pools.includes(prompt.newName.value)) {
-        ui.notifications.warn(game.i18n.localize("EW.warnings.duplicatePoolName")+ " " + prompt.newName.value);
-        return;
-    }
-
-    this.system.careers[prompt.newName.value] = {
-        min:prompt.newmin.value, 
-        max:prompt.newmax.value, 
-        current:prompt.newcurrent.value, 
-        id:foundry.utils.randomID(16)
-    };
-
-  }
-
-  async _deletePool(pool) {
-    
-  }
+  
     /**
     * @param res {String} - FIXME - belongs in the datamodel
     */
@@ -209,24 +185,16 @@ export default class EWBaseActor extends Actor {
         return this.system.resources.hero_points;
     }
 
-    getArcanaPoints() {
-        return this.system.resources.arcana_points;
+    static get ADD_CAREER_TEMPLATE() {
+        return EWBaseActor.#ADD_CAREER_TEMPLATE;
     }
 
-    getFaithPoints() {
-        return this.system.resources.faith_points;
-    }
-
-    getPsiPoints() {
-        return this.system.resources.psi_points;
+    static get ADD_POOL_TEMPLATE() {
+        return EWBaseActor.#ADD_POOL_TEMPLATE;
     }
 
     get isCreature() {
         return this.system.isCreature;
-    }
-
-    get isNPC() {
-        return this.system.isNPC;
     }
 
     get size() {

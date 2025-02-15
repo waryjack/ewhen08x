@@ -11,10 +11,10 @@
 <tr>
 <td class="item" data-career-id="{{career.id}}">
     <!--img src="{{trait.img}}" data-edit="img" height="24" width="24"/-->
-    <a data-action="statRoll" title="Roll Career">{{@key}}</a>
+    <a data-action="statRoll" data-is-career="true" data-stat-id="{{career.id}}" data-attribute="{{@key}}" title="Roll Career">{{@key}}</a>
 </td>
 <td class="item" data-career-id="{{career.id}}">
-    <input class="attr-name" type="text" data-dtype="Number"  name="careers.key.rank" value="{{career.rank}}">
+    <input class="attr-name" type="text" data-dtype="Number" name="careers.{{@key}}.rank" value="{{career.rank}}">
 </td>
 <td >
     <a class="item" data-action="deleteCareer" data-career="{{@key}}" data-career-id="{{career.id}}">

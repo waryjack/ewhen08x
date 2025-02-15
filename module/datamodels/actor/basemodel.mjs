@@ -54,27 +54,6 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     
   }
 
-  async _deleteCareer(career, id) {
-      console.log("career", career, "id", id);
-      console.log("Actor data: ", this);
-      let myCareers = this.careers;
-      let newCareers = {};
-      let toDelete = "";
-      console.log("my careers", myCareers);
-      Object.entries(this.careers).forEach(([key, value]) => {
-          console.log("key",key, "value", value);
-          if (key === career && value.id === id) {
-              // skip it
-          } else {
-              newCareers[key] = value;
-          }
-      });
-     
-      console.log("myCareers delete check:", newCareers);
-      foundry.utils.setProperty(this, "careers", newCareers);
-      await this.actor.update()
-    }
-
   async _applyRemoveTraitModifier (item, action) {
 
     if(item.type == "trait") {

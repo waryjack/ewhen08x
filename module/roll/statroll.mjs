@@ -103,15 +103,12 @@ export default class EWMCCRoll extends EWBaseRoll {
         this.options.comVal = (rollConfig.cattr.value != "none" && rollConfig.cattr.value != "") ? data.combat_attributes[rollConfig.cattr.value].rank : 0;
         
         if (rollConfig.career.value != "none" && rollConfig.career.value != "") {
-            careerobject = data.careers.filter(c => { c.id === this.options.statId && c.name === rollConfig.career.value})
-            carVal = careerobject.system.rank
+            carVal = data.careers[rollConfig.career.value].rank;
         }
-
-        this.options.carval = carVal;
 
         // Determine difficulty modifier value
        
-        baseDiff = CONFIG.EW.DIFF_VALUE[rollConfig.difficulty.value];
+        baseDiff = CONFIG.ewhen.difficulty[rollConfig.difficulty.value].value;
 
         this.options.totalMods = baseDiff + Number(rollConfig.othermods.value);
 

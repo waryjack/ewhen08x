@@ -129,14 +129,38 @@ export const EW = {
         third: 'EW.power.magnitude.third'
     },
     difficulty: {
-        very_easy: 'EW.difficulty.very_easy',
-        easy: 'EW.difficulty.easy',
-        moderate: 'EW.difficulty.moderate',
-        hard: 'EW.difficulty.hard',
-        tough: 'EW.difficulty.tough',
-        demanding: 'EW.difficulty.demanding',
-        formidable: 'EW.difficulty.formidable',
-        heroic: 'EW.difficulty.heroic'
+        very_easy: {
+            label: 'EW.difficulty.very_easy',
+            value: 2
+        },
+        easy: {
+            label:'EW.difficulty.easy',
+            value:1
+        },
+        moderate: {
+            label:'EW.difficulty.moderate',
+            value:0
+        },
+        hard: {
+            label:'EW.difficulty.hard',
+            value: -1
+        },
+        tough: {
+            label:'EW.difficulty.tough',
+            value:-2
+        },
+        demanding: {
+            label:'EW.difficulty.demanding',
+            value:-4
+        },
+        formidable: {
+            label:'EW.difficulty.formidable',
+            value:-6
+        },
+        heroic: {
+            label:'EW.difficulty.heroic',
+            value:-8
+        }
     },
     DIFF_VALUE: {
         very_easy:2,

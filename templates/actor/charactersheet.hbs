@@ -17,11 +17,6 @@
 	value="{{actor.name}}" 
 	placeholder="Name"/><br/>
   </div>
-  <div class="ew-cs-toggles">
-	<input class="npc-boxes" data-minor-type="rival" id="minorNpc" name="system.isRival" type="checkbox" {{checked isRival}} /><label for="isRival">Rival</label>
-	<input class="npc-boxes" data-minor-type="tough" id="minorNpc" name="system.isTough" type="checkbox" {{checked isTough}} /><label for="isTough">Tough</label>
-	<input class="npc-boxes" data-minor-type="rabble" id="minorNpc" name="system.isRabble" type="checkbox" {{checked isRabble}} /><label for="isRabble">Rabble</label>
-  </div>
   <div class="ew-cs-rollbutton ">
         <a class="ew-roll-icon" data-action="basicRoll"><i class="fa fa-dice-six"></i></a>
   </div>
@@ -36,7 +31,7 @@
   </div>
   <div class="ew-cs-points">
   {{#unless (or isRabble isTough)}}
-  {{#if hasPools}}
+  {{#if isMajor}}
 	{{> 'systems/ewhen/templates/partials/Resources.hbs'}}
   {{/if}}
 	{{/unless}}

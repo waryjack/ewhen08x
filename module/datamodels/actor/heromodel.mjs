@@ -1,8 +1,9 @@
 const {
-  HTMLField, BooleanField, SchemaField, NumberField, StringField, ArrayField
+  HTMLField, BooleanField, SchemaField, NumberField, StringField, ArrayField, ObjectField
 } = foundry.data.fields;
-import EWBaseActorData from "./base.mjs";
+import EWBaseActorData from "./basemodel.mjs";
 import { getDiceModel } from "../../diceModels.js";
+import { getDefaultPool } from "../../helpers.mjs";
 
 export default class EWHeroData extends EWBaseActorData {
   static defineSchema() {
@@ -12,13 +13,7 @@ export default class EWHeroData extends EWBaseActorData {
       isRival: new BooleanField({required:true, nullable:false, initial:false}),
       encumbrance: new NumberField({required:true, integer:true, min:0, initial:0}),
       hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
-      pools: new ArrayField(new SchemaField({
-        name: new StringField({required:true, initial:game.i18n.localize("EW.sheet.newpool")}),
-        max: new NumberField({required:true, integer:true, initial:0, min:1}),
-        min: new NumberField({required:true, integer:true, initial:0, min:0}),
-        current: new NumberField({required:true, integer:true, initial:0, min:0}),
-        id: new StringField({required:true, nullable:false, initial:""})
-      }), {required:true, initial:[]}),
+      pools: new ObjectField(),
       priority: new SchemaField({
         numDice: new NumberField({required:true, integer:true, min:1, initial:2}),
         suffix: new StringField({required:true, initial:"kh2"}),
@@ -62,36 +57,38 @@ export default class EWHeroData extends EWBaseActorData {
           const diceModel = getDiceModel(game);
           let netExtraDice = this.priority.bd - this.priority.pd;
          
-          this.priority_roll.numDice = game.settings.get("ewhen", "allSettings").singleDieInit ? 1 : diceModel.numberOfDice;
+          this.priority.numDice = game.settings.get("ewhen", "allSettings").singleDieInit ? 1 : diceModel.numberOfDice;
           let baseDie = game.settings.get("ewhen", "allSettings").singleDieInit ? "d6" : diceModel.baseDie
           let suffix = netExtraDice < 0 ? "kl2" : "kh2";
 
-          this.priority_roll.suffix = suffix;
+          this.priority.suffix = suffix;
           
-          this.priority_roll.expression = (Number(this.priority_roll.numDice) + Math.abs(netExtraDice)) + baseDie + suffix + "+" + this.priority.miscMod;
+          this.priority.expression = (Number(this.priority.numDice) + Math.abs(netExtraDice)) + baseDie + suffix + "+" + this.priority.miscMod;
   }
 
+  _spendHeroPoint() {
+    const hp = this.system.resources.hero_points;
+    if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
+    let newHp= Math.max(0, hp - 1);
+    // console.log("HP / NewHP: ", hp, newHp);
+    this.update({"system.resources.hero_points": newHp});
 
-      applyRemoveTraitModifier (item, action) {
-  
-        if(item.type == "trait") {
-            const diceModel = getDiceModel(game)
-    
-            let type = item.type;
-            let pmod = item.system.priority_dieMod;
-            const adata = foundry.utils.duplicate(this.system.priority_roll);
-    
-    
-            if(pmod == "bonus") {
-                // expression is: 3d6kh2 for 2d6, 3d12kh2 for 2d12, 4d6kh3 for 3d6
-                adata.expression = `${diceModel.numberOfDice + 1}${diceModel.baseDie}kh${diceModel.numberOfDice}`;
-            } else if (type == "trait" && pmod == "penalty") {
-                adata.expression = `${diceModel.numberOfDice + 1}${diceModel.baseDie}kl${diceModel.numberOfDice}`;
-            }
-    
-            actor.update({ "system.priority_roll": adata});
-        }
-    
-      }
+    let chatData = {
+        actor:this.name
+    }
+
+    renderTemplate('systems/ewhen/templates/roll/EWHeroPoint.hbs', chatData).then((msg)=>{
+        ChatMessage.create({
+            user: game.user._id,
+            type:CONST.CHAT_MESSAGE_STYLES.ROLL,
+            speaker: ChatMessage.getSpeaker(),
+            content: msg
+        });
+
+
+
+    });
+  }
+
 
 }

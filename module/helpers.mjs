@@ -26,3 +26,25 @@ export function getHealthSchema() {
       misc_res: new NumberField({required:true, integer:true, initial:0, min:0})
     }
   }
+
+export function getDefaultCareer(){
+  let cname = game.i18n.localize("EW.sheet.newcareer");
+  let cobject = {};
+  cobject[cname] = {
+    rank:0,
+    id:foundry.utils.randomID(16)
+  }
+  return cobject
+}
+
+export function getDefaultPool(){
+  let pname = game.i18n.localize("EW.sheet.newpool");
+  let pobject = {};
+  pobject[pname] = {
+    min:0,
+    max:5,
+    current:5,
+    id:foundry.utils.randomID(16)
+  }
+  return pobject;
+}

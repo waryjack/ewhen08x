@@ -1,4 +1,4 @@
-import { EWDialogHelper } from "../../interaction/EWDialogHelper.js";
+
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 
@@ -21,8 +21,6 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             deleteItem: this._deleteItem,
             equipItem: this._equipItem,
             adjustResource: this._adjustResource,
-            adjustFrame: this._adjustFrame,
-            adjustShield: this._adjustShield,
             statRoll: this._statRoll,
             weaponRoll: this._weaponRoll,
             armorRoll: this._armorRoll,
@@ -74,9 +72,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
         //// console.warn("data.traits: ", data.traits);
 
-        if (this.actor.type == "character") {
             // sheet variants for each type - rivals are regular characters; toughs, rabble, vehicle the others?
             data.careers = this.actor.system.careers;
+            data.ckeys = Object.keys(data.careers);
             data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
             data.powers = ownedItems.filter(function(item) {return item.type == "power"});
             data.equipment = ownedItems.filter(function(item) {return item.type == "equipment"});
@@ -88,26 +86,14 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             data.ldmg = this.actor.system.resources.lifeblood.lasting;
             data.crit = this.actor.system.resources.lifeblood.critical;
             data.cdmg = this.actor.system.resources.lifeblood.value;
-            data.EWActorType = "character";
-        } else {
-            data.EWActorType = "vehicle";
-        }
+            data.EWActorType = this.actor.type;
+       
         return data;
     }
 
     get title() {
-        let minorType = "hero";
-        if(this.actor.type === "vehicle") {
-            minorType = "vehicle"
-        } else if (this.actor.isRival) {
-            minorType = "rival"
-        } else if (this.actor.isRabble) {
-            minorType = "rabble"
-        } else if (this.actor.isTough) {
-            minorType = "tough"
-        }
 
-        return `Everywhen ${game.i18n.localize(this.options.window.title)}: ${game.i18n.localize("EW.sheet.title."+minorType)}`;
+        return `Everywhen ${game.i18n.localize(this.options.window.title)}: ${game.i18n.localize("EW.sheet.title."+this.actor.type)}`;
     }
 
     /**
@@ -122,8 +108,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static _addCareer(event, element) {
-        return this.actor._addCareer();
+    static async _addCareer(event, element) {
+        await this.actor._addCareer();
     }
 
     static _addPool(event, element) {
@@ -131,18 +117,22 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         return this.actor._addPool();
     }
 
-    static _deleteCareer() {
-        return this.actor._deleteCareer();
+    static async _deleteCareer(event, element) {
+        event.preventDefault();
+        console.log("Element: ", element.dataset)
+        let career = element.dataset.career;
+        let id = element.dataset.careerId;
+        return this.actor._deleteCareer(career, id);
     }
 
-    static _deletePool() {
-        return this.actor._deletePool();
+    static async _deletePool() {
+        await this.actor._deletePool();
     }
     // Change lifeblood, damage if you create a minor NPC from a character
     // one-way change; caught in preUpdateToken for reversing it
    
     // Handle changes to the lifeblood/resolve and critical tracks
-    static adjustResource(event,element) {
+    static _adjustResource(event,element) {
         event.preventDefault();
         let res = element.dataset.resourceName;
         return this.actor._adjustResource(res);
@@ -150,7 +140,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     // trigger the basic, non-pre-populated roll dialog; passthrough function from the sheet to the actor to the roll
     // gathering information along the way
-    static async statRoll(event,element) {
+    static async _statRoll(event,element) {
         console.log("In actorsheet method statRoll");
         event.preventDefault();
         let chosenStat = element.dataset.attribute;
@@ -160,7 +150,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     }
 
     // Handle damage rolls
-    static weaponRoll(event,element) {
+    static _weaponRoll(event,element) {
         event.preventDefault();
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
@@ -168,14 +158,14 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static armorRoll(event,element) {
+    static _armorRoll(event,element) {
         event.preventDefault();
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
         return this.actor.rollArmor(item);
     }
 
-    static editItem(event, element) {
+    static _editItem(event, element) {
         console.log("Event: ", event);
         console.log("Element: ", element);
         event.preventDefault();
@@ -185,7 +175,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
-    static addItem(event, options) {
+    static _addItem(event, options) {
         console.warn("Add Item Options: ", options.dataset.type);
         event.preventDefault();
         // console.warn("_addItem fired: ");
@@ -212,7 +202,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
       }
 
-      static deleteItem(event, element) {
+      static _deleteItem(event, element) {
           event.preventDefault();
          
           let itemId = element.closest(".item").dataset.itemId;
@@ -243,7 +233,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
       }
 
-      static equipItem(event,element) {
+      static _equipItem(event,element) {
         // should probably go to the datamodel since its type-specific
           event.preventDefault();
 

@@ -1,3 +1,5 @@
-export default class EWWeaponRoll extends foundry.api.Roll {
+import EWBaseRoll from "./baseroll.mjs";
+
+export default class EWWeaponRoll extends EWBaseRoll {
     
 }

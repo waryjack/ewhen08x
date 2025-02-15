@@ -1,21 +1,23 @@
 <div class="ew-statblock ew-statborder">
 <div class="ew-statblock ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.careers"}}</strong>
-                        <a class="item-create" title="Add Career" data-action="addItem" data-type="career">
+                        <a class="item-create" title="Add Career" data-action="addCareer" data-type="career">
                             <i class="fa-solid fa-plus"></i>
                         </a>
                     </div>
 <table class="ew-stat-table" id="ew-career-table">
-{{#each careers as |career id|}}
+
+{{#each careers as | career |}}
+
 <tr>
-<td class="item" data-item-id="{{career.id}}">
+<td class="item" data-career-id="{{career.id}}">
     <!--img src="{{trait.img}}" data-edit="img" height="24" width="24"/-->
-    <a data-action="careerRoll" title="Edit">{{career.name}}</a>
+    <a data-action="statRoll" title="Roll Career">{{@key}}</a>
 </td>
-<td class="item" data-action="editCareerRank" data-item-id="{{career.id}}">
-    <input class="attr-name" data-field="career.system.rank" type="text" value="{{career.system.rank}}" data-dtype="Number" maxwidth='2' size='2' />
+<td class="item" data-career-id="{{career.id}}">
+    <input class="attr-name" type="text" data-dtype="Number"  name="careers.key.rank" value="{{career.rank}}">
 </td>
 <td >
-    <a class="item-edit item" data-action="editItem" data-item-id="{{career.id}}"><i class="fa-solid fa-pen-to-square"></i></a>&nbsp;<a class="item" data-action="deleteItem" data-item-id="{{career.id}}">
+    <a class="item" data-action="deleteCareer" data-career="{{@key}}" data-career-id="{{career.id}}">
         <i class="fa-solid fa-ban"></i>
     </a>
 </td>

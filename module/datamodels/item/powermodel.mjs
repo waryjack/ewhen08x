@@ -1,8 +1,7 @@
 const {
   HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField
 } = foundry.data.fields;
-
-import EWBaseItemData from "./EWBaseItemData.mjs"
+import EWBaseItemData from "./baseitemmodel.mjs";
 
 export default class EWPowerData extends EWBaseItemData {
   static defineSchema() {

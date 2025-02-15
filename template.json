@@ -1,6 +1,6 @@
 {
     "Actor": {
-		"types": ["hero", "rival", "tough", "rabble", "vehicle"]
+		"types": ["hero", "rival", "tough", "rabble", "vehicle", "horde"]
 	},
     "Item": {
         "types":["trait", "weapon", "armor", "equipment", "power"]

@@ -1,5 +1,5 @@
 // Imports
-
+import EWBaseActor from "./baseactor.mjs"
 
 // Hero 
 

@@ -1,7 +1,7 @@
 const {
     HTMLField, SchemaField, NumberField, StringField, ArrayField
   } = foundry.data.fields;
-  import EWBaseActorData from "./basemodelmjs";
+  import EWBaseActorData from "./basemodel.mjs";
 
 export default class EWToughData extends EWBaseActorData {
   static defineSchema(){

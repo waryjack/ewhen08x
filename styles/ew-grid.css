@@ -185,7 +185,7 @@ h1.ew-roll-name {
 #ew-attribute-table td,
 #ew-pointpool-table td
  {
-  
+  padding:2px; 
   text-align:left;
 }
 

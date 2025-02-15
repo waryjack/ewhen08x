@@ -1,5 +1,6 @@
-import { getDiceModel } from "../diceModels.js";
-import { EWBaseRoll } from "./baseroll.mjs";
+
+import EWBaseRoll from "./baseroll.mjs"
+
 /**
  * Main attribute, Combat, and Career Rolls
  * this class creates a default 2d6 roll first; 
@@ -92,7 +93,6 @@ export default class EWMCCRoll extends EWBaseRoll {
         let keep = "";
         let numDice = 2;
         let baseDiff = 0;
-        let totalMods = 0;
         let netExtraDice = Math.abs(rollConfig.bdice.value - rollConfig.pdice.value);
         if(netExtraDice !== 0) {
             keep = (rollConfig.bdice.value > rollConfig.pdice.value) ? "kh2" : "kl2";
@@ -140,7 +140,6 @@ export default class EWMCCRoll extends EWBaseRoll {
     }
 
     _getOutcome() {
-
         let outcome = "";
         let outcomeClass = "";
         console.log("Roll: ", this);
@@ -149,8 +148,6 @@ export default class EWMCCRoll extends EWBaseRoll {
         let total = this.total;
         let mightyThreshold = this.options.dm.tn + (Number(this.options.totalMods) < 0 ? Math.abs(Number(this.options.totalMods)) : 0);
 
-
-        // console.warn("Roll Object: ", this.rollObj);
         /*
         * Figure out the level of success; there are like 3 types of
         * critical success and frankly they're a bit of a pain
@@ -270,11 +267,9 @@ export default class EWMCCRoll extends EWBaseRoll {
         console.log("DialogData (EWMCCRoll._buildPromptData): ", dialogData);
         return dialogData;
 
-      
-                
-        
     }
 
+    /* now located in superclass
     async _rollToChat(template, chatData) {
         console.log("rollToChat ewroll: ", this.ewroll);
         renderTemplate(template, chatData).then((msg)=>{
@@ -287,6 +282,7 @@ export default class EWMCCRoll extends EWBaseRoll {
             
         });
     }
+    */
 
     _proper(content) {
         console.log(content);

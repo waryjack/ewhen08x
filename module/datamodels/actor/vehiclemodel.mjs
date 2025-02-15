@@ -2,8 +2,9 @@ const {
   SchemaField, NumberField, StringField, ArrayField
 } = foundry.data.fields;
 import { getStatSchema, getHealthSchema } from "../../helpers.mjs";
+import EWBaseActorData from "./basemodel.mjs";
 
-export default class EWVehicleData extends foundry.abstract.TypeDataModel {
+export default class EWVehicleData extends EWBaseActorData {
   static defineSchema() {
     
     return {

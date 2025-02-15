@@ -1,7 +1,7 @@
 const {
   SchemaField, NumberField, StringField, BooleanField
 } = foundry.data.fields;
-import EWBaseItemData from "./EWBaseItemData.mjs"
+import EWBaseItemData from "./baseitemmodel.mjs";
 
 export default class EWArmorData extends EWBaseItemData {
   static defineSchema() {

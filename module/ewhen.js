@@ -2,15 +2,11 @@
 
 import { preloadHandlebarsTemplates } from "./templates.js";
 import { EW } from "./config.js";
-import { EWCombat } from "./combat/EWCombat.js";
 import { registerSettings } from "./settings.js";
-import { EWMessageHelper } from "./interaction/EWMessageHelper.js";
-import { EWDialogHelper } from "./interaction/EWDialogHelper.js";
-import * as rolls from "./roll/_module.mjs";
-import * as adata from "./datamodels/actor/_module.mjs";
-import * as idata from "./datamodels/item/_module.mjs";
-import * as sheets from "./sheets/_module.mjs";
-import * as docs from "./actor/_module.mjs";
+import * as rolls from "./roll/_exports.mjs";
+import * as data from "./datamodels/_exports.mjs";
+import * as sheets from "./sheets/_exports.mjs";
+import * as docs from "./documents/_exports.mjs";
 
 Hooks.once("init", () => {
     console.log("ewhen | Initializing Everywhen System");
@@ -20,11 +16,7 @@ Hooks.once("init", () => {
     // Add namespace in global
 
     game.EW = {
-        EWCombat,
-        EWMessageHelper,
-        EWDialogHelper,
-        adata,
-        idata,
+        data,
         sheets,
         rolls,
         docs,
@@ -34,7 +26,10 @@ Hooks.once("init", () => {
     // Register System sheets
    Actors.unregisterSheet("core", ActorSheet);
    Actors.registerSheet("ewhen", sheets.EWActorSheetV2, { 
-        types:["hero","rival","rabble","tough","vehicle"], makeDefault:true 
+        types:["hero","rival","rabble","tough","horde"], makeDefault:true 
+    });
+    Actors.registerSheet("ewhen", sheets.EWVehicleSheetV2, {
+        types:["vehicle"], makeDefault:true
     });
 
       // `Actors.registerSheet` is semantically equivalent to passing Actor as the first argument
@@ -49,32 +44,34 @@ Hooks.once("init", () => {
     // Register Item Datamodels
    
     Object.assign(CONFIG.Actor.dataModels, {
-        hero: adata.EWHeroData,
-        rival: adata.EWRivalData,
-        tough: adata.EWToughData,
-        rabble: adata.EWRabbleData,
-        vehicle: adata.EWVehicleData
+        hero: data.EWHeroData,
+        rival: data.EWRivalData,
+        tough: data.EWToughData,
+        rabble: data.EWRabbleData,
+        vehicle: data.EWVehicleData,
+        horde: data.EWHordeData
     })
 
     Object.assign(CONFIG.Item.dataModels, {
-        equipment: idata.EWBaseItemData,
-        power: idata.EWPowerData,
-        trait: idata.EWTraitData,
-        weapon: idata.EWWeaponData,
-        armor: idata.EWArmorData
-
+        equipment: data.EWEquipmentData,
+        power: data.EWPowerData,
+        trait: data.EWTraitData,
+        weapon: data.EWWeaponData,
+        armor: data.EWArmorData
     })
     
 
     // CONFIG.debug.hooks = true;
     // assign document classes (multiple classes need assignment)
-    for (const docCls of Object.values(docs)) {
-        if (!foundry.utils.isSubclass(docCls, foundry.abstract.Document)) continue;
-        CONFIG[docCls.documentName].documentClass = docCls;
-      }
+    console.log("For learning a thing: ", Object.values(docs));
+    
+    CONFIG.Actor.documentClass = docs.EWBaseActor;
+    CONFIG.Item.documentClass = docs.EWBaseItem;
 
-    CONFIG.Combat.documentClass = EWCombat;
-    CONFIG.Dice.rolls = [rolls.EWMCCRoll, rolls.EWArmorRoll, rolls.EWWeaponRoll];
+
+
+    CONFIG.Combat.documentClass = docs.EWCombat;
+    CONFIG.Dice.rolls = [rolls.EWBaseRoll, rolls.EWMCCRoll, rolls.EWArmorRoll, rolls.EWWeaponRoll];
     
     // Register system settings
     registerSettings();
@@ -175,61 +172,6 @@ Hooks.once("init", () => {
     });
 });
 
-Hooks.once("ready", () => {
-    let settings = game.settings.get("ewhen","allSettings");
-    
-    // migrate from 1.1.0
-    if(!settings.hasOwnProperty("creditName") && !settings.hasOwnProperty("currencyName")){
-        settings.creditName = "credit";
-        settings.currencyName = "currency";
-        game.settings.set("ewhen","allSettings",settings);
-    }
-    
-
-    // migrate from pre-1.1.0
-
-    if (game.settings.settings.has("ewhen.diceType")) {
-        console.log("Migrating Everywhen Settings...")
-        let migrate = {
-            diceType : game.settings.get("ewhen","diceType"),
-            singleDieInit : game.settings.get("ewhen","singleDieInit"),
-            initAttribute : game.settings.get("ewhen","initAttribute"),
-            initCombat : game.settings.get("ewhen", "initCombat"),
-            priority : game.settings.get("ewhen", "priority"),
-            rerollPerRound : game.settings.get("ewhen", "rerollPerRound"),
-            meleeLink : game.settings.get("ewhen", "meleeLink"),
-            rangedLink : game.settings.get("ewhen", "rangedLink"),
-            defenseLink : game.settings.get("ewhen", "defenseLink"),
-            useResolve : game.settings.get("ewhen", "useResolve"),
-            useCritical : game.settings.get("ewhen", "useCritical"),
-            useArcana : game.settings.get("ewhen", "useArcana"),
-            useFaith : game.settings.get("ewhen", "useFaith"),
-            usePsionics : game.settings.get("ewhen", "usePsionics"),
-            useScale : game.settings.get("ewhen", "useScale"),
-            useCredit : game.settings.get("ewhen", "useCredit"),
-            rabbleStrength : game.settings.get("ewhen", "rabbleStrength"),
-            strName : game.settings.get("ewhen", "strName"),
-            agiName : game.settings.get("ewhen", "agiName"),
-            minName : game.settings.get("ewhen", "minName"),
-            appName : game.settings.get("ewhen", "appName"),
-            melName : game.settings.get("ewhen", "melName"),
-            ranName : game.settings.get("ewhen", "ranName"),
-            defName : game.settings.get("ewhen", "defName"),
-            iniName : game.settings.get("ewhen", "iniName"),
-            lbdName : game.i18n.localize("EW.attribute.resource.lifeblood"),
-            resName : game.i18n.localize("EW.attribute.resource.resolve"),
-            critName : game.i18n.localize("EW.attribute.resource.critical"),
-            faithName : game.i18n.localize("EW.attribute.resource.faith"),
-            arcanaName : game.i18n.localize("EW.attribute.resource.arcana"),
-            psionicsName : game.i18n.localize("EW.attribute.resource.psionics"),
-            heroName : game.i18n.localize("EW.attribute.resource.hero"),
-            creditName : game.i18n.localize("EW.game_term.creditval"),
-            currencyName : game.i18n.localize("EW.game_term.currency")
-        }
-        game.settings.set("ewhen", "allSettings", migrate);
-    } 
-
-});
 
 /**
  * Item Hooks - update, delete, make sure to adjust stats

@@ -1,8 +1,3 @@
-
-
-// Base roll will handle evaluation of the assembled roll and chat message creation
-// subclasses of EWBaseRoll handle prompting, getting the roll data, and building the options for the constructor
-
 export default class EWBaseRoll extends foundry.dice.Roll {
 
     async _rollToChat(chatData) {

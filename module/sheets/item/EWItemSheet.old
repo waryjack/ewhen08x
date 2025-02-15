@@ -1,4 +1,4 @@
-export default class EWItemSheet extends ItemSheet {
+export default class EWItemSheet extends foundry.applications.sheets.ItemV2 {
 
     // Note: Careers have basically just a name and an optional description; but the sheet is needed for item creation;
     

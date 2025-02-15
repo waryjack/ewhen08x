@@ -3,7 +3,6 @@
  * 
  */
 import { EWRoll } from "../roll/EWRoll.js"; 
-import { EWActor } from "../actor/EWActor.js";
 
 export class EWDialogHelper {
 

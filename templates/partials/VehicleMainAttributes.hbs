@@ -1,0 +1,40 @@
+<div class="flex-item">
+                   <span class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</span>
+                <table class="ew-class-table">    
+                    <tr>
+                        <td>{{localize "EW.attribute.vehicle.size"}}</td>
+                        <td class="statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.size.rank" value="{{size.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{size.scale}})</td>{{/if}}
+                    </tr>
+                    <tr>
+                        <td>{{localize "EW.attribute.vehicle.scan"}}</a></td>
+                        <td class="statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.scan.rank" value="{{scan.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{scan.scale}})</td>{{/if}}
+                    </tr>
+                    <tr>
+                        <td>{{localize "EW.attribute.vehicle.speed"}}</td>
+                        <td class="statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.speed.rank" value="{{speed.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{speed.scale}})</td>{{/if}}
+                    </tr>
+                    <tr>
+                        <td>{{localize "EW.attribute.vehicle.defense"}}</td>
+                        <td class="statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.def.rank" value="{{def.rank}}"></td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{def.scale}})</td>{{/if}}
+                    </tr>
+                    <tr>
+                        <td >{{localize "EW.attribute.vehicle.crew"}}</td>
+                        <td class="statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.crew.rank" value="{{crew.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{crew.scale}})</td>{{/if}}
+                    </tr>
+                    <tr>
+                        <td >{{localize "EW.attribute.vehicle.frame"}}</td>
+                        <td class="statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.frame.rank" value="{{frame.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{frame.scale}})</td>{{/if}}
+                    </tr>
+                    <tr>
+                        <td >{{localize "EW.attribute.vehicle.armor"}}</td>
+                        <td class="statfield cell"><input class="attr-name" type="text" data-dtype="Number" size="2" maxlength="2" width="2" name="system.armor.rank" value="{{armor.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.armor.scale}})</td>{{/if}}
+                    </tr>
+                </table>
+</div>

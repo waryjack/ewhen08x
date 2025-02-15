@@ -28,33 +28,42 @@
           "filePathFields":["actor_image"]
         },
         "tough":{
+          "htmlFields":["backstory"],
           "filePathFields":["actor_image"]
         },
         "rabble":{
+          "htmlFields":["backstory"],
           "filePathFields":["actor_image"]
         },
         "vehicle":{
+          "htmlFields":["backstory"],
           "filePathFields":["actor_image"]
         },
         "horde":{
+          "htmlFields":["backstory"],
           "filePathFields":["actor_image"]
         }
       },
       "Item":{
         "armor":{
-          "htmlFields":["effect"]
+          "htmlFields":["effect"],
+          "filePathFields":["item_image"]
         },
         "power":{
-          "htmlFields":["effect"]
+          "htmlFields":["effect"],
+          "filePathFields":["item_image"]
         },
         "weapon":{
-          "htmlFields":["notes"]
+          "htmlFields":["notes"],
+          "filePathFields":["item_image"]
         },
         "equipment":{
-          "htmlFields":["description"]
+          "htmlFields":["description"],
+          "filePathFields":["item_image"]
         },
         "trait":{
-          "htmlFields":["description"]
+          "htmlFields":["description"],
+          "filePathFields":["item_image"]
         }
       }
     },

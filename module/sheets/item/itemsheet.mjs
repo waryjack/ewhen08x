@@ -48,14 +48,8 @@ export default class EWItemSheetV2 extends HandlebarsApplicationMixin(ItemSheetV
         power: {
              template: "systems/ewhen/templates/item/powersheet.hbs"
         },
-        career: {
-             template: "systems/ewhen/templates/item/careersheet.hbs"
-        },
         equipment: {
              template: "systems/ewhen/templates/item/equipmentsheet.hbs"
-        },
-        pointpool: {
-            template: "systems/ewhen/templates/item/pointpoolsheet.hbs"
         }
     }
 
@@ -77,17 +71,11 @@ export default class EWItemSheetV2 extends HandlebarsApplicationMixin(ItemSheetV
             case "power":
                 options.parts.push("power");
                 break;
-            case "career":
-                options.parts.push("career");
-                break;
             case "armor":
                 options.parts.push("armor");
                 break;
             case "equipment":
                 options.parts.push("equipment");
-                break;
-            case "pointpool":
-                options.parts.push("pointpool");
                 break;
             default:
         }

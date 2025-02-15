@@ -1,7 +1,7 @@
 const {
     HTMLField, SchemaField, NumberField, StringField, ArrayField
   } = foundry.data.fields;
-  import EWBaseActorData from "./base.mjs";
+  import EWBaseActorData from "./basemodel.mjs";
   import { getDiceModel } from "../../diceModels.js";
 
 export default class EWRabbleData extends EWBaseActorData {

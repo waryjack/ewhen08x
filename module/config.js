@@ -160,7 +160,7 @@ export const EW = {
         ARMOR: "systems/ewhen/templates/roll/EWArmorRoll.hbs",
         RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustResource.hbs",
         VEHICLE_RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustVehicleResource.hbs",
-        ADD_CAREER: ""
+        ADD_CAREER: "systems/ewhen/templates/prompts/AddCareer.hbs"
     }
 
 }

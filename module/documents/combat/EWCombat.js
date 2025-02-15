@@ -1,4 +1,4 @@
-import { DICE_MODELS, DEFAULT_DICE_MODEL, getDiceModel } from '../diceModels.js'
+import { DICE_MODELS, DEFAULT_DICE_MODEL, getDiceModel } from "../../diceModels.js";
 
 export class EWCombat extends Combat {
 

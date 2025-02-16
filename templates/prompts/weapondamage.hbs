@@ -10,12 +10,16 @@
      <h2>{{localize "EW.dialog.weaponinfo"}}</h2>
      <div class="ewhen wpn-info">
          <table>
-            <tr class=".wpn-dmg-info" data-display="{{localize baseExpr}}" data-formula="{{finalExpr}}">
-                <td id="wimg" style="width:40px;" data-wpn-img="{{wimg}}"><img src="{{wimg}}" height="32" width="32"></td>
-                <td id="wname" style="text-align:left"><span style="font-size:1.5em" data-wpn-name="{{wname}}">{{wname}}</span> {{#if (ne range 0)}}<br><span style="font-size:1.1em">(Range {{range}})</span>{{/if}}</td>
-                <td id="dmg" style="text-align:center; font-size:1.5em;">{{localize baseExpr}}
-
-                    {{#if (ne attName "none")}} + {{#if half}} &#189;{{/if}} {{attName}}{{/if}}
+            <tr class=".wpn-dmg-info">
+                <td id="wname" style="text-align:left">
+                    <span style="font-size:1.5em" data-wpn-name="{{wname}}">
+                        {{wname}}
+                    </span> {{#if (ne weaponStats.range 0)}}<br>
+                    <span style="font-size:1.1em">
+                        (Range {{weaponStasts.range}})
+                    </span>{{/if}}</td>
+                <td id="dmg" style="text-align:center; font-size:1.5em;">
+                    {{dicecode}}{{#if (ne weaponStats.damage.add_attribute "none")}} + {{#if weaponStats.damage.half_attribute}} &#189;{{/if}} {{weaponStats.damage.add_attribute}}{{/if}}
                 </td>
             </tr>
 
@@ -48,9 +52,6 @@
                  </td>
                  <td>
                     <input id="mods" type="text" value="0" data-dtype="Number"/>
-                 </td>
-                 <td>
-                     <input id="penalty" type="text" value="0" data-dtype="Number"/>
                  </td>
              </tr>
              <tr>

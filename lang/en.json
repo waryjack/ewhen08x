@@ -350,15 +350,15 @@
 
     "EW.careers.careername":"Career Name",
     "EW.careers.careerrank":"Career Rank",
-    "EW.careers.prompts.addcareer": "Add New Career",
-    "EW.careers.prompts.delcareer": " career. Are you sure?",
+    "EW.careers.prompt.addcareer": "Add New Career",
+    "EW.careers.prompt.delcareer": " career. Are you sure?",
     "EW.pools.prompt.addpool":"Add New Pool",
     "EW.pools.prompt.delpool":" pool. Are you sure?",
     "EW.pools.poolname": "Pool Name",
     "EW.pools.poolmin":"Minimum",
     "EW.pools.poolmax":"Maximum",
     "EW.pools.poolcurrent":"Current",
-    "EW.prompts.deleteprefix": "You are about to delete the ",
+    "EW.prompt.deleteprefix": "You are about to delete the ",
 
     "EW.buttons.add": "Add",
     "EW.buttons.cancel":"Cancel",

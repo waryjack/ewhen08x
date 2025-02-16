@@ -26,7 +26,10 @@ Hooks.once("init", () => {
     // Register System sheets
    Actors.unregisterSheet("core", ActorSheet);
    Actors.registerSheet("ewhen", sheets.EWActorSheetV2, { 
-        types:["hero","rival","rabble","tough","horde"], makeDefault:true 
+        types:["hero","rival","tough"], makeDefault:true 
+    });
+    Actors.registerSheet("ewhen", sheets.EWRabbleSheetV2, {
+        types:["rabble"], makeDefault:true
     });
     Actors.registerSheet("ewhen", sheets.EWVehicleSheetV2, {
         types:["vehicle"], makeDefault:true
@@ -49,7 +52,6 @@ Hooks.once("init", () => {
         tough: data.EWToughData,
         rabble: data.EWRabbleData,
         vehicle: data.EWVehicleData,
-        horde: data.EWHordeData
     })
 
     Object.assign(CONFIG.Item.dataModels, {
@@ -65,7 +67,7 @@ Hooks.once("init", () => {
     // assign document classes (multiple classes need assignment)
     console.log("For learning a thing: ", Object.values(docs));
     
-    CONFIG.Actor.documentClass = docs.EWBaseActor;
+    CONFIG.Actor.documentClass = docs.EWActor;
     CONFIG.Item.documentClass = docs.EWBaseItem;
 
 

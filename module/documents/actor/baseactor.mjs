@@ -1,9 +1,12 @@
 import EWMCCRoll from "../../roll/statroll.mjs";
 import { getDiceModel } from "../../diceModels.js";
+import EWBaseRoll from "../../roll/baseroll.mjs";
+const { DialogV2 } = foundry.applications.api;
+const { ChatMessage } = foundry.documents;
 
-export default class EWBaseActor extends Actor {
+export default class EWActor extends Actor {
   
-  static #ATYPES = Object.freeze({
+  static ATYPES = Object.freeze({
     major:["hero","rival"],
     minor:["rabble","rival"]
   })
@@ -22,8 +25,9 @@ export default class EWBaseActor extends Actor {
       INITIATIVE: "initiative"
   }
 
-  static #ADD_CAREER_TEMPLATE = "systems/ewhen/templates/prompts/AddCareer.hbs";
-  static #ADD_POOL_TEMPLATE = "systems/ewhen/templates/prompts/AddPool.hbs";
+  static ADD_CAREER_TEMPLATE = "systems/ewhen/templates/prompts/AddCareer.hbs";
+  static ADD_POOL_TEMPLATE = "systems/ewhen/templates/prompts/AddPool.hbs";
+  static RABBLE_DMG_PROMPT_TEMPLATE = "systems/ewhen/templates/prompts/rabbledamage.hbs";
 
   /**
    * @override
@@ -37,7 +41,7 @@ export default class EWBaseActor extends Actor {
     super.prepareDerivedData();
   }
 
-  async rollStat(stat, statId){
+  async _statRoll(stat, statId){
     return EWMCCRoll.prompt({
         dm:getDiceModel(game),
         actorId:this._id,
@@ -47,77 +51,6 @@ export default class EWBaseActor extends Actor {
     })
     
   }
-
-  async _addCareer() {
-    const content = await renderTemplate(EWBaseActor.ADD_CAREER_TEMPLATE);
-    const prompt = await foundry.applications.api.DialogV2.wait({
-        window: { title: "EW.prompts.addcareer"},
-        content: content,
-        classes: ["ew-dialog"],
-        buttons: [{
-            action:"save",
-            label:"EW.buttons.add",
-            default:true,
-            callback: (event, button, dialog) => { return button.form.elements }
-        },
-            {
-                action: "cancel",
-                label: "EW.buttons.cancel"
-        }],
-        submit: result => {
-            console.log("Roll dialog result: ", result);
-            if (result === "cancel") return;
-            return result;
-        }
-    });
-
-    // Need to do some validation because there's none built in to object besides "be an object"
-    if(Object.keys(this.system.careers).includes(prompt.newname.value)) {
-        ui.notifications.warn(game.i18n.localize("EW.warnings.duplicateCareerName") + " " + prompt.newname.value);
-        return;
-    }
-
-    let toAddKey = `system.careers.${prompt.newname.value}`
-    let toAddObj = {
-        [toAddKey]: {
-            rank:prompt.newrank.value, 
-            id:foundry.utils.randomID(16)
-        }
-    }
-    await this.update(toAddObj);
-  }
-
-  async _deleteCareer(career, c_id) {
- 
-    const proceed = await foundry.applications.api.DialogV2.confirm({
-        window: { title: "EW.prompts.deletecareer" },
-        content: game.i18n.localize("EW.prompts.delwarning") + career + game.i18n.localize("EW.prompts.delcareer"),
-        modal: true
-      });
-
-    if (proceed) {
-        let toDelete = "";
-        console.log(this.system.careers);
-        Object.entries(this.system.careers).forEach(([key, value]) => {
-            console.log("key",key, "value", value);
-            if (key === career && value.id === c_id) {
-                toDelete = key;
-            }
-        });
-        console.log("todelete: ", toDelete);
-
-        let deleteKey = `system.careers.-=${toDelete}`;
-        let delObj = {
-            [deleteKey]:null
-        }
-   
-        await this.update(delObj);
-    } else {
-        console.log("Cancelled");
-    }
-
-  }
-
   
     /**
     * @param res {String} - FIXME - belongs in the datamodel
@@ -160,6 +93,50 @@ export default class EWBaseActor extends Actor {
 
     }
 
+    // Rabble Damage Method
+    async _rollRabbleDamage() {
+        const content = await renderTemplate("systems/ewhen/templates/prompts/rabbledamage.hbs", {});
+        const prompt = await DialogV2.wait({
+            window: { title: "EW.rolltype.rabbledamage"},
+            content:content,
+            classes: ["ew-dialog"],
+            buttons: [{
+                action:"roll",
+                label:"EW.buttons.roll",
+                default:true,
+                callback:(event,button,dialog) => {
+                    return button.form.elements
+                }
+            },
+            {
+                action:"cancel",
+                label:"EW.buttons.cancel"
+            }],
+            submit: result => {
+                if (result === "cancel") return;
+                return result;
+            }
+
+        })
+        
+        
+        if (!prompt) return;
+        
+        //console.log("Prompt: ", prompt);
+        let mod = (prompt.mod.value != "") ? prompt.mod.value : 0;
+
+        let horde="";
+        if (prompt.dmg.value === "2d6kl1") horde="Horde";
+        let formula = `${prompt.dmg.value}+${mod}`;
+        //console.log("formioli: ",formula)
+        let roll = new EWBaseRoll(formula);
+        
+
+        let testContent = `<h1>Rabble ${horde} Damage Roll</h1><p><strong>Damage Roll:</strong> ${formula}</p><p><strong>Damage Amount</strong>: ${roll.total}`
+        await roll.toMessage({content:testContent})
+
+    }
+
     //getters
     getAttribute(attribute){
         var attSet;
@@ -177,18 +154,6 @@ export default class EWBaseActor extends Actor {
 
     getHeroPoints() {
         return this.system.resources.hero_points;
-    }
-
-    static get ATYPES() {
-        return EWBaseActor.#ATYPES;
-    }
-
-    static get ADD_CAREER_TEMPLATE() {
-        return EWBaseActor.#ADD_CAREER_TEMPLATE;
-    }
-
-    static get ADD_POOL_TEMPLATE() {
-        return EWBaseActor.#ADD_POOL_TEMPLATE;
     }
 
     get isCreature() {

@@ -11,7 +11,7 @@ export default class EWWeaponData extends EWBaseItemData {
       ...itemSchema,
       wpn_type: new StringField({required:true, initial:"lightMelee"}),
       damage: new SchemaField({
-        dice: new StringField({required:true, initial:"d6L"}),
+        dice: new StringField({required:true, initial:"2d6kl2"}),
         scale: new NumberField({required:true, initial:1, min:1}),
         add_attribute: new StringField({required:true, initial:""}),
         half_attribute: new BooleanField({required:true, initial:false}),

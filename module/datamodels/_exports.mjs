@@ -4,7 +4,6 @@ export {default as EWRivalData} from "./actor/rivalmodel.mjs";
 export {default as EWRabbleData} from "./actor/rabblemodel.mjs";
 export {default as EWToughData} from "./actor/toughmodel.mjs";
 export {default as EWVehicleData} from "./actor/vehiclemodel.mjs";
-export {default as EWHordeData} from "./actor/hordemodel.mjs"
 export {default as EWArmorData} from "./item/armormodel.mjs";
 export {default as EWBaseItemData} from "./item/baseitemmodel.mjs";
 export {default as EWPowerData} from "./item/powermodel.mjs";

@@ -1,5 +1,5 @@
 const {
-    HTMLField, SchemaField, NumberField, StringField, ArrayField
+    BooleanField, NumberField, StringField
   } = foundry.data.fields;
   import EWBaseActorData from "./basemodel.mjs";
   import { getDiceModel } from "../../diceModels.js";
@@ -22,7 +22,7 @@ export default class EWRabbleData extends EWBaseActorData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    health = game.settings.get("ewhen","allSettings").rabbleStrength ?? 3
+    let health = game.settings.get("ewhen","allSettings").rabbleStrength ?? 3
     
     
     this.main_attributes = this._setStatValues(this.main_attributes);

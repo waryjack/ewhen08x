@@ -173,18 +173,31 @@ export const EW = {
         heroic:-8
     },
     MESSAGE_TYPE: {
-        TASK: "systems/ewhen/templates/roll/EWRollMessage.hbs",
-        DAMAGE: "systems/ewhen/templates/roll/EWDamageMessage.hbs",
-        ARMOR: "systems/ewhen/templates/roll/EWArmorMessage.hbs",
-        HEROPOINT: "systems/ewhen/templates/roll/EWHeroPoint.hbs"
+        TASK: "systems/ewhen/templates/roll/statrollmessage.hbs",
+        DAMAGE: "systems/ewhen/templates/roll/damagemessage.hbs",
+        ARMOR: "systems/ewhen/templates/roll/armormessage.hbs",
+        HEROPOINT: "systems/ewhen/templates/roll/heropoint.hbs"
     },
     DIALOG_TYPE: {
-        TASK: "systems/ewhen/templates/roll/EWBasicRoll.hbs",
+        TASK: "systems/ewhen/templates/roll/statroll.hbs",
         DAMAGE: "systems/ewhen/templates/roll/EWDamageRoll.hbs",
         ARMOR: "systems/ewhen/templates/roll/EWArmorRoll.hbs",
         RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustResource.hbs",
         VEHICLE_RESOURCE_UPDATE: "systems/ewhen/templates/actor/EWAdjustVehicleResource.hbs",
         ADD_CAREER: "systems/ewhen/templates/prompts/AddCareer.hbs"
+    },
+    DAMAGE_DICE_PROGRESSION:{
+        "1":"1",
+        "1d3":"d3",
+        "2d6kl1":"d6L",
+        "1d6":"d6",
+        "2d6kh1":"d6H",
+        "3d6kl2":"2d6L",
+        "2d6":"2d6",
+        "3d6kh2":"2d6H",
+        "4d6kl3":"3d6L",
+        "3d6":"3d6",
+        "4d6kh3":"4d6H"
     }
 
 }

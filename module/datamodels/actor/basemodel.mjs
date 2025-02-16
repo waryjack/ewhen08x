@@ -1,6 +1,8 @@
 const {
   HTMLField, SchemaField, NumberField, StringField, BooleanField, FilePathField, ObjectField
 } = foundry.data.fields;
+import EWActor from "../../documents/actor/baseactor.mjs";
+
 import { getDiceModel } from "../../diceModels.js";
 import { getStatSchema, getHealthSchema, getDefaultCareer } from "../../helpers.mjs";
 
@@ -48,7 +50,148 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     this.initiative = `${settings.diceType} + ${settings.initAttribute} + ${settings.initCombat}`;
   }
 
-  
+  /**##### Adding and removing careeers, all character types can do so #####*/
+  async _addCareer() {
+    const content = await renderTemplate(EWActor.ADD_CAREER_TEMPLATE);
+    const prompt = await foundry.applications.api.DialogV2.wait({
+        window: { title: "EW.careers.prompt.addcareer"},
+        content: content,
+        classes: ["ew-dialog"],
+        buttons: [{
+            action:"save",
+            label:"EW.buttons.add",
+            default:true,
+            callback: (event, button, dialog) => { return button.form.elements }
+        },
+            {
+                action: "cancel",
+                label: "EW.buttons.cancel"
+        }],
+        submit: result => {
+            console.log("Roll dialog result: ", result);
+            if (result === "cancel") return;
+            return result;
+        }
+    });
+
+    // Need to do some validation because there's none built in to object besides "be an object"
+    if(Object.keys(this.careers).includes(prompt.newname.value)) {
+        ui.notifications.warn(game.i18n.localize("EW.warnings.duplicateCareerName") + " " + prompt.newname.value);
+        return;
+    }
+
+    let toAddKey = `system.careers.${prompt.newname.value}`
+    let toAddObj = {
+        [toAddKey]: {
+            rank:prompt.newrank.value, 
+            id:foundry.utils.randomID(16)
+        }
+    }
+    await this.parent.update(toAddObj);
+  }
+
+  async _deleteCareer(career, c_id) {
+ 
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        window: { title: "EW.careers.prompt.delcareer" },
+        content: game.i18n.localize("EW.prompt.deleteprefix") + career + game.i18n.localize("EW.prompts.delcareer"),
+        modal: true
+      });
+
+    if (proceed) {
+        let toDelete = "";
+        console.log(this.careers);
+        Object.entries(this.careers).forEach(([key, value]) => {
+            console.log("key",key, "value", value);
+            if (key === career && value.id === c_id) {
+                toDelete = key;
+            }
+        });
+        console.log("todelete: ", toDelete);
+
+        let deleteKey = `system.careers.-=${toDelete}`;
+        let delObj = {
+            [deleteKey]:null
+        }
+   
+        await this.parent.update(delObj);
+    } else {
+        console.log("Cancelled");
+    }
+
+  }
+
+  /* ##### Add/Remove Point Pools; also permitted by all character types #####*/
+  async _addPool() {
+    const content = await renderTemplate(EWActor.ADD_POOL_TEMPLATE);
+    const prompt = await foundry.applications.api.DialogV2.wait({
+        window: { title: "EW.pools.prompt.addpool"},
+        content: content,
+        classes: ["ew-dialog"],
+        buttons: [{
+            action:"save",
+            label:"EW.buttons.add",
+            default:true,
+            callback: (event, button, dialog) => { return button.form.elements }
+        },
+            {
+                action: "cancel",
+                label: "EW.buttons.cancel"
+        }],
+        submit: result => {
+            console.log("Roll dialog result: ", result);
+            if (result === "cancel") return;
+            return result;
+        }
+    });
+
+    if(Object.keys(this.pools).includes(prompt.newname.value)) {
+        ui.notifications.warn(game.i18n.localize("EW.warnings.duplicatePoolName")+ " " + prompt.newname.value);
+        return;
+    }
+    
+
+    let toAddKey = `system.pools.${prompt.newname.value}`
+    let toAddObj = {
+        [toAddKey]: {
+            min:prompt.newmin.value, 
+            max:prompt.newmax.value, 
+            current:prompt.newcurrent.value, 
+            id:foundry.utils.randomID(16)
+        }
+    }
+    await this.parent.update(toAddObj)
+  }
+
+  async _deletePool(pool, p_id) {
+    console.log("args: ", pool, p_id)
+    const proceed = await foundry.applications.api.DialogV2.confirm({
+        window: { title: "EW.pools.prompt.delpool" },
+        content: game.i18n.localize("EW.prompt.deleteprefix") + pool + game.i18n.localize("EW.pools.prompt.delpool"),
+        modal: true
+      });
+
+    if (proceed) {
+        let toDelete = "";
+        Object.entries(this.pools).forEach(([key, value]) => {
+            console.log("key",key, "value", value);
+            if (key === pool && value.id === p_id) {
+                toDelete = key;
+            }
+        });
+
+        let deleteKey = `system.pools.-=${toDelete}`;
+        let delObj = {
+            [deleteKey]:null
+        }
+
+        console.log("delete object: ", delObj)
+   
+        await this.parent.update(delObj);
+    } else {
+        console.log("Cancelled");
+    }
+  }
 
   // Adjust lifeblood or resolve
   async _adjustResource(res, html) {

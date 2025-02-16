@@ -3,7 +3,7 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 import EWBaseActor from "../../documents/actor/baseactor.mjs"
 
-export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
+export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
 
     /**
@@ -16,7 +16,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             addCareer: this._addCareer,
             deleteCareer: this._deleteCareer,
             adjustResource: this._adjustResource,
-            rabbleDamage: this._rabbleDamage,
+            rollDamage: this._rollDamage,
             editImage: this._onEditImage,
             statRoll: this._statRoll
         },
@@ -87,7 +87,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         event.preventDefault();
         let chosenStat = element.dataset.attribute;
         let statId = element.dataset?.statId ?? "";
-        await this.actor.rollStat(chosenStat, statId);
+        await this.actor._statRoll(chosenStat, statId);
     }
 
     static async _addCareer(event, element) {
@@ -102,9 +102,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         return this.actor._deleteCareer(career, id);
     }
 
-    static async _rabbleDamage(event,element) {
+    static async _rollDamage(event,element) {
         event.preventDefault();
-        await this.actor.rabbleDamage()
+        await this.actor._rollRabbleDamage()
     }
 
     // Handle changes to the lifeblood/resolve and critical tracks

@@ -1,15 +1,23 @@
 <form class="ewhen roll-dialog">
  <header class="roll-header">
-        <h1 class="roll-name">{{localize "EW.dialog.addcareer"}}</h1>
+        <h1 class="roll-name">{{localize "EW.pools.prompt.addnewpool"}}</h1>
     </header>
 
      <div class="form-group">
-         <label for="newname">New Career Name</label>
+         <label for="newname">{{localize "EW.pools.poolname"}}</label>
          <input type="text" id="newname" data-dtype="String"/>
      </div>
      <div class="form-group">
-         <label for="newrank">Rank</label>
-         <input type="text" id="newrank" data-dtype="Number"/>
+         <label for="newmin">{{localize "EW.pools.poolmin"}}</label>
+         <input type="text" id="newmin" data-dtype="Number"/>
+     </div>
+     <div class="form-group">
+         <label for="newmax">{{localize "EW.pools.poolmax"}}</label>
+         <input type="text" id="newmax" data-dtype="Number"/>
+     </div>
+     <div class="form-group">
+         <label for="newcurrent">{{localize "EW.pools.poolcurrent"}}</label>
+         <input type="text" id="newcurrent" data-dtype="Number"/>
      </div>
  </div>
 

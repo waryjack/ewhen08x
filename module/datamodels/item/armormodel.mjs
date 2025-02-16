@@ -12,7 +12,7 @@ export default class EWArmorData extends EWBaseItemData {
       equipped: new BooleanField({required:true, initial:false}),
       accessory: new BooleanField({required:true, initial:false}),
       protection: new SchemaField({
-        fixed: new NumberField({required:true, initial:0, min:0}),
+        fixed: new NumberField({required:true, nullable:false, initial:0, min:0}),
         variable: new StringField({required:true, initial:""}),
         scale: new NumberField({required:true, initial:1, min:1})
       }),

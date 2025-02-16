@@ -1,7 +1,7 @@
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
-import EWBaseActor from "../../documents/actor/baseactor.mjs"
+
 
 export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
@@ -23,8 +23,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             equipItem: this._equipItem,
             adjustResource: this._adjustResource,
             statRoll: this._statRoll,
-            weaponRoll: this._weaponRoll,
-            armorRoll: this._armorRoll,
+            weaponRoll: this._rollWeaponDamage,
+            armorRoll: this._rollArmorDefense,
             editImage: this._onEditImage,
             
 
@@ -104,13 +104,15 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
     }
 
+    // FIXME - these can be combined into _addCareerOrPool / _deleteCareerOrPool method
+    // to streamline
     static async _addCareer(event, element) {
-        await this.actor._addCareer();
+        await this.actor.system._addCareer();
     }
 
-    static _addPool(event, element) {
+    static async _addPool(event, element) {
         event.preventDefault();
-        return this.actor._addPool();
+        await this.actor.system._addPool();
     }
 
     static async _deleteCareer(event, element) {
@@ -118,11 +120,15 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         console.log("Element: ", element.dataset)
         let career = element.dataset.career;
         let id = element.dataset.careerId;
-        return this.actor._deleteCareer(career, id);
+        await this.actor.system._deleteCareer(career, id);
     }
 
-    static async _deletePool() {
-        await this.actor._deletePool();
+    static async _deletePool(event, element) {
+        event.preventDefault();
+        console.log("Element: ", element.dataset)
+        let pool = element.dataset.pool;
+        let p_id = element.dataset.poolId;
+        await this.actor.system._deletePool(pool, p_id);
     }
     // Change lifeblood, damage if you create a minor NPC from a character
     // one-way change; caught in preUpdateToken for reversing it
@@ -142,21 +148,23 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         let chosenStat = element.dataset.attribute;
         let statId = element.dataset?.statId ?? "";
 
-        await this.actor.rollStat(chosenStat, statId);
+        await this.actor._statRoll(chosenStat, statId);
     }
 
     // Handle damage rolls
-    static _weaponRoll(event,element) {
+    static _rollWeaponDamage(event,element) {
         event.preventDefault();
         let item = this.actor.items.get(element.dataset.itemId);
-        return item.rollDamage(this.actor.getRollData());
+        return item._rollWeaponDamage(this.actor.system.main_attributes);
     }
 
-    static _armorRoll(event,element) {
+    static _rollArmorDefense(event,element) {
         event.preventDefault();
-        let itemId = element.closest(".item").dataset.itemId;
+        console.log(element.dataset);
+        let itemId = element.dataset.itemId;
         let item = this.actor.items.get(itemId);
-        return this.actor.rollArmor(item);
+        console.log("Item: ", item);
+        return item._rollArmor();
     }
 
     static _editItem(event, element) {

@@ -1,0 +1,23 @@
+
+{{log "hbs data " data}}
+<div class="ew-statblock ew-statborder">
+       <div class="ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;">
+        <strong>{{localize "EW.game_term.attributes.main"}}</strong>
+        </div>
+        <table class="ew-stat-table" id="ew-attribute-table">
+            <tr>
+                <td>
+                    <a data-attribute="strength" data-action="statRoll">{{proper gameSettings.strName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td><a data-attribute="agility" data-action="statRoll">{{proper gameSettings.agiName}}</a></td>
+            </tr>
+            <tr>
+                <td><a data-attribute="mind" data-action="statRoll">{{proper gameSettings.minName}}</a></td>
+            </tr>
+            <tr>
+                <td><a data-attribute="appeal" data-action="statRoll">{{proper gameSettings.appName}}</a></td>
+            </tr>
+        </table>
+</div>

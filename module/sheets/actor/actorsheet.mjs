@@ -50,7 +50,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     
     static PARTS = {
         form: {
-            template: "systems/ewhen/templates/actor/charactersheet.hbs",
+            template: "systems/ewhen/templates/actor/major.hbs",
             scrollable: ['scrollable']
         }
     }
@@ -82,12 +82,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             data.pools = this.actor.system.pools       
             data.main_attributes = this.actor.system.main_attributes;
             data.combat_attributes = this.actor.system.combat_attributes;
-            data.fdmg = this.actor.system.resources.lifeblood.fatigue;
-            data.rdmg = this.actor.system.resources.lifeblood.regular;
-            data.ldmg = this.actor.system.resources.lifeblood.lasting;
-            data.crit = this.actor.system.resources.lifeblood.critical;
-            data.cdmg = this.actor.system.resources.lifeblood.value;
-            data.isMajor = (EWBaseActor.ATYPES.major.includes(this.actor.type)) ? true : false;
+            data.isMajor = (this.actor.type === "hero" || this.actor.type === "rival") ? true : false;
        
         return data;
     }
@@ -153,10 +148,8 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     // Handle damage rolls
     static _weaponRoll(event,element) {
         event.preventDefault();
-        let itemId = element.closest(".item").dataset.itemId;
-        let item = this.actor.items.get(itemId);
-        return this.actor.rollWeaponDamage(item);
-
+        let item = this.actor.items.get(element.dataset.itemId);
+        return item.rollDamage(this.actor.getRollData());
     }
 
     static _armorRoll(event,element) {

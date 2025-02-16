@@ -31,12 +31,14 @@
   </div>
   <div class="ew-cs-points">
   {{#if isMajor}}
-	{{> 'systems/ewhen/templates/partials/Resources.hbs'}}
+	{{> 'systems/ewhen/templates/partials/PointPools.hbs'}}
   {{/if}}
   </div>
   <div class="ew-cs-trackers">
-	{{> 'systems/ewhen/templates/partials/HealthTracks.hbs'}}
-
+	{{> 'systems/ewhen/templates/partials/Lifeblood.hbs'}}
+  {{#if (setting "useResolve")}}
+    {{> 'systems/ewhen/templates/partials/Resolve.hbs'}}
+  {{/if}}
   </div>
   <div class="ew-cs-heropoints">
     <table class="ew-stat-table">

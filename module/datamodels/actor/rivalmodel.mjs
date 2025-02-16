@@ -10,13 +10,6 @@ export default class EWRivalData extends EWBaseActorData {
     return {
       ...actorData,
       hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
-      pools: new ArrayField(new SchemaField({
-        poolname: new StringField({required:true, initial:game.i18n.localize("EW.game_term.newpool")}),
-        max: new NumberField({required:true, integer:true, initial:0, min:1}),
-        min: new NumberField({required:true, integer:true, initial:0, min:0}),
-        current: new NumberField({required:true, integer:true, initial:0, min:0}),
-        id: new StringField({required:true, nullable:false, initial:""})
-      }), {required:true, initial:[]}),
       priority: new NumberField({required:true, integer:true, min:5, initial:5})
     };
   }

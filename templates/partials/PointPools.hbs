@@ -1,66 +1,30 @@
-
 <div class="ew-statblock ew-statborder">
-    <div class="ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.resources"}}</strong></div>
-<table class="ew-stat-table" id="ew-pointpool-table">
-{{#if (setting "useArcana")}}
+<div class="ew-statblock ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.careers"}}</strong>
+                        <a class="item-create" title="Add Career" data-action="addCareer" data-type="career">
+                            <i class="fa-solid fa-plus"></i>
+                        </a>
+                    </div>
+<table class="ew-stat-table" id="ew-career-table">
+
+{{#each pools as | pool |}}
+
 <tr>
-    <td>
-        {{proper gameSettings.arcanaName}}
-    </td>
-    <td >
-        <input class="attr-name"  type="text" name="system.resources.arcana_points" value="{{resources.arcana_points}}" data-dtype="Number"/><br/>
-    </td>
+<td class="item">
+   {{@key}}
+</td>
+<td class="item">
+    <input class="attr-name" type="text" data-dtype="Number" name="system.pools.{{@key}}.current" value="{{pool.current}}">
+</td>
+<td>/</td>
+<td class="item">
+    <input class="attr-name" type="text" data-dtype="Number" name="system.pools.{{@key}}.max" value="{{pool.max}}">
+</td>
+<td >
+    <a class="item" data-action="deletePool" data-pool="{{@key}}" data-pool-id="{{pool.id}}">
+        <i class="fa-solid fa-ban"></i>
+    </a>
+</td>
 </tr>
-{{/if}}
-
-{{#if (setting "useFaith")}}
-<tr>
-    <td>
-        {{proper gameSettings.faithName}}
-    </td>
-    <td >
-        <input class="attr-name"  type="text" name="system.resources.faith_points" value="{{resources.faith_points}}" data-dtype="Number"/>
-    </td>
-</tr>
-{{/if}}
-
-{{#if (setting "usePsionics")}}
-<tr>
-    <td>
-        {{proper gameSettings.psionicsName}}
-    </td>
-    <td >
-        <input class="attr-name"  type="text" name="system.resources.psi_points" value="{{resources.psi_points}}" data-dtype="Number"/>
-    </td>
-</tr>
-{{/if}}
-
-{{#if (setting "useCredit")}}
-<tr>
-    <td>
-        {{localize "EW.attribute.resource.credit_rating"}}
-    </td>
-    <td >
-        <input class="attr-name"  type="text" name="system.resources.credit_rating" value="{{resources.credit_rating}}" data-dtype="Number"/>
-    </td>
-</tr>
-{{/if}}
-
-{{#unless (setting "useCredit")}}
-<tr>
-    <td>
-        {{localize "EW.game_term.currency"}}
-    </td>
-    <td>
-        <input class="attr-name" type="text" style="width:7ch" name="system.resources.currency" value="{{resources.currency}}" data-dtype="Number"/>
-    </td>
-</tr>
-{{/unless}}
-
-
-
+{{/each}}
 </table>
 </div>
-
-
-        

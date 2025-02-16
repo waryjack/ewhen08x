@@ -3,13 +3,13 @@ export const preloadHandlebarsTemplates = async function() {
   
       // Shared Partials
       "systems/ewhen/templates/partials/DiffList.hbs",
-      
-  
+        
       // Actor Sheet Partials
       "systems/ewhen/templates/partials/MainAttributes.hbs",
       "systems/ewhen/templates/partials/CombatAttributes.hbs",
       "systems/ewhen/templates/partials/CareerList.hbs",
-      "systems/ewhen/templates/partials/HealthTracks.hbs",
+      "systems/ewhen/templates/partials/Lifeblood.hbs",
+      "systems/ewhen/templates/partials/Resolve.hbs",
       "systems/ewhen/templates/partials/BoonList.hbs",
       "systems/ewhen/templates/partials/FlawList.hbs",
       "systems/ewhen/templates/partials/PowerList.hbs",
@@ -22,8 +22,11 @@ export const preloadHandlebarsTemplates = async function() {
   
       // Item Sheet Partials
       "systems/ewhen/templates/partials/EraSelect.hbs",
-      "systems/ewhen/templates/partials/AttributeSelect.hbs"
-      // Roll Sheet Partials
+      "systems/ewhen/templates/partials/AttributeSelect.hbs",
+      
+      // Rabble Sheet Partials
+      "systems/ewhen/templates/partials/rabble/attributes.hbs",
+      "systems/ewhen/templates/partials/rabble/combat.hbs"
     ]);
   };
   

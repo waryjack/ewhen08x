@@ -347,11 +347,18 @@
     "EW.difficulty.formidable": "Formidable (-6)",
     "EW.difficulty.heroic": "Heroic (-8)", 
 
-    "EW.prompts.addcareer": "Add New Career",
-    "EW.prompts.delwarning": "You are about to delete the ",
-    "EW.prompts.delcareer": " career. Are you sure?",
-    "EW.prompts.addpool":"Add New Pool",
-    "EW.prompts.delpool":" pool. Are you sure?",
+
+    "EW.careers.careername":"Career Name",
+    "EW.careers.careerrank":"Career Rank",
+    "EW.careers.prompts.addcareer": "Add New Career",
+    "EW.careers.prompts.delcareer": " career. Are you sure?",
+    "EW.pools.prompt.addpool":"Add New Pool",
+    "EW.pools.prompt.delpool":" pool. Are you sure?",
+    "EW.pools.poolname": "Pool Name",
+    "EW.pools.poolmin":"Minimum",
+    "EW.pools.poolmax":"Maximum",
+    "EW.pools.poolcurrent":"Current",
+    "EW.prompts.deleteprefix": "You are about to delete the ",
 
     "EW.buttons.add": "Add",
     "EW.buttons.cancel":"Cancel",
@@ -359,5 +366,6 @@
     "EW.buttons.save":"Save",
     "EW.buttons.roll":"Roll",
 
-    "EW.warnings.duplicateCareerName": "This character already has a career named "
+    "EW.warnings.duplicateCareerName": "This character already has a career named ",
+    "EW.warnings.duplicatePoolName": "Thsi character already has a pool named "
 }

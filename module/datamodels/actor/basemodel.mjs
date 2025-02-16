@@ -32,6 +32,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
         lifeblood: new SchemaField(getHealthSchema()),
         resolve: new SchemaField(getHealthSchema())
       }),
+      pools: new ObjectField(),
       careers: new ObjectField()
     }
   }

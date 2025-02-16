@@ -1,3 +1,6 @@
 {
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "editor.parameterHints.enabled": false,
+    "editor.suggest.showTypeParameters": false,
+    "editor.parameterHints.cycle": false
 }

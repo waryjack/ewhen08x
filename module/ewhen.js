@@ -20,7 +20,7 @@ Hooks.once("init", () => {
         sheets,
         rolls,
         docs,
-        registerSettings
+        registerSettings,
     };
 
     // Register System sheets

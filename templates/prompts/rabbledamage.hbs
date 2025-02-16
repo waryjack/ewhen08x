@@ -1,0 +1,19 @@
+<form class="ewhen roll-dialog">
+ <header class="roll-header">
+        <h1 class="roll-name">{{localize "EW.pools.prompt.addnewpool"}}</h1>
+    </header>
+
+     <div class="form-group">
+         <label for="dmg">{{localize "EW.game_term.damage"}}</label>
+         <select id="dmg" name="dmg">
+            <option value="1">1 (Unarmed Rabble)</option>
+            <option value="1d3">d3 (Armed Rabble)</option>
+            <option value="2d6kl1">d6L (Horde)</option>
+         </select>
+     </div>
+     <div class="form-group">
+         <label for="mod">{{localize "EW.game_term.modifier"}}</label>
+         <input type="text" id="mod" data-dtype="Number"/>
+     </div>
+ </div>
+</form>

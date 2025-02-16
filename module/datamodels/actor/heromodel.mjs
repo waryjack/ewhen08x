@@ -13,7 +13,6 @@ export default class EWHeroData extends EWBaseActorData {
       isRival: new BooleanField({required:true, nullable:false, initial:false}),
       encumbrance: new NumberField({required:true, integer:true, min:0, initial:0}),
       hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
-      pools: new ObjectField(),
       priority: new SchemaField({
         numDice: new NumberField({required:true, integer:true, min:1, initial:2}),
         suffix: new StringField({required:true, initial:"kh2"}),
@@ -21,12 +20,6 @@ export default class EWHeroData extends EWBaseActorData {
         expression: new StringField({required:true, initial:"2d6kh2"}),
         bd: new NumberField({required:true, initial:0, min:0}),
         pd: new NumberField({required:true, initial:0, min:0})
-      }),
-      traits: new SchemaField({
-        careers: new ArrayField(new StringField()),
-        boons: new ArrayField(new StringField()),
-        flaws: new ArrayField(new StringField()),
-        powers: new ArrayField(new StringField())
       }),
     };
   }

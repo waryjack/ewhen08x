@@ -10,7 +10,8 @@ export default class EWRabbleData extends EWBaseActorData {
     return {
       ...baseSchema,
       priority: new NumberField({required:true, integer:true, initial:2}),
-      subtype: new StringField({initial:''}) // acolyte, priest, etc.
+      subtype: new StringField({initial:''}), // acolyte, priest, etc.
+      armed: new BooleanField({required:true, nullable:false, initial:false})
     }
   }
 
@@ -21,7 +22,11 @@ export default class EWRabbleData extends EWBaseActorData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    health = game.settings.get("ewhen","allSettins").rabbleStrength ?? 3
+    health = game.settings.get("ewhen","allSettings").rabbleStrength ?? 3
+    
+    
+    this.main_attributes = this._setStatValues(this.main_attributes);
+    this.combat_attributes = this._setStatValues(this.combat_attributes)
 
     this.resources.lifeblood = {
       value: health,
@@ -35,5 +40,17 @@ export default class EWRabbleData extends EWBaseActorData {
 
     this.priority = 2;
 
+  }
+
+  _setStatValues(obj) {
+
+    for (const [stat, vals] of Object.entries(obj)) {
+      for (const v of Object.keys(vals)) {
+        vals[v] = 0
+      }
+      obj[stat] = vals
+    }
+
+    return obj;
   }
 }

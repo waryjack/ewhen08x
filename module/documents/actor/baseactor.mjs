@@ -3,8 +3,6 @@ import { getDiceModel } from "../../diceModels.js";
 
 export default class EWBaseActor extends Actor {
   
-    
-
   static #ATYPES = Object.freeze({
     major:["hero","rival"],
     minor:["rabble","rival"]

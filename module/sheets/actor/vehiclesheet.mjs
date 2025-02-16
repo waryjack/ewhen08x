@@ -38,7 +38,7 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
     
     static PARTS = {
         form: {
-            template: "systems/ewhen/templates/actor/vehiclesheet.hbs",
+            template: "systems/ewhen/templates/actor/vehicle.hbs",
             scrollable: ['scrollable']
         }
     }

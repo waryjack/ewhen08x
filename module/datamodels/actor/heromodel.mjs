@@ -59,18 +59,18 @@ export default class EWHeroData extends EWBaseActorData {
           this.priority.expression = (Number(this.priority.numDice) + Math.abs(netExtraDice)) + baseDie + suffix + "+" + this.priority.miscMod;
   }
 
-  _spendHeroPoint() {
-    const hp = this.system.resources.hero_points;
-    if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
-    let newHp= Math.max(0, hp - 1);
-    // console.log("HP / NewHP: ", hp, newHp);
-    this.update({"system.resources.hero_points": newHp});
+    _useHeroPoint() {
+      const hp = this.hero_points;
+      if(hp == 0) { ui.notifications.error(game.i18n.localize("EW.warnings.noHeroPoints")); return; }
+      let newHp= Math.max(0, hp - 1);
+      // console.log("HP / NewHP: ", hp, newHp);
+      this.parent.update({"system.hero_points": newHp});
 
-    let chatData = {
-        actor:this.name
-    }
+      let chatData = {
+          actor:this.name
+      }
 
-    renderTemplate('systems/ewhen/templates/roll/EWHeroPoint.hbs', chatData).then((msg)=>{
+    renderTemplate('systems/ewhen/templates/roll/heropoint.hbs', chatData).then((msg)=>{
         ChatMessage.create({
             user: game.user._id,
             type:CONST.CHAT_MESSAGE_STYLES.ROLL,

@@ -3,16 +3,19 @@
     <div class="chat-rollname">
                 {{rollTitle}}
     </div>
+    <hr>
     <div class="chat-rollicon">
         {{#if (eq outcome "Mighty Success!")}}
         <a data-actor-id="{{actor}}" id="legendize" data-action="legendize" class="taskroll-final {{outclass}}" title="Make Legendary!"><i class="fas fa-fist-raised"></i></a>
         {{/if}}
     </div>
-    <div class="chat-rolltotal {{outclass}}">
-                    {{rollTotal}}
-    </div>
+    <div class="chat-rolltotal {{outclass}}">{{rollTotal}}</div>
     <div class="chat-rolloutcome {{outclass}}">
-        {{outcome}}
+        {{#if (eq outclass "roll-auto-fail")}}<i class="fa-solid fa-skull"></i>{{/if}}
+        {{#if (eq outclass "roll-fail")}}<i class="fa-solid fa-x"></i>{{/if}}
+        {{#if (eq outclass "roll-sux")}}<i class="fa-solid fa-circle-check"></i>{{/if}}
+        {{#if (eq outclass "roll-auto-sux")}}<i class="fa-solid fa-circle-check"></i>{{/if}}
+        {{#if (eq outclass "roll-mighty-sux")}}<a id="#legendize" class="legendize" data-actor-id="{{actorid}}"><i class="fa-solid fa-hand-fist"></i></a>{{/if}}
     </div>
     <div class="chat-rolldetails">
         <p> {{breakdown}}

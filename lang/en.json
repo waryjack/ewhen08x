@@ -367,5 +367,6 @@
     "EW.buttons.roll":"Roll",
 
     "EW.warnings.duplicateCareerName": "This character already has a career named ",
-    "EW.warnings.duplicatePoolName": "Thsi character already has a pool named "
+    "EW.warnings.duplicatePoolName": "This character already has a pool named ",
+    "EW.warning.cantspendhp": "This type of character cannot use Hero Points"
 }

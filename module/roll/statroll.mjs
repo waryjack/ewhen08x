@@ -208,7 +208,8 @@ export default class EWMCCRoll extends EWBaseRoll {
             tooltip: new Handlebars.SafeString(await statroll.getTooltip()),
             outcome: data.outcome,
             outclass:data.outcomeClass,
-            rollTotal: statroll.total
+            rollTotal: statroll.total,
+            actorid: statroll.options.actor
         }
     }
 

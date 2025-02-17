@@ -26,6 +26,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             weaponRoll: this._rollWeaponDamage,
             armorRoll: this._rollArmorDefense,
             editImage: this._onEditImage,
+            useHeroPoint: this._useHeroPoint
             
 
         },
@@ -129,6 +130,15 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         let pool = element.dataset.pool;
         let p_id = element.dataset.poolId;
         await this.actor.system._deletePool(pool, p_id);
+    }
+
+    static async _useHeroPoint(event, element) {
+        if(this.actor.type === "rabble" || this.actor.type === "tought" || this.actor.type === "vehicle") {
+            ui.notifications.error(game.i18n.localize("EW.warnings.cantspendhp"));   
+            return;
+        }
+        event.preventDefault();
+        return this.actor.system._useHeroPoint();
     }
     // Change lifeblood, damage if you create a minor NPC from a character
     // one-way change; caught in preUpdateToken for reversing it

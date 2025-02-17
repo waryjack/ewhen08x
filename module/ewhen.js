@@ -309,8 +309,8 @@ Hooks.on('deleteItem', function(actor, item){
 
 // Add the necessary tooltip toggles
 
-Hooks.on('renderChatMessage', (app, html) => {
-
+Hooks.on('renderChatMessage', (app, html, data) => {
+  
     html.on('click', '.taskroll-msg', event => {
         event.preventDefault();
         // NOTE: This depends on the exact card template HTML structure.
@@ -322,21 +322,6 @@ Hooks.on('renderChatMessage', (app, html) => {
         console.log("clicked the chat message");
         // NOTE: This depends on the exact card template HTML structure.
         $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
-     });
-
-     html.on('click', '#legendize', event => {
-        event.preventDefault();
-
-        let element = event.currentTarget;
-
-        let actorId = element.dataset.actorId;
-
-        let actor = game.actors.get(actorId);
-
-
-        if(!actor.system.isRival && !actor.system.isRabble && !actor.system.isTough) {
-            actor.spendHeroPoint();
-        }
      });
 
 });

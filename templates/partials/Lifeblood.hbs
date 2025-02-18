@@ -3,42 +3,94 @@
  
                 <table id="ew-healthtrack-table">
                     <tr>
-                        <td style="padding-top:none;padding-bottom:none">
-                            <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood">
-                                {{gameSettings.lbdName}} ({{resources.lifeblood.max}})
-                                </a>
+                        <td >
+                            {{proper gameSettings.lbdName}}
                         </td>
-                        <td style="padding-top:none;padding-bottom:none">
-                            {{#times resources.lifeblood.lasting}}
-                            <i class="fas fa-circle res-box"></i>
-                            {{/times}}
-                            {{#times resources.lifeblood.regular}}
-                            <i class="fas fa-times-circle res-box"></i>
-                            {{/times}}
-                            {{#times resources.lifeblood.value}}
-                            <i class="far fa-circle res-box"></i>
-                            {{/times}}
-                            {{#times resources.lifeblood.fatigue}}
-                            <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
-                            {{/times}}
+                        <td >
+                        {{#each resources.lifeblood.boxes as |state count|}}
+                            {{#ife state "h"}}
+                            <a data-action="cycleBox" data-track="lifeblood" data-state="{{state}}" data-pos="{{count}}"><i class="far fa-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "f"}}
+                            <a data-action="cycleBox" data-track="lifeblood" data-state="{{state}}" data-pos="{{count}}"><i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "r"}}
+                            <a data-action="cycleBox" data-track="lifeblood" data-state="{{state}}" data-pos="{{count}}"><i class="fas fa-times-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "l"}}
+                            <a data-action="cycleBox" data-track="lifeblood" data-state="{{state}}" data-pos="{{count}}"><i class="fas fa-circle res-box"></i></a>
+                            {{/ife}}
+                        {{/each}}
                         </td>
                         <td class="res-track">
                             {{#if (setting "useCritical")}}
-                                <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood">
-                                    <i class="fas fa-forward"></i> {{gameSettings.critName}}
-                                </a>
+                                <i class="fas fa-forward"></i> {{gameSettings.critName}}
                             {{/if}}
                         </td>
-                        <td style="padding-top:none;padding-bottom:none">
-                                {{#if (setting "useCritical")}}
-                                {{#times resources.lifeblood.critical}}
+                        <td >
+                        {{#if (setting "useCritical")}}
+                        {{#each resources.lifeblood.critboxes as |state count|}}
+                            {{#ife state "c"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="lifeblood" data-state="{{state}}" data-pos="{{count}}">
                                     <i class="fas fa-times-circle res-box"></i>
-                                {{/times}}
-                                {{#times (minus 5 resources.lifeblood.critical)}}
-                                   <i class="far fa-circle res-box"></i>
-                                {{/times}}
-                            {{/if}}
+                                </a>
+                            {{/ife}}
+                            {{#ife state "h"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="lifeblood" data-state="{{state}}" data-pos="{{count}}">
+                                    <i class="far fa-circle res-box"></i>
+                                </a>
+                            {{/ife}}
+                                    
+                         {{/each}}
+                         {{/if}}
                         </td>
                     </tr>
+                    {{#if (setting "useResolve")}}
+                    <tr>
+                        
+                        <td >
+                                {{proper gameSettings.resName}}
+                        </td>
+                        <td >  
+                        {{#each resources.resolve.boxes as |state count|}}
+                            {{#ife state "h"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i class="far fa-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "f"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "r"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i class="fas fa-times-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "l"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i class="fas fa-circle res-box"></i></a>
+                            {{/ife}}
+                        {{/each}}
+                        </td>
+                        <td  class="res-track">
+                            {{#if (setting "useCritical")}}
+                                    <i class="fas fa-forward"></i> {{proper gameSettings.critName}}
+                            {{/if}}
+                        </td>
+                        <td >
+                        {{#if (setting "useCritical")}}
+                        {{#each resources.resolve.critboxes as |state count|}}
+                            {{#ife state "c"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="resolve" data-state="{{state}}" data-pos="{{count}}">
+                                    <i class="fas fa-times-circle res-box"></i>
+                                </a>
+                            {{/ife}}
+                            {{#ife state "h"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="resolve" data-state="{{state}}" data-pos="{{count}}">
+                                    <i class="far fa-circle res-box"></i>
+                                </a>
+                            {{/ife}}
+                                    
+                         {{/each}}
+                        {{/if}}
+                        </td>
+                        
+                    </tr>   
+                    {{/if}}  
                     </table>
                 </div>

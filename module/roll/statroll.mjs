@@ -199,7 +199,7 @@ export default class EWMCCRoll extends EWBaseRoll {
         let carStr = (opts.car != "none" && opts.com != "") ? ` + ${opts.car} (${opts.carVal})` : "";
 
         let rollTitle = `${opts.rollDisplay} ${game.i18n.localize("EW.rolltype.roll")}`;
-        let rollBreakdown = `<p><strong>${opts.diceonly}${opts.hilo} ${attStr}${comStr}${carStr} + ${opts.mods}</strong></p><p style="font-size:0.85em;">Difficulty: ${game.i18n.localize(opts.diffDisplay)}</p>`;
+        let rollBreakdown = `<p><strong>${opts.diceonly}${opts.hilo} ${attStr}${comStr}${carStr} + ${opts.mods} vs. TN ${opts.dm.tn}</strong></p><p style="font-size:0.85em;">Difficulty: ${game.i18n.localize(opts.diffDisplay)}</p>`;
 
         return {
             roll: statroll,

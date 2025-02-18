@@ -1,6 +1,4 @@
-import { EWSettingsDialog
-
- } from "./menus/SettingsMenu.mjs";
+import { EWSettingsDialog } from "./menus/SettingsMenu.mjs";
 export const registerSettings = function() {
 
     // Register initiative model

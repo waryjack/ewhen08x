@@ -20,6 +20,7 @@ export default class EWWeaponRoll extends EWBaseRoll {
     static async prompt(options = {}){
 
         console.log("weap roll opts: ", options);
+        options.dicecode = CONFIG.ewhen.DAMAGE_DICE_PROGRESSION[options.weaponStats.damage.dice]
         const content = await renderTemplate(this.WEAPON_ROLL_TEMPLATE, options);
         const prompt = await DialogV2.wait({
             window: { title: "EW.rolltype.damageroll"},
@@ -47,16 +48,15 @@ export default class EWWeaponRoll extends EWBaseRoll {
         if (!prompt) return new Error("No data received from prompt");
     
         options.scaleDmg = prompt.scaleDmg.value;
-
-        
-        options.dicecode = CONFIG.ewhen.DAMAGE_DICE_PROGRESSION[prompt.scaleDmg.value]
+        let dmgDice = (options.scaleDmg != "" && options.scaleDmg != "0") ? options.scaleDmg : options.weaponStats.damage.dice; 
+        console.log("Dice code: ", options.dicecode)
         options.mods = prompt.mods.value;
         let att = options.weaponStats.damage.add_attribute;
         let half = options.weaponStats.damage.half_attribute;
         let attVal = !half ? options.actorAttributes[att].rank : Math.floor(options.actorAttributes[att].rank/2);
         let attOp = attVal >= 0 ? "+" : "-";
         let modOp = Number(options.mods) >= 0 ? "+" : "-";
-        let dmgDice = options.scaleDmg != "0" ? options.scaleDmg : options.weaponStats.damage.dice; 
+        
 
         let formula = `${dmgDice}${attOp}${Math.abs(attVal)}${modOp}${Math.abs(options.mods)}`;
         let weaponroll = new this(formula, options.weaponStats, options)

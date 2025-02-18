@@ -3,41 +3,44 @@
  
                 <table id="ew-healthtrack-table">
                     <tr>
-                        <td style="padding-top:none;padding-bottom:none">
-                            <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve">
-                                {{proper gameSettings.resName}} ({{resources.resolve.max}})
-                            </a>
+                        <td >
+                                {{proper gameSettings.resName}}
                         </td>
-                        <td style="padding-top:none;padding-bottom:none">  
-                            {{#times resources.resolve.lasting}}
-                                <i class="fas fa-circle res-box"></i>
-                            {{/times}}
-                            {{#times resources.resolve.regular}}
-                                <i class="fas fa-times-circle res-box"></i>
-                            {{/times}}
-                            {{#times resources.resolve.value}}
-                                <i class="far fa-circle res-box"></i>
-                            {{/times}}
-                            {{#times resources.resolve.fatigue}}
-                                <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
-                            {{/times}}
+                        <td >  
+                        {{#each resources.resolve.boxes as |state count|}}
+                            {{#ife state "h"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i class="far fa-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "f"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "r"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i class="fas fa-times-circle res-box"></i></a>
+                            {{/ife}}
+                            {{#ife state "l"}}
+                            <a data-action="cycleBox" data-track="resolve" data-state="{{state}}" data-pos="{{count}}"><i class="fas fa-circle res-box"></i></a>
+                            {{/ife}}
+                        {{/each}}
                         </td>
-                        <td style="padding-top:none;padding-bottom:none" class="res-track">
+                        <td  class="res-track">
                             {{#if (setting "useCritical")}}
-                                <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve">
                                     <i class="fas fa-forward"></i> {{proper gameSettings.critName}}
-                                </a>
                             {{/if}}
                         </td>
-                        <td style="padding-top:none;padding-bottom:none">
-                            {{#if (setting "useCritical")}}
-                                {{#times resources.resolve.critical}}
+                        <td >
+                        {{#each resources.resolve.critboxes as |state count|}}
+                            {{#ife state "c"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="resolve" data-state="{{state}}" data-pos="{{count}}">
                                     <i class="fas fa-times-circle res-box"></i>
-                                {{/times}}
-                                {{#times (minus 5 resources.resolve.critical)}}
-                                    <i class="far fa-circle res-box"></i>
-                                {{/times}}
-                            {{/if}}
+                                </a>
+                            {{/ife}}
+                            {{#ife state "h"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="resolve" data-state="{{state}}" data-pos="{{count}}">
+                                    <i class="fas fa-circle res-box"></i>
+                                </a>
+                            {{/ife}}
+                                    
+                         {{/each}}
                         </td>
                         
                     </tr>                    

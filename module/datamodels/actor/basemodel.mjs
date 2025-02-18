@@ -44,6 +44,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
 
     // Set initiative based on system settings
     this._setInitiative(game.settings.get("ewhen","allSettings"));
+    this._initializeHealth();
   }
 
   _setInitiative(settings) {
@@ -88,6 +89,21 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
         }
     }
     await this.parent.update(toAddObj);
+  }
+
+  _initializeHealth() {
+    if (!this.resources.lifeblood.boxes.length) { 
+      this.resources.lifeblood.boxes = Array(this.resources.lifeblood.max).fill("h").flat();
+    }
+    if (!this.resources.resolve.boxes.length) { 
+      this.resources.resolve.boxes = Array(this.resources.resolve.max).fill("h").flat();
+    }
+    if (!this.resources.lifeblood.critboxes.length){
+      this.resources.lifeblood.critboxes = Array(5).fill("h").flat();
+    }
+    if (!this.resources.resolve.critboxes.length) {
+      this.resources.resolve.critboxes = Array(5).fill("h").flat();
+    }
   }
 
   async _deleteCareer(career, c_id) {
@@ -219,6 +235,60 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     }
 
   }
+
+  /**
+   * @param {String} track the health track being updated
+   * @param {Number} pos the position in the health track array of the box being updated
+   * @param {String} state the current state of the track (healthy, fatigue, regular, lasting);
+   */
+  async _cycleHitBox(track, pos, state) {
+
+  // console.warn("clicked location: ", hitLocation, "box position: ", position);
+    let boxes = [];
+
+    switch(track) {
+      case "lifeblood":boxes = this.resources.lifeblood.boxes; break;
+      case "resolve":boxes = this.resources.resolve.boxes; break;
+      case "frame":boxes = this.resources.frame.boxes; break;
+      case "shield":boxes = this.resources.shield.boxes; break;
+    }
+    let newState = "";
+
+    // rotate through (l)asting, (h)ealthy, (f)atigue, (r)egular damage on each click
+    switch(state){
+      case "l": newState = "h";break;
+      case "h": newState = "f";break;
+      case "f": newState = "r";break;
+      case "r": newState = "l";break;
+      default:newState = currState;
+    }
+
+    boxes[pos] = newState;
+    await this.actor.update({[`system.resources.${track}.boxes`]:boxes});
+}
+
+/**
+   * @param {String} track the health track being updated
+   * @param {Number} pos the position in the health track array of the box being updated
+   * @param {String} state the current state of the track (critical or healthy);
+   */
+
+async _cycleCritBox(track,pos,state) {
+
+  // console.warn("clicked location: ", hitLocation, "box position: ", position);
+    let boxes = [];
+
+    switch(track) {
+      case "lifeblood":boxes = this.resources.lifeblood.critboxes; break;
+      case "resolve":boxes = this.resources.resolve.critboxes; break;
+      case "frame":boxes = this.resources.frame.critboxes; break;
+      case "shield":boxes = this.resources.shield.critboxes; break;
+    }
+    let newState = state == "c" ? "h" : "c";
+
+    boxes[pos] = newState;
+    await this.actor.update({[`system.resources.${track}.critboxes`]:boxes});
+}
 
 }
 

@@ -16,14 +16,17 @@ export function getStatSchema(value){
   
 export function getHealthSchema() {
     return {
-      max: new NumberField({required:true, integer:true, initial:0, min:0}),
+      max: new NumberField({required:true, integer:true, initial:1, min:0}),
+      min: new NumberField({required:true, integer:true, initial:0, min:0}),
       value: new NumberField({required:true, integer:true, initial:0, min:0}),
-      regular: new NumberField({required:true, integer:true, initial:0, min:0}),
-      lasting: new NumberField({required:true, integer:true, initial:0, min:0}),
-      fatigue: new NumberField({required:true, integer:true, initial:0, min:0}),
-      critical: new NumberField({required:true, integer:true, initial:0, min:0}),
+      regular: new NumberField({required:true, integer:true, initial:0, min:0}), // may not be needed with the cycleBox approach
+      lasting: new NumberField({required:true, integer:true, initial:0, min:0}), // may not be needed with the cycleBox approach
+      fatigue: new NumberField({required:true, integer:true, initial:0, min:0}), // may not be needed with the cycleBox approach
+      critical: new NumberField({required:true, integer:true, initial:0, min:0}), // may not be needed with the cycleBox approach
       misc_lfb: new NumberField({required:true, integer:true, initial:0, min:0}),
-      misc_res: new NumberField({required:true, integer:true, initial:0, min:0})
+      misc_res: new NumberField({required:true, integer:true, initial:0, min:0}),
+      boxes: new ArrayField(new StringField(), {required:true, initial:[]}),
+      critboxes: new ArrayField(new StringField(), {required:true, initial:[]})
     }
   }
 

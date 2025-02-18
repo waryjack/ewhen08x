@@ -22,6 +22,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             deleteItem: this._deleteItem,
             equipItem: this._equipItem,
             adjustResource: this._adjustResource,
+            cycleBox: this._cycleBox,
             statRoll: this._statRoll,
             weaponRoll: this._rollWeaponDamage,
             armorRoll: this._rollArmorDefense,
@@ -171,6 +172,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
     static _rollArmorDefense(event,element) {
         event.preventDefault();
         console.log(element.dataset);
+        if(element.dataset.varPro === "none") return; //don't roll armor with fixed protection
         let itemId = element.dataset.itemId;
         let item = this.actor.items.get(itemId);
         console.log("Item: ", item);
@@ -181,8 +183,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         console.log("Event: ", event);
         console.log("Element: ", element);
         event.preventDefault();
-        let itemId = element.closest(".item").dataset.itemId;
+        let itemId = element.dataset.itemId;
         let item = this.actor.items.get(itemId);
+        console.log("Item to edit: ", item);
         item.sheet.render(true);
 
     }
@@ -217,7 +220,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
       static _deleteItem(event, element) {
           event.preventDefault();
          
-          let itemId = element.closest(".item").dataset.itemId;
+          let itemId = element.dataset.itemId;
 
           let d = new Dialog({
             title: "Delete This Item?",
@@ -259,6 +262,19 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
 
           return item.update({ [field]: val});
 
+      }
+
+      static async _cycleBox(event, element) {
+        event.preventDefault();
+        let track = element.dataset.track;
+        let pos = element.dataset.pos;
+        let state = element.dataset.state;
+
+        if (element.dataset.crit === "true") {
+            await this.actor.system._cycleCritBox(track, pos, state);
+        } else {
+            await this.actor.system._cycleHitBox(track, pos, state);
+        }
       }
 
       static async _onEditImage(_event, target) {

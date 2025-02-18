@@ -1,0 +1,47 @@
+
+<div class="ew-statblock">
+ 
+                <table id="ew-healthtrack-table">
+                    <tr>
+                        <td style="padding-top:none;padding-bottom:none">
+                            <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve">
+                                {{proper gameSettings.resName}} ({{resources.resolve.max}})
+                            </a>
+                        </td>
+                        <td style="padding-top:none;padding-bottom:none">  
+                            {{#times resources.resolve.lasting}}
+                                <i class="fas fa-circle res-box"></i>
+                            {{/times}}
+                            {{#times resources.resolve.regular}}
+                                <i class="fas fa-times-circle res-box"></i>
+                            {{/times}}
+                            {{#times resources.resolve.value}}
+                                <i class="far fa-circle res-box"></i>
+                            {{/times}}
+                            {{#times resources.resolve.fatigue}}
+                                <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
+                            {{/times}}
+                        </td>
+                        <td style="padding-top:none;padding-bottom:none" class="res-track">
+                            {{#if (setting "useCritical")}}
+                                <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="resolve">
+                                    <i class="fas fa-forward"></i> {{proper gameSettings.critName}}
+                                </a>
+                            {{/if}}
+                        </td>
+                        <td style="padding-top:none;padding-bottom:none">
+                            {{#if (setting "useCritical")}}
+                                {{#times resources.resolve.critical}}
+                                    <i class="fas fa-times-circle res-box"></i>
+                                {{/times}}
+                                {{#times (minus 5 resources.resolve.critical)}}
+                                    <i class="far fa-circle res-box"></i>
+                                {{/times}}
+                            {{/if}}
+                        </td>
+                        
+                    </tr>                    
+                    </table>
+                 
+                
+                </div>

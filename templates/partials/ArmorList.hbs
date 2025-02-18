@@ -13,10 +13,10 @@
                         <tr>
                        
                             <td style="text-align:left; vertical-align:bottom" class="item-name item" style="max-width:50%;">
-                                <a data-action="armorRoll" data-item-id="{{armor.id}}" class="armor-roll {{#if (ne armor.system.protection.variable "none")}}weapon-image{{/if}}" title="Roll Defense">
+                                <a data-action="armorRoll" data-item-id="{{armor.id}}" class="armor-roll" data-var-pro="{{armor.system.protection.variable}}" title="Roll Defense">
                                     <img class="ew-cs-img" src="{{armor.img}}" height="24" width="24"/>
                                 </a>
-                                 <a class="item-edit" data-action="editItem" title="Edit">
+                                 <a class="item-edit"  data-item-id="{{armor.id}}" data-action="editItem" title="Edit">
                                     <strong>
                                         {{armor.name}}
                                     </strong>

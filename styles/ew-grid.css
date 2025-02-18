@@ -33,15 +33,15 @@
 
 .ew-cs-container {  
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr min-content min-content;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 64px min-content min-content min-content 1fr 1fr 1fr 64px;
   gap: 6px 0px;
   grid-auto-flow: row;
   grid-template-areas:
     "image name name name toggles toggles toggles roll"
-    "trackers trackers trackers trackers trackers trackers trackers heropoints"
     "attributes attributes abilities abilities careers careers pointpools pointpools"
     "attributes attributes abilities abilities careers careers pointpools pointpools"
+    "trackers trackers trackers trackers trackers trackers trackers trackers"
     "boonflaw boonflaw boonflaw boonflaw weapons weapons weapons weapons"
     "powers powers powers powers armor armor armor armor"
     "equipment equipment equipment equipment equipment equipment equipment equipment"
@@ -62,11 +62,13 @@
   
 }
 
-.ew-cs-toggles { grid-area: toggles; }
+.ew-cs-toggles { grid-area: toggles;
+  justify-items:center;
+}
 
 .ew-cs-rollbutton { 
   grid-area: roll;
-  justify-self:end;
+  justify-self:center;
   align-self:center;
  }
 
@@ -102,6 +104,8 @@
 .ew-cs-trackers { 
   grid-area: trackers;
   justify-self:stretch;
+ 
+  border-top:2px solid gray;
 }
 
 .ew-cs-heropoints {

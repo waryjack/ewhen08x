@@ -310,20 +310,7 @@ Hooks.on('deleteItem', function(actor, item){
 // Add the necessary tooltip toggles
 
 Hooks.on('renderChatMessage', (app, html, data) => {
-  
-    html.on('click', '.taskroll-msg', event => {
-        event.preventDefault();
-        // NOTE: This depends on the exact card template HTML structure.
-        $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
-     });
-
-     html.on('click', '.chat-rolltooltip', event => {
-        event.preventDefault();
-        console.log("clicked the chat message");
-        // NOTE: This depends on the exact card template HTML structure.
-        $(event.currentTarget).siblings('.taskroll-tt').slideToggle("fast");
-     });
-
+    // nothing yet; needs to be fixed
 });
 
 /**
@@ -332,7 +319,6 @@ Hooks.on('renderChatMessage', (app, html, data) => {
 
 // Convert initiative to Everywhen Priority "ladder" if setting active
 Hooks.on('preUpdateCombatant', function(combatant, changed, diff) {
-
  
     if(game.settings.get("ewhen", "allSettings").priority) { return; }
 
@@ -360,6 +346,7 @@ Hooks.on('updateToken', function(token, changed, diff){
 
 });
 
+// not strictly necessary, just QoL
 Hooks.on('preCreateItem', function(item, data) {
     //console.warn("first argument: ", item, "second arg", data);
     //console.warn("item type: ", item.type);
@@ -369,8 +356,6 @@ Hooks.on('preCreateItem', function(item, data) {
         item._source.img = "icons/svg/shield.svg";
      } else if (item.type == "trait") {
         item._source.img = "icons/svg/dice-target.svg";
-     } else if (item.type == "career") {
-        item._source.img = "icons/svg/book.svg";
      } else if (item.type == "equipment") {
         item._source.img = "icons/svg/chest.svg";
      } else if (item.type == "power") {
@@ -388,8 +373,6 @@ Hooks.on('preCreateItem', function(item, data) {
        item._source.img = "icons/svg/shield.svg";
     } else if (item.type == "trait") {
        item._source.img = "icons/svg/dice-target.svg";
-    } else if (item.type == "career") {
-       item._source.img = "icons/svg/book.svg";
     } else if (item.type == "equipment") {
        item._source.img = "icons/svg/chest.svg";
     } else if (item.type == "power") {

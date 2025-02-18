@@ -14,9 +14,9 @@
                         {{#each traits as |trait id|}}
                         
                         <tr>
-                            <td class="item-name item" data-item-id="{{trait.id}}">
+                            <td class="item-name item">
                                 <img class="ew-cs-img" src="{{trait.img}}" data-edit="img" height="24" width="24"/>
-                                <a class="item-edit" data-action="editItem" title="Edit"><strong>{{trait.name}}</strong> (<em>{{trait.system.source}}{{#if trait.system.isTemporary}},temporary{{/if}})</em></a><br>
+                                <a class="item-edit" data-action="editItem" data-item-id="{{trait.id}}" title="Edit"><strong>{{trait.name}}</strong> (<em>{{trait.system.source}}{{#if trait.system.isTemporary}},temporary{{/if}})</em></a><br>
                                 {{trait.system.description}}<br>  
                             </td>
                             <td>

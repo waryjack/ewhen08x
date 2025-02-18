@@ -1,13 +1,13 @@
 # To-Do
 
-1. Refactor EWRoll into attribute, combat, item roll classes - clearer code
-2. Relocate most type-specific methods to the data models, use the DocumentSheet and Documents to relay information.
-3. After refactoring EWRoll, consider using it to clean up the EWCombat implementation - make priority initiative work better!
-4. Shift various point pools (e.g. arcana, faith) to items rather than settings options. Hero Points are the only thing to stay. Redesign sheet to accommodate if needed.
-5. Ensure all sheet functionality is live. Current issues:
-    * Updating resources (lifeblood, shield, etc)
-    * Rolling careers, items
-6. Add back tabbed sheet, if possible.
-7. Drag/drop implementation on actor sheets.
-8. Encumbrance, weights, etc.
-9. DataModel for system settings (to help with migrations)
+* Vehicle implementations - sheet, actions
+* Rabble Sheet redesign + CSS - simplify, rearrange
+* Ensure all sheet functionality is live. Current issues:
+*   Updating resources (lifeblood, shield, etc) - done
+*   Editing, adding, deleting, and rolling items
+    * all items can be added / deleted; weapon and armor rolls working, as are career/stat rolls power rolls not yet implemented
+* Add back tabbed sheet, if possible.
+* Drag/drop implementation on actor sheets.
+* Encumbrance, weights, etc.
+* DataModel for system settings (to help with migrations)
+* CSS work to make sure it's consistent across system; make item editing not all caps transformed!

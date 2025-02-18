@@ -15,7 +15,19 @@
 	name="name" 
 	type="text" 
 	value="{{actor.name}}" 
-	placeholder="Name"/> ({{#unless isMajor}}{{localize "EW.sheet.title.tough"}}{{/unless}})
+	placeholder="Name"/>
+  </div>
+  <div class="ew-cs-toggles">
+     <div>
+      <strong>Type: </strong>{{proper actor.type}} | 
+      {{proper gameSettings.heroName}} Points
+      <input style="margin:auto;width:4ch"
+            type="text" 
+            name="system.hero_points" 
+            value="{{hero_points}}" 
+            data-dtype="Number"/>
+            
+      </div>
   </div>
   <div class="ew-cs-rollbutton ">
         <a class="ew-roll-icon" data-attribute="strength" data-action="statRoll"><i class="fa fa-dice-six"></i></a>
@@ -36,25 +48,21 @@
   </div>
   <div class="ew-cs-trackers">
 	{{> 'systems/ewhen/templates/partials/Lifeblood.hbs'}}
-  {{#if (setting "useResolve")}}
-    {{> 'systems/ewhen/templates/partials/Resolve.hbs'}}
-  {{/if}}
   </div>
-  <div class="ew-cs-heropoints"></div>
   <div class="ew-cs-boonflaw">
 	{{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
-
   </div>
   <div class="ew-cs-weapons">
 	{{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}
   </div>
   <div class="ew-cs-powers">
-	{{#unless isMajor}} {{> 'systems/ewhen/templates/partials/PowerList.hbs'}} {{/unless}}
+	{{> 'systems/ewhen/templates/partials/PowerList.hbs'}}
   </div>
   <div class="ew-cs-armor">
 	{{> 'systems/ewhen/templates/partials/ArmorList.hbs'}}
   </div>
   <div class="ew-cs-equipment">
+  {{> 'systems/ewhen/templates/partials/EquipmentList.hbs'}}
 	</div>
   <div class="ew-cs-quickref">
     <hr class="ew-hr"/>

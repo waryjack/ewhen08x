@@ -20,14 +20,10 @@ export default class EWRabbleData extends EWBaseActorData {
   }
 
   prepareDerivedData() {
-    super.prepareDerivedData();
-
-    let health = game.settings.get("ewhen","allSettings").rabbleStrength ?? 3
-    
-    
     this.main_attributes = this._setStatValues(this.main_attributes);
     this.combat_attributes = this._setStatValues(this.combat_attributes)
 
+    let health = game.settings.get("ewhen","allSettings").rabbleStrength ?? 3
     this.resources.lifeblood = {
       value: health,
       regular: 0,
@@ -40,7 +36,8 @@ export default class EWRabbleData extends EWBaseActorData {
 
     this.priority = 2;
 
-  }
+    super.prepareDerivedData();
+}
 
   _setStatValues(obj) {
 

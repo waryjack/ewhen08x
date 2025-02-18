@@ -15,7 +15,7 @@
                         <tr>
                             <td class="item-name item" data-item-id="{{power.id}}">
                                 <img class="ew-cs-img" src="{{power.img}}" data-edit="img" height="24" width="24"/>
-                                <a class="item-edit" data-action="editItem" title="Edit">
+                                <a class="item-edit" data-item-id="{{power.id}}" data-action="editItem" title="Edit">
                                     <strong>{{power.name}}</strong> (<i>{{power.system.power_type}}{{#if (ne power.system.magnitude "none")}},{{power.system.magnitude}}{{/if}}</i>)</a><br>{{power.system.effect}}. 
                                 <em>{{power.system.success_roll}}, {{power.system.difficulty}}, {{power.system.resource_cost}}P</em></td>
                             <td>

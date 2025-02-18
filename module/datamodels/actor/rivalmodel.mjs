@@ -22,9 +22,9 @@ export default class EWRivalData extends EWBaseActorData {
   * @override
   */
    prepareDerivedData() {
-    super.prepareDerivedData();
+   
 
-    his.resources.lifeblood.max = this.main_attributes.strength.rank + 10 + this.resources.lifeblood.misc_lfb;
+    this.resources.lifeblood.max = this.main_attributes.strength.rank + 10 + this.resources.lifeblood.misc_lfb;
     this.resources.resolve.max = this.main_attributes.mind.rank + 10 + this.resources.resolve.misc_res;
 
     let totalLbd = this.resources.lifeblood.regular + this.resources.lifeblood.lasting + this.resources.lifeblood.fatigue;
@@ -34,6 +34,7 @@ export default class EWRivalData extends EWBaseActorData {
     this.resources.resolve.value = Math.max(0, this.resources.resolve.max - totalRsd);
 
     this.priority = 5;
+    super.prepareDerivedData();
   }
 
   applyRemoveTraitModifier (item, action) {

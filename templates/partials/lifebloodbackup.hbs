@@ -1,0 +1,44 @@
+
+<div class="ew-statblock">
+ 
+                <table id="ew-healthtrack-table">
+                    <tr>
+                        <td style="padding-top:none;padding-bottom:none">
+                            <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood">
+                                {{gameSettings.lbdName}} ({{resources.lifeblood.max}})
+                                </a>
+                        </td>
+                        <td style="padding-top:none;padding-bottom:none">
+                            {{#times resources.lifeblood.lasting}}
+                            <i class="fas fa-circle res-box"></i>
+                            {{/times}}
+                            {{#times resources.lifeblood.regular}}
+                            <i class="fas fa-times-circle res-box"></i>
+                            {{/times}}
+                            {{#times resources.lifeblood.value}}
+                            <i class="far fa-circle res-box"></i>
+                            {{/times}}
+                            {{#times resources.lifeblood.fatigue}}
+                            <i style="transform:rotate(-45deg);" class="fas fa-minus-circle res-box"></i>
+                            {{/times}}
+                        </td>
+                        <td class="res-track">
+                            {{#if (setting "useCritical")}}
+                                <a class="adj-resource res-track" data-action="adjustResource" data-resource-name="lifeblood">
+                                    <i class="fas fa-forward"></i> {{gameSettings.critName}}
+                                </a>
+                            {{/if}}
+                        </td>
+                        <td style="padding-top:none;padding-bottom:none">
+                                {{#if (setting "useCritical")}}
+                                {{#times resources.lifeblood.critical}}
+                                    <i class="fas fa-times-circle res-box"></i>
+                                {{/times}}
+                                {{#times (minus 5 resources.lifeblood.critical)}}
+                                   <i class="far fa-circle res-box"></i>
+                                {{/times}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    </table>
+                </div>

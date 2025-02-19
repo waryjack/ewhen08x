@@ -32,7 +32,8 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
       }),
       resources: new SchemaField({
         lifeblood: new SchemaField(getHealthSchema()),
-        resolve: new SchemaField(getHealthSchema())
+        resolve: new SchemaField(getHealthSchema()),
+        shield: new SchemaField(getHealthSchema())
       }),
       pools: new ObjectField(),
       careers: new ObjectField()
@@ -44,7 +45,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
 
     // Set initiative based on system settings
     this._setInitiative(game.settings.get("ewhen","allSettings"));
-    this._initializeHealth();
+    this._initializeHealth(this.actor.type);
   }
 
   _setInitiative(settings) {
@@ -91,19 +92,47 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     await this.parent.update(toAddObj);
   }
 
-  _initializeHealth() {
-    if (!this.resources.lifeblood.boxes.length) { 
-      this.resources.lifeblood.boxes = Array(this.resources.lifeblood.max).fill("h").flat();
+  /** Fills the arrays with the necessary info, unless they've already got data in them */
+  _initializeHealth(type) {
+    let veh = ["resources.shield.boxes","resources.shield.critboxes","frame.boxes","frame.critboxes"];
+    let act = ["resources.lifeblood.boxes","resources.lifeblood.critboxes","resources.resolve.boxes","resources.resolve.critboxes"];
+
+    if (type === "vehicle"){
+      veh.forEach(e => {
+        if (!this[e].length) this[e] = Array(this[e].max).fill("h").flat();
+      });
+    } else {
+      act.forEach(e => {
+        if (!this[e].length) this[e] = Array(this[e].max).fill("h").flat();
+      })
+
     }
-    if (!this.resources.resolve.boxes.length) { 
-      this.resources.resolve.boxes = Array(this.resources.resolve.max).fill("h").flat();
-    }
-    if (!this.resources.lifeblood.critboxes.length){
-      this.resources.lifeblood.critboxes = Array(5).fill("h").flat();
-    }
-    if (!this.resources.resolve.critboxes.length) {
-      this.resources.resolve.critboxes = Array(5).fill("h").flat();
-    }
+     /* if (!this.resources.shield.boxes.length) {
+        this.resource.shield.boxes = Array(this.resources.shield.max).fill("h").flat();
+      }
+      if (!this.resources.shield.critboxes.length) {
+        this.resources.shield.critboxes = Array(this.resources.shield.max).fill("h").flat();
+      }
+      if (!this.frame.boxes.length) {
+        this.resource.shield.boxes = Array(this.frame.boxes.max).fill("h").flat();
+      }
+      if (!this.frame.boxes.critboxes.length) {
+        this.frame.boxes.critboxes = Array(this.frame.boxes.max).fill("h").flat();
+      }
+    } else {
+      if (!this.resources.lifeblood.boxes.length) { 
+        this.resources.lifeblood.boxes = Array(this.resources.lifeblood.max).fill("h").flat();
+      }
+      if (!this.resources.resolve.boxes.length) { 
+        this.resources.resolve.boxes = Array(this.resources.resolve.max).fill("h").flat();
+      }
+      if (!this.resources.lifeblood.critboxes.length){
+        this.resources.lifeblood.critboxes = Array(5).fill("h").flat();
+      }
+      if (!this.resources.resolve.critboxes.length) {
+        this.resources.resolve.critboxes = Array(5).fill("h").flat();
+      }
+    }*/
   }
 
   async _deleteCareer(career, c_id) {

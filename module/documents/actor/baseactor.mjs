@@ -55,21 +55,19 @@ export default class EWActor extends Actor {
     /**
     * @param res {String} - FIXME - belongs in the datamodel
     */
-  async _adjustResource(res, html) {
-     
-  }
-
-  async _weaponRoll(){
-
-  }
-
-  async _armorRoll(){
-
-  }
-
-  async _spendHeroPoint(){
+    async _updateFrame() {
+        // Prompt for new frame settings: rank and max value
+        const prompt = await foundry.applications.api.DialogV2.wait({
     
-  }
+        })
+
+        await this.system._updateFrame(newmax)
+    }
+
+    async _updateShield() {
+        const prompt = null;
+        await this.system._updateShield(newmax)
+    }
 
   async applyRemoveTraitModifier (item, action) {
 

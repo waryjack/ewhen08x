@@ -11,11 +11,11 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
     static DEFAULT_OPTIONS = {
         title:"Character Sheet",
         actions:{
-            adjustFrame: this._adjustFrame,
-            adjustShield: this._adjustShield,
-            statRoll: this._statRoll,
-            weaponRoll: this._weaponRoll,
+            cycleBox: this._cycleBox,
             editImage: this._onEditImage,
+            updateFrame: this._setFrame,
+            updateShield: this._updateShield
+
         },
         form: {
                 submitOnChange: true,
@@ -75,6 +75,17 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
 
     }
 
+    // updateFrame() located in vehiclemodel
+    static async updateFrame(event, element) {
+        event.preventDefault();
+        await this.actor._updateFrame();
+    }
+
+    // updateShield() located in basemodel
+    static async updateShield(event, element) {
+        event.preventDefault();
+        await this.actor._updateShield();
+    }
     static adjustFrame(event,element) {
         event.preventDefault();
 
@@ -101,6 +112,19 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
         }
 
     }
+
+    static async _cycleBox(event, element) {
+        event.preventDefault();
+        let track = element.dataset.track;
+        let pos = element.dataset.pos;
+        let state = element.dataset.state;
+
+        if (element.dataset.crit === "true") {
+            await this.actor.system._cycleCritBox(track, pos, state);
+        } else {
+            await this.actor.system._cycleHitBox(track, pos, state);
+        }
+      }
 
     // trigger the basic, non-pre-populated roll dialog; passthrough function from the sheet to the actor to the roll
     // gathering information along the way

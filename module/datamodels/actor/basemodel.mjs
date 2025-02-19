@@ -45,7 +45,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
 
     // Set initiative based on system settings
     this._setInitiative(game.settings.get("ewhen","allSettings"));
-    this._initializeHealth(this.actor.type);
+    this._initializeHealth(this.parent.type);
   }
 
   _setInitiative(settings) {
@@ -97,17 +97,20 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     let veh = ["resources.shield.boxes","resources.shield.critboxes","frame.boxes","frame.critboxes"];
     let act = ["resources.lifeblood.boxes","resources.lifeblood.critboxes","resources.resolve.boxes","resources.resolve.critboxes"];
 
+    console.log("Actor Type: ", type);
     if (type === "vehicle"){
-      veh.forEach(e => {
-        if (!this[e].length) this[e] = Array(this[e].max).fill("h").flat();
+    /*  veh.forEach((e) => {
+        if (!this.parent.system[e].length) this.parent.system[e] = Array(this.parent.system[e].max).fill("h").flat();
       });
     } else {
       act.forEach(e => {
-        if (!this[e].length) this[e] = Array(this[e].max).fill("h").flat();
+        console.log("iterator: ", e)
+        console.log("object: ", this.parent.system);
+        if (!this.parent.system[e].length) this.parent.system[e] = Array(this.parent.system[e].max).fill("h").flat();
       })
 
-    }
-     /* if (!this.resources.shield.boxes.length) {
+    } */
+    if (!this.resources.shield.boxes.length) {
         this.resource.shield.boxes = Array(this.resources.shield.max).fill("h").flat();
       }
       if (!this.resources.shield.critboxes.length) {
@@ -132,7 +135,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
       if (!this.resources.resolve.critboxes.length) {
         this.resources.resolve.critboxes = Array(5).fill("h").flat();
       }
-    }*/
+    }
   }
 
   async _deleteCareer(career, c_id) {

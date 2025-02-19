@@ -1,10 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Cuprum:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
+
+@font-face {
+  font-family: 'tracks';
+  src:     url('../assets/icons/tracks.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 :root {
   --ash-gray: #b2beb5;
   --secback: #b2beb573;
   --secborder:  #b2beb573;
+}
+
+.track-healthy {
+  content: url('../assets/icons/healthy.svg');
+  color:currentColor;
+  height:24px;
+  width:24px
+}
+
+.track-fatigue {
+  content: url('../assets/icons/fatigue.svg');
+  height:24px;
+  width:24px;
+}
+
+.track-regular {
+  content: url('../assets/icons/regular.svg');
+  height:24px;
+  width:24px;
+}
+
+.track-lasting {
+  content: url('../assets/icons/lasting.svg');
+  height:24px;
+  width:24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .track-lasting, .track-regular, .track-fatigue, .track-healthy {
+    filter: invert(1) brightness(2);
+  }
 }
 
 #actorsheet, #itemsheet, #itemsheet select, #itemsheet option, #itemsheet input, #basicroll, #basicroll select, #basicroll option, #basicroll input, .ew-dialog, .ew-roll-dialog {
@@ -334,3 +374,30 @@ i.fa-solid.fa-plus, i.fa-solid.fa-ban, i.fa-solid.fa-pen-to-square {
   font-size:0.85em;
 }
 
+
+.ew-icon-h, .ew-icon-f, .ew-icon-r, .ew-icon-l {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'tracks' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ew-icon-h:before {
+  content: "\e900";
+}
+.ew-icon-f:before {
+  content: "\e901";
+}
+.ew-icon-r:before {
+  content: "\e902";
+}
+.ew-icon-l:before {
+  content: "\e903";
+}

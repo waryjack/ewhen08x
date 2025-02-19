@@ -10,7 +10,6 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       actor_image: new FilePathField({required:false, categories: ["IMAGE"]}),
-      isCreature: new BooleanField({required:true, initial:false, label:"Creature"}),
       backstory: new HTMLField({initial: ""}),
       size: new StringField({required:true, initial:"medium"}),
       currency: new NumberField({required:true, min:0, initial:0}),
@@ -36,7 +35,12 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
         shield: new SchemaField(getHealthSchema())
       }),
       pools: new ObjectField(),
-      careers: new ObjectField()
+      careers: new ObjectField(),
+      dipswitches: new SchemaField({
+        isCreature: new BooleanField({required:true, initial:false}),
+        isMajor: new BooleanField({required:true, initial:true}),
+        isShielded: new BooleanField({required:true, initial:false})
+      })
     }
   }
 

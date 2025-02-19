@@ -1,35 +1,40 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="ewhen sheethead">
-       <header class="ewhen sheethead">
-        <div class="ewhen header-flexitem">
-        <img class="profile-img" style="background:rgb(138,138,138); min-width:64px !important; min-height:64px !imporant" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64"/>
-        </div>
-        <div class="ewhen header-flexitem name-block">
-            <div class="charname">
-                <input class="ewhen charname" style="width:100%; vertical-align:top; background:lightgray;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-                
-            </div>
-            
-            
-        </div>
-    
-        
-    </header>
-    </header>
-    <section class="sheetbody">
-        <div class="ewhen flexcol">
-            <div class="ewhen flexrow">
-                {{> 'systems/ewhen/templates/partials/VehicleMainAttributes.hbs'}}
-                <div class="ewhen flex-item">
-                {{> 'systems/ewhen/templates/partials/VehicleSpecs.hbs'}}
-                {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}     
-                </div>
-
-            </div>
-           
-        </div>
-
-
-    </section>
+ <div class="container">
+  <div class="vimg">
+    <img class="profile-img ew-cs-img" 
+		 src="{{actor.img}}" 
+		 data-edit="img" 
+         data-action="editImage"
+		 title="{{actor.name}}" 
+		 height="64" 
+		 width="64"/>
+  </div>
+  <div class="vname">
+    <input 
+	name="name" 
+	type="text" 
+	value="{{actor.name}}" 
+	placeholder="Name"/>
+  </div>
+  <div class="vstats">
+    {{> 'systems/ewhen/templates/partials/vehicleattributes.hbs'}}
+  </div>
+  <div class="vtracks">
+    {{> 'systems/ewhen/templates/partials/vehicletracks.hbs'}}
+  </div>
+  <div class="vweapons">
+    {{> 'systems/ewhen/templates/partials/WeaponList.hbs'}}
+  </div>
+  <div class="vtraits">
+    {{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
+  </div>
+  <div class="quickref">
+     <hr class="ew-hr"/>
+    <div class="ew-statblock" style="font-weight:bold; height:100%; text-align:center;">
+      <p>Very Easy&nbsp;+2 Easy&nbsp;+1 Moderate&nbsp;+0 Hard&nbsp;-1 Tough&nbsp;-2 Demanding&nbsp;-4 Formidable&nbsp;-6 Heroic&nbsp;-8<br/>
+      0 - 1 - d3 - d6L - d6 - d6H - 2d6L - 2d6 - 2d6H - 3d6L - 3d6 - 3d6H</p>
+    </div> 
+  </div>
+</div>
 </form>
 

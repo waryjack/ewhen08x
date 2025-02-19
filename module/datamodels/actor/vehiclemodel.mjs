@@ -1,5 +1,5 @@
 const {
-  SchemaField, NumberField, StringField, ArrayField
+  SchemaField, NumberField, StringField, ArrayField, BooleanField
 } = foundry.data.fields;
 import { getStatSchema, getHealthSchema } from "../../helpers.mjs";
 import EWBaseActorData from "./basemodel.mjs";

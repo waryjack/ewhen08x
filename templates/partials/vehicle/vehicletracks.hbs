@@ -1,0 +1,95 @@
+
+<div class="ew-statblock">
+ 
+                <table id="ew-healthtrack-table">
+                    <tr>
+                        <td >
+                           Frame
+                        </td>
+                        <td style="font-size:large">
+                        {{#each frame.boxes as |state count|}}
+                            {{#ife state "h"}}
+                            <a data-action="cycleBox" data-track="frame" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></a>
+                            {{/ife}}
+                            {{#ife state "f"}}
+                            <a data-action="cycleBox" data-track="frame" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></a>
+                            {{/ife}}
+                            {{#ife state "r"}}
+                            <a data-action="cycleBox" data-track="frame" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></a>
+                            {{/ife}}
+                            {{#ife state "l"}}
+                            <a data-action="cycleBox" data-track="frame" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></a>
+                            {{/ife}}
+                        {{/each}}
+                        </td>
+                        <td class="res-track">
+                            {{#if (setting "useCritical")}}
+                                <i class="fas fa-forward"></i> {{gameSettings.critName}}
+                            {{/if}}
+                        </td>
+                        <td style="font-size:large">
+                        {{#if (setting "useCritical")}}
+                        {{#each frame.critboxes as |state count|}}
+                            {{#ife state "c"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="frame" data-state="{{state}}" data-pos="{{count}}">
+                                    <span class="ew-icon-r">
+                                </a>
+                            {{/ife}}
+                            {{#ife state "h"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="frame" data-state="{{state}}" data-pos="{{count}}">
+                                    <span class="ew-icon-h">
+                                </a>
+                            {{/ife}}
+                                    
+                         {{/each}}
+                         {{/if}}
+                        </td>
+                    </tr>
+                    {{#if shielded}}
+                    <tr>
+                        <td >
+                               Shields
+                        </td>
+                        <td style="font-size:large" >  
+                        {{#each resources.shield.boxes as |state count|}}
+                            {{#ife state "h"}}
+                            <a data-action="cycleBox" data-track="shields" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></span></a>
+                            {{/ife}}
+                            {{#ife state "f"}}
+                            <a data-action="cycleBox" data-track="shields" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></span></a>
+                            {{/ife}}
+                            {{#ife state "r"}}
+                            <a data-action="cycleBox" data-track="shields" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></span></a>
+                            {{/ife}}
+                            {{#ife state "l"}}
+                            <a data-action="cycleBox" data-track="shields" data-state="{{state}}" data-pos="{{count}}"><span class="ew-icon-{{state}}"></span></a>
+                            {{/ife}}
+                        {{/each}}
+                        </td>
+                        <td  class="res-track">
+                            {{#if (setting "useCritical")}}
+                                    <i class="fas fa-forward"></i> {{proper gameSettings.critName}}
+                            {{/if}}
+                        </td>
+                        <td style="font-size:large">
+                        {{#if (setting "useCritical")}}
+                        {{#each resources.shield.critboxes as |state count|}}
+                            {{#ife state "c"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="shield" data-state="{{state}}" data-pos="{{count}}">
+                                    <span class="ew-icon-r">
+                                </a>
+                            {{/ife}}
+                            {{#ife state "h"}}
+                                <a data-action="cycleBox" data-crit="true" data-track="shield" data-state="{{state}}" data-pos="{{count}}">
+                                    <span class="ew-icon-h">
+                                </a>
+                            {{/ife}}
+                                    
+                         {{/each}}
+                        {{/if}}
+                        </td>
+                        
+                    </tr>   
+                    {{/if}}  
+                    </table>
+                </div>

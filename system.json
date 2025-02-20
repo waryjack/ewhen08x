@@ -70,7 +70,9 @@
     "scripts": [],
     "styles": [
         "styles/ew-grid.css",
-        "styles/item.css"
+        "styles/item.css",
+        "styles/vehicle.css",
+        "styles/rabble.css"
     ],
     "languages": [
         {

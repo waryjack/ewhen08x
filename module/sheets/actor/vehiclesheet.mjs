@@ -47,15 +47,17 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
      * @override
      */
     _prepareContext() {
-        const data = foundry.utils.deepClone(this.actor.system);
-     
+        const data =this.actor.system
+    
         data.config = CONFIG.ewhen; 
         data.actor = this.actor;
         data.gameSettings = game.settings.get("ewhen", "allSettings");
+        data.frame = this.actor.system.frame;
 
-        // // console.warn("Owned Items: ", ownedItems);
+        console.log("alldata: ", data);
         
-        data.weapons = ownedItems.filter(function(item) {return item.type == "weapon"});
+        data.shielded = true ; // data.dipswitches.isShielded;
+       // data.weapons = ownedItems.filter(function(item) {return item.type == "weapon"});
         //// console.warn("data.weapons: ", data.weapons);
         return data;
     }

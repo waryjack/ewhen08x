@@ -6,9 +6,9 @@ import EWBaseActorData from "./basemodel.mjs";
 
 export default class EWVehicleData extends EWBaseActorData {
   static defineSchema() {
-    
+    const baseSchema = super.defineSchema();
     return {
-      type: new StringField(),
+      ...baseSchema,
       crew: new SchemaField({
         rank: new NumberField({required:true, integer:true, min:0, initial:0})
       }),
@@ -16,23 +16,17 @@ export default class EWVehicleData extends EWBaseActorData {
       scan: new SchemaField(getStatSchema(1)),
       speed: new SchemaField(getStatSchema(1)),
       def: new SchemaField(getStatSchema(1)),
-      armor: new SchemaField(getStatSchema(0)),
+      armor: new SchemaField(getStatSchema(1)),
       frame: new SchemaField({
-        rank: new NumberField({required:true, integer:true, min:0, initial:0}),
+        rank: new NumberField({required:true, integer:true, min:0, initial:1}),
         scale: new NumberField({required:true, integer:true, min:1, initial:2}),
         mod: new NumberField({required:true, integer:true, initial:0}),
-        value: new NumberField({required:true, integer:true, initial:0}),
-        max: new NumberField({required:true, integer:true, initial:0}),
+        value: new NumberField({required:true, integer:true, initial:1}),
+        max: new NumberField({required:true, integer:true, initial:5}),
         lasting: new NumberField({required:true, integer:true, initial:0}),
         critical: new NumberField({required:true, integer:true, initial:0}),
         boxes: new ArrayField(new StringField(), {required:true, initial:[]}),
         critboxes: new ArrayField(new StringField(), {required:true, initial:[]})
-      }),
-      traits: new SchemaField({
-        careers: new ArrayField(new StringField()),
-        boons: new ArrayField(new StringField()),
-        flaws: new ArrayField(new StringField()),
-        powers: new ArrayField(new StringField())
       }),
     };
   }
@@ -46,15 +40,7 @@ export default class EWVehicleData extends EWBaseActorData {
     // Stub
     super.prepareDerivedData();
 
-    /// check these, but okay.
-    var frame = this.frame.rank;
-    var lasting = this.frame.lasting;
-    var shieldDmg = this.resources.shield.lasting + this.resources.shield.regular + this.resources.shield.fatigue;
-
-    this.frame.max = Math.max(5, frame);
-    this.frame.value = Math.max(0, this.frame.max - lasting);
-    this.resources.shield.max = Math.max(5, frame);
-    this.resources.shield.value = Math.max(0, this.resources.shield.max - shieldDmg);
+    this._initializeHealth("vehicle");
   }
 
 

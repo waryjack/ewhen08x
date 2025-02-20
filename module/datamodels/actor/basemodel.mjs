@@ -98,35 +98,24 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
 
   /** Fills the arrays with the necessary info, unless they've already got data in them */
   _initializeHealth(type) {
-    let veh = ["resources.shield.boxes","resources.shield.critboxes","frame.boxes","frame.critboxes"];
-    let act = ["resources.lifeblood.boxes","resources.lifeblood.critboxes","resources.resolve.boxes","resources.resolve.critboxes"];
-
+    console.log("this: ", this);
     console.log("Actor Type: ", type);
     if (type === "vehicle"){
-    /*  veh.forEach((e) => {
-        if (!this.parent.system[e].length) this.parent.system[e] = Array(this.parent.system[e].max).fill("h").flat();
-      });
-    } else {
-      act.forEach(e => {
-        console.log("iterator: ", e)
-        console.log("object: ", this.parent.system);
-        if (!this.parent.system[e].length) this.parent.system[e] = Array(this.parent.system[e].max).fill("h").flat();
-      })
-
-    } */
-    if (!this.resources.shield.boxes.length) {
-        this.resource.shield.boxes = Array(this.resources.shield.max).fill("h").flat();
+      console.log("resources: ", this.parent.system.resources);
+      if (!this.resources.shield.boxes.length) {
+        this.resources.shield.boxes = Array(this.resources.shield.max).fill("h").flat();
       }
       if (!this.resources.shield.critboxes.length) {
         this.resources.shield.critboxes = Array(this.resources.shield.max).fill("h").flat();
       }
       if (!this.frame.boxes.length) {
-        this.resource.shield.boxes = Array(this.frame.boxes.max).fill("h").flat();
+        this.frame.boxes = Array(this.frame.rank).fill("h").flat();
       }
-      if (!this.frame.boxes.critboxes.length) {
-        this.frame.boxes.critboxes = Array(this.frame.boxes.max).fill("h").flat();
+      if (!this.frame.critboxes.length) {
+        this.frame.critboxes = Array(this.frame.rank).fill("h").flat();
       }
     } else {
+      console.log("this.resources: ", this.resources);
       if (!this.resources.lifeblood.boxes.length) { 
         this.resources.lifeblood.boxes = Array(this.resources.lifeblood.max).fill("h").flat();
       }

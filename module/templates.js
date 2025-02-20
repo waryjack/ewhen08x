@@ -16,7 +16,8 @@ export const preloadHandlebarsTemplates = async function() {
       "systems/ewhen/templates/partials/WeaponList.hbs",
       "systems/ewhen/templates/partials/EquipmentList.hbs",
       "systems/ewhen/templates/partials/ArmorList.hbs",
-      "systems/ewhen/templates/partials/VehicleSpecs.hbs",
+      "systems/ewhen/templates/partials/vehicle/vehicleattributes.hbs",
+      "systems/ewhen/templates/partials/vehicle/vehicletracks.hbs",
       "systems/ewhen/templates/partials/PointPools.hbs",
       "systems/ewhen/templates/partials/Resources.hbs",
   

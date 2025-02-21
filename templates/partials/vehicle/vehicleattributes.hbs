@@ -1,34 +1,46 @@
 <div>
                    <span class="traitsheet-header">{{localize "EW.game_term.attributes.main"}}</span>
-                <table>    
+                <table>
                     <tr>
-                        <td>{{localize "EW.attribute.vehicle.size"}}</td>
-                        <td ><input  type="text" data-dtype="Number" width="4" name="size.rank" value="{{size.rank}}"></td>
+                    <th>{{localize "EW.attribute.vehicle.size"}}</th>
+                    <th>{{localize "EW.attribute.vehicle.scan"}}</th>
+                    <th>{{localize "EW.attribute.vehicle.speed"}}</th>
+                    <th>{{localize "EW.attribute.vehicle.speed"}}</th>
+                    <th>{{localize "EW.attribute.vehicle.defense"}}</th>
+                    </tr>    
+                    <tr>
+                        
+                        <td ><input  type="text" data-dtype="Number" width="4" name="system.size.rank" value="{{size.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{size.scale}})</td>{{/if}}
-                        <td>{{localize "EW.attribute.vehicle.scan"}}</a></td>
-                        <td ><input  type="text" data-dtype="Number"  name="scan.rank" value="{{scan.rank}}"></td>
+                        
+                        <td ><input  type="text" data-dtype="Number"  name="system.scan.rank" value="{{scan.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{scan.scale}})</td>{{/if}}
                    
-                        <td>{{localize "EW.attribute.vehicle.speed"}}</td>
-                        <td ><input  type="text" data-dtype="Number"  name="speed.rank" value="{{speed.rank}}"></td>
+                        <td ><input  type="text" data-dtype="Number"  name="system.speed.rank" value="{{speed.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{speed.scale}})</td>{{/if}}
                    
-                        <td>{{localize "EW.attribute.vehicle.defense"}}</td>
-                        <td ><input  type="text" data-dtype="Number"  name="def.rank" value="{{def.rank}}"></td>
+
+                        <td ><input  type="text" data-dtype="Number"  name="system.def.rank" value="{{def.rank}}"></td>
                         {{#if (setting "useScale")}}<td class="align-center">({{def.scale}})</td>{{/if}}
                     </tr>
                     <tr>
-                        <td >{{localize "EW.attribute.vehicle.crew"}}</td>
-                        <td ><input  type="text" data-dtype="Number" width="4" name="crew.rank" value="{{crew.rank}}"/</td>
+                        <th>{{localize "EW.attribute.vehicle.crew"}}</th>
+                        <th>{{localize "EW.attribute.vehicle.frame"}}</th>
+                        <th>{{localize "EW.attribute.vehicle.armor"}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td ><input  type="text" data-dtype="Number" width="4" name="system.crew.rank" value="{{crew.rank}}"/</td>
                         {{#if (setting "useScale")}}<td class="align-center">({{crew.scale}})</td>{{/if}}
                    
-                        <td >{{localize "EW.attribute.vehicle.frame"}}</td>
                         <td ><input  type="text" data-dtype="Number"  name="system.frame.rank" value="{{frame.rank}}"/</td>
                         {{#if (setting "useScale")}}<td class="align-center">({{frame.scale}})</td>{{/if}}
                   
-                        <td >{{localize "EW.attribute.vehicle.armor"}}</td>
-                        <td ><input  type="text" data-dtype="Number"  name="armor.rank" value="{{armor.rank}}"/</td>
-                        {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.armor.scale}})</td>{{/if}}
+                        <td ><input  type="text" data-dtype="Number"  name="system.armor.rank" value="{{armor.rank}}"/</td>
+                        {{#if (setting "useScale")}}<td class="align-center">({{system.armor.scale}})</td>{{/if}}
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
 </div>

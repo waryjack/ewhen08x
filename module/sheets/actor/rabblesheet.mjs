@@ -16,6 +16,9 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
             addCareer: this._addCareer,
             deleteCareer: this._deleteCareer,
             adjustResource: this._adjustResource,
+            addItem: this._addItem,
+            editItem: this._editItem,
+            deleteItem: this._deleteItem,
             rollDamage: this._rollDamage,
             editImage: this._onEditImage,
             statRoll: this._statRoll
@@ -55,7 +58,8 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
         data.config = CONFIG.ewhen; 
         data.actor = this.actor;
         data.gameSettings = game.settings.get("ewhen", "allSettings");
-
+        let ownedItems = this.actor.items;
+        data.powers = ownedItems.filter(i => i.type === "power");
         // // console.warn("Owned Items: ", ownedItems);
         
         data.careers = this.actor.system.careers;

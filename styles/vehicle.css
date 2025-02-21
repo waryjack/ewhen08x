@@ -7,7 +7,7 @@
       "vimg vimg vname vname vname vname"
       "vimg vimg vstats vstats vstats vstats"
       "vimg vimg vtracks vtracks vtracks vtracks"
-      "vweapons vweapons vweapons vtraits vtraits vtraits"
+      "vweapons vweapons vtraits vtraits varmor varmor"
       "quickref quickref quickref quickref quickref quickref";
   }
   
@@ -24,6 +24,8 @@
   .vweapons { grid-area: vweapons; }
   
   .vtraits { grid-area: vtraits; }
+
+  .varmor { grid-area: varmor; }
   
   .quickref { grid-area: quickref; }
   

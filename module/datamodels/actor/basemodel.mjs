@@ -274,7 +274,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     switch(track) {
       case "lifeblood":boxes = this.resources.lifeblood.boxes; break;
       case "resolve":boxes = this.resources.resolve.boxes; break;
-      case "frame":boxes = this.resources.frame.boxes; break;
+      case "frame":boxes = this.frame.boxes; break;
       case "shield":boxes = this.resources.shield.boxes; break;
     }
     let newState = "";
@@ -306,7 +306,7 @@ async _cycleCritBox(track,pos,state) {
     switch(track) {
       case "lifeblood":boxes = this.resources.lifeblood.critboxes; break;
       case "resolve":boxes = this.resources.resolve.critboxes; break;
-      case "frame":boxes = this.resources.frame.critboxes; break;
+      case "frame":boxes = this.frame.critboxes; break;
       case "shield":boxes = this.resources.shield.critboxes; break;
     }
     let newState = state == "c" ? "h" : "c";

@@ -13,8 +13,11 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
         actions:{
             cycleBox: this._cycleBox,
             editImage: this._onEditImage,
-            updateFrame: this._setFrame,
-            updateShield: this._updateShield
+            addItem: this._addItem,
+            editItem: this._editItem,
+            deleteItem: this._deleteItem,
+            weaponRoll: this._rollWeaponDamage,
+            armorRoll: this._rollArmorDefense,
 
         },
         form: {
@@ -47,18 +50,24 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
      * @override
      */
     _prepareContext() {
-        const data =this.actor.system
-    
+        const data = foundry.utils.deepClone(this.actor.system);
+     
         data.config = CONFIG.ewhen; 
+        let ownedItems = this.actor.items;
         data.actor = this.actor;
         data.gameSettings = game.settings.get("ewhen", "allSettings");
-        data.frame = this.actor.system.frame;
 
+        // // console.warn("Owned Items: ", ownedItems);
+        
+        data.weapons = ownedItems.filter(function(item) {return item.type == "weapon"});
+        //// console.warn("data.weapons: ", data.weapons);
+        data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
+        //// console.warn("data.traits: ", data.traits);
+        data.armor = ownedItems.filter(function(item) {return item.type == "armor"});
+        data.shielded = this.actor.system.dipswitches.isShielded;
         console.log("alldata: ", data);
         
-        data.shielded = true ; // data.dipswitches.isShielded;
-       // data.weapons = ownedItems.filter(function(item) {return item.type == "weapon"});
-        //// console.warn("data.weapons: ", data.weapons);
+        data.shielded = true ; 
         return data;
     }
 
@@ -87,32 +96,6 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
     static async updateShield(event, element) {
         event.preventDefault();
         await this.actor._updateShield();
-    }
-    static adjustFrame(event,element) {
-        event.preventDefault();
-
-
-        let dialogData = {
-            actor: this.actor,
-            resinfo: foundry.utils.duplicate(this.actor.system.frame),
-            resname: "EW.activity.adjustframe",
-            res:"frame"
-        }
-
-        return EWDialogHelper.generateVehicleUpdateDialog(CONFIG.ewhen.DIALOG_TYPE.VEHICLE_RESOURCE_UPDATE, dialogData);
-
-    }
-
-    static adjustShield(event,element) {
-        event.preventDefault();
-
-        let dialogData = {
-            actor: this.actor,
-            resinfo: foundry.utils.duplicate(this.actor.system.resources.shield),
-            resname: "EW.activity.adjustshield",
-            res: "shield"
-        }
-
     }
 
     static async _cycleBox(event, element) {
@@ -246,6 +229,92 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
           left: this.position.left + 10
         });
         await fp.browse();
+      }
+
+      // Handle damage rolls
+    static _rollWeaponDamage(event,element) {
+        event.preventDefault();
+        let item = this.actor.items.get(element.dataset.itemId);
+        return item._rollWeaponDamage(this.actor.system.main_attributes);
+    }
+
+    static _rollArmorDefense(event,element) {
+        event.preventDefault();
+        console.log(element.dataset);
+        if(element.dataset.varPro === "none") return; //don't roll armor with fixed protection
+        let itemId = element.dataset.itemId;
+        let item = this.actor.items.get(itemId);
+        console.log("Item: ", item);
+        return item._rollArmor();
+    }
+
+    static _editItem(event, element) {
+        console.log("Event: ", event);
+        console.log("Element: ", element);
+        event.preventDefault();
+        let itemId = element.dataset.itemId;
+        let item = this.actor.items.get(itemId);
+        console.log("Item to edit: ", item);
+        item.sheet.render(true);
+
+    }
+
+    static _addItem(event, options) {
+        console.warn("Add Item Options: ", options.dataset.type);
+        event.preventDefault();
+        // console.warn("_addItem fired: ");
+        var subtype = "";
+        var locString = "EW.sheet.new";
+
+       
+        if(options.dataset.type == "trait"){
+            subtype = options.dataset.subType;
+            locString += subtype;
+        } else {
+            locString += options.dataset.type;
+        }
+
+        let itemData  = {
+            name: game.i18n.localize(locString),
+            type: options.dataset.type,
+            data: {
+                    type: subtype
+            }
+        }
+
+        return Item.create(itemData, {parent: this.actor, renderSheet:true});
+
+      }
+
+      static _deleteItem(event, element) {
+          event.preventDefault();
+         
+          let itemId = element.dataset.itemId;
+
+          let d = new Dialog({
+            title: "Delete This Item?",
+            content: "<p>Are you sure you want to delete this item?</p>",
+            buttons: {
+             one: {
+              icon: '<i class="fas fa-check"></i>',
+              label: "Yes",
+              callback: () => { 
+                  let itemToDelete = this.actor.items.get(itemId);
+                  itemToDelete.delete();
+                }
+             },
+             two: {
+              icon: '<i class="fas fa-times"></i>',
+              label: "Cancel",
+              callback: () => { return; }
+             }
+            },
+            default: "two",
+            render: html => console.log("Register interactivity in the rendered dialog"),
+            close: html => console.log("This always is logged no matter which option is chosen")
+           });
+           d.render(true);
+
       }
 
 //       /* =============== Drag/Drop Handlers and Methods ======================= */

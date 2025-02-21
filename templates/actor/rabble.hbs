@@ -23,12 +23,7 @@
   </div>
   <div class="rabble-toggles"></div>
   <div class="rabble-rules">
-     <h3>Rabble Rules</h3>
-    <ul>
-      <li>Rabble have 0 in all attributes and abilities</li>
-      <li>Rabble may have one career at rank 0 or 1</li>
-      <li>Rabble deal 1 damage when unarmed, d3 when armed, and d6L in <strong>Hordes</strong></strong></li>
-    </ul>
+      {{> 'systems/ewhen/templates/partials/rabble/rules.hbs'}}
   </div>
   <div class="rabble-powers">
     {{> 'systems/ewhen/templates/partials/PowerList.hbs'}}
@@ -37,70 +32,6 @@
     {{> 'systems/ewhen/templates/partials/PointPools.hbs'}}
   </div>
   <div class="quickref">
-    <hr class="ew-hr"/>
-    <div class="ew-statblock" style="font-weight:bold; font-size:1.15em; height:100%; text-align:center;">
-      <p>Very Easy&nbsp;+2 Easy&nbsp;+1 Moderate&nbsp;+0 Hard&nbsp;-1 Tough&nbsp;-2 Demanding&nbsp;-4 Formidable&nbsp;-6 Heroic&nbsp;-8<br/>
-      0 - 1 - d3 - d6L - d6 - d6H - 2d6L - 2d6 - 2d6H - 3d6L - 3d6 - 3d6H</p>
-    </div>
-  </div>
-</div>
-
-
-<div class="ew-cs-container {{cssClass}}" id="actorsheet">
-  <div class="ew-cs-image">
-	<img class="profile-img ew-cs-img" 
-		 src="{{actor.img}}" 
-		 data-edit="img" 
-     data-action="editImage"
-		 title="{{actor.name}}" 
-		 height="64" 
-		 width="64"/>
-  </div>
-  <div class="ew-cs-name">
-	<input 
-	name="name" 
-	type="text" 
-	value="{{actor.name}}" 
-	placeholder="Name"/> ({{localize "EW.sheet.title.rabble"}})
-  </div>
-  <div class="ew-cs-toggles"></div>
-  <div class="ew-cs-rollbutton ">
-        <a class="ew-roll-icon" data-action="rollDamage"><i class="fa fa-dice-six"></i></a>
-  </div>
-  <div class="ew-cs-attributes">
-   {{> 'systems/ewhen/templates/partials/rabble/attributes.hbs'}}
-  </div>
-  <div class="ew-cs-abilities">
-	{{> 'systems/ewhen/templates/partials/rabble/combat.hbs'}}
-  </div>
-  <div class="ew-cs-careers">
-	{{> 'systems/ewhen/templates/partials/CareerList.hbs'}}
-  </div>
-  <div class="ew-cs-points">
-	{{> 'systems/ewhen/templates/partials/PointPools.hbs'}}
-  </div>
-  <div class="ew-cs-trackers">
-	{{> 'systems/ewhen/templates/partials/Lifeblood.hbs'}}
-  </div>
-  <div class="ew-cs-boonflaw">
-	  {{> 'systems/ewhen/templates/partials/BoonList.hbs'}}
-  </div>
-  <div class="ew-cs-weapons">
-    <h3>Rabble Rules</h3>
-    <ul>
-      <li>Rabble have 0 in all attributes and abilities</li>
-      <li>Rabble may have one career at rank 0 or 1</li>
-      <li>Rabble deal 1 damage when unarmed, d3 when armed, and d6L in <strong>Hordes</strong></strong></li>
-    </ul>
-  </div>
-  <div class="ew-cs-powers">
-	  {{> 'systems/ewhen/templates/partials/PowerList.hbs'}}
-  </div>
-  <div class="ew-cs-quickref">
-    <hr class="ew-hr"/>
-    <div class="ew-statblock" style="font-weight:bold; font-size:1.15em; height:100%; text-align:center;">
-      <p>Very Easy&nbsp;+2 Easy&nbsp;+1 Moderate&nbsp;+0 Hard&nbsp;-1 Tough&nbsp;-2 Demanding&nbsp;-4 Formidable&nbsp;-6 Heroic&nbsp;-8<br/>
-      0 - 1 - d3 - d6L - d6 - d6H - 2d6L - 2d6 - 2d6H - 3d6L - 3d6 - 3d6H</p>
-    </div> 
+     {{> 'systems/ewhen/templates/partials/static/quickref.hbs'}}
   </div>
 </div>

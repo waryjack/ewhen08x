@@ -138,74 +138,6 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
         return this.actor.rollArmor(item);
     }
 
-    static editItem(event, element) {
-        console.log("Event: ", event);
-        console.log("Element: ", element);
-        event.preventDefault();
-        let itemId = element.closest(".item").dataset.itemId;
-        let item = this.actor.items.get(itemId);
-        item.sheet.render(true);
-
-    }
-
-    static addItem(event, options) {
-        console.warn("Add Item Options: ", options.dataset.type);
-        event.preventDefault();
-        // console.warn("_addItem fired: ");
-        var subtype = "";
-        var locString = "EW.sheet.new";
-
-       
-        if(options.dataset.type == "trait"){
-            subtype = options.dataset.subType;
-            locString += subtype;
-        } else {
-            locString += options.dataset.type;
-        }
-
-        let itemData  = {
-            name: game.i18n.localize(locString),
-            type: options.dataset.type,
-            data: {
-                    type: subtype
-            }
-        }
-
-        return Item.create(itemData, {parent: this.actor, renderSheet:true});
-
-      }
-
-      static deleteItem(event, element) {
-          event.preventDefault();
-         
-          let itemId = element.closest(".item").dataset.itemId;
-
-          let d = new Dialog({
-            title: "Delete This Item?",
-            content: "<p>Are you sure you want to delete this item?</p>",
-            buttons: {
-             one: {
-              icon: '<i class="fas fa-check"></i>',
-              label: "Yes",
-              callback: () => { 
-                  let itemToDelete = this.actor.items.get(itemId);
-                  itemToDelete.delete();
-                }
-             },
-             two: {
-              icon: '<i class="fas fa-times"></i>',
-              label: "Cancel",
-              callback: () => { return; }
-             }
-            },
-            default: "two",
-            render: html => console.log("Register interactivity in the rendered dialog"),
-            close: html => console.log("This always is logged no matter which option is chosen")
-           });
-           d.render(true);
-
-        }
-
       static async _onEditImage(_event, target) {
         if (target.nodeName !== "IMG") {
           throw new Error("The editImage action is available only for IMG elements.");
@@ -291,6 +223,7 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
          
           let itemId = element.dataset.itemId;
 
+          //TODO - Localize
           let d = new Dialog({
             title: "Delete This Item?",
             content: "<p>Are you sure you want to delete this item?</p>",
@@ -316,6 +249,7 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
            d.render(true);
 
       }
+
 
 //       /* =============== Drag/Drop Handlers and Methods ======================= */
 

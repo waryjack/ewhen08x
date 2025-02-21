@@ -1,4 +1,4 @@
- <div class="container">
+ <div class="container {{cssClass}}">
   <div class="vimg">
     <img class="profile-img ew-cs-img" 
 		 src="{{actor.img}}" 
@@ -31,11 +31,7 @@
     {{> 'systems/ewhen/templates/partials/ArmorList.hbs'}}
   </div>
   <div class="quickref">
-     <hr class="ew-hr"/>
-    <div class="ew-statblock" style="font-weight:bold; height:100%; text-align:center;">
-      <p>Very Easy&nbsp;+2 Easy&nbsp;+1 Moderate&nbsp;+0 Hard&nbsp;-1 Tough&nbsp;-2 Demanding&nbsp;-4 Formidable&nbsp;-6 Heroic&nbsp;-8<br/>
-      0 - 1 - d3 - d6L - d6 - d6H - 2d6L - 2d6 - 2d6H - 3d6L - 3d6 - 3d6H</p>
-    </div> 
+   {{> 'systems/ewhen/templates/partials/static/quickref.hbs'}}
   </div>
 </div>
 

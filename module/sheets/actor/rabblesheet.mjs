@@ -142,4 +142,78 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
     });
     await fp.browse();
     }
+
+    static _editItem(event, element) {
+        console.log("Event: ", event);
+        console.log("Element: ", element);
+        event.preventDefault();
+        let itemId = element.dataset.itemId;
+        let item = this.actor.items.get(itemId);
+        console.log("Item to edit: ", item);
+        item.sheet.render(true);
+
+    }
+
+    static _addItem(event, options) {
+        console.warn("Add Item Options: ", options.dataset.type);
+
+        // add bailout if this is not a power; Rabble don't get weapons or armor
+        if (options.dataset.type !== "power") return;
+        
+        event.preventDefault();
+        // console.warn("_addItem fired: ");
+        var subtype = "";
+        var locString = "EW.sheet.new";
+
+       
+        if(options.dataset.type == "trait"){
+            subtype = options.dataset.subType;
+            locString += subtype;
+        } else {
+            locString += options.dataset.type;
+        }
+
+        let itemData  = {
+            name: game.i18n.localize(locString),
+            type: options.dataset.type,
+            data: {
+                    type: subtype
+            }
+        }
+
+        return Item.create(itemData, {parent: this.actor, renderSheet:true});
+
+      }
+
+      static _deleteItem(event, element) {
+          event.preventDefault();
+         
+          let itemId = element.dataset.itemId;
+
+          let d = new Dialog({
+            title: "Delete This Item?",
+            content: "<p>Are you sure you want to delete this item?</p>",
+            buttons: {
+             one: {
+              icon: '<i class="fas fa-check"></i>',
+              label: "Yes",
+              callback: () => { 
+                  let itemToDelete = this.actor.items.get(itemId);
+                  itemToDelete.delete();
+                }
+             },
+             two: {
+              icon: '<i class="fas fa-times"></i>',
+              label: "Cancel",
+              callback: () => { return; }
+             }
+            },
+            default: "two",
+            render: html => console.log("Register interactivity in the rendered dialog"),
+            close: html => console.log("This always is logged no matter which option is chosen")
+           });
+           d.render(true);
+
+      }
+
 }

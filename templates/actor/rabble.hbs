@@ -1,4 +1,4 @@
-<div class="container">
+<div class="rabble-container">
   <div class="rabble-img">
     <img class="profile-img ew-cs-img" 
 		 src="{{actor.img}}" 
@@ -8,30 +8,17 @@
 		 height="64" 
 		 width="64"/>
   </div>
-  <div class="rabble-atts">
-    {{> 'systems/ewhen/templates/partials/rabble/attributes.hbs'}}
-  </div>
-  <div class="rabble-roll">
-     <a class="ew-roll-icon" data-attribute="strength" data-action="statRoll"><i class="fa fa-dice-six"></i></a>
-  </div>
-  <div class="rabble-name">
-      <input 
+  <div class="rabble-name"><input 
     name="name" 
     type="text" 
     value="{{actor.name}}" 
     placeholder="Name"/>
   </div>
-  <div class="rabble-toggles"></div>
-  <div class="rabble-rules">
-      {{> 'systems/ewhen/templates/partials/rabble/rules.hbs'}}
-  </div>
-  <div class="rabble-powers">
-    {{> 'systems/ewhen/templates/partials/PowerList.hbs'}}
-  </div>
-  <div class="rabble-pools">
-    {{> 'systems/ewhen/templates/partials/PointPools.hbs'}}
-  </div>
-  <div class="quickref">
-     {{> 'systems/ewhen/templates/partials/static/quickref.hbs'}}
-  </div>
+  <div class="rabble-roll">  <a class="ew-roll-icon" data-attribute="strength" data-action="statRoll"><i class="fa fa-dice-six"></i></a></div>
+  <div class="rabble-stats">  {{> 'systems/ewhen/templates/partials/rabble/attributes.hbs'}}</div>
+  <div class="rabble-powers"> {{> 'systems/ewhen/templates/partials/PowerList.hbs'}}</div>
+  <div class="rabble-pools"> {{> 'systems/ewhen/templates/partials/PointPools.hbs'}}</div>
+  <div class="rabble-careers"> {{> 'systems/ewhen/templates/partials/CareerList.hbs'}}</div>
+  <div class="rabble-rules"> {{> 'systems/ewhen/templates/partials/rabble/rules.hbs'}}</div>
+  <div class="quickref">  {{> 'systems/ewhen/templates/partials/static/quickref.hbs'}}</div>
 </div>

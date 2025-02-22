@@ -31,7 +31,9 @@ export default class EWRabbleData extends EWBaseActorData {
       fatigue: 0,
       critical: 0,
       misc_lfb: 0,
-      misc_res: 0
+      misc_res: 0,
+      boxes:[],
+      critboxes:[]
     }
 
     this.priority = 2;

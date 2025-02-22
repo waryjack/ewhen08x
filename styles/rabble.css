@@ -1,31 +1,31 @@
+
 .rabble-container {  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: min-content min-content min-content min-content min-content;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    "rabble-img rabble-track rabble-toggles rabble-roll"
-    "rabble-atts rabble-com rabble-careers rabble-powers"
-    "rabble-atts rabble-com rabble-careers rabble-powers"
-    "quickref quickref quickref quickref";
+    "rabble-img rabble-name rabble-name rabble-roll rabble-rules rabble-rules"
+    "rabble-stats rabble-stats rabble-stats rabble-stats rabble-rules rabble-rules"
+    "rabble-powers rabble-powers rabble-powers rabble-powers rabble-rules rabble-rules"
+    "rabble-pools rabble-pools rabble-careers rabble-careers rabble-rules rabble-rules"
+    "quickref quickref quickref quickref quickref quickref";
 }
 
 .rabble-img { grid-area: rabble-img; }
 
-.rabble-atts { grid-area: rabble-atts; }
-
-.rabble-com { grid-area: rabble-com; }
+.rabble-name { grid-area: rabble-name; }
 
 .rabble-roll { grid-area: rabble-roll; }
 
-.rabble-track { grid-area: rabble-track; }
-
-.rabble-toggles { grid-area: rabble-toggles; }
+.rabble-stats { grid-area: rabble-stats; }
 
 .rabble-powers { grid-area: rabble-powers; }
 
 .rabble-pools { grid-area: rabble-pools; }
 
+.rabble-careers { grid-area: rabble-careers; }
+
+.rabble-rules { grid-area: rabble-rules; }
+
 .quickref { grid-area: quickref; }
-
-

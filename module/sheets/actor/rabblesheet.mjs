@@ -16,6 +16,9 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
             addCareer: this._addCareer,
             deleteCareer: this._deleteCareer,
             adjustResource: this._adjustResource,
+            addPool:this._addPool,
+            deletePool: this._deletePool,
+            editPool: this._editPool,
             addItem: this._addItem,
             editItem: this._editItem,
             deleteItem: this._deleteItem,
@@ -86,6 +89,20 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
 
     }
 
+    static async _addPool(event, element) {
+        event.preventDefault();
+        await this.actor.system._addPool();
+    }
+
+
+    static async _deletePool(event, element) {
+        event.preventDefault();
+        console.log("Element: ", element.dataset)
+        let pool = element.dataset.pool;
+        let p_id = element.dataset.poolId;
+        await this.actor.system._deletePool(pool, p_id);
+    }
+
     static async _statRoll(event,element) {
         console.log("In actorsheet method statRoll");
         event.preventDefault();
@@ -95,7 +112,7 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
     }
 
     static async _addCareer(event, element) {
-        await this.actor._addCareer();
+        await this.actor.system._addCareer();
     }
 
     static async _deleteCareer(event, element) {
@@ -103,7 +120,7 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
         console.log("Element: ", element.dataset)
         let career = element.dataset.career;
         let id = element.dataset.careerId;
-        return this.actor._deleteCareer(career, id);
+        return this.actor.system._deleteCareer(career, id);
     }
 
     static async _rollDamage(event,element) {

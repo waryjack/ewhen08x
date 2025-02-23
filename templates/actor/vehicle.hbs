@@ -14,7 +14,8 @@
 	type="text" 
 	value="{{actor.name}}" 
 	placeholder="Name"/>
-  <a data-action="toggleEditMode">Toggle Edit Mode</a>
+  {{log "sheet edit mode" editMode}}
+   <a data-action="toggleEditMode">{{#if editMode}}Switch to Play Mode{{else}}Switch to Edit Mode{{/if}}</a>
   </div>
   <div class="vstats">
     {{> 'systems/ewhen/templates/partials/vehicle/vehicleattributes.hbs'}}

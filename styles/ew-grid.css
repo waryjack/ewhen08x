@@ -401,3 +401,7 @@ i.fa-solid.fa-plus, i.fa-solid.fa-ban, i.fa-solid.fa-pen-to-square {
 .ew-icon-l:before {
   content: "\e903";
 }
+
+.edit-mode-spinner {
+  text-align:left;
+}

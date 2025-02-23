@@ -66,8 +66,9 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
         //// console.warn("data.weapons: ", data.weapons);
         data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
         //// console.warn("data.traits: ", data.traits);
-        data.armor = ownedItems.filter(function(item) {return item.type == "armor"});
+        data.armors = ownedItems.filter(function(item) {return item.type == "armor"});
         data.shielded = this.actor.system.isShielded;
+        data.editMode = this.EDIT_MODE;
         console.log("alldata: ", data);
         
         data.shielded = true ; 
@@ -264,12 +265,23 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
 
       }
 
-      _toggleEditMode() {
+      static _toggleEditMode() {
+        console.log("fired toggleEditMode");
+        console.log("Edit mode: ", this.EDIT_MODE)
         this.EDIT_MODE = (this.EDIT_MODE === false) ? true : false;
+        this.render({force:true})
       }
 
       get EDIT_MODE() {
         return this.EDIT_MODE;
+      }
+
+
+      /**
+     * @param {boolean} bool
+     */
+      set EDIT_MODE(bool) {
+        return this.EDIT_MODE = bool;
       }
 
 

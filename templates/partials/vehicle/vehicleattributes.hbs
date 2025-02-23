@@ -1,61 +1,45 @@
 <div class="form-group">
-                <table>
+                <table id="ew-vehicle-stats">
                     <tr>
                     <th colspan="2">{{localize "EW.attribute.vehicle.size"}}</th>
                     <th colspan="2">{{localize "EW.attribute.vehicle.scan"}}</th>
                     <th colspan="2">{{localize "EW.attribute.vehicle.speed"}}</th>
                     <th colspan="2">{{localize "EW.attribute.vehicle.defense"}}</th>
+                    <th colspan="2">{{localize "EW.attribute.vehicle.crew"}}</th>
+                    <th colspan="2">{{localize "EW.attribute.vehicle.frame"}}</th>
                     </tr>    
-                    <tr><td >{{size.rank}}{{#if (setting "useScale")}}({{size.scale}}){{/if}}</td>
-                        <td>
+                    <tr><td class="vstatcell">{{size.rank}}{{#if (setting "useScale")}}&nbsp;({{size.scale}}){{/if}}</td>
+                        <td class="edit-mode-spinner">
                             {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
                             {{/if}}
                         </td>
-                        <td >{{scan.rank}}{{#if (setting "useScale")}}({{scan.scale}}){{/if}}</td>
-                        <td>
+                        <td  class="vstatcell">{{scan.rank}}{{#if (setting "useScale")}}&nbsp;({{scan.scale}}){{/if}}</td>
+                        <td class="edit-mode-spinner">
                             {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
                             {{/if}}
                         </td>
-                        <td >{{speed.rank}}{{#if (setting "useScale")}}({{speed.scale}}){{/if}}</td>
-                        <td>
+                        <td  class="vstatcell">{{speed.rank}}{{#if (setting "useScale")}}&nbsp;({{speed.scale}}){{/if}}</td>
+                        <td class="edit-mode-spinner">
                             {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
                             {{/if}}
                         </td>
-                        <td >{{def.rank}}{{#if (setting "useScale")}}({{def.scale}}){{/if}}</td>
-                        <td>
+                        <td  class="vstatcell">{{def.rank}}{{#if (setting "useScale")}}&nbsp;({{def.scale}}){{/if}}</td>
+                        <td class="edit-mode-spinner">
                             {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
                             {{/if}}
                         </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <th colspan="2">{{localize "EW.attribute.vehicle.crew"}}</th>
-
-                        <th colspan="2">{{localize "EW.attribute.vehicle.frame"}}</th>
-                      
-                        <th colspan="2">{{localize "EW.attribute.vehicle.armor"}}</th>
-                      
-                    </tr>
-                    <tr>
-                        <td >{{crew.rank}}{{#if (setting "useScale")}}({{crew.scale}}){{/if}}</td>
-                        <td>
+                        <td  class="vstatcell">{{crew.rank}}</td>
+                        <td class="edit-mode-spinner">
                             {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
                             {{/if}}
                         </td>
-                        <td >{{frame.rank}}"{{#if (setting "useScale")}}({{frame.scale}}){{/if}}</td>
-                        <td>
-                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
-                            <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
-                            {{/if}}
-                        </td>
-                        <td >{{armor.rank}}{{#if (setting "useScale")}}({{system.armor.scale}}){{/if}}</td>
-                        <td>
+                        <td  class="vstatcell">{{frame.rank}}{{#if (setting "useScale")}}&nbsp;({{frame.scale}}){{/if}}</td>
+                        <td class="edit-mode-spinner">
                             {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
                             {{/if}}

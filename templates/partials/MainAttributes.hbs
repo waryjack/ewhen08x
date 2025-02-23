@@ -24,7 +24,7 @@
                         {{proper gameSettings.agiName}}
                     </a>
                 </td>
-                <td >{{main_attributes.agility.rank}}{{#if (setting "useScale")}} ({{main_attributes.agility.scale}}){{/if}}></td>
+                <td >{{main_attributes.agility.rank}}{{#if (setting "useScale")}} ({{main_attributes.agility.scale}}){{/if}}</td>
                 <td>
                     {{#if editMode}}
                             <a data-action="adjustStat" data-stat="agility" data-dir="increase">
@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <td><a data-attribute="mind" data-action="statRoll">{{proper gameSettings.minName}}</a></td>
-                <td  >{{main_attributes.mind.rank}}>{{#if (setting "useScale")}} ({{main_attributes.agility.scale}}){{/if}}</td>
+                <td  >{{main_attributes.mind.rank}}{{#if (setting "useScale")}} ({{main_attributes.agility.scale}}){{/if}}</td>
                 </td>
                 {{#if editMode}}
                             <a data-action="adjustStat" data-stat="mind" data-dir="increase">

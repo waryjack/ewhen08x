@@ -10,7 +10,7 @@
     "EW.attribute.combat.initiative": "Initiative",
 
     "EW.attribute.vehicle.type": "Vehicle Type",
-    "EW.attribute.vehicle.crew": "Crew Rank",
+    "EW.attribute.vehicle.crew": "Crew",
     "EW.attribute.vehicle.scan": "Scan",
     "EW.attribute.vehicle.speed": "Speed",
     "EW.attribute.vehicle.defense": "Defense",

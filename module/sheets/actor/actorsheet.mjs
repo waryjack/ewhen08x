@@ -5,7 +5,7 @@ const { ActorSheetV2 } = foundry.applications.sheets;
 
 export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
-    EDIT_MODE = false;
+    EDIT_MODE = true;
     /**
      * @override
      */

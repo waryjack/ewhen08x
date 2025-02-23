@@ -69,7 +69,7 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
         
         data.careers = this.actor.system.careers;
         data.ckeys = Object.keys(data.careers);
-        
+        data.editMode = this.EDIT_MODE;
         data.isMajor = false;
        
         return data;
@@ -235,12 +235,21 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
 
       }
       
-      _toggleEditMode() {
+      static _toggleEditMode() {
         this.EDIT_MODE = (this.EDIT_MODE === false) ? true : false;
+        this.render({force:true})
       }
 
       get EDIT_MODE() {
         return this.EDIT_MODE;
       }
+
+      /**
+     * @param {boolean} bool
+     */
+      set EDIT_MODE(bool) {
+        return this.EDIT_MODE = bool;
+      }
+
 
 }

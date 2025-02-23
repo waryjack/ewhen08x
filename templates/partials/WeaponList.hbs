@@ -13,7 +13,7 @@
     <table id="ew-weapon-table">
         {{#each weapons as |weapon|}}
 
-        <tr class="draggable">
+        <tr >
             <td class="item-name item">
                 <a data-action="weaponRoll"
                    data-item-id="{{weapon.id}}"
@@ -21,7 +21,7 @@
                    title="Roll Weapon Damage">
                    <img class="ew-cs-img" src="{{weapon.img}}" height="24" width="24"/>
                 </a>
-                <a class="item-edit" 
+                <a class="item-edit draggable" 
                    data-action="editItem"
                    data-item-id="{{weapon.id}}" 
                    title="Edit">

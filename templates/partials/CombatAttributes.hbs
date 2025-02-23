@@ -1,28 +1,65 @@
 
 <div class="ew-statblock ew-statborder">
-     <div class="ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.attributes.combat"}}</strong></div>
+     <div class="ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;">
+        <strong>{{localize "EW.game_term.attributes.combat"}}</strong>
+    </div>
 <table class="ew-stat-table" id="ew-combat-table">    
-
 <tr>
     <td><a data-attribute="melee" data-action="statRoll">{{proper gameSettings.melName}}</a></td>
-    <td ><input class="attr-name" type="text" data-dtype="Number" name="system.combat_attributes.melee.rank" value="{{combat_attributes.melee.rank}}"/></td>
-    {{#if (setting "useScale")}}<td class="ew-scale-box">({{combat_attributes.melee.scale}})</td>{{/if}}
+    <td >{{combat_attributes.melee.rank}}{{#if (setting "useScale")}} ({{combat_attributes.melee.scale}}){{/if}}</td>
+    <td>
+        {{#if editMode}}
+                <a data-action="adjustStat" data-stat="melee" data-dir="increase">
+                    <i class="fa-regular fa-square-caret-up"></i>
+                </a><br/>
+                <a data-action="adjustStat" data-stat="melee" data-dir="decrease">
+                    <i class="fa-regular fa-square-caret-down"></i>
+                </a>
+        {{/if}}
+    </td>
 </tr>
 <tr>
     <td ><a class="att-roll" data-attribute="ranged" data-action="statRoll">{{proper gameSettings.ranName}}</a></td>
-    <td ><input class="attr-name" type="text" data-dtype="Number" name="system.combat_attributes.ranged.rank" value="{{combat_attributes.ranged.rank}}"/></td>
-    {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.ranged.scale}})</td>{{/if}}
+    <td >{{combat_attributes.ranged.rank}}{{#if (setting "useScale")}} ({{combat_attributes.ranged.scale}}){{/if}}</td>
+    <td>
+        {{#if editMode}}
+                <a data-action="adjustStat" data-stat="ranged" data-dir="increase">
+                    <i class="fa-regular fa-square-caret-up"></i>
+                </a><br/>
+                <a data-action="adjustStat" data-stat="ranged" data-dir="decrease">
+                    <i class="fa-regular fa-square-caret-down"></i>
+                </a>
+        {{/if}}
+    </td>
 </tr>
 <tr>
     <td ><a class="att-roll" data-attribute="defense" data-action="statRoll">{{proper gameSettings.defName}}</a></td>
-    <td ><input class="attr-name" type="text" data-dtype="Number" name="system.combat_attributes.defense.rank" value="{{combat_attributes.defense.rank}}"/></td>
-    {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.defense.scale}})</td>{{/if}}
+    <td >{{combat_attributes.defense.rank}}{{#if (setting "useScale")}} ({{combat_attributes.defense.scale}}){{/if}}</td>
+    <td>
+        {{#if editMode}}
+                <a data-action="adjustStat" data-stat="defense" data-dir="increase">
+                    <i class="fa-regular fa-square-caret-up"></i>
+                </a><br/>
+                <a data-action="adjustStat" data-stat="defense" data-dir="decrease">
+                    <i class="fa-regular fa-square-caret-down"></i>
+                </a>
+        {{/if}}
+    </td>
+    
 </tr>
 <tr>
     <td ><a class="att-roll" data-attribute="initiative" data-action="statRoll">{{proper gameSettings.iniName}}</a></td>
-    <td ><input class="attr-name" type="text" data-dtype="Number" name="system.combat_attributes.initiative.rank" value="{{combat_attributes.initiative.rank}}"/></td>
-    {{#if (setting "useScale")}}<td class="align-center">({{combat_attributes.initiative.scale}})</td>{{/if}}
+    <td >{{combat_attributes.initiative.rank}}{{#if (setting "useScale")}} ({{combat_attributes.initiative.scale}}){{/if}}</td>
+    <td>
+        {{#if editMode}}
+                <a data-action="adjustStat" data-stat="initiative" data-dir="increase">
+                    <i class="fa-regular fa-square-caret-up"></i>
+                </a><br/>
+                <a data-action="adjustStat" data-stat="initiative" data-dir="decrease">
+                    <i class="fa-regular fa-square-caret-down"></i>
+                </a>
+        {{/if}}
+    </td>
 </tr>
-
 </table>
 </div>

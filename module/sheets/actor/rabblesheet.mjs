@@ -5,6 +5,7 @@ import EWBaseActor from "../../documents/actor/baseactor.mjs"
 
 export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
+    EDIT_MODE = true;
 
     /**
      * @override
@@ -24,7 +25,8 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
             deleteItem: this._deleteItem,
             rollDamage: this._rollDamage,
             editImage: this._onEditImage,
-            statRoll: this._statRoll
+            statRoll: this._statRoll,
+            toggleEditMode: this._toggleEditMode
         },
         form: {
                 submitOnChange: true,
@@ -231,6 +233,14 @@ export default class EWRabbleSheetV2 extends HandlebarsApplicationMixin(ActorShe
            });
            d.render(true);
 
+      }
+      
+      _toggleEditMode() {
+        this.EDIT_MODE = (this.EDIT_MODE === false) ? true : false;
+      }
+
+      get EDIT_MODE() {
+        return this.EDIT_MODE;
       }
 
 }

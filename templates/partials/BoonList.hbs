@@ -2,13 +2,16 @@
                       
                 <div class="ew-itemborder">
                     <div class="ew-statblock ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.boons"}} 
-                        <a class="item-create" title="Add Boon" data-action="addItem" data-type="trait" data-sub-type="boon">
+                       {{#if editMode}} <a class="item-create" title="Add Boon" data-action="addItem" data-type="trait" data-sub-type="boon">
                             <i class="fa-solid fa-plus"></i>
                         </a>
+                        {{/if}}
                         / {{localize "EW.game_term.flaws"}}</strong>
+                        {{#if editMode}}
                         <a class="item-create" title="Add Flaw" data-action="addItem" data-type="trait" data-sub-type="flaw">
                             <i class="fa-solid fa-plus"></i>
                         </a>
+                        {{/if}}
                     </div>
                     <table id="ew-boon-table">
                         {{#each traits as |trait id|}}
@@ -19,9 +22,11 @@
                                 {{trait.system.description}}<br>  
                             </td>
                             <td>
+                                {{#if editMode}}
                                 <a class="item-delete item" title="Delete Item" data-action="deleteItem" data-item-id="{{trait.id}}">
                                     <i class="fa-solid fa-ban"></i>
                                 </a>
+                                {{/if}}
                             </td>
                         </tr>
                         

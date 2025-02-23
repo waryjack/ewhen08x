@@ -3,6 +3,7 @@ const { ActorSheetV2 } = foundry.applications.sheets;
 
 export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
+    EDIT_MODE = true;
 
     /**
      * @override
@@ -18,7 +19,8 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
             deleteItem: this._deleteItem,
             weaponRoll: this._rollWeaponDamage,
             armorRoll: this._rollArmorDefense,
-            adjustStat: this._adjustStat
+            adjustStat: this._adjustStat,            
+            toggleEditMode: this._toggleEditMode,
 
         },
         form: {
@@ -261,6 +263,15 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
             this.actor.system._adjustStat(stat, dir);
 
       }
+
+      _toggleEditMode() {
+        this.EDIT_MODE = (this.EDIT_MODE === false) ? true : false;
+      }
+
+      get EDIT_MODE() {
+        return this.EDIT_MODE;
+      }
+
 
 
 //       /* =============== Drag/Drop Handlers and Methods ======================= */

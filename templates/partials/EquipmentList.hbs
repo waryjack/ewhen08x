@@ -2,12 +2,12 @@
                      <div class="ew-itemborder">
 
                      <div class="ew-statblock ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.gearandpos"}}</strong>
-                        <a class="item-create" title="Add Gear" data-action="addItem" data-type="equipment">
+                        {{#if editMode}}<a class="item-create" title="Add Gear" data-action="addItem" data-type="equipment">
                             <i class="fa-solid fa-plus"></i></a>
-                      </div>
+                      </div>{{/if}}
                     <table id="ew-equip-table">
                         <tr>
-                            <th colspan=2 style="text-align:left;">{{localize "EW.game_term.gearitem"}}</th>
+               }             <th colspan=2 style="text-align:left;">{{localize "EW.game_term.gearitem"}}</th>
                             <th style="text-align:left">{{localize "EW.game_term.description"}}</th>
                             <th>{{localize "EW.game_term.quantity"}}</th>
                             <th>{{proper (localize gameSettings.currencyName)}} ({{proper (localize gameSettings.creditName)}})</th>
@@ -34,9 +34,10 @@
                                 {{equipment.system.weight}}
                             </td>
                              <td>
-                                <a class="item-delete item" data-action="deleteItem" data-item-id="{{equipment.id}}">
+                               {{#if editMode}} <a class="item-delete item" data-action="deleteItem" data-item-id="{{equipment.id}}">
                                     <i class="fa-solid fa-ban"></i>
                                 </a>
+                                {{/if}}
                             </td>
                         </tr>
                         {{/each}}

@@ -1,9 +1,10 @@
 
 <div class="ew-itemborder">
                     <div class="ew-statblock ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.armor"}}</strong>
-                        <a class="item-create" title="Add Armor" data-action="addItem" data-type="armor">
+                       {{#if editMode}} <a class="item-create" title="Add Armor" data-action="addItem" data-type="armor">
                             <i class="fa-solid fa-plus"></i>
                         </a>
+                        {{/if}}
                     </div>
 
                     <table id="ew-armor-table">
@@ -39,9 +40,10 @@
                                     
 
                             <td style="vertical-align:bottom">
-                                <a class="item-delete item" data-action="deleteItem" data-item-id="{{armor.id}}">
+                            {{#if editMode}}    <a class="item-delete item" data-action="deleteItem" data-item-id="{{armor.id}}">
                                     <i class="fa-solid fa-ban"></i>
                                 </a>
+                            {{/if}}
                             </td>
                             </td>
                         </tr>

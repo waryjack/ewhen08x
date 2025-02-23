@@ -1,8 +1,9 @@
 <div class="ew-statblock ew-statborder">
 <div class="ew-statblock ew-heading-border ew-section-header" style="text-align:center; width:100%; font-size:1.25em; background-color:none;"><strong>{{localize "EW.game_term.careers"}}</strong>
-                        <a class="item-create" title="Add Career" data-action="addCareer" data-type="career">
+                        {{#if editMode}}<a class="item-create" title="Add Career" data-action="addCareer" data-type="career">
                             <i class="fa-solid fa-plus"></i>
                         </a>
+                        {{/if}}
                     </div>
 <table class="ew-stat-table" id="ew-career-table">
 
@@ -17,9 +18,10 @@
     <input class="attr-name" type="text" data-dtype="Number" name="system.careers.{{@key}}.rank" value="{{career.rank}}">
 </td>
 <td >
-    <a class="item" data-action="deleteCareer" data-career="{{@key}}" data-career-id="{{career.id}}">
+    {{#if editMode}}<a class="item" data-action="deleteCareer" data-career="{{@key}}" data-career-id="{{career.id}}">
         <i class="fa-solid fa-ban"></i>
     </a>
+    {{/if}}
 </td>
 </tr>
 {{/each}}

@@ -1,56 +1,65 @@
 <div class="form-group">
                 <table>
                     <tr>
-                    <th>{{localize "EW.attribute.vehicle.size"}}</th>
-                    <th></th>
-                    <th>{{localize "EW.attribute.vehicle.scan"}}</th>
-                    <th>{{localize "EW.attribute.vehicle.speed"}}</th>
-                    <th>{{localize "EW.attribute.vehicle.defense"}}</th>
+                    <th colspan="2">{{localize "EW.attribute.vehicle.size"}}</th>
+                    <th colspan="2">{{localize "EW.attribute.vehicle.scan"}}</th>
+                    <th colspan="2">{{localize "EW.attribute.vehicle.speed"}}</th>
+                    <th colspan="2">{{localize "EW.attribute.vehicle.defense"}}</th>
                     </tr>    
-                    <tr>
-                        
-                        <td >{{size.rank}}
-                        
-                        {{#if (setting "useScale")}}({{size.scale}}){{/if}}
-
-                        </td>
+                    <tr><td >{{size.rank}}{{#if (setting "useScale")}}({{size.scale}}){{/if}}</td>
                         <td>
-                            <a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                            {{/if}}
                         </td>
-                        
-                        
-                        <td ><input  type="text" data-dtype="Number"  name="system.scan.rank" value="{{scan.rank}}">{{#if (setting "useScale")}}({{scan.scale}}){{/if}}
-                   </td>
-                        
-                        <td ><input  type="text" data-dtype="Number"  name="system.speed.rank" value="{{speed.rank}}"> {{#if (setting "useScale")}}({{speed.scale}}){{/if}}
-                   </td>
-                       
+                        <td >{{scan.rank}}{{#if (setting "useScale")}}({{scan.scale}}){{/if}}</td>
+                        <td>
+                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                            {{/if}}
+                        </td>
+                        <td >{{speed.rank}}{{#if (setting "useScale")}}({{speed.scale}}){{/if}}</td>
+                        <td>
+                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                            {{/if}}
+                        </td>
+                        <td >{{def.rank}}{{#if (setting "useScale")}}({{def.scale}}){{/if}}</td>
+                        <td>
+                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                            {{/if}}
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th colspan="2">{{localize "EW.attribute.vehicle.crew"}}</th>
 
-                        <td ><input  type="text" data-dtype="Number"  name="system.def.rank" value="{{def.rank}}"> {{#if (setting "useScale")}}({{def.scale}}){{/if}}</td>
-                       
-                    </tr>
-                    <tr>
-                        <th>{{localize "EW.attribute.vehicle.crew"}}</th>
-                        <th></th>
-                     
-                        <th>{{localize "EW.attribute.vehicle.frame"}}</th>
+                        <th colspan="2">{{localize "EW.attribute.vehicle.frame"}}</th>
                       
-                        <th>{{localize "EW.attribute.vehicle.armor"}}</th>
-                        <th></th>
+                        <th colspan="2">{{localize "EW.attribute.vehicle.armor"}}</th>
                       
                     </tr>
                     <tr>
-                        <td ><input  type="text" data-dtype="Number" width="4" name="system.crew.rank" value="{{crew.rank}}"/>{{#if (setting "useScale")}}({{crew.scale}}){{/if}}</td>
-                        
-                   
-                        <td ><input  type="text" data-dtype="Number"  name="system.frame.rank" value="{{frame.rank}}"/> {{#if (setting "useScale")}}({{frame.scale}}){{/if}}</td>
-                       
-                  
-                        <td ><input  type="text" data-dtype="Number"  name="system.armor.rank" value="{{armor.rank}}"/> {{#if (setting "useScale")}}({{system.armor.scale}}){{/if}}</td>
-                       
-                        <td></td>
-                        <td></td>
+                        <td >{{crew.rank}}{{#if (setting "useScale")}}({{crew.scale}}){{/if}}</td>
+                        <td>
+                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                            {{/if}}
+                        </td>
+                        <td >{{frame.rank}}"{{#if (setting "useScale")}}({{frame.scale}}){{/if}}</td>
+                        <td>
+                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                            {{/if}}
+                        </td>
+                        <td >{{armor.rank}}{{#if (setting "useScale")}}({{system.armor.scale}}){{/if}}</td>
+                        <td>
+                            {{#if editMode}}<a data-action="adjustStat" data-stat="size" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            <a data-action="adjustStat" data-stat="size" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                            {{/if}}
+                        </td>
                     </tr>
                 </table>
 </div>

@@ -8,35 +8,62 @@
                     <a data-attribute="strength" data-action="statRoll">{{proper gameSettings.strName}}</a>
                 </td>
                 <td >
-                     <strong>{{main_attributes.strength.rank}}</strong>
-                     {{#if (setting "useScale")}}
-                    
-                        ({{main_attributes.strength.scale}})
-                    
-                {{/if}}
+                     <strong>{{main_attributes.strength.rank}}</strong>{{#if (setting "useScale")}} ({{main_attributes.strength.scale}}){{/if}}
                 </td>
-               
                  <td>
                     {{#if editMode}}
                             <a data-action="adjustStat" data-stat="strength" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
                             <a data-action="adjustStat" data-stat="strength" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
-                        </td>
+                        
                     {{/if}}
+                </td>
             </tr>
             <tr>
-                <td><a data-attribute="agility" data-action="statRoll">{{proper gameSettings.agiName}}</a></td>
-                <td ><input class="attr-name" type="text" data-dtype="Number"  name="system.main_attributes.agility.rank" value="{{main_attributes.agility.rank}}"></td>
-                {{#if (setting "useScale")}}<td >({{main_attributes.agility.scale}})</td>{{/if}}
+                <td>
+                    <a data-attribute="agility" data-action="statRoll">
+                        {{proper gameSettings.agiName}}
+                    </a>
+                </td>
+                <td >{{main_attributes.agility.rank}}{{#if (setting "useScale")}} ({{main_attributes.agility.scale}}){{/if}}></td>
+                <td>
+                    {{#if editMode}}
+                            <a data-action="adjustStat" data-stat="agility" data-dir="increase">
+                                <i class="fa-regular fa-square-caret-up"></i>
+                            </a><br/>
+                            <a data-action="adjustStat" data-stat="agility" data-dir="decrease">
+                                <i class="fa-regular fa-square-caret-down"></i>
+                            </a>
+                    {{/if}}
+                </td>
             </tr>
             <tr>
                 <td><a data-attribute="mind" data-action="statRoll">{{proper gameSettings.minName}}</a></td>
-                <td  ><input class="attr-name" type="text" data-dtype="Number"  name="system.main_attributes.mind.rank" value="{{main_attributes.mind.rank}}"></td>
-                {{#if (setting "useScale")}}<td >({{main_attributes.agility.scale}})</td>{{/if}}
-            </tr>
+                <td  >{{main_attributes.mind.rank}}>{{#if (setting "useScale")}} ({{main_attributes.agility.scale}}){{/if}}</td>
+                </td>
+                {{#if editMode}}
+                            <a data-action="adjustStat" data-stat="mind" data-dir="increase">
+                                <i class="fa-regular fa-square-caret-up"></i>
+                            </a><br/>
+                            <a data-action="adjustStat" data-stat="mind" data-dir="decrease">
+                                <i class="fa-regular fa-square-caret-down"></i>
+                            </a>
+                    {{/if}}
+                </td>
+            </tr>   
             <tr>
                 <td><a data-attribute="appeal" data-action="statRoll">{{proper gameSettings.appName}}</a></td>
-                <td  ><input class="attr-name"  type="text" data-dtype="Number" name="system.main_attributes.appeal.rank" value="{{main_attributes.appeal.rank}}"></td>
-                {{#if (setting "useScale")}}<td >({{main_attributes.appeal.scale}})</td>{{/if}}
+                <td  >{{main_attributes.appeal.rank}}{{#if (setting "useScale")}} ({{main_attributes.appeal.scale}}){{/if}}</td>
+                 </td>
+                {{#if editMode}}
+                            <a data-action="adjustStat" data-stat="appeal" data-dir="increase">
+                                <i class="fa-regular fa-square-caret-up"></i>
+                            </a><br/>
+                            <a data-action="adjustStat" data-stat="appeal" data-dir="decrease">
+                                <i class="fa-regular fa-square-caret-down"></i>
+                            </a>
+                    {{/if}}
+                </td>
+                
             </tr>
         </table>
 </div>

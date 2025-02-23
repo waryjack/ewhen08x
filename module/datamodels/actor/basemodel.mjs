@@ -49,7 +49,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
 
     // Set initiative based on system settings
     this._setInitiative(game.settings.get("ewhen","allSettings"));
-    this._initializeHealth(this.parent.type);
+    this._initializeHealth();
     this._adjustHealth();
   }
 
@@ -101,22 +101,18 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
   _initializeHealth(type) {
     console.log("this: ", this);
     console.log("Actor Type: ", type);
-    if (type === "vehicle"){
-      console.log("resources: ", this.parent.system.resources);
-      if (!this.resources.shield.boxes.length) {
-        this.resources.shield.boxes = Array(this.resources.shield.max).fill("h").flat();
+
+  /* if (Array.isArray(this.resources.lifeblood.boxes)) {
+      while (this.resources.lifeblood.boxes.length != this.resources.lifeblood.max) {
+        (this.resources.lifeblood.boxes.length < this.resources.lifeblood.max) ? this.resources.lifeblood.boxes.push('h') : this.resources.lifeblood.boxes.shift();
       }
-      if (!this.resources.shield.critboxes.length) {
-        this.resources.shield.critboxes = Array(this.resources.shield.max).fill("h").flat();
+      while (this.resources.resolve.boxes.length != this.resources.resolve.max) {
+        (this.resources.resolve.boxes.length < this.resources.resolve.max) ? this.resources.resolve.boxes.push('h') : this.resources.resolve.boxes.shift();
       }
-      if (!this.frame.boxes.length) {
-        this.frame.boxes = Array(this.frame.rank).fill("h").flat();
-      }
-      if (!this.frame.critboxes.length) {
-        this.frame.critboxes = Array(this.frame.rank).fill("h").flat();
-      }
-    } else {
-      console.log("this.resources: ", this.resources);
+  }*/
+
+
+  console.log("this.resources: ", this.resources);
       if (!this.resources.lifeblood.boxes.length) { 
         this.resources.lifeblood.boxes = Array(this.resources.lifeblood.max).fill("h").flat();
       }
@@ -129,7 +125,8 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
       if (!this.resources.resolve.critboxes.length) {
         this.resources.resolve.critboxes = Array(5).fill("h").flat();
       }
-    }
+      
+    
   }
 
   async _deleteCareer(career, c_id) {

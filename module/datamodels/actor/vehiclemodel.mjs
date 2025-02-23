@@ -88,7 +88,7 @@ export default class EWVehicleData extends foundry.abstract.TypeDataModel {
   async _adjustHealth(){
 
       while (this.frame.boxes.length != this.frame.rank) {
-        this.frame.boxes.length < this.frame.rank ? this.frame.boxes.push("h") : this.frame.boxes.shift();
+        (this.frame.boxes.length < this.frame.rank) ? this.frame.boxes.push("h") : this.frame.boxes.shift();
       }
 
   }

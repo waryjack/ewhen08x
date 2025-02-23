@@ -8,7 +8,7 @@ export function proper(content) {
 
 export function getStatSchema(value){
     return {
-      rank: new NumberField({required:true, integer:true, min:0, initial:0}),
+      rank: new NumberField({required:true, integer:true, min:-5, initial:0}),
       scale: new NumberField({required:true, integer:true, min:1, initial:value}),
       mod: new NumberField({required:true, integer:true, initial:0})
     }

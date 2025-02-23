@@ -8,13 +8,20 @@
                     <a data-attribute="strength" data-action="statRoll">{{proper gameSettings.strName}}</a>
                 </td>
                 <td >
-                    <input class="attr-name" type="text" data-dtype="Number" name="system.main_attributes.strength.rank" value="{{main_attributes.strength.rank}}">
-                </td>
-                {{#if (setting "useScale")}}
-                    <td>
+                     <strong>{{main_attributes.strength.rank}}</strong>
+                     {{#if (setting "useScale")}}
+                    
                         ({{main_attributes.strength.scale}})
-                    </td>
+                    
                 {{/if}}
+                </td>
+               
+                 <td>
+                    {{#if editMode}}
+                            <a data-action="adjustStat" data-stat="strength" data-dir="increase"><i class="fa-regular fa-square-caret-up"></i></a><br/>
+                            <a data-action="adjustStat" data-stat="strength" data-dir="decrease"><i class="fa-regular fa-square-caret-down"></i></a>
+                        </td>
+                    {{/if}}
             </tr>
             <tr>
                 <td><a data-attribute="agility" data-action="statRoll">{{proper gameSettings.agiName}}</a></td>

@@ -5,7 +5,7 @@ const { ActorSheetV2 } = foundry.applications.sheets;
 
 export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorSheetV2) {
 
-
+    EDIT_MODE = false;
     /**
      * @override
      */
@@ -27,7 +27,9 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             weaponRoll: this._rollWeaponDamage,
             armorRoll: this._rollArmorDefense,
             editImage: this._onEditImage,
-            useHeroPoint: this._useHeroPoint
+            useHeroPoint: this._useHeroPoint,
+            adjustStat: this._adjustStat,
+            toggleEditMode: this._toggleEditMode,
             
 
         },
@@ -85,7 +87,7 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
             data.main_attributes = this.actor.system.main_attributes;
             data.combat_attributes = this.actor.system.combat_attributes;
             data.isMajor = (this.actor.type === "hero" || this.actor.type === "rival") ? true : false;
-       
+            data.editMode = this.EDIT_MODE;
         return data;
     }
 
@@ -302,6 +304,30 @@ export default class EWActorSheetV2 extends HandlebarsApplicationMixin(ActorShee
         await fp.browse();
       }
 
+      static async _adjustStat(event, element){
+        event.preventDefault();
+        let stat = element.dataset.stat;
+        let dir = element.dataset.dir;
+        
+            this.actor.system._adjustStat(stat, dir);
+
+      }
+      
+      static _toggleEditMode() {
+        this.EDIT_MODE = (this.EDIT_MODE == false) ? true : false;
+        this.render({force:true})
+      }
+
+      get EDIT_MODE() {
+        return this.EDIT_MODE;
+      }
+
+      /**
+     * @param {boolean} bool
+     */
+      set EDIT_MODE(bool) {
+        return this.EDIT_MODE = bool;
+      }
 //       /* =============== Drag/Drop Handlers and Methods ======================= */
 
 //       createDragDropHandlers() {

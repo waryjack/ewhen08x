@@ -339,5 +339,21 @@ async _cycleCritBox(track,pos,state) {
     }
   }
 
+  async _adjustStat(stat, dir) {
+    console.log("stat, dir: ", stat, dir);
+    let curr;
+    let increase = (dir === "increase") ? true : false;
+    switch(stat){
+      case "size": if (dir === "increase") { curr += 1 } else { curr -= 1}
+                   console.log("adjusted size rank: ", curr); 
+                   await this.parent.update({"system.size.rank":curr})
+                   break;
+      case "strength": curr = this.main_attributes.strength.rank; curr = increase ? curr += 1 : curr -= 1; 
+                       console.log("curr: ", curr); 
+                       await this.parent.update({"system.main_attributes.strength.rank":curr}); break;
+      default: console.log("nothing here yet");
+    }
+  }
+
 }
 

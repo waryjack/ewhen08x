@@ -2,13 +2,10 @@ const {
   SchemaField, NumberField, StringField, ArrayField, BooleanField
 } = foundry.data.fields;
 import { getStatSchema, getHealthSchema } from "../../helpers.mjs";
-import EWBaseActorData from "./basemodel.mjs";
 
-export default class EWVehicleData extends EWBaseActorData {
+export default class EWVehicleData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
-    const baseSchema = super.defineSchema();
     return {
-      ...baseSchema,
       crew: new SchemaField({
         rank: new NumberField({required:true, integer:true, min:0, initial:0})
       }),
@@ -28,7 +25,9 @@ export default class EWVehicleData extends EWBaseActorData {
         boxes: new ArrayField(new StringField(), {required:true, initial:[]}),
         critboxes: new ArrayField(new StringField(), {required:true, initial:[]})
       }),
-    };
+      shield: new SchemaField(getHealthSchema()),
+      isShielded: new BooleanField({nullable:false, initial:true,  required:true})
+    }
   }
 
   prepareBaseData(){
@@ -40,7 +39,23 @@ export default class EWVehicleData extends EWBaseActorData {
     // Stub
     super.prepareDerivedData();
 
-    this._initializeHealth("vehicle");
+    this._initializeHealth();
+    this._adjustHealth();
+  }
+
+  _initializeHealth() {
+    if (!this.shield.boxes.length) {
+      this.shield.boxes = Array(this.shield.max).fill("h").flat();
+    }
+    if (!this.shield.critboxes.length) {
+      this.shield.critboxes = Array(this.shield.max).fill("h").flat();
+    }
+    if (!this.frame.boxes.length) {
+      this.frame.boxes = Array(this.frame.rank).fill("h").flat();
+    }
+    if (!this.frame.critboxes.length) {
+      this.frame.critboxes = Array(this.frame.rank).fill("h").flat();
+    }
   }
 
 
@@ -68,11 +83,13 @@ export default class EWVehicleData extends EWBaseActorData {
     // set the new settings, as usual
     await this.actor.update({"system.frame[boxes]":oldBoxes, "system.frame.max":Number(prompt.newmax.value)});
 
+  }
 
+  async _adjustHealth(){
 
-
-
-    
+      while (this.frame.boxes.length != this.frame.rank) {
+        this.frame.boxes.length < this.frame.rank ? this.frame.boxes.push("h") : this.frame.boxes.shift();
+      }
 
   }
 
@@ -105,5 +122,18 @@ export default class EWVehicleData extends EWBaseActorData {
                   this.resources.shield = resData;
 
               }
+  }
+
+  async _adjustStat(stat, dir) {
+    console.log("stat, dir: ", stat, dir);
+    let curr = this[stat].rank;
+    console.log("Current value: ", curr);
+    switch(stat){
+      case "size": if (dir === "increase") { curr += 1 } else { curr -= 1}
+                   console.log("adjusted size rank: ", curr); 
+                   await this.parent.update({"system.size.rank":curr})
+                   break;
+      default: console.log("nothing here yet");
+    }
   }
 }

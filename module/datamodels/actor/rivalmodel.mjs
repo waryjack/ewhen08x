@@ -3,6 +3,7 @@ const {
 } = foundry.data.fields;
 import EWBaseActorData from "./basemodel.mjs";
 import { getDiceModel } from "../../diceModels.js";
+import { getStatSchema } from "../../helpers.mjs";
 
 export default class EWRivalData extends EWBaseActorData {
   static defineSchema() {
@@ -10,7 +11,8 @@ export default class EWRivalData extends EWBaseActorData {
     return {
       ...actorData,
       hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
-      priority: new NumberField({required:true, integer:true, min:5, initial:5})
+      priority: new NumberField({required:true, integer:true, min:5, initial:5}),
+      size: new SchemaField(getStatSchema(1))
     };
   }
 

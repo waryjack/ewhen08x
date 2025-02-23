@@ -11,7 +11,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     return {
       actor_image: new FilePathField({required:false, categories: ["IMAGE"]}),
       backstory: new HTMLField({initial: ""}),
-      size: new StringField({required:true, initial:"medium"}),
+      
       currency: new NumberField({required:true, min:0, initial:0}),
       credit_rating: new NumberField({required:true, min:0, initial:0}),
       armorbonus: new NumberField({required:true, integer:true, min:0, initial:0}),
@@ -50,6 +50,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     // Set initiative based on system settings
     this._setInitiative(game.settings.get("ewhen","allSettings"));
     this._initializeHealth(this.parent.type);
+    this._adjustHealth();
   }
 
   _setInitiative(settings) {
@@ -239,7 +240,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
     
   }
 
-  async _applyRemoveTraitModifier (item, action) {
+  /* async _applyRemoveTraitModifier (item, action) {
 
     if(item.type == "trait") {
         const diceModel = getDiceModel(game)
@@ -259,7 +260,7 @@ export default class EWBaseActorData extends foundry.abstract.TypeDataModel {
         actor.update({ "system.priority_roll": adata});
     }
 
-  }
+  }*/
 
   /**
    * @param {String} track the health track being updated
@@ -314,6 +315,32 @@ async _cycleCritBox(track,pos,state) {
     boxes[pos] = newState;
     await this.actor.update({[`system.resources.${track}.critboxes`]:boxes});
 }
+
+  async _adjustHealth(){
+    
+    console.log(this.resources.lifeblood.boxes, this.resources.lifeblood.max);
+    if(this.parent.type === "vehicle") {
+      while (this.frame.boxes.length != this.frame.rank) {
+        this.frame.boxes.length < this.frame.rank ? this.frame.boxes.push("h") : this.frame.boxes.shift();
+      }
+
+    } else {
+      while (this.resources.lifeblood.boxes.length < this.resources.lifeblood.max) {
+        this.resources.lifeblood.boxes.push('h');
+      }
+      while (this.resources.lifeblood.boxes.length > this.resources.lifeblood.max) {
+        this.resources.lifeblood.boxes.shift();
+      }
+      
+      while (this.resources.resolve.boxes.length < this.resources.resolve.max) {
+        this.resources.resolve.boxes.push('h');
+      }
+      while (this.resources.resolve.boxes.length > this.resources.resolve.max) {
+        this.resources.resolve.boxes.shift();
+      
+      }
+    }
+  }
 
 }
 

@@ -27,7 +27,6 @@ export const preloadHandlebarsTemplates = async function() {
       
       // Rabble Sheet Partials
       "systems/ewhen/templates/partials/rabble/attributes.hbs",
-      "systems/ewhen/templates/partials/rabble/combat.hbs",
       "systems/ewhen/templates/partials/rabble/rules.hbs",
 
       // Static items

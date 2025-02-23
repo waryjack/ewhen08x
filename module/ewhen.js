@@ -340,11 +340,33 @@ Hooks.on('getCombatTrackerEntryContext', (tracker, options) => {
  * Actor / Token Hooks
  */
 
-Hooks.on('updateToken', function(token, changed, diff){
+Hooks.on('updateToken', function(token, changed, diff, id){
 
     console.log("Also Updating Token: ", token.name, token._id);
 
 });
+
+/* Hooks.on('preUpdateActor', function(actor, changed, diff, id) {
+    // algorithm
+    // if strength is in the diff, update Lifeblood
+    // if mind is in the diff, update resolve
+    // if frame, update frame
+    // if shield, update shield? shielding is weird, might need to be an extra stat?
+
+
+    if("main_attributes" in Object.keys(changed.system)){
+        Object.keys(changed.system.main_attributes).forEach(k => {
+            switch(k) {
+                case "strength": actor.system._adjustTrackBoxes("lifeblood", changed.system.main_attributes[k].rank - actor.system.main_attributes[k].rank);break;
+                case "mind": actor.system._adjustTrackBoxes("resolve", changed.system.main_attributes[k].rank - actor.system.main_attributes[k].rank); break;
+                default:break;
+            }
+        })
+    } else if ("frame" in Object.keys(changed.system)){
+        actor._adjustTrackBoxes("frame", changed.system.frame.rank)
+    }
+
+}); */
 
 // not strictly necessary, just QoL
 Hooks.on('preCreateItem', function(item, data) {

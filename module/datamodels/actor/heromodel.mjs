@@ -3,7 +3,7 @@ const {
 } = foundry.data.fields;
 import EWBaseActorData from "./basemodel.mjs";
 import { getDiceModel } from "../../diceModels.js";
-import { getDefaultPool } from "../../helpers.mjs";
+import { getStatSchema } from "../../helpers.mjs";
 
 export default class EWHeroData extends EWBaseActorData {
   static defineSchema() {
@@ -11,6 +11,7 @@ export default class EWHeroData extends EWBaseActorData {
     return {
       ...baseSchema,
       isRival: new BooleanField({required:true, nullable:false, initial:false}),
+      size: new SchemaField(getStatSchema(1)),
       encumbrance: new NumberField({required:true, integer:true, min:0, initial:0}),
       hero_points: new NumberField({required:true, integer:true, min:0, initial:5}),
       priority: new SchemaField({

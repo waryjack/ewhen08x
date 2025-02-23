@@ -2,6 +2,7 @@ const {
     HTMLField, SchemaField, NumberField, StringField, ArrayField
   } = foundry.data.fields;
   import EWBaseActorData from "./basemodel.mjs";
+  import { getStatSchema } from "../../helpers.mjs";
 
 export default class EWToughData extends EWBaseActorData {
   static defineSchema(){
@@ -9,7 +10,8 @@ export default class EWToughData extends EWBaseActorData {
     return {
       ...baseSchema,
       priority: new NumberField({required:true, integer:true, initial:4}),
-      subtype: new StringField({initial:''}) // acolyte, priest, etc.
+      subtype: new StringField({initial:''}),
+      size: new SchemaField(getStatSchema(1)) // acolyte, priest, etc.
     }
   }
 

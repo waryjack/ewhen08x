@@ -18,6 +18,7 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
             deleteItem: this._deleteItem,
             weaponRoll: this._rollWeaponDamage,
             armorRoll: this._rollArmorDefense,
+            adjustStat: this._adjustStat
 
         },
         form: {
@@ -64,7 +65,7 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
         data.traits = ownedItems.filter(function(item) {return item.type == "trait"});
         //// console.warn("data.traits: ", data.traits);
         data.armor = ownedItems.filter(function(item) {return item.type == "armor"});
-        data.shielded = this.actor.system.dipswitches.isShielded;
+        data.shielded = this.actor.system.isShielded;
         console.log("alldata: ", data);
         
         data.shielded = true ; 
@@ -123,19 +124,21 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
     }
 
     // Handle damage rolls
-    static weaponRoll(event,element) {
+    static _rollWeaponDamage(event,element) {
         event.preventDefault();
-        let itemId = element.closest(".item").dataset.itemId;
-        let item = this.actor.items.get(itemId);
-        return this.actor.rollWeaponDamage(item);
-
+        let item = this.actor.items.get(element.dataset.itemId);
+        return item._rollWeaponDamage(this.actor.system.main_attributes);
     }
 
-    static armorRoll(event,element) {
+    //this needs to be changed later
+    static _rollArmorDefense(event,element) {
         event.preventDefault();
-        let itemId = element.closest(".item").dataset.itemId;
+        console.log(element.dataset);
+        if(element.dataset.varPro === "none") return; //don't roll armor with fixed protection
+        let itemId = element.dataset.itemId;
         let item = this.actor.items.get(itemId);
-        return this.actor.rollArmor(item);
+        console.log("Item: ", item);
+        return item._rollArmor();
     }
 
       static async _onEditImage(_event, target) {
@@ -247,6 +250,15 @@ export default class EWVehicleSheetV2 extends HandlebarsApplicationMixin(ActorSh
             close: html => console.log("This always is logged no matter which option is chosen")
            });
            d.render(true);
+
+      }
+
+      static async _adjustStat(event, element){
+        event.preventDefault();
+        let stat = element.dataset.stat;
+        let dir = element.dataset.dir;
+        
+            this.actor.system._adjustStat(stat, dir);
 
       }
 

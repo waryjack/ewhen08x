@@ -1,8 +1,8 @@
 const {
-    BooleanField, NumberField, StringField
+    BooleanField, NumberField, StringField, SchemaField
   } = foundry.data.fields;
   import EWBaseActorData from "./basemodel.mjs";
-  import { getDiceModel } from "../../diceModels.js";
+  import { getStatSchema } from "../../helpers.mjs";
 
 export default class EWRabbleData extends EWBaseActorData {
   static defineSchema(){
@@ -10,6 +10,7 @@ export default class EWRabbleData extends EWBaseActorData {
     return {
       ...baseSchema,
       priority: new NumberField({required:true, integer:true, initial:2}),
+      size: new SchemaField(getStatSchema(1)),
       subtype: new StringField({initial:''}), // acolyte, priest, etc.
       armed: new BooleanField({required:true, nullable:false, initial:false})
     }

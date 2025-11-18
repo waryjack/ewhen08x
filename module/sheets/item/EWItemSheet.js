@@ -134,7 +134,7 @@ export default class EWItemSheet extends ItemSheet {
             "penalty":game.i18n.localize("EW.game_term.penaltydie")
         }
 
-        data.description = await TextEditor.enrichHTML(data.description);
+        data.enrichedDescription = await TextEditor.enrichHTML(data.description);
         // data.description = data.enrichedDescription;
         
         console.log("Item Data: ", data);

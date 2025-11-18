@@ -9,6 +9,7 @@ export default class EWItemSheet extends ItemSheet {
 
     async getData () {
         const data = this.item.system;
+        console.log("Retrieved item data: ", data);
         data.item = this.item;
         data.myName = data.name;
         data.config = CONFIG.ewhen; 
@@ -133,7 +134,8 @@ export default class EWItemSheet extends ItemSheet {
             "penalty":game.i18n.localize("EW.game_term.penaltydie")
         }
 
-        data.enrichedDescription = await TextEditor.enrichHTML(data.description);
+        data.description = await TextEditor.enrichHTML(data.description);
+        // data.description = data.enrichedDescription;
         
         console.log("Item Data: ", data);
         

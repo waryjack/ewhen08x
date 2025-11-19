@@ -397,6 +397,7 @@ Hooks.on('updateToken', function(token, changed, diff){
 
 });
 
+/** DEPRECATED - Not necessary and breaks custom item icons
 Hooks.on('preCreateItem', function(item, data) {
     //console.warn("first argument: ", item, "second arg", data);
     //console.warn("item type: ", item.type);
@@ -416,6 +417,7 @@ Hooks.on('preCreateItem', function(item, data) {
  
  });
  
+ // remove this? shouldn't revert
  Hooks.on('preCreateOwnedItem', function(item, data) {
    //console.warn("enter precreateowneditem hook");
     //console.warn("first argument: ", item, "second arg", data);
@@ -432,5 +434,5 @@ Hooks.on('preCreateItem', function(item, data) {
     } else if (item.type == "power") {
        item._source.img = "icons/svg/daze.svg";
     }
- });
+ }); */
 
